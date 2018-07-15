@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCPDiscord", "SCPDiscord\SCPDiscord.csproj", "{0952A53A-A70E-4DAA-86A6-6560F2F3607B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCPDiscordPlugin", "SCPDiscordPlugin\SCPDiscordPlugin.csproj", "{0952A53A-A70E-4DAA-86A6-6560F2F3607B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {93980AF1-83D2-487D-8CDA-F1CD4AB2B304}
+		SolutionGuid = {0F6BCD65-121D-4B7A-9264-C78C4B3B1959}
 	EndGlobalSection
 EndGlobal
