@@ -5,7 +5,7 @@ using Smod2.Events;
 
 namespace SCPDiscord
 {
-    class PlayerEventHandler : IEventHandlerPlayerJoin
+    class PlayerEventHandler : IEventHandlerPlayerJoin, IEventHandlerPlayerDie, IEventHandlerSpawn
     {
         private SCPDiscordPlugin plugin;
 
@@ -14,9 +14,19 @@ namespace SCPDiscord
             this.plugin = plugin;
         }
 
+        public void OnPlayerDie(PlayerDeathEvent ev)
+        {
+            plugin.SendMessageAsync(ev.Player.Name + " died. Killed by " + ev.Killer.Name + ".");
+        }
+
         public void OnPlayerJoin(PlayerJoinEvent ev)
         {
-            
+            plugin.SendMessageAsync(ev.Player.Name + " joined the game.");
+        }
+
+        public void OnSpawn(PlayerSpawnEvent ev)
+        {
+            plugin.SendMessageAsync(ev.Player.Name + " spawned as " + ev.Player.TeamRole.Name + ".");
         }
     }
 }

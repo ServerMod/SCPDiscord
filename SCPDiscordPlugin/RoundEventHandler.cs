@@ -16,7 +16,7 @@ namespace SCPDiscord
 
         public void OnRoundEnd(RoundEndEvent ev)
         {
-            plugin.SendMessageAsync("Round ended.");
+            plugin.SendMessageAsync("Round ended after " + (ev.Round.Duration/60) + " minutes.");
         }
 
         public void OnRoundStart(RoundStartEvent ev)

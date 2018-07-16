@@ -57,6 +57,9 @@ namespace SCPDiscord
                 this.pluginManager.DisablePlugin(this);
             }
 
+            this.AddEventHandlers(new RoundEventHandler(this));
+            this.AddEventHandlers(new PlayerEventHandler(this));
+
             this.Info("SCPDiscord enabled.");
             SendMessageAsync("Plugin Enabled.");
         }
