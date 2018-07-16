@@ -1,0 +1,12 @@
+{
+  "name": "node-jstest",
+  "version": "0.0.0",
+  "description": "NodeJSTest",
+  "main": "app.js",
+  "author": {
+    "name": "Karl"
+  },
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  }
+}

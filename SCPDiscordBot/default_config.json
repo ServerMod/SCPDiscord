@@ -1,0 +1,16 @@
+﻿{
+  "_description": "The bot token from https://discordapp.com/developers/",
+  "token": "add-your-token-here",
+
+  "_description": "Prefix for discord commands.",
+  "prefix": "+",
+
+  "_description": "Bot's avatar url or path",
+  "avatarURL": "https://karlofduty.com/img/tardisIcon.jpg",
+
+  "_description": "Port to listen on.",
+  "port": 8888,
+
+  "_description": "Channel to post messages in.",
+  "channelID": "add-channel-id-here"
+}

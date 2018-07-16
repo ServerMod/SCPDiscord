@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCPDiscordPlugin", "SCPDiscordPlugin\SCPDiscordPlugin.csproj", "{0952A53A-A70E-4DAA-86A6-6560F2F3607B}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SCPDiscordServer", "SCPDiscordServer\SCPDiscordServer.pyproj", "{3BD5221D-A0D2-4962-8B08-ED9FE3F014A6}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "SCPDiscordBot", "SCPDiscordBot\SCPDiscordBot.njsproj", "{411104B7-0882-4FC1-8FB7-73883BEF966C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,10 @@ Global
 		{0952A53A-A70E-4DAA-86A6-6560F2F3607B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0952A53A-A70E-4DAA-86A6-6560F2F3607B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0952A53A-A70E-4DAA-86A6-6560F2F3607B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3BD5221D-A0D2-4962-8B08-ED9FE3F014A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3BD5221D-A0D2-4962-8B08-ED9FE3F014A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{411104B7-0882-4FC1-8FB7-73883BEF966C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{411104B7-0882-4FC1-8FB7-73883BEF966C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{411104B7-0882-4FC1-8FB7-73883BEF966C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{411104B7-0882-4FC1-8FB7-73883BEF966C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
