@@ -25,7 +25,7 @@ namespace SCPDiscord
 
         public void OnDisconnect(DisconnectEvent ev)
         {
-            plugin.SendMessageAsync("A player has disconnected. (This event cannot provide who)");
+            plugin.SendMessageAsync("A player has disconnected.");
         }
 
         public void OnRoundEnd(RoundEndEvent ev)

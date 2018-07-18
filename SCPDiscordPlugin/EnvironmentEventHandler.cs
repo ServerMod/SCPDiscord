@@ -3,11 +3,11 @@ using Smod2.Events;
 
 namespace SCPDiscord
 {
-    class EnviromentEventHandler : IEventHandlerSCP914Activate, IEventHandlerWarheadStartCountdown, IEventHandlerWarheadStopCountdown, IEventHandlerWarheadDetonate, IEventHandlerLCZDecontaminate
+    class EnvironmentEventHandler : IEventHandlerSCP914Activate, IEventHandlerWarheadStartCountdown, IEventHandlerWarheadStopCountdown, IEventHandlerWarheadDetonate, IEventHandlerLCZDecontaminate
     {
         private SCPDiscordPlugin plugin;
 
-        public EnviromentEventHandler(SCPDiscordPlugin plugin)
+        public EnvironmentEventHandler(SCPDiscordPlugin plugin)
         {
             this.plugin = plugin;
         }

@@ -27,7 +27,52 @@ namespace SCPDiscord
 
         public override void Register()
         {
+            //Event handlers
+            this.AddEventHandlers(new RoundEventHandler(this));
+            this.AddEventHandlers(new PlayerEventHandler(this));
+            this.AddEventHandlers(new AdminEventHandler(this));
+            this.AddEventHandlers(new EnvironmentEventHandler(this));
+            this.AddEventHandlers(new TeamEventHandler(this));
 
+            //Round events
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundstart", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundend", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundrestart", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onconnect", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_ondisconnect", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetservername", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onwaitingforplayers", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+
+            //Environment events
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_ondecontaminate", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_ondetonate", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onstartcountdown", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onstopcountdown", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onscp914activate", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+
+            //Player events
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onassignteam", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_oncheckescape", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_ondooraccess", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onintercom", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onnicknameset", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerdie", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerdropitem", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerhurt", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerjoin", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerpickupitem", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetrole", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onspawn", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+
+            //Admin events
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onadminquery", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onauthcheck", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onban", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+
+            //Team events
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_ondecideteamrespawnqueue", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetrolemaxhp", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onteamrespawn", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
         }
 
         public override void OnEnable()
@@ -56,10 +101,6 @@ namespace SCPDiscord
                 this.Info("IP address is null.\n" + e.ToString());
                 this.pluginManager.DisablePlugin(this);
             }
-
-            this.AddEventHandlers(new RoundEventHandler(this));
-            this.AddEventHandlers(new PlayerEventHandler(this));
-            this.AddEventHandlers(new AdminEventHandler(this));
 
             this.Info("SCPDiscord enabled.");
             SendMessageAsync("Plugin Enabled.");

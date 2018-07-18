@@ -13,7 +13,7 @@ var net = require('net');
 net.createServer(function (socket)
 {
     socket.setEncoding("utf8");
-    // Handle incoming messages from clients.
+    // Handle incoming messages
     socket.on('data', function (data)
     {
         console.log(data);
