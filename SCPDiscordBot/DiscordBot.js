@@ -32,7 +32,7 @@ console.log('Connecting to Discord...');
 client.on('ready', () =>
 {
     console.log('Discord connection established.');
-    client.user.setAvatar(avatarURL);
+    //client.user.setAvatar(avatarURL);
     client.channels.get(channelID).send("Bot Online.");
 });
 

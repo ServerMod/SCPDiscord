@@ -59,6 +59,7 @@ namespace SCPDiscord
 
             this.AddEventHandlers(new RoundEventHandler(this));
             this.AddEventHandlers(new PlayerEventHandler(this));
+            this.AddEventHandlers(new AdminEventHandler(this));
 
             this.Info("SCPDiscord enabled.");
             SendMessageAsync("Plugin Enabled.");

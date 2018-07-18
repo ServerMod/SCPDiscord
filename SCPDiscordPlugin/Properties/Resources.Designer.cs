@@ -63,16 +63,6 @@ namespace SCPDiscord.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] Assembly_CSharp {
-            get {
-                object obj = ResourceManager.GetObject("Assembly_CSharp", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] Smod2 {
             get {
                 object obj = ResourceManager.GetObject("Smod2", resourceCulture);
