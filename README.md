@@ -16,11 +16,11 @@ It will also be able to sync roles from discord to the game which will for insta
 
 1. Install Node: https://nodejs.org/en/download/package-manager
 
-2. Extract the SCPDiscordBot files anywhere you wish.
+2. Download the SCPDiscordBot files and extract them anywhere you wish outside of the server directory.
 
 3. Follow the bot config guide below.
 
-4. Run start.bat or start.sh to start the bot. The start.sh script starts the server in a screen so you can simply press `ctrl-A` `ctrl-d` to minimize it and have it run in the background. For more info google `linux screen`.
+4. Run start.bat or start.sh to start the bot. Alternatively use `node DiscordBot.js` from commandline. The start.sh script starts the server in a screen so you can simply press `ctrl-A` `ctrl-d` to have it run in the background. For more info google `linux screen`.
 
 **Plugin:**
 
