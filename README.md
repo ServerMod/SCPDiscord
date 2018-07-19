@@ -6,7 +6,7 @@ It will also be possible to sync ranks from discord to the game, letting you aut
 
 It will also be possible to list the number of players on your server in the bot's status and a more detailed status in a channel's topic field.
 
-I was going to wait with making this plugin until SCP:SL updates to .NET 4.6 from the curent .NET 3.5 but apperently that has been delayed (indefinitely?). This means I can't use a C# Discord API directly from the plugin and thus have to seperate it into two different programs.
+I was going to wait with making this plugin until SCP:SL updates to .NET 4.6 from the current .NET 3.5 but apperently that has been delayed (indefinitely?). This means I can't use a C# Discord API directly from the plugin and thus have to seperate it into two different programs.
 
 ## Current features:
 
@@ -24,11 +24,11 @@ You can for instance have one public channel for each of your servers where thin
 
 1. Install Node: https://nodejs.org/en/download/package-manager
 
-2. Download the SCPDiscordBot files and extract them anywhere you wish outside of the server directory.
+2. Download the SCPDiscordBot archive and extract them anywhere you wish outside of the server directory.
 
 3. Follow the bot config guide below.
 
-4. Run start.bat or start.sh to start the bot. Alternatively use `node DiscordBot.js` from commandline. The start.sh script starts the server in a screen so you can simply press `ctrl-A` `ctrl-d` to have it run in the background. For more info google `linux screen`.
+4. Run start.bat or start.sh to start the bot. Alternatively use `node .` from commandline while in that directory. The start.sh script starts the server in a screen so you can simply press `ctrl-A` `ctrl-d` to have it run in the background. For more info google `linux screen`.
 
 **Plugin:**
 
