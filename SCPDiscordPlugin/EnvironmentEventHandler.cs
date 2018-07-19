@@ -12,29 +12,44 @@ namespace SCPDiscord
             this.plugin = plugin;
         }
 
-        public void OnDecontaminate()
-        {
-            plugin.SendMessageAsync("Light Containment Zone de-contamination has been initiated, all biological samples will be destroyed.");
-        }
-
-        public void OnDetonate()
-        {
-            plugin.SendMessageAsync("Detonation of the on-site nuclear warhead has been detected. Dispatching Foundation operatives to investigate.");
-        }
-
         public void OnSCP914Activate(SCP914ActivateEvent ev)
         {
+            /// <summary>  
+            ///  This is the event handler for when a SCP914 is activated
+            /// </summary> 
             plugin.SendMessageAsync("SCP-914 has been activated on setting " + ev.KnobSetting + ".");
         }
 
         public void OnStartCountdown(WarheadStartEvent ev)
         {
+            /// <summary>  
+            ///  This is the event handler for when the warhead starts counting down, isResumed is false if its the initial count down. Note: activator can be null
+            /// </summary> 
             plugin.SendMessageAsync("The on-site nuclear warhead has been activated with authorization of either the Site Director or a member of the O5-council");
         }
 
         public void OnStopCountdown(WarheadStopEvent ev)
         {
-            plugin.SendMessageAsync("The on-site nuclear warhead has been deactivated with authorization of either the Site Director or a member of the O5-council");
+            /// <summary>  
+            ///  This is the event handler for when the warhead stops counting down.
+            /// </summary> 
+            plugin.SendMessageAsync("The on-site nuclear warhead has been deactivated.");
+        }
+
+        public void OnDetonate()
+        {
+            /// <summary>  
+            ///  This is the event handler for when the warhead is about to detonate (so before it actually triggers)
+            /// </summary> 
+            plugin.SendMessageAsync("Detonation of the on-site nuclear warhead has been detected. Dispatching Foundation operatives to investigate.");
+        }
+
+        public void OnDecontaminate()
+        {
+            /// <summary>  
+            ///  This is the event handler for when the LCZ is decontaminated
+            /// </summary> 
+            plugin.SendMessageAsync("Light Containment Zone de-contamination has been initiated, all biological samples will be destroyed.");
         }
     }
 }

@@ -63,6 +63,11 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerpickupitem", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetrole", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onspawn", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onintercomcooldowncheck", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onpocketdimensionexit", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onpocketdimensionenter", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onpocketdimensiondie", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onthrowgrenade", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));
 
             //Admin events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onadminquery", 0, Smod2.Config.SettingType.NUMERIC, true, "Discord channel to post event messages in."));

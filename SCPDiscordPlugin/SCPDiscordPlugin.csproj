@@ -26,11 +26,14 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\SCP Server\sm_plugins\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Smod2">
@@ -47,7 +50,7 @@
   <ItemGroup>
     <Compile Include="AdminEventHandler.cs" />
     <Compile Include="AsyncTask.cs" />
-    <Compile Include="EnviromentEventHandler.cs" />
+    <Compile Include="EnvironmentEventHandler.cs" />
     <Compile Include="PlayerEventHandler.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -71,4 +74,8 @@
     <None Include="lib\Smod2\Smod2.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>cd $(ProjectDir)
+copy /y bin\SCPDiscord.dll ..\..\..\scpserver\sm_plugins</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -3,6 +3,7 @@ using Smod2.Events;
 
 namespace SCPDiscord
 {
+    //Comments here are my own as there were none in the Smod2 api
     class AdminEventHandler : IEventHandlerAdminQuery, IEventHandlerAuthCheck, IEventHandlerBan
     {
         private SCPDiscordPlugin plugin;
@@ -14,6 +15,7 @@ namespace SCPDiscord
 
         public void OnAdminQuery(AdminQueryEvent ev)
         {
+            ///Triggered whenever an adming uses an admin command, both gui and commandline RA
             if(ev.Query == "REQUEST_DATA PLAYER_LIST SILENT")
             {
                 return;
@@ -23,6 +25,7 @@ namespace SCPDiscord
 
         public void OnAuthCheck(AuthCheckEvent ev)
         {
+            ///Probably triggered when someone gains access to the admin panel using a password, not sure
             if(ev.Allow)
             {
                 plugin.SendMessageAsync(ev.Requester + " (" + ev.Requester.SteamId + ") was granted access to the RA panel.");
@@ -35,6 +38,7 @@ namespace SCPDiscord
 
         public void OnBan(BanEvent ev)
         {
+            ///Doesn't seem to trigger at all, not sure why
             if(ev.AllowBan)
             {
                 plugin.SendMessageAsync("Player " + ev.Player.Name + " (" + ev.Player.SteamId + ") was banned by " + ev.Admin.Name + " (" + ev.Admin.SteamId + ") for " + (ev.Duration / 60) + " minutes.");

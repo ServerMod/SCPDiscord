@@ -12,24 +12,46 @@ namespace SCPDiscord
             this.plugin = plugin;
         }
 
-        public void OnCheckRoundEnd(CheckRoundEndEvent ev)
+        public void OnRoundStart(RoundStartEvent ev)
         {
-            //Protip, don't turn this on.
-            //plugin.SendMessageAsync("Checking if round has ended...");
+            /// <summary>  
+            ///  This is the event handler for Round start events (before people are spawned in)
+            /// </summary> 
+            plugin.SendMessageAsync("Round started.");
         }
 
         public void OnConnect(ConnectEvent ev)
         {
+            /// <summary>  
+            ///  This is the event handler for connection events, before players have been created, so names and what not are available. See PlayerJoin if you need that information
+            /// </summary>
             plugin.SendMessageAsync("Player attempting connection...");
         }
 
         public void OnDisconnect(DisconnectEvent ev)
         {
+            /// <summary>  
+            ///  This is the event handler for disconnection events.
+            /// </summary> 
             plugin.SendMessageAsync("A player has disconnected.");
+        }
+
+        public void OnCheckRoundEnd(CheckRoundEndEvent ev)
+        {
+            /// <summary>  
+            ///  This event handler will call everytime the game checks for a round end
+            /// </summary> 
+
+            //TODO: Uncomment when specific events can be toggled
+            //Protip, don't turn this on.
+            //plugin.SendMessageAsync("Checking if round has ended...");
         }
 
         public void OnRoundEnd(RoundEndEvent ev)
         {
+            /// <summary>  
+            ///  This is the event handler for Round end events (when the stats appear on screen)
+            /// </summary> 
             plugin.SendMessageAsync("**Round ended after " + (ev.Round.Duration/60) + " minutes.** \n" +
                 "```\n" +
                 "Escaped D-class:    " + ev.Round.Stats.ClassDEscaped + "/" + ev.Round.Stats.ClassDStart + "\n" +
@@ -39,24 +61,30 @@ namespace SCPDiscord
                 "```");
         }
 
-        public void OnRoundRestart(RoundRestartEvent ev)
+        public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
         {
-            plugin.SendMessageAsync("Round is restarting...");
+            /// <summary>  
+            ///  This event handler will call when the server is waiting for players
+            /// </summary> 
+            plugin.SendMessageAsync("Server is ready and waiting for players.");
         }
 
-        public void OnRoundStart(RoundStartEvent ev)
+        public void OnRoundRestart(RoundRestartEvent ev)
         {
-            plugin.SendMessageAsync("Round started.");
+            /// <summary>  
+            ///  This event handler will call when the server is about to restart
+            /// </summary> 
+            plugin.SendMessageAsync("Round is restarting...");
         }
 
         public void OnSetServerName(SetServerNameEvent ev)
         {
+            /// <summary>  
+            ///  This event handler will call when the server name is set
+            /// </summary> 
             plugin.SendMessageAsync("Server name set.");
         }
 
-        public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
-        {
-            plugin.SendMessageAsync("Server is ready and waiting for players.");
-        }
+
     }
 }

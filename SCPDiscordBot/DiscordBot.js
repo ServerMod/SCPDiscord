@@ -16,11 +16,15 @@ net.createServer(function (socket)
     // Handle incoming messages
     socket.on('data', function (data)
     {
-        console.log(data);
-        if (client != null)
+        var array = data.split('\0')
+        array.forEach(function (element)
         {
-            client.channels.get(channelID).send(data);
-        }
+            console.log(element);
+            if (client !== null && element != "")
+            {
+                client.channels.get(channelID).send(element);
+            }
+        });
     });
 }).listen(port)
 {
@@ -32,7 +36,6 @@ console.log('Connecting to Discord...');
 client.on('ready', () =>
 {
     console.log('Discord connection established.');
-    //client.user.setAvatar(avatarURL);
     client.channels.get(channelID).send("Bot Online.");
 });
 
@@ -45,9 +48,11 @@ client.on('message', message =>
     //Cut message into base command and arguments
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
-    if (command === 'test')
+    if (command === 'setavatar' && message.member.hasPermission("ADMINISTRATOR"))
     {
-        message.channel.send('Test');
+        var url = args.shift();
+        client.user.setAvatar(url);
+        message.channel.send('Avatar Updated.');
     }
 });
 client.login(token);

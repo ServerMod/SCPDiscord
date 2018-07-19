@@ -10,7 +10,7 @@ namespace SCPDiscord
             if(message != null && message != "")
             {
                 NetworkStream serverStream = plugin.clientSocket.GetStream();
-                byte[] outStream = System.Text.Encoding.ASCII.GetBytes(message);
+                byte[] outStream = System.Text.Encoding.ASCII.GetBytes(message + '\0');
                 serverStream.Write(outStream, 0, outStream.Length);
 
                 plugin.Info("Sent message '" + message + "' to discord.");
