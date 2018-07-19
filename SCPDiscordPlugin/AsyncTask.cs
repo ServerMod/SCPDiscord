@@ -5,12 +5,16 @@ namespace SCPDiscord
 {
     class AsyncMessage
     {
-        public AsyncMessage(SCPDiscordPlugin plugin, string message)
+        public AsyncMessage(SCPDiscordPlugin plugin, string channelID, string message)
         {
             if(message != null && message != "")
             {
+                if(channelID == "default")
+                {
+                    channelID = "000000000000000000";
+                }
                 NetworkStream serverStream = plugin.clientSocket.GetStream();
-                byte[] outStream = System.Text.Encoding.ASCII.GetBytes(message + '\0');
+                byte[] outStream = System.Text.Encoding.ASCII.GetBytes(channelID + message + '\0');
                 serverStream.Write(outStream, 0, outStream.Length);
 
                 plugin.Info("Sent message '" + message + "' to discord.");

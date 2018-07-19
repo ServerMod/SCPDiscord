@@ -17,7 +17,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for Round start events (before people are spawned in)
             /// </summary> 
-            plugin.SendMessageAsync("Round started.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundstart"), "Round started.");
         }
 
         public void OnConnect(ConnectEvent ev)
@@ -25,7 +25,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for connection events, before players have been created, so names and what not are available. See PlayerJoin if you need that information
             /// </summary>
-            plugin.SendMessageAsync("Player attempting connection...");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onconnect"), "Player attempting connection...");
         }
 
         public void OnDisconnect(DisconnectEvent ev)
@@ -33,7 +33,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for disconnection events.
             /// </summary> 
-            plugin.SendMessageAsync("A player has disconnected.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondisconnect"), "A player has disconnected.");
         }
 
         public void OnCheckRoundEnd(CheckRoundEndEvent ev)
@@ -42,9 +42,8 @@ namespace SCPDiscord
             ///  This event handler will call everytime the game checks for a round end
             /// </summary> 
 
-            //TODO: Uncomment when specific events can be toggled
             //Protip, don't turn this on.
-            //plugin.SendMessageAsync("Checking if round has ended...");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_oncheckroundend"),"Checking if round has ended...");
         }
 
         public void OnRoundEnd(RoundEndEvent ev)
@@ -52,7 +51,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for Round end events (when the stats appear on screen)
             /// </summary> 
-            plugin.SendMessageAsync("**Round ended after " + (ev.Round.Duration/60) + " minutes.** \n" +
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundend"), "**Round ended after " + (ev.Round.Duration/60) + " minutes.** \n" +
                 "```\n" +
                 "Escaped D-class:    " + ev.Round.Stats.ClassDEscaped + "/" + ev.Round.Stats.ClassDStart + "\n" +
                 "Rescued Scientists: " + ev.Round.Stats.ScientistsEscaped + "/" + ev.Round.Stats.ScientistsStart + "\n" +
@@ -66,7 +65,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This event handler will call when the server is waiting for players
             /// </summary> 
-            plugin.SendMessageAsync("Server is ready and waiting for players.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onwaitingforplayers"), "Server is ready and waiting for players.");
         }
 
         public void OnRoundRestart(RoundRestartEvent ev)
@@ -74,7 +73,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This event handler will call when the server is about to restart
             /// </summary> 
-            plugin.SendMessageAsync("Round is restarting...");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundrestart"), "Round is restarting...");
         }
 
         public void OnSetServerName(SetServerNameEvent ev)
@@ -82,7 +81,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This event handler will call when the server name is set
             /// </summary> 
-            plugin.SendMessageAsync("Server name set.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onsetservername"), "Server name set to " + ev.ServerName + ".");
         }
 
 

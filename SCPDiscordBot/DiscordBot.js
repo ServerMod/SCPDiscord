@@ -1,6 +1,6 @@
 console.log('Config loading...');
 
-const { token, prefix, avatarURL, port, channelID } = require('./config.json');
+const { token, prefix, port, genericMessagesChannel } = require('./config.json');
 
 console.log('Config loaded.');
 
@@ -16,13 +16,19 @@ net.createServer(function (socket)
     // Handle incoming messages
     socket.on('data', function (data)
     {
-        var array = data.split('\0')
-        array.forEach(function (element)
+        var messages = data.split('\0')
+        messages.forEach(function (element)
         {
-            console.log(element);
-            if (client !== null && element != "")
+            var destinationChannel = element.slice(0, 18)
+            if (destinationChannel === "000000000000000000")
             {
-                client.channels.get(channelID).send(element);
+                destinationChannel = genericMessagesChannel;
+            }
+            var message = element.slice(18)
+            if (client !== null && message != "")
+            {
+                client.channels.get(destinationChannel).send(message);
+                console.log(message);
             }
         });
     });
@@ -36,7 +42,7 @@ console.log('Connecting to Discord...');
 client.on('ready', () =>
 {
     console.log('Discord connection established.');
-    client.channels.get(channelID).send("Bot Online.");
+    client.channels.get(genericMessagesChannel).send("Bot Online.");
 });
 
 //Parsing comands
