@@ -62,7 +62,7 @@ Possible channel settings:
 
 * Off - Event is not sent to Discord.
 * Default - The event is sent to the default Discord channel designated designated in the Bot's config.
-* <channel-id> - The event is sent to this channel, get channel ID by turning on developer mode in Discord and right click on the channel.
+* `<channel-id>` - The event is sent to this channel, get channel ID by turning on developer mode in Discord and right click on the channel.
 
 
 
