@@ -1,8 +1,10 @@
 # SCPDiscord
 
-Ever wished to interact with your SCP:SL server without having to open your ssh client? ~~Now~~ *Soon* you can, this plugin will let you execute commands remotely from discord, sync information such as how many players are online, send messages from the server with info such as teamkilling, players joining and log admin actions.
+Ever wished to interact with your SCP:SL server without having to open your ssh client? ~~Now~~ *Soon* you can, this plugin will let you execute commands remotely from Discord, sync information such as how many players are online, send messages from the server with info such as teamkilling, players joining and log admin actions.
 
 It will also be possible to sync ranks from discord to the game, letting you automate things like patreon rewards and moderator positions. 
+
+It will also be possible to list the number of players on your server in the bot's status and a more detailed status in a channel's topic field.
 
 I was going to wait with making this plugin until SCP:SL updates to .NET 4.6 from the curent .NET 3.5 but apperently that has been delayed (indefinitely?). This means I can't use a C# Discord API directly from the plugin and thus have to seperate it into two different programs.
 
