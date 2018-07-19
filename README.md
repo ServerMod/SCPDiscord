@@ -12,13 +12,45 @@ It will also be able to sync roles from discord to the game which will for insta
 
 ## Installation:
 
-Coming soon
+**Bot:**
 
-## Running the plugin and server:
+1. Extract the SCPDiscordBot files anywhere you wish.
 
-Coming soon
+2. Follow the bot config guide below.
 
-## Plugin Config:
+3. Run start.bat or start.sh to start the bot. The start.sh script starts the server in a screen so you can simply press `ctrl-A` `ctrl-d` to minimize it and have it run in the background. For more info google `linux screen`.
+
+**Plugin:**
+
+Put SCPDiscord.dll in your sm_plugins directory and follow the config instructions below.
+
+## Bot config guide:
+
+First of all you need to create a bot and add it to your server from here: https://discordapp.com/developers/ 
+
+This is very simple, and you can follow this guide: https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token
+
+You have to rename the config from `default_config.json` to `config.json`. This is to make sure I or anyone else who adds to this bot don't accidentially post their bot token or other sensitive information in the public repository.
+
+The different options are described in the config:
+
+```json
+{
+  "_description": "The bot token from https://discordapp.com/developers/",
+  "token": "add-your-token-here",
+
+  "_description": "Prefix for discord commands.",
+  "prefix": "+",
+
+  "_description": "Port to listen on.",
+  "port": 8888,
+
+  "_description": "Channel to post generic plugin messages in. Everything set to 'default' in the plugin config goes to this channel",
+  "genericMessagesChannel": "add-channel-id-here"
+}
+```
+
+## Plugin config guide:
 
 All options that are not included in the config act as set to off.
 
@@ -85,29 +117,4 @@ discord_channel_ondecideteamrespawnqueue: off
 discord_channel_onsetrolemaxhp: off
 discord_channel_onteamrespawn: default
 discord_channel_onsetscpconfig: off
-```
-## Bot config:
-
-First of all you need to create a bot and add it to your server from here: https://discordapp.com/developers/ 
-
-This is very simple, and you can follow this guide: https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token
-
-You have to rename the config from `default_config.json` to `config.json`. This is to make sure I or anyone else who adds to this bot don't accidentially post their bot token or other sensitive information in the public repository.
-
-The different options are described in the config:
-
-```json
-{
-  "_description": "The bot token from https://discordapp.com/developers/",
-  "token": "add-your-token-here",
-
-  "_description": "Prefix for discord commands.",
-  "prefix": "+",
-
-  "_description": "Port to listen on.",
-  "port": 8888,
-
-  "_description": "Channel to post generic plugin messages in. Everything set to 'default' in the plugin config goes to this channel",
-  "genericMessagesChannel": "add-channel-id-here"
-}
 ```
