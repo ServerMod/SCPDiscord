@@ -1,14 +1,20 @@
 # SCPDiscord
 
-Currently prints a few different events to a specific Discord channel. I was going to wait until SCP:SL updates to .NET 4.6 but apperently that has been delayed. This means I can't use a discord api directly from the plugin and thus have to seperate it into two different programs.
+Ever wished to interact with your SCP:SL server without having to open your ssh client? Now you can, this plugin will let you execute commands remotely from discord, sync information such as how many players are online, send messages from the server with info such as teamkilling, players joining and log admin actions.
 
-## Upcoming features:
+It will also be possible to sync ranks from discord to the game, letting you automate things like patreon rewards and moderator positions. 
 
-It's main functionality will be to add functinality to print events such as teamkilling, round restarts and staff actions to a discord channel for an easily accessible log. Some of this is already implemented.
+I was going to wait with making this plugin until SCP:SL updates to .NET 4.6 from the curent .NET 3.5 but apperently that has been delayed (indefinitely?). This means I can't use a C# Discord API directly from the plugin and thus have to seperate it into two different programs.
 
-If possible I might also add functionality to print the console to a discord channel and also forward commands from discord to the in-game console.
+## Current features:
 
-It will also be able to sync roles from discord to the game which will for instance enable automatic adding of server patrons.
+You can log any event from the server to discord with multi-channel support.
+
+You can for instance have one public channel for each of your servers where things like player joins, kills round starts and round ends are posted. You could then add one channel for each server visible only to moderators, showing things like admin actions and logging who attacks who on each server to check for teamkillers.
+
+## Bot commands
+
+`setavatar <url>/<path>` Either a path or url to an image to set as your bot's avatar.
 
 ## Installation:
 
@@ -122,3 +128,7 @@ discord_channel_onsetrolemaxhp: off
 discord_channel_onteamrespawn: default
 discord_channel_onsetscpconfig: off
 ```
+
+You can find descriptions for each event here: https://github.com/Grover-c13/Smod2/tree/master/Smod2/Smod2/EventSystem/EventHandlers
+
+All events are listed inside of these files.
