@@ -32,7 +32,7 @@ First of all you need to create a bot and add it to your server from here: https
 
 This is very simple, and you can follow this guide: https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token
 
-You have to rename the config from `default_config.json` to `config.json`. This is to make sure I or anyone else who adds to this bot don't accidentially post their bot token or other sensitive information in the public repository.
+If you have downloaded it directly from the repo rather than from the releases tab you have to rename the config from `default_config.json` to `config.json`. This is to make sure I or anyone else who adds to this bot don't accidentially post their bot token or other sensitive information in the public repository.
 
 The different options are described in the config:
 
