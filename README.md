@@ -59,11 +59,11 @@ All options that are not included in the config act as set to off.
 If you are running the bot script on the same server as this plugin you will not have to port forward or open firewall ports and you can leave those settings at the default.
 
 Possible channel settings:
-```
-Off - Event is not sent to Discord.
-Default - The event is sent to the default Discord channel designated designated in the Bot's config.
-<channel-id> - The event is sent to this channel, get channel ID by turning on developer mode in Discord and right click on the channel.
-```
+
+* Off - Event is not sent to Discord.
+* Default - The event is sent to the default Discord channel designated designated in the Bot's config.
+* <channel-id> - The event is sent to this channel, get channel ID by turning on developer mode in Discord and right click on the channel.
+
 
 
 Recommended config settings:
