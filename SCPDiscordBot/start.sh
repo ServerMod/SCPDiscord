@@ -1,0 +1,1 @@
+screen -S SCPDiscordBot node DiscordBot.js

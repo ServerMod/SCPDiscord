@@ -1,0 +1,2 @@
+node DiscordBot.js
+PAUSE
