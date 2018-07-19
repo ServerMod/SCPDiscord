@@ -19,7 +19,7 @@ namespace SCPDiscord
         version = "0.0.1",
         SmodMajor = 3,
         SmodMinor = 1,
-        SmodRevision = 8
+        SmodRevision = 9
         )]
     class SCPDiscordPlugin : Plugin
     {
