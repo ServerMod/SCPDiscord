@@ -1,10 +1,21 @@
 {
-  "name": "node-jstest",
-  "version": "0.0.0",
-  "description": "NodeJSTest",
-  "main": "app.js",
+  "name": "SCPDiscord",
+  "version": "0.0.1",
+  "description": "SCPDiscord, a Discord - SCP:SL bridge",
+  "main": "DiscordBot.js",
+  "homepage": "https://www.karlofduty.com",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/KarlOfDuty/SCPDiscord/issues"
+  },
   "author": {
-    "name": "Karl"
+    "name": "Karl Essinger",
+    "url": "http://www.karlofduty.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KarlOfDuty/SCPDiscord"
   },
   "dependencies": {
     "discord.js": "^11.3.2"
