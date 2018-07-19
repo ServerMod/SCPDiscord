@@ -1,6 +1,6 @@
 # SCPDiscord
 
-Ever wished to interact with your SCP:SL server without having to open your ssh client? Now you can, this plugin will let you execute commands remotely from discord, sync information such as how many players are online, send messages from the server with info such as teamkilling, players joining and log admin actions.
+Ever wished to interact with your SCP:SL server without having to open your ssh client? ~~Now~~ *Soon* you can, this plugin will let you execute commands remotely from discord, sync information such as how many players are online, send messages from the server with info such as teamkilling, players joining and log admin actions.
 
 It will also be possible to sync ranks from discord to the game, letting you automate things like patreon rewards and moderator positions. 
 
