@@ -22,7 +22,7 @@ namespace SCPDiscord
             /// In case the attacker can't be passed, attacker will be null (fall damage etc)
             /// This may be broken into two events in the future
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerhurt"), ev.Player.Name + " (" + ev.Player.SteamId + ") was hurt by " + ev.Attacker.Name + " (" + ev.Attacker.SteamId + ") using " + ev.DamageType + ".");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerhurt"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(24) + ev.Attacker.Name + " (" + ev.Attacker.SteamId + plugin.MultiLanguage(25) + ev.DamageType + ".");
         }
 
         public void OnPlayerDie(PlayerDeathEvent ev)
@@ -31,7 +31,7 @@ namespace SCPDiscord
             /// This is called before the player is about to die. Be sure to check if player is SCP106 (classID 3) and if so, set spawnRagdoll to false.
             /// In case the killer can't be passed, attacker will be null, so check for that before doing something.
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerdie"), ev.Player.Name + " (" + ev.Player.SteamId + ") died. Killed by " + ev.Killer.Name + " (" + ev.Killer.SteamId + ").");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerdie"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(26) + ev.Killer.Name + " (" + ev.Killer.SteamId + ").");
         }
 
         public void OnPlayerPickupItem(PlayerPickupItemEvent ev)
@@ -39,7 +39,7 @@ namespace SCPDiscord
             /// <summary>  
             /// This is called when a player picks up an item.
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerpickupitem"), ev.Player.Name + " (" + ev.Player.SteamId + ") picked up item " + ev.Item + ".");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerpickupitem"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(27) + ev.Item + ".");
         }
 
         public void OnPlayerDropItem(PlayerDropItemEvent ev)
@@ -47,7 +47,7 @@ namespace SCPDiscord
             /// <summary>  
             /// This is called when a player drops up an item.
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerdropitem"), ev.Player.Name + " (" + ev.Player.SteamId + ") dropped item " + ev.Item + ".");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerdropitem"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(28) + ev.Item + ".");
         }
 
         public void OnPlayerJoin(PlayerJoinEvent ev)
@@ -55,7 +55,7 @@ namespace SCPDiscord
             /// <summary>  
             /// This is called when a player joins and is initialised.
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerjoin"), ev.Player.Name + " (" + ev.Player.SteamId + ") joined the game.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerjoin"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(29));
         }
 
         public void OnNicknameSet(PlayerNicknameSetEvent ev)
@@ -63,7 +63,7 @@ namespace SCPDiscord
             /// <summary>  
             /// This is called when a player attempts to set their nickname after joining. This will only be called once per game join.
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onnicknameset"), ev.Player.Name + " (" + ev.Player.SteamId + ") set their nickname to " + ev.Nickname + ".");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onnicknameset"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(30) + ev.Nickname + ".");
         }
 
         public void OnAssignTeam(PlayerInitialAssignTeamEvent ev)
@@ -71,7 +71,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a team is picked for a player. Nothing is assigned to the player, but you can change what team the player will spawn as.
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onassignteam"), ev.Player.Name + " (" + ev.Player.SteamId + ") has been assugned to team " + ev.Team + ".");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onassignteam"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(31) + ev.Team + ".");
         }
 
         public void OnSetRole(PlayerSetRoleEvent ev)
@@ -79,7 +79,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called after the player is set a class, at any point in the game. 
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onsetrole"), ev.Player.Name + " (" + ev.Player.SteamId + ") got the role " + ev.TeamRole.Name + ".");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onsetrole"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(32) + ev.TeamRole.Name + ".");
         }
 
         public void OnCheckEscape(PlayerCheckEscapeEvent ev)
@@ -87,7 +87,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player is checking if they should escape (this is regardless of class)
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_oncheckescape"), ev.Player.Name + " (" + ev.Player.SteamId + ") has escaped as " + ev.Player.TeamRole + ".");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_oncheckescape"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(33) + ev.Player.TeamRole + ".");
         }
 
         public void OnSpawn(PlayerSpawnEvent ev)
@@ -95,7 +95,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player spawns into the world
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onspawn"), ev.Player.Name + " (" + ev.Player.SteamId + ") spawned as " + ev.Player.TeamRole.Name + ".");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onspawn"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(34) + ev.Player.TeamRole.Name + ".");
         }
 
         public void OnDoorAccess(PlayerDoorAccessEvent ev)
@@ -105,11 +105,11 @@ namespace SCPDiscord
             /// <summary> 
             if (ev.Allow)
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondooraccess"), ev.Player.Name + " (" + ev.Player.SteamId + ") opened a door.");
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondooraccess"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(35));
             }
             else
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondooraccess"), ev.Player.Name + " (" + ev.Player.SteamId + ") tried to access a locked door.");
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondooraccess"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(36));
             }
         }
 
@@ -118,7 +118,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player attempts to use intercom.
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onintercom"), ev.Player.Name + " (" + ev.Player.SteamId + ") started using the intercom.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onintercom"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(37));
         }
 
         public void OnIntercomCooldownCheck(PlayerIntercomCooldownCheckEvent ev)
@@ -126,7 +126,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player attempts to use intercom. This happens before the cooldown check.
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onintercomcooldowncheck"), ev.Player.Name + " (" + ev.Player.SteamId + ") is trying to use the intercom.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onintercomcooldowncheck"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(38));
         }
 
         public void OnPocketDimensionExit(PlayerPocketDimensionExitEvent ev)
@@ -134,7 +134,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player escapes from Pocket Demension
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onpocketdimensionexit"), ev.Player.Name + " (" + ev.Player.SteamId + ") escaped the pocket dimension.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onpocketdimensionexit"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(39));
         }
 
         public void OnPocketDimensionEnter(PlayerPocketDimensionEnterEvent ev)
@@ -142,7 +142,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player enters Pocket Demension
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onpocketdimensionenter"), ev.Player.Name + " (" + ev.Player.SteamId + ") was taken into the pocket dimension.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onpocketdimensionenter"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(40));
         }
 
         public void OnPocketDimensionDie(PlayerPocketDimensionDieEvent ev)
@@ -150,7 +150,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player enters the wrong way of Pocket Demension. This happens before the player is killed.
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onpocketdimensiondie"), ev.Player.Name + " (" + ev.Player.SteamId + ") was lost in the pocket dimension.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onpocketdimensiondie"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(41));
         }
 
         public void OnThrowGrenade(PlayerThrowGrenadeEvent ev)
@@ -158,7 +158,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called after a player throws a grenade
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onthrowgrenade"), ev.Player.Name + " (" + ev.Player.SteamId + ") threw a grenade.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onthrowgrenade"), ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(42));
         }
     }
 }

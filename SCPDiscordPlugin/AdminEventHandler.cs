@@ -20,7 +20,7 @@ namespace SCPDiscord
             {
                 return;
             }
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onadminquery"), "Admin " + ev.Admin.Name + " (" + ev.Admin.SteamId + ") executed command '" + ev.Query + "'.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onadminquery"), plugin.MultiLanguage(48) + ev.Admin.Name + " (" + ev.Admin.SteamId + plugin.MultiLanguage(49) + ev.Query + "'.");
         }
 
         public void OnAuthCheck(AuthCheckEvent ev)
@@ -28,11 +28,11 @@ namespace SCPDiscord
             ///Probably triggered when someone gains access to the admin panel using a password, not sure
             if(ev.Allow)
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onauthcheck"), ev.Requester + " (" + ev.Requester.SteamId + ") was granted access to the RA panel.");
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onauthcheck"), ev.Requester + " (" + ev.Requester.SteamId + plugin.MultiLanguage(50));
             }
             else
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onauthcheck"), ev.Requester + " (" + ev.Requester.SteamId + ") was denied access to the RA panel.");
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onauthcheck"), ev.Requester + " (" + ev.Requester.SteamId + plugin.MultiLanguage(51));
             }
         }
 
@@ -41,11 +41,11 @@ namespace SCPDiscord
             ///Doesn't seem to trigger at all, not sure why
             if(ev.AllowBan)
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onban"), "Player " + ev.Player.Name + " (" + ev.Player.SteamId + ") was banned by " + ev.Admin.Name + " (" + ev.Admin.SteamId + ") for " + (ev.Duration / 60) + " minutes.");
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onban"), "Player " + ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(52) + ev.Admin.Name + " (" + ev.Admin.SteamId + plugin.MultiLanguage(53) + (ev.Duration / 60) + plugin.MultiLanguage(54));
             }
             else
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onban"), ev.Admin.Name + " (" + ev.Admin.SteamId + ") tried to ban " + ev.Player.Name + " (" + ev.Player.SteamId + ") for " + (ev.Duration / 60) + " minutes but was not allowed.");
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onban"), ev.Admin.Name + " (" + ev.Admin.SteamId + plugin.MultiLanguage(55) + ev.Player.Name + " (" + ev.Player.SteamId + plugin.MultiLanguage(56) + (ev.Duration / 60) + plugin.MultiLanguage(57));
             }
         }
     }

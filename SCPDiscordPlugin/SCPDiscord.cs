@@ -9,6 +9,8 @@ using System;
 
 using System.Threading;
 
+using System.IO;
+
 namespace SCPDiscord
 {
     [PluginDetails(
@@ -23,6 +25,7 @@ namespace SCPDiscord
         )]
     class SCPDiscordPlugin : Plugin
     {
+        private SCPDiscordPlugin plugin;
         public TcpClient clientSocket = new TcpClient();
         public readonly string GENERICMESSAGECHANNEL = "000000000000000000";
 
@@ -86,6 +89,46 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onteamrespawn", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetscpconfig", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
 
+            //Multi-language support
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_language", "eng", Smod2.Config.SettingType.STRING, true, "Discord bot language. Default: English."));
+
+        }
+
+        public SCPDiscordPlugin(SCPDiscordPlugin plugin)
+        {
+            this.plugin = plugin;
+        }
+
+        //Multi-language support.
+        public string MultiLanguage(int line)
+        {
+            string multilanguage_path = "/sm_plugins/SCPDiscord/";
+            bool fodler_exists = Directory.Exists(multilanguage_path);
+            string[] opened_file = new string[150];
+
+            if (!fodler_exists)
+            {
+                this.Info("SCPDiscord can't load. Missing translation fodler in sm_plugins folder.");
+                pluginManager.DisablePlugin(this);
+            }
+
+            if (line > 0)
+            {
+                line = line - 1;
+            }
+
+            switch (plugin.GetConfigString("discord_bot_language"))
+            {
+                case "rus":
+                    opened_file = File.ReadAllLines(@"/sm_plugins/SCPDiscord/Russian.txt");
+                    break;
+                default:
+                    opened_file = File.ReadAllLines(@"/sm_plugins/SCPDiscord/English.txt");
+                    break;
+            }
+
+            string requested_line = opened_file[line];
+            return requested_line;
         }
 
         public override void OnEnable()
@@ -96,22 +139,22 @@ namespace SCPDiscord
             }
             catch(SocketException e)
             {
-                this.Info("Error occured while connecting to discord bot server.\n" + e.ToString());
+                this.Info(this.MultiLanguage(1) + e.ToString());
                 this.pluginManager.DisablePlugin(this);
             }
             catch (ObjectDisposedException e)
             {
-                this.Info("TCP client was unexpectedly closed.\n" + e.ToString());
+                this.Info(this.MultiLanguage(2) + e.ToString());
                 this.pluginManager.DisablePlugin(this);
             }
             catch (ArgumentOutOfRangeException e)
             {
-                this.Info("Invalid port.\n" + e.ToString());
+                this.Info(this.MultiLanguage(3) + e.ToString());
                 this.pluginManager.DisablePlugin(this);
             }
             catch (ArgumentNullException e)
             {
-                this.Info("IP address is null.\n" + e.ToString());
+                this.Info(this.MultiLanguage(4) + e.ToString());
                 this.pluginManager.DisablePlugin(this);
             }
 
