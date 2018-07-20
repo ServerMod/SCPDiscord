@@ -17,7 +17,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for Round start events (before people are spawned in)
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundstart"), "Round started.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundstart"), "**Round started.**");
         }
 
         public void OnConnect(ConnectEvent ev)
@@ -65,7 +65,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This event handler will call when the server is waiting for players
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onwaitingforplayers"), "Server is ready and waiting for players.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onwaitingforplayers"), "**Server is ready and waiting for players.**");
         }
 
         public void OnRoundRestart(RoundRestartEvent ev)

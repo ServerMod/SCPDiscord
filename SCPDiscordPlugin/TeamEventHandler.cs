@@ -27,11 +27,11 @@ namespace SCPDiscord
             /// <summary>  
             if (!ev.SpawnChaos)
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onteamrespawn"), "MTF Epsilon-11 - \"Nine-Tailed Fox\" have arrived at the facility.");
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onteamrespawn"), "**MTF Epsilon-11 - \"Nine-Tailed Fox\" have arrived at the facility.**");
             }
             else
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onteamrespawn"), "Hostile incursion detected, intruders identified as members of hostile GOI \"Chaos Insurgency\".");
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onteamrespawn"), "**Hostile incursion detected, intruders identified as members of hostile GOI \"Chaos Insurgency\".**");
             }
         }
 
