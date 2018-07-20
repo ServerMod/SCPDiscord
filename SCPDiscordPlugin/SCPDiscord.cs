@@ -38,6 +38,8 @@ namespace SCPDiscord
             //Connection settings
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_port", 8888, Smod2.Config.SettingType.NUMERIC, true, "Port of the discord bot."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_retries", 5, Smod2.Config.SettingType.NUMERIC, true, "Number of retries at error"));
+
 
             //Round events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundstart", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
@@ -90,33 +92,46 @@ namespace SCPDiscord
 
         public override void OnEnable()
         {
-            try
+            // Retries on the first connect
+            for (int i = 0; i <= GetConfigInt("discord_bot_retries"); i++)
             {
-                clientSocket.Connect(this.GetConfigString("discord_bot_ip"), this.GetConfigInt("discord_bot_port"));
+                try
+                {
+                    // Timeout 2 sec
+                    // 1000 + 1000 = 2000 = 2 Seconds
+                    clientSocket.SendTimeout = 1000;
+                    clientSocket.ReceiveTimeout = 1000;
+                    clientSocket.Connect(this.GetConfigString("discord_bot_ip"), this.GetConfigInt("discord_bot_port"));
+                }
+                catch (SocketException e)
+                {
+                    this.Info("Error occured while connecting to discord bot server.\n" + e.ToString());
+                }
+                catch (ObjectDisposedException e)
+                {
+                    this.Info("TCP client was unexpectedly closed.\n" + e.ToString());
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    this.Info("Invalid port.\n" + e.ToString());
+                }
+                catch (ArgumentNullException e)
+                {
+                    this.Info("IP address is null.\n" + e.ToString());
+                }
             }
-            catch(SocketException e)
+            
+            // Failure check
+            if (clientSocket.Connected)
             {
-                this.Info("Error occured while connecting to discord bot server.\n" + e.ToString());
-                this.pluginManager.DisablePlugin(this);
+                this.Info("SCPDiscord enabled.");
+                SendMessageAsync("default", "Plugin Enabled.");
             }
-            catch (ObjectDisposedException e)
+            else
             {
-                this.Info("TCP client was unexpectedly closed.\n" + e.ToString());
-                this.pluginManager.DisablePlugin(this);
+                pluginManager.DisablePlugin(this);
             }
-            catch (ArgumentOutOfRangeException e)
-            {
-                this.Info("Invalid port.\n" + e.ToString());
-                this.pluginManager.DisablePlugin(this);
-            }
-            catch (ArgumentNullException e)
-            {
-                this.Info("IP address is null.\n" + e.ToString());
-                this.pluginManager.DisablePlugin(this);
-            }
-
-            this.Info("SCPDiscord enabled.");
-            SendMessageAsync("default", "Plugin Enabled.");
+           
         }
 
         public void SendMessageAsync(string channelID, string message)
