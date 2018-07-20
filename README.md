@@ -8,6 +8,8 @@ It will also be possible to list the number of players on your server in the bot
 
 I was going to wait with making this plugin until SCP:SL updates to .NET 4.6 from the current .NET 3.5 but apperently that has been delayed (indefinitely?). This means I can't use a C# Discord API directly from the plugin and thus have to seperate it into two different programs.
 
+They send messages along like this: SCPDiscordPlugin -> SCPDiscordBot -> Discord Channel
+
 ## Current features:
 
 You can log any event from the server to discord with multi-channel support.
