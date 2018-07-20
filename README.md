@@ -26,9 +26,9 @@ You can for instance have one public channel for each of your servers where thin
 
 1. Install Node: https://nodejs.org/en/download/package-manager
 
-2. Download the SCPDiscordBot archive and extract them anywhere you wish outside of the server directory.
+2. Download the SCPDiscordBot archive and extract it anywhere you wish outside of the server directory.
 
-* If you download the bot directly from the repository rather than the release you may have to add Discord.js using `npm install discord.js` while in the bot directory.
+* If you download the bot directly from the repository rather than the release you may have to add Discord.js using `npm install discord.js` while in the bot's directory.
 
 3. Follow the bot config guide below.
 
