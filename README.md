@@ -28,6 +28,8 @@ You can for instance have one public channel for each of your servers where thin
 
 2. Download the SCPDiscordBot archive and extract them anywhere you wish outside of the server directory.
 
+* If you download the bot directly from the repository rather than the release you may have to add Discord.js using `npm install discord.js`
+
 3. Follow the bot config guide below.
 
 4. Run start.bat or start.sh to start the bot. Alternatively use `node .` from commandline while in that directory. The start.sh script starts the server in a screen so you can simply press `ctrl-A` `ctrl-d` to have it run in the background. For more info google `linux screen`.
