@@ -1,0 +1,57 @@
+Error occured while connecting to discord bot server.\n
+TCP client was unexpectedly closed.\n
+Invalid port.\n
+IP address is null.\n
+Respawn queue decided.
+MTF Epsilon-11 - \Nine-Tailed Fox\ have arrived at the facility.
+Hostile incursion detected, intruders identified as members of hostile GOI \Chaos Insurgency\
+Max HP for 
+ set to 
+SCP settings set.
+Round started.
+Player attempting connection...
+A player has disconnected.
+Checking if round has ended...
+**Round ended after 
+ minutes.** \n
+Escaped D-class:    
+Rescued Scientists: 
+Contained SCPs:     
+Killed by SCP:      
+Server is ready and waiting for players.
+Round is restarting...
+Server name set to 
+) was hurt by 
+) using 
+) died. Killed by 
+) picked up item 
+) dropped item 
+) joined the game.
+) set their nickname to 
+) has been assigned to team 
+) got the role 
+) has escaped as 
+) spawned as 
+) opened a door.
+) tried to access a locked door.
+) started using the intercom.
+) is trying to use the intercom.
+) escaped the pocket dimension.
+) was taken into the pocket dimension.
+) was lost in the pocket dimension.
+) threw a grenade.
+SCP-914 has been activated on setting 
+The on-site nuclear warhead has been activated with authorization of either the Site Director or a member of the O5-council
+The on-site nuclear warhead has been deactivated.
+Detonation of the on-site nuclear warhead has been detected. Dispatching Foundation operatives to investigate.
+Light Containment Zone de-contamination has been initiated, all biological samples will be destroyed.
+Admin 
+) executed command '
+) was granted access to the RA panel.
+) was denied access to the RA panel.
+) was banned by 
+) for 
+ minutes.
+) tried to ban 
+) for 
+ minutes but was not allowed.
