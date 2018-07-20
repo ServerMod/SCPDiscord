@@ -97,6 +97,10 @@ namespace SCPDiscord
             {
                 try
                 {
+                    // Timeout 2 sec
+                    // 1000 + 1000 = 2000 = 2 Seconds
+                    clientSocket.SendTimeout = 1000;
+                    clientSocket.ReceiveTimeout = 1000;
                     clientSocket.Connect(this.GetConfigString("discord_bot_ip"), this.GetConfigInt("discord_bot_port"));
                 }
                 catch (SocketException e)
@@ -115,9 +119,6 @@ namespace SCPDiscord
                 {
                     this.Info("IP address is null.\n" + e.ToString());
                 }
-
-                // Timeout is 2 seconds
-                Thread.Sleep(200);
             }
             
             // Failure check
