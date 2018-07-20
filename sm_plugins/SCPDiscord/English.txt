@@ -1,7 +1,7 @@
-Error occured while connecting to discord bot server.\n
-TCP client was unexpectedly closed.\n
-Invalid port.\n
-IP address is null.\n
+\nError occured while connecting to discord bot server.\n
+\nTCP client was unexpectedly closed.\n
+\nInvalid port.\n
+\nIP address is null.\n
 Respawn queue decided.
 MTF Epsilon-11 - \Nine-Tailed Fox\ have arrived at the facility.
 Hostile incursion detected, intruders identified as members of hostile GOI \Chaos Insurgency\

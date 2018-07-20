@@ -102,13 +102,13 @@ namespace SCPDiscord
         //Multi-language support.
         public string MultiLanguage(int line)
         {
-            string multilanguage_path = "/sm_plugins/SCPDiscord/";
-            bool fodler_exists = Directory.Exists(multilanguage_path);
-            string[] opened_file = new string[150];
+            string multilanguage_path = @"sm_plugins" + Path.DirectorySeparatorChar + "SCPDiscord";
+            bool folder_exists = Directory.Exists(multilanguage_path);
+            string[] opened_file = new string[60];
 
-            if (!fodler_exists)
+            if (!folder_exists)
             {
-                this.Info("SCPDiscord can't load. Missing translation fodler in sm_plugins folder.");
+                this.Info("SCPDiscord can't load. Missing translation folder in sm_plugins folder.");
                 pluginManager.DisablePlugin(this);
             }
 
@@ -120,10 +120,10 @@ namespace SCPDiscord
             switch (plugin.GetConfigString("discord_bot_language"))
             {
                 case "rus":
-                    opened_file = File.ReadAllLines(@"/sm_plugins/SCPDiscord/Russian.txt");
+                    opened_file = File.ReadAllLines(@"sm_plugins" + Path.DirectorySeparatorChar + "SCPDiscord" + Path.DirectorySeparatorChar + "Russian.txt");
                     break;
                 default:
-                    opened_file = File.ReadAllLines(@"/sm_plugins/SCPDiscord/English.txt");
+                    opened_file = File.ReadAllLines(@"sm_plugins" + Path.DirectorySeparatorChar + "SCPDiscord" + Path.DirectorySeparatorChar + "English.txt");
                     break;
             }
 

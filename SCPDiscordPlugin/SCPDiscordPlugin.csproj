@@ -36,8 +36,9 @@
     <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Smod2">
-      <HintPath>E:\SteamLibrary\steamapps\common\SCP Secret Laboratory2\SCPSL_Data\Managed\Smod2.dll</HintPath>
+    <Reference Include="Smod2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SCP_Plugins\Smod2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,7 +46,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminEventHandler.cs" />
@@ -73,9 +73,13 @@
   <ItemGroup>
     <None Include="lib\Smod2\Smod2.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="languages\English.txt" />
+    <Content Include="languages\Russian.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>cd $(ProjectDir)
-copy /y bin\SCPDiscord.dll ..\..\..\scpserver\sm_plugins</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
