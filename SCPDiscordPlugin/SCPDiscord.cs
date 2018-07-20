@@ -35,10 +35,6 @@ namespace SCPDiscord
             this.AddEventHandlers(new EnvironmentEventHandler(this));
             this.AddEventHandlers(new TeamEventHandler(this));
 
-            //Connection settings
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_port", 8888, Smod2.Config.SettingType.NUMERIC, true, "Port of the discord bot."));
-
             //Round events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundstart", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onconnect", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
@@ -90,8 +86,13 @@ namespace SCPDiscord
 
         public override void OnEnable()
         {
+            //Connection settings
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_port", 8888, Smod2.Config.SettingType.NUMERIC, true, "Port of the discord bot."));
+
             try
             {
+                this.Info("Your Bot IP: " + this.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + this.GetConfigInt("discord_bot_port") + ".");
                 clientSocket.Connect(this.GetConfigString("discord_bot_ip"), this.GetConfigInt("discord_bot_port"));
             }
             catch(SocketException e)
