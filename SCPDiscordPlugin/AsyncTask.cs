@@ -30,7 +30,7 @@ namespace SCPDiscord
             try
             {
                 NetworkStream serverStream = plugin.clientSocket.GetStream();
-                byte[] outStream = System.Text.Encoding.ASCII.GetBytes(channelID + message + '\0');
+                byte[] outStream = System.Text.Encoding.UTF8.GetBytes(channelID + message + '\0');
                 serverStream.Write(outStream, 0, outStream.Length);
 
                 plugin.Info(plugin.MultiLanguage(47) + " '" + message + "' " + plugin.MultiLanguage(48));
