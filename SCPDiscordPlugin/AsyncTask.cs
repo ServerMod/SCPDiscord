@@ -9,11 +9,14 @@ namespace SCPDiscord
     {
         public AsyncMessage(SCPDiscordPlugin plugin, string channelID, string message)
         {
+            //Abort if client is dead
             if(plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
-                plugin.Warn("Error sending message '" + message + "' to discord: Not connected to bot yet.");
+                plugin.Warn("Error sending message '" + message + "' to discord: Not connected to bot.");
                 return;
             }
+
+            //Abort on empty message
             if (message == null || message == "" || message == " " || message == ".")
             {
                 plugin.Warn("Tried to send empty message to discord.");
@@ -30,7 +33,7 @@ namespace SCPDiscord
             try
             {
                 NetworkStream serverStream = plugin.clientSocket.GetStream();
-                byte[] outStream = System.Text.Encoding.ASCII.GetBytes(channelID + message + '\0');
+                byte[] outStream = System.Text.Encoding.ASCII.GetBytes(channelID + message + '\n');
                 serverStream.Write(outStream, 0, outStream.Length);
 
                 plugin.Info("Sent message '" + message + "' to discord.");
