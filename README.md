@@ -28,6 +28,8 @@ You can for instance have one public channel for each of your servers where thin
 
 2. [Download the SCPDiscordBot archive](https://github.com/KarlOfDuty/SCPDiscord/releases) and extract it anywhere you wish outside of the server directory.
 
+* If you download the bot directly from the repository rather than the release you may have to add Discord.js using `npm install discord.js` while in the bot's directory.
+
 3. Follow the bot config guide below.
 
 4. Run start.bat or start.sh to start the bot. Alternatively use `node .` or `node DiscordBot.js` from commandline while in the bot's directory. The start.sh script starts the server in a screen so you can simply press `ctrl-A` `ctrl-d` to have it run in the background. For more info google `linux screen`.
@@ -104,7 +106,7 @@ discord_bot_port: 8888
 
 # Round events. Options: off, default or a channel id
 discord_channel_onroundstart: default
-discord_channel_onconnect: off
+discord_channel_onconnect: default
 discord_channel_ondisconnect: default
 discord_channel_oncheckroundend: off
 discord_channel_onroundend: default
@@ -121,7 +123,7 @@ discord_channel_ondecontaminate: default
 
 # Player events. Options: off, default or a channel id
 discord_channel_onplayerdie: default
-discord_channel_onplayerhurt: default
+discord_channel_onplayerhurt: off
 discord_channel_onplayerpickupitem: off
 discord_channel_onplayerdropitem: off
 discord_channel_onplayerjoin: default
