@@ -11,12 +11,12 @@ namespace SCPDiscord
         {
             if(plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
-                plugin.Warn("Error sending message '" + message + "' to discord: Not connected to bot yet.");
+                plugin.Warn(plugin.MultiLanguage(44) + " '" + message + "' " + plugin.MultiLanguage(45));
                 return;
             }
             if (message == null || message == "" || message == " " || message == ".")
             {
-                plugin.Warn("Tried to send empty message to discord.");
+                plugin.Warn(plugin.MultiLanguage(46));
                 return;
             }
 
@@ -33,15 +33,15 @@ namespace SCPDiscord
                 byte[] outStream = System.Text.Encoding.ASCII.GetBytes(channelID + message + '\0');
                 serverStream.Write(outStream, 0, outStream.Length);
 
-                plugin.Info("Sent message '" + message + "' to discord.");
+                plugin.Info(plugin.MultiLanguage(47) + " '" + message + "' " + plugin.MultiLanguage(48));
             }
             catch(InvalidOperationException e)
             {
-                plugin.Error("Error sending message '" + message + "' to discord: " + e.ToString());
+                plugin.Error(plugin.MultiLanguage(49) + " '" + message + "' " + plugin.MultiLanguage(50) + ": " + e.ToString());
             }
             catch (ArgumentNullException e)
             {
-                plugin.Error("Error sending message '" + message + "' to discord: " + e.ToString());
+                plugin.Error(plugin.MultiLanguage(49) + " '" + message + "' " + plugin.MultiLanguage(50) + ": " + e.ToString());
             }
         }
     }
@@ -53,35 +53,35 @@ namespace SCPDiscord
             Thread.Sleep(2000);
             while (!plugin.clientSocket.Connected)
             {
-                plugin.Info("Attempting Bot Connection...");
+                plugin.Info(plugin.MultiLanguage(51));
                 try
                 {
-                    plugin.Info("Your Bot IP: " + plugin.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + plugin.GetConfigInt("discord_bot_port") + ".");
+                    plugin.Info(plugin.MultiLanguage(52) + ": " + plugin.GetConfigString("discord_bot_ip") + ". " + plugin.MultiLanguage(53) + ": " + plugin.GetConfigInt("discord_bot_port") + ".");
                     plugin.clientSocket.Connect(plugin.GetConfigString("discord_bot_ip"), plugin.GetConfigInt("discord_bot_port"));
                 }
                 catch (SocketException e)
                 {
-                    plugin.Info("Error occured while connecting to discord bot server.\n" + e.ToString());
+                    plugin.Info(plugin.MultiLanguage(54) + "\n" + e.ToString());
                     Thread.Sleep(5000);
                 }
                 catch (ObjectDisposedException e)
                 {
-                    plugin.Info("TCP client was unexpectedly closed.\n" + e.ToString());
+                    plugin.Info(plugin.MultiLanguage(55) + "\n" + e.ToString());
                     Thread.Sleep(5000);
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    plugin.Info("Invalid port.\n" + e.ToString());
+                    plugin.Info(plugin.MultiLanguage(56) + "\n" + e.ToString());
                     Thread.Sleep(5000);
                 }
                 catch (ArgumentNullException e)
                 {
-                    plugin.Info("IP address is null.\n" + e.ToString());
+                    plugin.Info(plugin.MultiLanguage(57) + "\n" + e.ToString());
                     Thread.Sleep(5000);
                 }
             }
-            plugin.Info("Connected to Discord bot.");
-            plugin.SendMessageAsync("default", "Plugin Connected.");
+            plugin.Info(plugin.MultiLanguage(58));
+            plugin.SendMessageAsync("default", plugin.MultiLanguage(59));
             plugin.hasConnectedOnce = true;
         }
     }
@@ -95,32 +95,32 @@ namespace SCPDiscord
                 Thread.Sleep(200);
                 if(!plugin.clientSocket.Connected && plugin.hasConnectedOnce)
                 {
-                    plugin.Info("Discord bot connection issue detected, attempting reconnect...");
+                    plugin.Info(plugin.MultiLanguage(60));
                     try
                     {
-                        plugin.Info("Your Bot IP: " + plugin.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + plugin.GetConfigInt("discord_bot_port") + ".");
+                        plugin.Info(plugin.MultiLanguage(52) + ": " + plugin.GetConfigString("discord_bot_ip") + ". " + plugin.MultiLanguage(53) + ": " + plugin.GetConfigInt("discord_bot_port") + ".");
                         plugin.clientSocket.Connect(plugin.GetConfigString("discord_bot_ip"), plugin.GetConfigInt("discord_bot_port"));
-                        plugin.Info("Reconnected to Discord bot.");
-                        plugin.SendMessageAsync("default", "Plugin Reconnected.");
+                        plugin.Info(plugin.MultiLanguage(61));
+                        plugin.SendMessageAsync("default", plugin.MultiLanguage(62));
                     }
                     catch (SocketException e)
                     {
-                        plugin.Info("Error occured while reconnecting to discord bot server.\n" + e.ToString());
+                        plugin.Info(plugin.MultiLanguage(63) + "\n" + e.ToString());
                         Thread.Sleep(5000);
                     }
                     catch (ObjectDisposedException e)
                     {
-                        plugin.Info("TCP client was unexpectedly closed.\n" + e.ToString());
+                        plugin.Info(plugin.MultiLanguage(55) + "\n" + e.ToString());
                         Thread.Sleep(5000);
                     }
                     catch (ArgumentOutOfRangeException e)
                     {
-                        plugin.Info("Invalid port.\n" + e.ToString());
+                        plugin.Info(plugin.MultiLanguage(56) + ".\n" + e.ToString());
                         Thread.Sleep(5000);
                     }
                     catch (ArgumentNullException e)
                     {
-                        plugin.Info("IP address is null.\n" + e.ToString());
+                        plugin.Info(plugin.MultiLanguage(57) + "\n" + e.ToString());
                         Thread.Sleep(5000);
                     }
                 }

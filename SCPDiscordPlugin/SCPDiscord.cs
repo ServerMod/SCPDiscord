@@ -6,6 +6,11 @@ using System;
 
 using System.Threading;
 
+using System.IO;
+
+using System.Reflection;
+
+
 namespace SCPDiscord
 {
     [PluginDetails(
@@ -23,6 +28,8 @@ namespace SCPDiscord
         public TcpClient clientSocket = new TcpClient();
         public readonly string GENERICMESSAGECHANNEL = "000000000000000000";
         public bool hasConnectedOnce = false;
+        public static string multilanguage_path = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "sm_plugins" + Path.DirectorySeparatorChar + "SCPDiscord";
+
 
         public override void Register()
         {
@@ -84,10 +91,54 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onteamrespawn", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetscpconfig", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
 
+            // Multi-Language Support Config
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_language", "eng", Smod2.Config.SettingType.STRING, true, "Discord bot language."));
         }
+
+        // Multi-Language Support Method Start
+
+        public string[] TranslationChoose()
+        {
+            string[] opened_file = new string[74];
+            switch (this.GetConfigString("discord_bot_language"))
+            {
+                case "rus":
+                    opened_file = File.ReadAllLines(multilanguage_path + Path.DirectorySeparatorChar + "Russian.txt");
+                    break;
+                default:
+                    opened_file = File.ReadAllLines(multilanguage_path + Path.DirectorySeparatorChar + "English.txt");
+                    break;
+            }
+            return opened_file;
+        }
+
+        public string MultiLanguage(int line)
+        {
+
+            line -= 1;
+
+            string requested_line = TranslationChoose()[line];
+            return requested_line;
+        }
+        // Multi-Language Support Method End
 
         public override void OnEnable()
         {
+            // Multi-Language Support Check Start
+            if (!Directory.Exists(multilanguage_path))
+            {
+                Directory.CreateDirectory(multilanguage_path);
+            }
+            if (!File.Exists(multilanguage_path + Path.DirectorySeparatorChar + "English.txt"))
+            {
+                File.WriteAllText(multilanguage_path + Path.DirectorySeparatorChar + "English.txt", Properties.Resources.English);
+            }
+            if (!File.Exists(multilanguage_path + Path.DirectorySeparatorChar + "Russian.txt"))
+            {
+                File.WriteAllText(multilanguage_path + Path.DirectorySeparatorChar + "Russian.txt", Properties.Resources.Russian);
+            }
+            // Multi-Language Support Check End
+
             this.Info("SCPDiscord enabled.");
             //Runs until the server has connected once
             Thread connectionThread = new Thread(new ThreadStart(() => new AsyncConnect(this)));
