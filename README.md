@@ -66,11 +66,11 @@ Get the channel ID by turning on developer mode in Discord and right click on th
 
 ## Plugin config guide:
 
-Possible connection settings:
+**Possible connection settings:**
 
 Well, an IP address for the IP entry and a port for the port entry, pretty self explanatory.
 
-Possible channel settings:
+**Possible channel settings:**
 
 * off - Event is not sent to Discord. If an entry does not exist in your config it will default to this.
 * default - The event is sent to the default Discord channel designated designated in the Bot's config.
@@ -84,12 +84,12 @@ discord_channel_onintercom
 discord_channel_onintercomcooldowncheck
 ```
 
-Possible date format settings (for discord_formatting_date):
+**Possible date format settings (for discord_formatting_date):**
 
 * off - No timestamp is added to the messages.
 * `<time format string>` - Example: [dd-mm-yyyy HH:mm:ss] results in [21-07-2018 14:18:26]. Click [here](https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.85).aspx) for all available format specifiers. If you do not add this entry to the config it will default to `HH:mm:ss`
 
-Recommended config settings (The ones I use for my server):
+**Recommended config settings (The ones I use for my server):**
 
 ```yaml
 # Connection settings
