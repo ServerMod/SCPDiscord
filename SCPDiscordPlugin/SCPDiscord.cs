@@ -153,7 +153,8 @@ namespace SCPDiscord
         {
             if(channelID != "off")
             {
-                Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(this, channelID, message)));
+                string datetime_message = "[" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "] " + message;
+                Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(this, channelID, datetime_message)));
                 messageThread.Start();
             }
         }
