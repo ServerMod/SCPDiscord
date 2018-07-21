@@ -66,19 +66,22 @@ Get the channel ID by turning on developer mode in Discord and right click on th
 
 ## Plugin config guide:
 
-All options that are not included in the config act as set to off.
+Possible connection settings:
 
-If you are running the bot script on the same server as this plugin you will not have to port forward or open firewall ports and you can leave those settings at the default.
+Well, an IP address for the IP entry and a port for the port entry, pretty self explanatory.
 
 Possible channel settings:
 
-* Off - Event is not sent to Discord.
-* Default - The event is sent to the default Discord channel designated designated in the Bot's config.
+* off - Event is not sent to Discord. If an entry does not exist in your config it will default to this.
+* default - The event is sent to the default Discord channel designated designated in the Bot's config.
 * `<channel-id>` - The event is sent to this channel, get the channel ID by turning on developer mode in Discord and right click on the channel.
 
+Possible date format settings (discord_formatting_date):
 
+* off - No timestamp is added to the messages.
+* `<time format string>` - Example: [dd-mm-yyyy HH:mm:ss] results in [21-07-2018 14:18:26]. Click [here](https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.85).aspx) for all available format specifiers. If you do not add this entry to the config it will default to `HH:mm:ss`
 
-Recommended config settings:
+Recommended config settings (The ones I use for my server):
 
 ```yaml
 # Connection settings
@@ -131,6 +134,9 @@ discord_channel_ondecideteamrespawnqueue: off
 discord_channel_onsetrolemaxhp: off
 discord_channel_onteamrespawn: default
 discord_channel_onsetscpconfig: off
+
+# Formatting settings
+discord_formatting_date: off
 ```
 
 You can find descriptions for each event here: https://github.com/Grover-c13/Smod2/tree/master/Smod2/Smod2/EventSystem/EventHandlers
