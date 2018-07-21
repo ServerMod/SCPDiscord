@@ -70,7 +70,7 @@ All config entries are listed below, here is a description of what the possible 
 
 **Possible connection settings:**
 
-Well, an IP address for the IP entry and a port for the port entry, pretty self explanatory.
+Well, an IP address for the IP entry and a port for the port entry, pretty self explanatory. Defaults to 127.0.0.1 and 8888 if not included in the config.
 
 **Possible channel settings:**
 
