@@ -17,7 +17,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for Round start events (before people are spawned in)
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundstart"), "**Round started.**");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundstart"), "**" + plugin.MultiLanguage(7) + "**");
         }
 
         public void OnConnect(ConnectEvent ev)
@@ -25,7 +25,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for connection events, before players have been created, so names and what not are available. See PlayerJoin if you need that information
             /// </summary>
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onconnect"), "Player attempting connection...");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onconnect"), plugin.MultiLanguage(8));
         }
 
         public void OnDisconnect(DisconnectEvent ev)
@@ -33,7 +33,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for disconnection events.
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondisconnect"), "A player has disconnected.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondisconnect"), plugin.MultiLanguage(9));
         }
 
         public void OnCheckRoundEnd(CheckRoundEndEvent ev)
@@ -43,7 +43,7 @@ namespace SCPDiscord
             /// </summary> 
 
             //Protip, don't turn this on.
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_oncheckroundend"),"Checking if round has ended...");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_oncheckroundend"), plugin.MultiLanguage(10));
         }
 
         public void OnRoundEnd(RoundEndEvent ev)
@@ -51,12 +51,12 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for Round end events (when the stats appear on screen)
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundend"), "**Round ended after " + (ev.Round.Duration/60) + " minutes.** \n" +
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundend"), "**" + plugin.MultiLanguage(11) + " " + (ev.Round.Duration/60) + " " + plugin.MultiLanguage(12) + "** \n" +
                 "```\n" +
-                "Escaped D-class:    " + ev.Round.Stats.ClassDEscaped + "/" + ev.Round.Stats.ClassDStart + "\n" +
-                "Rescued Scientists: " + ev.Round.Stats.ScientistsEscaped + "/" + ev.Round.Stats.ScientistsStart + "\n" +
-                "Contained SCPs:     " + ev.Round.Stats.SCPDead + "/" + ev.Round.Stats.SCPStart + "\n" +
-                "Killed by SCP:      " + ev.Round.Stats.SCPKills + "\n" +
+                plugin.MultiLanguage(13) + ev.Round.Stats.ClassDEscaped + "/" + ev.Round.Stats.ClassDStart + "\n" +
+                plugin.MultiLanguage(14) + ev.Round.Stats.ScientistsEscaped + "/" + ev.Round.Stats.ScientistsStart + "\n" +
+                plugin.MultiLanguage(15) + ev.Round.Stats.SCPDead + "/" + ev.Round.Stats.SCPStart + "\n" +
+                plugin.MultiLanguage(16) + ev.Round.Stats.SCPKills + "\n" +
                 "```");
         }
 
@@ -65,7 +65,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This event handler will call when the server is waiting for players
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onwaitingforplayers"), "**Server is ready and waiting for players.**");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onwaitingforplayers"), "**" + plugin.MultiLanguage(17) + "**");
         }
 
         public void OnRoundRestart(RoundRestartEvent ev)
@@ -73,7 +73,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This event handler will call when the server is about to restart
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundrestart"), "Round is restarting...");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundrestart"), plugin.MultiLanguage(18));
         }
 
         public void OnSetServerName(SetServerNameEvent ev)
@@ -81,7 +81,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This event handler will call when the server name is set
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onsetservername"), "Server name set to " + ev.ServerName + ".");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onsetservername"), plugin.MultiLanguage(19) + " " + ev.ServerName + ".");
         }
 
 

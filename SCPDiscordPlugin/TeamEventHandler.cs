@@ -17,7 +17,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called at the start, when the team respawn queue is being read. This happens BEFORE it fills it to full with filler_team_id.
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondecideteamrespawnqueue"), "Respawn queue decided.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondecideteamrespawnqueue"), plugin.MultiLanguage(1));
         }
 
         public void OnTeamRespawn(TeamRespawnEvent ev)
@@ -27,11 +27,11 @@ namespace SCPDiscord
             /// <summary>  
             if (!ev.SpawnChaos)
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onteamrespawn"), "**MTF Epsilon-11 - \"Nine-Tailed Fox\" have arrived at the facility.**");
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onteamrespawn"), "**" + plugin.MultiLanguage(2) + "**");
             }
             else
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onteamrespawn"), "**Hostile incursion detected, intruders identified as members of hostile GOI \"Chaos Insurgency\".**");
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onteamrespawn"), "**" + plugin.MultiLanguage(3) + "**");
             }
         }
 
@@ -40,7 +40,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when the max HP of each role is being set. This happens every round.
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onsetrolemaxhp"), "Max HP for " + ev.Role + " set to " + ev.MaxHP + ".");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onsetrolemaxhp"), plugin.MultiLanguage(4) + " " + ev.Role + " " + plugin.MultiLanguage(5) + " " + ev.MaxHP + ".");
         }
 
         public void OnSetSCPConfig(SetSCPConfigEvent ev)
@@ -48,7 +48,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when the configs of SCPs are being set. This happens every round.
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onsetscpconfig"), "SCP settings set.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onsetscpconfig"), plugin.MultiLanguage(6));
         }
 
     }
