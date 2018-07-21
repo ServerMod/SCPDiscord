@@ -8,6 +8,8 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 
+var messageQueue = [];
+
 console.log('Binding TCP port...');
 var net = require('net');
 net.createServer(function (socket)
