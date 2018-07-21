@@ -87,7 +87,7 @@ discord_channel_onintercomcooldowncheck
 **Possible date format settings (for discord_formatting_date):**
 
 * off - No timestamp is added to the messages.
-* `<time format string>` - Example: `[dd-mm-yyyy HH:mm:ss]` results in `[21-07-2018 14:18:26]`. Click [here](https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.85).aspx) for all available format specifiers. If you do not add this entry to the config it will default to `HH:mm:ss`
+* `<time format string>` - Example: `dd-mm-yyyy HH:mm:ss` results in `[21-07-2018 14:18:26]: `. Click [here](https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.85).aspx) for all available format specifiers. If you do not add this entry to the config it will default to `HH:mm:ss`
 
 **Recommended config settings (The ones I use for my server):**
 
