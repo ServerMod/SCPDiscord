@@ -89,7 +89,7 @@ discord_bot_port: 8888
 
 # Round events. Options: off, default or a channel id
 discord_channel_onroundstart: default
-discord_channel_onconnect: on
+discord_channel_onconnect: default
 discord_channel_ondisconnect: default
 discord_channel_oncheckroundend: off
 discord_channel_onroundend: default
