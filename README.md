@@ -66,6 +66,8 @@ Get the channel ID by turning on developer mode in Discord and right click on th
 
 ## Plugin config guide:
 
+All config entries are listed below, here is a description of what the possible options for them are.
+
 **Possible connection settings:**
 
 Well, an IP address for the IP entry and a port for the port entry, pretty self explanatory.
