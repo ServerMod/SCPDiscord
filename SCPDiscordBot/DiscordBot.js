@@ -18,7 +18,7 @@ net.createServer(function (socket)
     // Handle incoming messages
     socket.on('data', function (data)
     {
-        var messages = data.split('\0')
+        var messages = data.split('\n')
         messages.forEach(function (element)
         {
             var destinationChannel = element.slice(0, 18)
