@@ -139,9 +139,9 @@ discord_bot_language: eng
 ```
 ## How to create translations:
 1. Make translation of English.txt (SCPDiscordPlugin\Resources\)
-2. Place file inside of SCPDiscordPlugin\Resources\ folder
+2. Place translated .txt file inside of SCPDiscordPlugin\Resources\ folder
 3. SCPDiscord.cs - TranslationChoose method, add another case related to your translated language
-4. Add <LANGUAGE>.txt to Project Resources (Project Properties, Resources tab)
+4. Add LANGUAGE.txt to Project Resources (Project Properties, Resources tab)
 
 You can find descriptions for each event here: https://github.com/Grover-c13/Smod2/tree/master/Smod2/Smod2/EventSystem/EventHandlers
 
