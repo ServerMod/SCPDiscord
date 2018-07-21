@@ -18,19 +18,19 @@ You can for instance have one public channel for each of your servers where thin
 
 ## Bot commands
 
-`setavatar <url>/<path>` Either a path or url to an image to set as your bot's avatar.
+`setavatar <url>/<path>` Either a local path or url to an image to set as your bot's avatar.
 
 ## Installation:
 
 **Bot:**
 
-1. Install Node: https://nodejs.org/en/download/package-manager
+1. [Install Node](https://nodejs.org/en/download/package-manager)
 
-2. Download the SCPDiscordBot archive and extract them anywhere you wish outside of the server directory.
+2. [Download the SCPDiscordBot archive](https://github.com/KarlOfDuty/SCPDiscord/releases) and extract it anywhere you wish outside of the server directory.
 
 3. Follow the bot config guide below.
 
-4. Run start.bat or start.sh to start the bot. Alternatively use `node .` from commandline while in that directory. The start.sh script starts the server in a screen so you can simply press `ctrl-A` `ctrl-d` to have it run in the background. For more info google `linux screen`.
+4. Run start.bat or start.sh to start the bot. Alternatively use `node .` or `node DiscordBot.js` from commandline while in the bot's directory. The start.sh script starts the server in a screen so you can simply press `ctrl-A` `ctrl-d` to have it run in the background. For more info google `linux screen`.
 
 **Plugin:**
 
@@ -40,7 +40,7 @@ Put SCPDiscord.dll in your sm_plugins directory and follow the config instructio
 
 First of all you need to create a bot and add it to your server from here: https://discordapp.com/developers/ 
 
-This is very simple, and you can follow this guide: https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token
+This is very simple, and you can follow [this guide](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token).
 
 If you have downloaded it directly from the repo rather than from the releases tab you have to rename the config from `default_config.json` to `config.json`. This is to make sure I or anyone else who adds to this bot don't accidentially post their bot token or other sensitive information in the public repository.
 
@@ -76,6 +76,10 @@ Well, an IP address for the IP entry and a port for the port entry, pretty self 
 * default - The event is sent to the default Discord channel designated designated in the Bot's config.
 * `<channel-id>` - The event is sent to this channel, get the channel ID by turning on developer mode in Discord and right click on the channel.
 
+You can find descriptions for each event here: https://github.com/Grover-c13/Smod2/tree/master/Smod2/Smod2/EventSystem/EventHandlers
+
+All events are listed inside of those files.
+
 It is recommended to keep the following events off as they trigger regularly and will spam your discord channels:
 
 ```
@@ -89,7 +93,7 @@ discord_channel_onintercomcooldowncheck
 * off - No timestamp is added to the messages.
 * `<time format string>` - Example: `dd-mm-yyyy HH:mm:ss` results in `[21-07-2018 14:18:26]: `. Click [here](https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.85).aspx) for all available format specifiers. If you do not add this entry to the config it will default to `HH:mm:ss`
 
-**Recommended config settings (The ones I use for my server):**
+**Recommended config settings (The ones I use for my server and includes all config options):**
 
 ```yaml
 # Connection settings
@@ -146,7 +150,3 @@ discord_channel_onsetscpconfig: off
 # Formatting settings
 discord_formatting_date: off
 ```
-
-You can find descriptions for each event here: https://github.com/Grover-c13/Smod2/tree/master/Smod2/Smod2/EventSystem/EventHandlers
-
-All events are listed inside of these files.
