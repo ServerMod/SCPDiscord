@@ -1,9 +1,6 @@
 ﻿using Smod2;
 using Smod2.Attributes;
-using Smod2.EventHandlers;
-using Smod2.Events;
 
-using System.Net;
 using System.Net.Sockets;
 using System;
 
@@ -25,6 +22,7 @@ namespace SCPDiscord
     {
         public TcpClient clientSocket = new TcpClient();
         public readonly string GENERICMESSAGECHANNEL = "000000000000000000";
+        public bool hasConnectedOnce = false;
 
         public override void Register()
         {
@@ -34,6 +32,10 @@ namespace SCPDiscord
             this.AddEventHandlers(new AdminEventHandler(this));
             this.AddEventHandlers(new EnvironmentEventHandler(this));
             this.AddEventHandlers(new TeamEventHandler(this));
+
+            //Connection settings
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_port", 8888, Smod2.Config.SettingType.NUMERIC, true, "Port of the discord bot."));
 
             //Round events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundstart", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
@@ -86,38 +88,14 @@ namespace SCPDiscord
 
         public override void OnEnable()
         {
-            //Connection settings
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_port", 8888, Smod2.Config.SettingType.NUMERIC, true, "Port of the discord bot."));
-
-            try
-            {
-                this.Info("Your Bot IP: " + this.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + this.GetConfigInt("discord_bot_port") + ".");
-                clientSocket.Connect(this.GetConfigString("discord_bot_ip"), this.GetConfigInt("discord_bot_port"));
-            }
-            catch(SocketException e)
-            {
-                this.Info("Error occured while connecting to discord bot server.\n" + e.ToString());
-                this.pluginManager.DisablePlugin(this);
-            }
-            catch (ObjectDisposedException e)
-            {
-                this.Info("TCP client was unexpectedly closed.\n" + e.ToString());
-                this.pluginManager.DisablePlugin(this);
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                this.Info("Invalid port.\n" + e.ToString());
-                this.pluginManager.DisablePlugin(this);
-            }
-            catch (ArgumentNullException e)
-            {
-                this.Info("IP address is null.\n" + e.ToString());
-                this.pluginManager.DisablePlugin(this);
-            }
-
             this.Info("SCPDiscord enabled.");
-            SendMessageAsync("default", "Plugin Enabled.");
+            //Runs until the server has connected once
+            Thread connectionThread = new Thread(new ThreadStart(() => new AsyncConnect(this)));
+            connectionThread.Start();
+
+            //Keeps running to auto-reconnect if needed
+            Thread watchdogThread = new Thread(new ThreadStart(() => new AsyncConnectionWatchdog(this)));
+            watchdogThread.Start();
         }
 
         public void SendMessageAsync(string channelID, string message)
