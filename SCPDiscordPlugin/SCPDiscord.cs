@@ -84,6 +84,8 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onteamrespawn", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetscpconfig", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
 
+            //Formatting options
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_formatting_date", "HH:mm:ss", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
         }
 
         public override void OnEnable()
@@ -102,6 +104,11 @@ namespace SCPDiscord
         {
             if(channelID != "off")
             {
+                if(this.GetConfigString("discord_formatting_date") != "off")
+                {
+                    message = "[" + DateTime.Now.ToString(this.GetConfigString("discord_formatting_date")) + "]: " + message;
+                }
+
                 Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(this, channelID, message)));
                 messageThread.Start();
             }
