@@ -50,14 +50,17 @@ namespace SCPDiscord
         {
             /// <summary>  
             ///  This is the event handler for Round end events (when the stats appear on screen)
-            /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundend"), "**Round ended after " + (ev.Round.Duration/60) + " minutes.** \n" +
-                "```\n" +
-                "Escaped D-class:    " + ev.Round.Stats.ClassDEscaped + "/" + ev.Round.Stats.ClassDStart + "\n" +
-                "Rescued Scientists: " + ev.Round.Stats.ScientistsEscaped + "/" + ev.Round.Stats.ScientistsStart + "\n" +
-                "Contained SCPs:     " + ev.Round.Stats.SCPDead + "/" + ev.Round.Stats.SCPStart + "\n" +
-                "Killed by SCP:      " + ev.Round.Stats.SCPKills + "\n" +
-                "```");
+            /// </summary>
+            if(ev.Round.Duration > 5)
+            {
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundend"), "**Round ended after " + (ev.Round.Duration/60) + " minutes.** \n" +
+                    "```\n" +
+                    "Escaped D-class:    " + ev.Round.Stats.ClassDEscaped + "/" + ev.Round.Stats.ClassDStart + "\n" +
+                    "Rescued Scientists: " + ev.Round.Stats.ScientistsEscaped + "/" + ev.Round.Stats.ScientistsStart + "\n" +
+                    "Contained SCPs:     " + ev.Round.Stats.SCPDead + "/" + ev.Round.Stats.SCPStart + "\n" +
+                    "Killed by SCP:      " + ev.Round.Stats.SCPKills + "\n" +
+                    "```");
+            }
         }
 
         public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
