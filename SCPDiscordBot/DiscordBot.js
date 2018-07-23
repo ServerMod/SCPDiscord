@@ -8,7 +8,7 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 
-var messageQueue = [];
+var messageQueue = JSON.parse('{}');
 
 console.log('Binding TCP port...');
 var net = require('net');
@@ -18,21 +18,50 @@ net.createServer(function (socket)
     // Handle incoming messages
     socket.on('data', function (data)
     {
-        var messages = data.split('\n')
-        messages.forEach(function (element)
+        var messages = data.split('\u0000')
+        messages.forEach(function (packet)
         {
-            var destinationChannel = element.slice(0, 18)
-            if (destinationChannel === "000000000000000000")
+            var destinationChannel = packet.slice(0, 18)
+            var message = packet.slice(18)
+            if (message != "")
             {
-                destinationChannel = genericMessagesChannel;
-            }
-            var message = element.slice(18)
-            if (client !== null && message != "")
-            {
-                client.channels.get(destinationChannel).send(message);
-                console.log(message);
+                //Switch the default channel key for the actual default channel id
+                if (destinationChannel === "000000000000000000")
+                {
+                    destinationChannel = genericMessagesChannel;
+                }
+
+                // If this channel has not been used yet it must be initialized
+                if (messageQueue[destinationChannel] == null)
+                {
+                    messageQueue[destinationChannel] = (message + "\n");
+                }
+                else
+                {
+                    messageQueue[destinationChannel] += (message + "\n");
+                }
+
             }
         });
+        for (var channelID in messageQueue)
+        {
+            if (client !== null)
+            {
+                var verifiedChannel = client.channels.get(channelID);
+                if (verifiedChannel != null)
+                {
+                    //Message is copied to a new variable as it's deletion later may happen before the send function finishes
+                    var message = messageQueue[channelID];
+                    verifiedChannel.send(message);
+                    console.log("Sent: " + channelID + ": " + message);
+                }
+                else
+                {
+                    console.log("Channel not found for message: " + messageQueue);
+                }
+                messageQueue[channelID] = "";
+            }
+        }
     });
 }).listen(port)
 {
