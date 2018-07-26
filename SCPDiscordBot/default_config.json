@@ -6,8 +6,8 @@
   "prefix": "+",
 
   "_description": "Port to listen on.",
-  "port": 8888,
+  "listeningPort": 8888,
 
-  "_description": "Channel to post generic plugin messages in. Everything set to 'default' in the plugin config goes to this channel",
+  "_description": "Channel to post generic plugin messages in. Also the channel to check for Discord commands in",
   "genericMessagesChannel": "add-channel-id-here"
 }
