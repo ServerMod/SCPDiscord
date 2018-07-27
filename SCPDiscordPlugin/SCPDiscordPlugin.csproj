@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="AdminEventHandler.cs" />
     <Compile Include="AsyncTask.cs" />
+    <Compile Include="BotListener.cs" />
     <Compile Include="EnvironmentEventHandler.cs" />
     <Compile Include="PlayerEventHandler.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

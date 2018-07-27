@@ -78,7 +78,7 @@ listenSocket.createServer(function (socket)
         const args = message.content.slice(prefix.length).split(/ +/);
         const command = args.shift().toLowerCase();
 
-        //Add commands here
+        //Add commands here, I only verify permissions and that the command exists here
         if (command === 'setavatar' && message.member.hasPermission("ADMINISTRATOR"))
         {
             var url = args.shift();
