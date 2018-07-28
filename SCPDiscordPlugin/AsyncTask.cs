@@ -64,22 +64,26 @@ namespace SCPDiscord
                 }
                 catch (SocketException e)
                 {
-                    plugin.Info("Error occured while connecting to discord bot server.\n" + e.ToString());
+                    plugin.Info("Error occured while connecting to discord bot server.");
+                    plugin.Debug(e.ToString());
                     Thread.Sleep(5000);
                 }
                 catch (ObjectDisposedException e)
                 {
-                    plugin.Info("TCP client was unexpectedly closed.\n" + e.ToString());
+                    plugin.Info("TCP client was unexpectedly closed.");
+                    plugin.Debug(e.ToString());
                     Thread.Sleep(5000);
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    plugin.Info("Invalid port.\n" + e.ToString());
+                    plugin.Info("Invalid port.");
+                    plugin.Debug(e.ToString());
                     Thread.Sleep(5000);
                 }
                 catch (ArgumentNullException e)
                 {
-                    plugin.Info("IP address is null.\n" + e.ToString());
+                    plugin.Info("IP address is null.");
+                    plugin.Debug(e.ToString());
                     Thread.Sleep(5000);
                 }
             }

@@ -56,7 +56,7 @@ listenSocket.createServer(function (socket)
                 if (verifiedChannel != null)
                 {
                     //Message is copied to a new variable as it's deletion later may happen before the send function finishes
-                    var message = messageQueue[channelID];
+                    var message = messageQueue[channelID].slice(0, -1);
                     verifiedChannel.send(message);
                     console.log("Sent: " + channelID + ": '" + message + "' to Discord.");
                 }
@@ -68,7 +68,7 @@ listenSocket.createServer(function (socket)
             }
         }
     });
-    //Parsing comands
+    //Parsing commands
     client.on('message', message =>
     {
         //Abort if message does not start with the prefix

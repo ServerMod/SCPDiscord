@@ -40,8 +40,7 @@ namespace SCPDiscord
                                 //Check if the command has enough arguments
                                 if (args.Length < 4)
                                 {
-                                    Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(plugin, "default", "Missing arguments.")));
-                                    messageThread.Start();
+                                    plugin.SendMessageAsync("default", "Missing arguments.");
                                     continue;
                                 }
 
@@ -49,34 +48,40 @@ namespace SCPDiscord
                                 string steamID = args[2];
                                 if(steamID.Length != 17 || !long.TryParse(steamID, out long n))
                                 {
-                                    Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(plugin, "default", "Invalid SteamID.")));
-                                    messageThread.Start();
+                                    plugin.SendMessageAsync("default", "Invalid SteamID.");
                                     continue;
                                 }
 
                                 //Create timestamps
                                 DateTime currentTime = DateTime.UtcNow;
-                                DateTime endTime = ParseDuration(args[3]);
+                                DateTime endTime = ParseDuration(ref args[3]);
                                 if(endTime == DateTime.MinValue)
                                 {
-                                    Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(plugin, "default", "Invalid Duration.")));
-                                    messageThread.Start();
+                                    plugin.SendMessageAsync("default", "Invalid Duration.");
                                     continue;
                                 }
 
+                                string name = GetName(steamID, plugin);
+
                                 //Add the player to the SteamIDBans file
                                 StreamWriter streamWriter = new StreamWriter(FileManager.AppFolder + "/SteamIdBans.txt", true);
-                                streamWriter.WriteLine(GetName(steamID, plugin) + ';' + steamID + ';' + endTime.Ticks + ';' + MergeReason(args) + ";DISCORD;" + currentTime.Ticks);
+                                streamWriter.WriteLine(name + ';' + steamID + ';' + endTime.Ticks + ';' + MergeReason(args) + ";DISCORD;" + currentTime.Ticks);
                                 streamWriter.Dispose();
-                                KickPlayer(steamID, plugin);
+                                if (KickPlayer(steamID, plugin))
+                                {
+                                    plugin.SendMessageAsync("default", "'" + name + "' was banned from the server. (" + args[3] + ")");
+                                }
+                                else
+                                {
+                                    plugin.SendMessageAsync("default", "Offline player banned from the server. (" + args[3] + ")");
+                                }
                             }
                             else if (args[1] == "kick")
                             {
                                 //Check if the command has enough arguments
                                 if (args.Length < 3)
                                 {
-                                    Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(plugin, "default", "Missing arguments.")));
-                                    messageThread.Start();
+                                    plugin.SendMessageAsync("default", "Missing arguments.");
                                     continue;
                                 }
 
@@ -85,13 +90,18 @@ namespace SCPDiscord
                                 plugin.Info("SteamID: '" + steamID + "' SteamID Length: " + steamID.Length + ". SteamID numeric: " + long.TryParse(steamID, out long test));
                                 if (steamID.Length != 17 || !long.TryParse(steamID, out long n))
                                 {
-                                    Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(plugin, "default", "Invalid SteamID.")));
-                                    messageThread.Start();
+                                    plugin.SendMessageAsync("default", "Invalid SteamID.");
                                     continue;
                                 }
-
-
-                                KickPlayer(steamID, plugin);
+                                string playerName = GetName(steamID,plugin);
+                                if(KickPlayer(steamID, plugin))
+                                {
+                                    plugin.SendMessageAsync("default", "'" + playerName + "' was kicked from the server.");
+                                }
+                                else
+                                {
+                                    plugin.SendMessageAsync("default", "Player not found.");
+                                }
                             }
                         }
                         plugin.Info("From discord: " + discordMessage);
@@ -144,11 +154,15 @@ namespace SCPDiscord
                 output += args[i];
                 output += ' ';
             }
+            while(output.Length > 0 && output.EndsWith(" "))
+            {
+                output = output.Remove(output.Length -1);
+            }
             return output;
         }
 
-        // Returns a timestamp of the duration's end
-        private DateTime ParseDuration(string duration)
+        // Returns a timestamp of the duration's end, and the duration parameter is set to a human readable duration
+        private DateTime ParseDuration(ref string duration)
         {
             if (!int.TryParse(new string(duration.Where(Char.IsDigit).ToArray()), out int amount))
             {
@@ -159,30 +173,37 @@ namespace SCPDiscord
             
             if (unit == 's')
             {
+                duration = amount + " seconds";
                 timeSpanDuration = new TimeSpan(0, 0, 0, amount);
             }
             else if (unit == 'm')
             {
+                duration = amount + " minutes";
                 timeSpanDuration = new TimeSpan(0,0,amount,0);
             }
             else if (unit == 'h')
             {
+                duration = amount + " hours";
                 timeSpanDuration = new TimeSpan(0, amount, 0, 0);
             }
             else if (unit == 'd')
             {
+                duration = amount + " days";
                 timeSpanDuration = new TimeSpan(amount, 0, 0, 0);
             }
             else if (unit == 'w')
             {
+                duration = amount + " weeks";
                 timeSpanDuration = new TimeSpan(7 * amount, 0, 0, 0);
             }
             else if (unit == 'M')
             {
+                duration = amount + " months";
                 timeSpanDuration = new TimeSpan(30 * amount, 0, 0, 0);
             }
             else if (unit == 'y')
             {
+                duration = amount + " years";
                 timeSpanDuration = new TimeSpan(365 * amount, 0, 0, 0);
             }
             return DateTime.UtcNow.Add(timeSpanDuration);
