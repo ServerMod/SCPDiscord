@@ -36,7 +36,10 @@ namespace SCPDiscord
                 byte[] outStream = System.Text.Encoding.UTF8.GetBytes(channelID + message + '\0');
                 serverStream.Write(outStream, 0, outStream.Length);
 
-                plugin.Info("Sent message '" + message + "' to discord.");
+                if(plugin.GetConfigBool("discord_verbose"))
+                {
+                    plugin.Info("Sent message '" + message + "' to discord.");
+                }
             }
             catch(InvalidOperationException e)
             {

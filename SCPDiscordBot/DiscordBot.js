@@ -1,6 +1,6 @@
 console.log('Config loading...');
 
-const { token, prefix, listeningPort, genericMessagesChannel } = require('./config.json');
+const { token, prefix, listeningPort, genericMessagesChannel, verbose } = require('./config.json');
 
 console.log('Config loaded.');
 
@@ -11,16 +11,14 @@ const client = new Discord.Client();
 var messageQueue = JSON.parse('{}');
 
 console.log('Binding TCP port...');
-var listenSocket = require('net');
-listenSocket.createServer(function (socket)
+var listenServer = require('net');
+listenServer.createServer(function (socket)
 {
     socket.setEncoding("utf8");
-    // Handle incoming messages
-    socket.on('connection', function ()
-    {
-        console.log('Plugin connected.');
-    })
 
+    console.log('Plugin connected.');
+
+    // Messages from the plugin
     socket.on('data', function (data)
     {
         var messages = data.split('\u0000')
@@ -58,23 +56,30 @@ listenSocket.createServer(function (socket)
                     //Message is copied to a new variable as it's deletion later may happen before the send function finishes
                     var message = messageQueue[channelID].slice(0, -1);
                     verifiedChannel.send(message);
-                    console.log("Sent: " + channelID + ": '" + message + "' to Discord.");
+                    if (verbose)
+                    {
+                        console.log("Sent: " + channelID + ": '" + message + "' to Discord.");
+                    }
                 }
                 else
                 {
-                    console.log("Channel not found for message: " + messageQueue);
+                    if (verbose)
+                    {
+                        console.log("Channel not found for message: " + messageQueue);
+                    }
                 }
                 messageQueue[channelID] = "";
             }
         }
     });
 
+    //Connection issues
     socket.on('error', function (data)
     {
         console.log('Plugin connection lost.');
     });
 
-    //Parsing commands
+    //Messages from Discord
     client.on('message', message =>
     {
         //Abort if message does not start with the prefix
@@ -94,6 +99,7 @@ listenSocket.createServer(function (socket)
         else if (command === 'test' && message.member.hasPermission("ADMINISTRATOR"))
         {
             socket.write(message.member.displayName + " used the command 'test'. If you can read this it means everything works as it should.");
+            console.log("Forwarded test message to plugin.");
             message.channel.send('Check your SCP server console for confirmation.');
         }
         else if (command === 'ban' && message.member.hasPermission("BAN_MEMBERS"))
