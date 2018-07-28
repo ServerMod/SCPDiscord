@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 
 namespace SCPDiscord
@@ -108,7 +106,8 @@ namespace SCPDiscord
                     }
                     catch (Exception ex)
                     {
-                        plugin.Info(ex.ToString());
+                        plugin.Debug(ex.ToString());
+                        plugin.clientSocket.Close();
                     }
                 }
                 else
