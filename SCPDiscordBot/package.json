@@ -1,6 +1,6 @@
 {
   "name": "SCPDiscord",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "SCPDiscord, a Discord - SCP:SL bridge",
   "main": "DiscordBot.js",
   "homepage": "https://www.karlofduty.com",
