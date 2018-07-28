@@ -25,7 +25,7 @@ Variables:
 * `<url>/<path>` - Either a local path or url to an image to set as your bot's avatar.
 
 ---
-`ban <steamid> <duration> (reason)` - Bans a player from the server.
+`ban <steamid> <duration> (reason)` - Bans a player from the server. (Ban permission in Discord required)
 
 Variables: 
 
@@ -39,7 +39,7 @@ Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with
 
 ---
 
-`kick <steamid>` - Kicks a player from the server.
+`kick <steamid>` - Kicks a player from the server. (Kick permission in Discord required)
 
 Variables: 
 
