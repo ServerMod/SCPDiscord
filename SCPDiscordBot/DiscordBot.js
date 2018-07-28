@@ -68,6 +68,12 @@ listenSocket.createServer(function (socket)
             }
         }
     });
+
+    socket.on('error', function (data)
+    {
+        console.log('Plugin connection lost.');
+    });
+
     //Parsing commands
     client.on('message', message =>
     {
