@@ -1,6 +1,6 @@
 console.log('Config loading...');
 
-const { token, prefix, listeningPort, genericMessagesChannel, verbose } = require('./config.json');
+const { token, prefix, listeningPort, defaultChannel, verbose } = require('./config.json');
 
 console.log('Config loaded.');
 
@@ -31,7 +31,7 @@ listenServer.createServer(function (socket)
                 //Switch the default channel key for the actual default channel id
                 if (destinationChannel === "000000000000000000")
                 {
-                    destinationChannel = genericMessagesChannel;
+                    destinationChannel = defaultChannel;
                 }
 
                 // If this channel has not been used yet it must be initialized
@@ -83,7 +83,7 @@ listenServer.createServer(function (socket)
     client.on('message', message =>
     {
         //Abort if message does not start with the prefix
-        if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id != genericMessagesChannel) return;
+        if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id != defaultChannel) return;
 
         //Cut message into base command and arguments
         const args = message.content.slice(prefix.length).split(/ +/);
@@ -124,7 +124,7 @@ console.log('Connecting to Discord...');
 client.on('ready', () =>
 {
     console.log('Discord connection established.');
-    client.channels.get(genericMessagesChannel).send("Bot Online.");
+    client.channels.get(defaultChannel).send("Bot Online.");
 });
 
 
