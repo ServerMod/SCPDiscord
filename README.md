@@ -18,7 +18,52 @@ You can for instance have one public channel for each of your servers where thin
 
 ## Bot commands
 
-`setavatar <url>/<path>` Either a local path or url to an image to set as your bot's avatar.
+`setavatar <url>/<path>` - Sets the avatar picture for your bot.
+
+Variables: 
+
+* `<url>/<path>` - Either a local path or url to an image to set as your bot's avatar.
+
+---
+`ban <steamid> <duration> (reason)` - Bans a player from the server.
+
+Variables: 
+
+* `<steamid>` - The SteamID of the player to be banned.
+
+* `<duration>` - The duration of the ban, time formatting info below.
+
+* `(reason)` - Optional reason for the ban.
+
+Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with the reason "Bad man."
+
+---
+
+`kick <steamid>` - Kicks a player from the server.
+
+Variables: 
+
+* `<steamid>` - The SteamID of the player to be kicked.
+
+---
+
+Time is expressed in the format NumberUnit where unit is a unit of time and number is the amount of that time unit, for example 6M represents six months.
+
+Valid time units:
+
+* `s` - Seconds
+
+* `m` - Minutes
+
+* `h` - Hours
+
+* `d` - Days
+
+* `w` - Weeks
+
+* `M` - Months
+
+* `y` - Years
 
 ## Installation and configuration
 
