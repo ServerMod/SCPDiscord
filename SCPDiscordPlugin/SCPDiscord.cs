@@ -20,8 +20,9 @@ namespace SCPDiscord
         )]
     class SCPDiscordPlugin : Plugin
     {
+        //Sends outgoing messages
         public TcpClient clientSocket = new TcpClient();
-        public readonly string GENERICMESSAGECHANNEL = "000000000000000000";
+
         public bool hasConnectedOnce = false;
 
         public override void Register()
@@ -35,8 +36,7 @@ namespace SCPDiscord
 
             //Connection settings
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_port", 8888, Smod2.Config.SettingType.NUMERIC, true, "Port of the discord bot."));
-
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_port", 9999, Smod2.Config.SettingType.NUMERIC, true, "Port to send messages to the bot on."));
             //Round events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundstart", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onconnect", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
@@ -94,6 +94,10 @@ namespace SCPDiscord
             //Runs until the server has connected once
             Thread connectionThread = new Thread(new ThreadStart(() => new AsyncConnect(this)));
             connectionThread.Start();
+
+            //Runs the listener
+            Thread botListenerThread = new Thread(new ThreadStart(() => new BotListener(this)));
+            botListenerThread.Start();
 
             //Keeps running to auto-reconnect if needed
             Thread watchdogThread = new Thread(new ThreadStart(() => new AsyncConnectionWatchdog(this)));

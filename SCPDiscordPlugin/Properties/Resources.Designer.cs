@@ -59,15 +59,5 @@ namespace SCPDiscord.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Smod2 {
-            get {
-                object obj = ResourceManager.GetObject("Smod2", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

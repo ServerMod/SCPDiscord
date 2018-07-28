@@ -1,5 +1,5 @@
-﻿using Smod2;
-using System;
+﻿using System;
+using System.IO;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -40,11 +40,13 @@ namespace SCPDiscord
             }
             catch(InvalidOperationException e)
             {
-                plugin.Error("Error sending message '" + message + "' to discord: " + e.ToString());
+                plugin.Error("Error sending message '" + message + "' to discord.");
+                plugin.Debug(e.ToString());
             }
             catch (ArgumentNullException e)
             {
-                plugin.Error("Error sending message '" + message + "' to discord: " + e.ToString());
+                plugin.Error("Error sending message '" + message + "' to discord.");
+                plugin.Debug(e.ToString());
             }
         }
     }
@@ -64,22 +66,26 @@ namespace SCPDiscord
                 }
                 catch (SocketException e)
                 {
-                    plugin.Info("Error occured while connecting to discord bot server.\n" + e.ToString());
+                    plugin.Info("Error occured while connecting to discord bot server.");
+                    plugin.Debug(e.ToString());
                     Thread.Sleep(5000);
                 }
                 catch (ObjectDisposedException e)
                 {
-                    plugin.Info("TCP client was unexpectedly closed.\n" + e.ToString());
+                    plugin.Info("TCP client was unexpectedly closed.");
+                    plugin.Debug(e.ToString());
                     Thread.Sleep(5000);
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    plugin.Info("Invalid port.\n" + e.ToString());
+                    plugin.Info("Invalid port.");
+                    plugin.Debug(e.ToString());
                     Thread.Sleep(5000);
                 }
                 catch (ArgumentNullException e)
                 {
-                    plugin.Info("IP address is null.\n" + e.ToString());
+                    plugin.Info("IP address is null.");
+                    plugin.Debug(e.ToString());
                     Thread.Sleep(5000);
                 }
             }
@@ -102,28 +108,32 @@ namespace SCPDiscord
                     try
                     {
                         plugin.Info("Your Bot IP: " + plugin.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + plugin.GetConfigInt("discord_bot_port") + ".");
-                        plugin.clientSocket.Connect(plugin.GetConfigString("discord_bot_ip"), plugin.GetConfigInt("discord_bot_port"));
+                        plugin.clientSocket = new TcpClient(plugin.GetConfigString("discord_bot_ip"), plugin.GetConfigInt("discord_bot_port"));
                         plugin.Info("Reconnected to Discord bot.");
                         plugin.SendMessageAsync("default", "Plugin Reconnected.");
                     }
                     catch (SocketException e)
                     {
-                        plugin.Info("Error occured while reconnecting to discord bot server.\n" + e.ToString());
+                        plugin.Info("Error occured while reconnecting to discord bot server.");
+                        plugin.Debug(e.ToString());
                         Thread.Sleep(5000);
                     }
                     catch (ObjectDisposedException e)
                     {
-                        plugin.Info("TCP client was unexpectedly closed.\n" + e.ToString());
+                        plugin.Info("TCP client was unexpectedly closed.");
+                        plugin.Debug(e.ToString());
                         Thread.Sleep(5000);
                     }
                     catch (ArgumentOutOfRangeException e)
                     {
-                        plugin.Info("Invalid port.\n" + e.ToString());
+                        plugin.Info("Invalid port.");
+                        plugin.Debug(e.ToString());
                         Thread.Sleep(5000);
                     }
                     catch (ArgumentNullException e)
                     {
-                        plugin.Info("IP address is null.\n" + e.ToString());
+                        plugin.Info("IP address is null.");
+                        plugin.Debug(e.ToString());
                         Thread.Sleep(5000);
                     }
                 }
