@@ -40,11 +40,13 @@ namespace SCPDiscord
             }
             catch(InvalidOperationException e)
             {
-                plugin.Error("Error sending message '" + message + "' to discord: " + e.ToString());
+                plugin.Error("Error sending message '" + message + "' to discord.");
+                plugin.Debug(e.ToString());
             }
             catch (ArgumentNullException e)
             {
-                plugin.Error("Error sending message '" + message + "' to discord: " + e.ToString());
+                plugin.Error("Error sending message '" + message + "' to discord.");
+                plugin.Debug(e.ToString());
             }
         }
     }
