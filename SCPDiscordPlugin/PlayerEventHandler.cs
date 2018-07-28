@@ -1,5 +1,7 @@
 ﻿using Smod2.EventHandlers;
 using Smod2.Events;
+using System;
+using System.Linq;
 
 namespace SCPDiscord
 {
@@ -9,12 +11,20 @@ namespace SCPDiscord
         IEventHandlerThrowGrenade
     {
         private SCPDiscordPlugin plugin;
+        // First dimension is target player second dimension is attacking player
+        int[][] teamKillingMatrix = new int[6][] {
+            new int[] { 0 },
+            new int[] { 1, 3 },
+            new int[] { 2, 4 },
+            new int[] { 3, 1 },
+            new int[] { 4, 2 },
+            new int[] { 5 }
+        };
 
         public PlayerEventHandler(SCPDiscordPlugin plugin)
         {
             this.plugin = plugin;
         }
-
         public void OnPlayerHurt(PlayerHurtEvent ev)
         {
             /// <summary>  
@@ -22,6 +32,30 @@ namespace SCPDiscord
             /// In case the attacker can't be passed, attacker will be null (fall damage etc)
             /// This may be broken into two events in the future
             /// </summary> 
+
+            if (ev.Player == null)
+            {
+                return;
+            }
+
+            if (ev.Attacker == null)
+            {
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerhurt"), ev.Player.Name + " (" + ev.Player.SteamId + ") died.");
+                return;
+            }
+
+            if(ev.Player.SteamId != ev.Attacker.SteamId)
+            {
+                foreach (int friendlyTeam in teamKillingMatrix[(int)ev.Attacker.TeamRole.Team])
+                {
+                    if ((int)ev.Player.TeamRole.Team == friendlyTeam)
+                    {
+                        plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerhurt"), "**" + ev.Player.TeamRole.Team.ToString() + " " + ev.Player.Name + " (" + ev.Player.SteamId + ") was team damaged by " + ev.Attacker.TeamRole.Team.ToString() + " " + ev.Attacker.Name + " (" + ev.Attacker.SteamId + ").**");
+                        return;
+                    }
+                }
+            }
+
             plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerhurt"), ev.Player.Name + " (" + ev.Player.SteamId + ") was hurt by " + ev.Attacker.Name + " (" + ev.Attacker.SteamId + ") using " + ev.DamageType + ".");
         }
 
@@ -31,6 +65,29 @@ namespace SCPDiscord
             /// This is called before the player is about to die. Be sure to check if player is SCP106 (classID 3) and if so, set spawnRagdoll to false.
             /// In case the killer can't be passed, attacker will be null, so check for that before doing something.
             /// </summary> 
+
+            if (ev.Player == null)
+            {
+                return;
+            }
+
+            if(ev.Killer == null)
+            {
+                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerdie"), ev.Player.Name + " (" + ev.Player.SteamId + ") died.");
+                return;
+            }
+            
+            if(ev.Player.SteamId != ev.Killer.SteamId)
+            {
+                foreach(int friendlyTeam in teamKillingMatrix[(int)ev.Killer.TeamRole.Team])
+                {
+                    if((int)ev.Player.TeamRole.Team == friendlyTeam)
+                    {
+                        plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerdie"), "**" + ev.Player.TeamRole.Team.ToString() + " " + ev.Player.Name + " (" + ev.Player.SteamId + ") was teamkilled by " + ev.Killer.TeamRole.Team.ToString() + " " + ev.Killer.Name + " (" + ev.Killer.SteamId + ").**");
+                        return;
+                    }
+                }
+            }
             plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerdie"), ev.Player.Name + " (" + ev.Player.SteamId + ") died. Killed by " + ev.Killer.Name + " (" + ev.Killer.SteamId + ").");
         }
 

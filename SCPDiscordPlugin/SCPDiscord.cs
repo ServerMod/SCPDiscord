@@ -121,6 +121,7 @@ namespace SCPDiscord
         public override void OnDisable()
         {
             this.Info("SCPDiscord disabled.");
+            clientSocket.Close();
         }
     }
 }
