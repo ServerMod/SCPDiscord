@@ -8,8 +8,8 @@
   "_description": "Port to listen on.",
   "listeningPort": 8888,
 
-  "_description": "Channel to post generic plugin messages in. Also the channel to check for Discord commands in",
-  "genericMessagesChannel": "add-channel-id-here",
+  "_description": "Channel to post generic plugin messages in. Also the channel to listen for Discord commands in.",
+  "defaultChannel": "add-channel-id-here",
 
   "_description": "Log more messages to the console, useful for debugging",
   "verbose": false
