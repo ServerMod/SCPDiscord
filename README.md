@@ -46,6 +46,7 @@ Variables:
 * `<steamid>` - The SteamID of the player to be kicked.
 
 ---
+**Time**
 
 Time is expressed in the format NumberUnit where unit is a unit of time and number is the amount of that time unit, for example 6M represents six months.
 
