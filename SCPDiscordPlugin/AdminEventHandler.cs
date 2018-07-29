@@ -36,17 +36,21 @@ namespace SCPDiscord
             }
         }
 
+        //public void OnBan(BanEvent ev)
+        //{
+        //    ///Doesn't seem to trigger at all, not sure why
+        //    if(ev.AllowBan)
+        //    {
+        //        plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onban"), "Player " + ev.Player.Name + " (" + ev.Player.SteamId + ") was banned by " + ev.Admin.Name + " (" + ev.Admin.SteamId + ") for " + (ev.Duration / 60) + " minutes.");
+        //    }
+        //    else
+        //    {
+        //        plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onban"), ev.Admin.Name + " (" + ev.Admin.SteamId + ") tried to ban " + ev.Player.Name + " (" + ev.Player.SteamId + ") for " + (ev.Duration / 60) + " minutes but was not allowed.");
+        //    }
+        //}
         public void OnBan(BanEvent ev)
         {
-            ///Doesn't seem to trigger at all, not sure why
-            if(ev.AllowBan)
-            {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onban"), "Player " + ev.Player.Name + " (" + ev.Player.SteamId + ") was banned by " + ev.Admin.Name + " (" + ev.Admin.SteamId + ") for " + (ev.Duration / 60) + " minutes.");
-            }
-            else
-            {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onban"), ev.Admin.Name + " (" + ev.Admin.SteamId + ") tried to ban " + ev.Player.Name + " (" + ev.Player.SteamId + ") for " + (ev.Duration / 60) + " minutes but was not allowed.");
-            }
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onban"), "Player " + ev.Player.Name + " (" + ev.Player.SteamId + ") was banned by " + ev.Admin.Name + " (" + ev.Admin.SteamId + ") for " + (ev.Duration / 60) + " minutes.");
         }
     }
 }

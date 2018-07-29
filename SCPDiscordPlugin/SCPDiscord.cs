@@ -13,10 +13,10 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "Plugin which outputs server events to Discord.",
         id = "karlofduty.scpdiscord",
-        version = "0.0.1",
+        version = "0.1.1",
         SmodMajor = 3,
         SmodMinor = 1,
-        SmodRevision = 9
+        SmodRevision = 10
         )]
     class SCPDiscordPlugin : Plugin
     {
@@ -37,6 +37,7 @@ namespace SCPDiscord
             //Connection settings
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_port", 8888, Smod2.Config.SettingType.NUMERIC, true, "Port to send messages to the bot on."));
+            
             //Round events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundstart", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onconnect", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
@@ -72,6 +73,11 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onpocketdimensionenter", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onpocketdimensiondie", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onthrowgrenade", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerinfected", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onspawnragdoll", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onlure", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_oncontain106", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+
 
             //Admin events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onadminquery", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));

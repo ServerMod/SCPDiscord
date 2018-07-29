@@ -8,7 +8,7 @@ namespace SCPDiscord
     class PlayerEventHandler : IEventHandlerPlayerJoin, IEventHandlerPlayerDie, IEventHandlerSpawn, IEventHandlerPlayerHurt, IEventHandlerPlayerPickupItem, 
         IEventHandlerPlayerDropItem, IEventHandlerNicknameSet, IEventHandlerInitialAssignTeam, IEventHandlerSetRole, IEventHandlerCheckEscape, IEventHandlerDoorAccess,
         IEventHandlerIntercom, IEventHandlerIntercomCooldownCheck, IEventHandlerPocketDimensionExit, IEventHandlerPocketDimensionEnter, IEventHandlerPocketDimensionDie, 
-        IEventHandlerThrowGrenade
+        IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerSpawnRagdoll, IEventHandlerLure, IEventHandlerContain106
     {
         private SCPDiscordPlugin plugin;
         // First dimension is target player second dimension is attacking player
@@ -25,6 +25,7 @@ namespace SCPDiscord
         {
             this.plugin = plugin;
         }
+
         public void OnPlayerHurt(PlayerHurtEvent ev)
         {
             /// <summary>  
@@ -216,6 +217,38 @@ namespace SCPDiscord
             /// Called after a player throws a grenade
             /// <summary>  
             plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onthrowgrenade"), ev.Player.Name + " (" + ev.Player.SteamId + ") threw a grenade.");
+        }
+
+        public void OnPlayerInfected(PlayerInfectedEvent ev)
+        {
+            /// <summary>  
+            /// Called when a player is cured by SCP-049
+            /// <summary>  
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerinfected"), ev.Player.Name + " (" + ev.Player.SteamId + ") was cured by SCP-049.");
+        }
+
+        public void OnSpawnRagdoll(PlayerSpawnRagdollEvent ev)
+        {
+            /// <summary>  
+            /// Called when a ragdoll is spawned
+            /// <summary>  
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onspawnragdoll"), ev.Player.Name + " (" + ev.Player.SteamId + ")'s ragdoll spawned.");
+        }
+
+        public void OnLure(PlayerLureEvent ev)
+        {
+            /// <summary>  
+            /// Called when a player enters FemurBreaker
+            /// <summary> 
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onlure"), ev.Player.Name + " (" + ev.Player.SteamId + ") gave their life in order to contain SCP-106.");
+        }
+
+        public void OnContain106(PlayerContain106Event ev)
+        {
+            /// <summary>  
+            /// Called when a player presses the button to contain SCP-106
+            /// <summary>
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_oncontain106"), ev.Player.Name + " (" + ev.Player.SteamId + ") has activated SCP-106 recall protocol.");
         }
     }
 }
