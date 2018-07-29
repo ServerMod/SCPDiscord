@@ -248,7 +248,7 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player presses the button to contain SCP-106
             /// <summary>
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_oncontain106"), ev.Player.Name + " (" + ev.Player.SteamId + ") has activated SCP-106 recall protocol.");
+            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_oncontain106"), ev.Player.Name + " (" + ev.Player.SteamId + ") has initialized SCP-106 recall protocol.");
         }
     }
 }
