@@ -11,7 +11,7 @@ namespace SCPDiscord
     [PluginDetails(
         author = "Karl Essinger",
         name = "SCPDiscord",
-        description = "Plugin which outputs server events to Discord.",
+        description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
         version = "0.1.1",
         SmodMajor = 3,
