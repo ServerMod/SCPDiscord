@@ -6,6 +6,7 @@ namespace SCPDiscord
     class RoundEventHandler : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerWaitingForPlayers, IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName
     {
         private SCPDiscordPlugin plugin;
+        bool roundHasStarted = false;
 
         public RoundEventHandler(SCPDiscordPlugin plugin)
         {
@@ -18,6 +19,7 @@ namespace SCPDiscord
             ///  This is the event handler for Round start events (before people are spawned in)
             /// </summary> 
             plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundstart"), "**Round started.**");
+            roundHasStarted = true;
         }
 
         public void OnConnect(ConnectEvent ev)
@@ -51,7 +53,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for Round end events (when the stats appear on screen)
             /// </summary>
-            if(ev.Round.Duration > 5)
+            if(roundHasStarted && ev.Round.Duration > 60)
             {
                 plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onroundend"), "**Round ended after " + (ev.Round.Duration/60) + " minutes.** \n" +
                     "```\n" +
@@ -60,6 +62,7 @@ namespace SCPDiscord
                     "Contained SCPs:     " + ev.Round.Stats.SCPDead + "/" + ev.Round.Stats.SCPStart + "\n" +
                     "Killed by SCP:      " + ev.Round.Stats.SCPKills + "\n" +
                     "```");
+                roundHasStarted = false;
             }
         }
 
