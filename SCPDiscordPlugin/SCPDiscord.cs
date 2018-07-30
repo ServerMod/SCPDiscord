@@ -78,7 +78,6 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onlure", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_oncontain106", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
 
-
             //Admin events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onadminquery", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onauthcheck", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
@@ -112,6 +111,11 @@ namespace SCPDiscord
             watchdogThread.Start();
         }
 
+        /// <summary>
+        /// Sends a message to Discord.
+        /// </summary>
+        /// <param name="channelID">The channel id to post the message in.</param>
+        /// <param name="message">The message to send.</param>
         public void SendMessageAsync(string channelID, string message)
         {
             if(channelID != "off")
@@ -124,6 +128,44 @@ namespace SCPDiscord
                 Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(this, channelID, message)));
                 messageThread.Start();
             }
+        }
+
+        /// <summary>
+        /// Kicks a player by SteamID.
+        /// </summary>
+        /// <param name="steamID">SteamID of player to be kicked.</param>
+        /// <param name="message">Message to be displayed to kicked user.</param>
+        /// <returns>True if player was found, false if not.</returns>
+        public bool KickPlayer(string steamID, string message = "Kicked from server")
+        {
+            foreach (Smod2.API.Player player in this.pluginManager.Server.GetPlayers())
+            {
+                if (player.SteamId == steamID)
+                {
+                    player.Ban(0, message);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Gets a player name by SteamID.
+        /// </summary>
+        /// <param name="steamID">SteamID of a player.</param>
+        /// <param name="name">String that will be set to the player name.</param>
+        /// <returns>True if player was found, false if not.</returns>
+        public bool GetPlayerName(string steamID, ref string name)
+        {
+            foreach (Smod2.API.Player player in this.pluginManager.Server.GetPlayers())
+            {
+                if (player.SteamId == steamID)
+                {
+                    name = player.Name;
+                    return true;
+                }
+            }
+            return false;
         }
 
         public override void OnDisable()

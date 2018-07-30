@@ -115,6 +115,10 @@ listenServer.createServer(function (socket)
         {
             socket.write("command " + message.content.slice(prefix.length) + "\n");
         }
+        else if (command === 'unban' && message.member.hasPermission("BAN_MEMBERS"))
+        {
+            socket.write("command " + message.content.slice(prefix.length) + "\n");
+        }
         else if (command === 'kick' && message.member.hasPermission("KICK_MEMBERS"))
         {
             socket.write("command " + message.content.slice(prefix.length) + "\n");
