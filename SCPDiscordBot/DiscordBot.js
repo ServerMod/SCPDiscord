@@ -1,6 +1,6 @@
 console.log('Config loading...');
 
-const { token, prefix, listeningPort, defaultChannel, verbose } = require('./config.json');
+const { token, prefix, listeningPort, defaultChannel, verbose, cooldown } = require('./config.json');
 
 console.log('Config loaded.');
 
@@ -71,6 +71,10 @@ listenServer.createServer(function (socket)
                 messageQueue[channelID] = "";
             }
         }
+        console.log("Before timeout");
+        var waitTill = new Date(new Date().getTime() + cooldown);
+        while (waitTill > new Date()) { }
+        console.log("After timeout");
     });
 
     //Connection issues
@@ -126,6 +130,5 @@ client.on('ready', () =>
     console.log('Discord connection established.');
     client.channels.get(defaultChannel).send("Bot Online.");
 });
-
 
 client.login(token);
