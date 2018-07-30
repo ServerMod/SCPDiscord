@@ -13,7 +13,7 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "0.1.1",
+        version = "0.1.2",
         SmodMajor = 3,
         SmodMinor = 1,
         SmodRevision = 10
