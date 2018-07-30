@@ -45,6 +45,14 @@ Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with
 
 ---
 
+`unban <steamid/ip>` - Unbans a player from the server. (Ban permission in Discord required)
+
+Variables: 
+
+* `<steamid/ip>` - The SteamID or IP of the player to be unbanned.
+
+---
+
 `kick <steamid>` - Kicks a player from the server. (Kick permission in Discord required)
 
 Variables: 
