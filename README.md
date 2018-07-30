@@ -1,6 +1,6 @@
 # SCPDiscord
 
-Ever wished to interact with your SCP:SL server without having to open your ssh client? ~~Now~~ *Soon* you can, this plugin will let you execute commands remotely from Discord, sync information such as how many players are online, send messages from the server with info such as teamkilling, players joining and log admin actions.
+Ever wished to interact with your SCP:SL server without having to open your ssh client? Now you can, this plugin will in the future let you execute commands remotely from Discord, sync information such as how many players are online both to bot status and channel topic.
 
 It will also be possible to sync ranks from discord to the game, letting you automate things like patreon rewards and moderator positions. 
 
@@ -12,9 +12,15 @@ They send messages along like this: SCPDiscordPlugin -> SCPDiscordBot -> Discord
 
 ## Current features:
 
-You can log any event from the server to discord with multi-channel support.
+Ability to log any ServerMod event to Discord. All are optional and can be toggled individually.
+
+Complete multi-channel support letting you post different events to different channels. All can be individually re-routed.
+Support for multi-admin servers, each server can post to the same channel, different channels or even different bots and different Discord servers.
 
 You can for instance have one public channel for each of your servers where things like player joins, kills round starts and round ends are posted. You could then add one channel for each server visible only to moderators, showing things like admin actions and logging who attacks who on each server to check for teamkillers.
+
+Ability to use Different commands through Discord, currently kick and ban.
+To my knowledge this is the only plugin that currently offers banning offline players, so hackers leaving as soon as they see an admin coming on is no longer an issue.
 
 ## Bot commands
 
