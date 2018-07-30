@@ -12,5 +12,8 @@
   "defaultChannel": "add-channel-id-here",
 
   "_description": "Log more messages to the console, useful for debugging",
-  "verbose": false
+  "verbose": false,
+
+  "_description": "Message cooldown, number of milliseconds to wait between sending messages. Use this if your server sends too many messages for the bot to keep up. (Bot will get delayed if it hits more than 5 messages per 5 seconds)",
+  "cooldown": 1000
 }

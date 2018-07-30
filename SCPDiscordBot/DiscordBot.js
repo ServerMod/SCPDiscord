@@ -1,6 +1,6 @@
 console.log('Config loading...');
 
-const { token, prefix, listeningPort, defaultChannel, verbose } = require('./config.json');
+const { token, prefix, listeningPort, defaultChannel, verbose, cooldown } = require('./config.json');
 
 console.log('Config loaded.');
 
@@ -71,12 +71,21 @@ listenServer.createServer(function (socket)
                 messageQueue[channelID] = "";
             }
         }
+
+        // Wait for the rate limit
+        var waitTill = new Date(new Date().getTime() + cooldown);
+        while (waitTill > new Date()) { }
     });
 
     //Connection issues
     socket.on('error', function (data)
     {
         console.log('Plugin connection lost.');
+        var verifiedChannel = client.channels.get(defaultChannel);
+        if (verifiedChannel != null)
+        {
+            verifiedChannel.send("Plugin connection lost.");
+        }
     });
 
     //Messages from Discord
@@ -98,17 +107,21 @@ listenServer.createServer(function (socket)
         }
         else if (command === 'test' && message.member.hasPermission("ADMINISTRATOR"))
         {
-            socket.write(message.member.displayName + " used the command 'test'. If you can read this it means everything works as it should.");
+            socket.write(message.member.displayName + " used the command 'test'. If you can read this it means everything works as it should.\n");
             console.log("Forwarded test message to plugin.");
             message.channel.send('Check your SCP server console for confirmation.');
         }
         else if (command === 'ban' && message.member.hasPermission("BAN_MEMBERS"))
         {
-            socket.write("command " + message.content.slice(prefix.length) + "\r\n");
+            socket.write("command " + message.content.slice(prefix.length) + "\n");
+        }
+        else if (command === 'unban' && message.member.hasPermission("BAN_MEMBERS"))
+        {
+            socket.write("command " + message.content.slice(prefix.length) + "\n");
         }
         else if (command === 'kick' && message.member.hasPermission("KICK_MEMBERS"))
         {
-            socket.write("command " + message.content.slice(prefix.length) + "\r\n");
+            socket.write("command " + message.content.slice(prefix.length) + "\n");
         }
         else
         {
@@ -126,6 +139,5 @@ client.on('ready', () =>
     console.log('Discord connection established.');
     client.channels.get(defaultChannel).send("Bot Online.");
 });
-
 
 client.login(token);
