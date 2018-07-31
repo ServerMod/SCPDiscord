@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System;
 
 using System.Threading;
+using System.IO;
 
 namespace SCPDiscord
 {
@@ -28,11 +29,11 @@ namespace SCPDiscord
         public override void Register()
         {
             //Event handlers
-            this.AddEventHandlers(new RoundEventHandler(this));
-            this.AddEventHandlers(new PlayerEventHandler(this));
-            this.AddEventHandlers(new AdminEventHandler(this));
-            this.AddEventHandlers(new EnvironmentEventHandler(this));
-            this.AddEventHandlers(new TeamEventHandler(this));
+            this.AddEventHandlers(new RoundEventListener(this));
+            this.AddEventHandlers(new PlayerEventListener(this));
+            this.AddEventHandlers(new AdminEventListener(this));
+            this.AddEventHandlers(new EnvironmentEventListener(this));
+            this.AddEventHandlers(new TeamEventListener(this));
 
             //Connection settings
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
@@ -97,7 +98,9 @@ namespace SCPDiscord
 
         public override void OnEnable()
         {
-            this.Info("SCPDiscord enabled.");
+            this.Info("SCPDiscord " + this.Details.version + " enabled.");
+
+            CheckMessagesConfig();
             //Runs until the server has connected once
             Thread connectionThread = new Thread(new ThreadStart(() => new AsyncConnect(this)));
             connectionThread.Start();
@@ -109,6 +112,27 @@ namespace SCPDiscord
             //Keeps running to auto-reconnect if needed
             Thread watchdogThread = new Thread(new ThreadStart(() => new AsyncConnectionWatchdog(this)));
             watchdogThread.Start();
+        }
+
+        public override void OnDisable()
+        {
+            this.Info("SCPDiscord disabled.");
+            clientSocket.Close();
+        }
+
+        public void CheckMessagesConfig()
+        {
+            if(!File.Exists(FileManager.AppFolder + "scpdiscord_messages.yml"))
+            {
+                this.Info("Messages config does not exist: creating file.");
+                File.Create((FileManager.AppFolder + "scpdiscord_messages.yml"));
+            }
+            else
+            {
+                this.Info("Messages config found.");
+            }
+
+
         }
 
         /// <summary>
@@ -126,6 +150,20 @@ namespace SCPDiscord
                 }
 
                 Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(this, channelID, message)));
+                messageThread.Start();
+            }
+        }
+
+        public void SendCustomMessageAsync(string channelID, string message, string[] variables)
+        {
+            if (channelID != "off")
+            {
+                if (this.GetConfigString("discord_formatting_date") != "off")
+                {
+                    message = "[" + DateTime.Now.ToString(this.GetConfigString("discord_formatting_date")) + "]: " + message;
+                }
+
+                Thread messageThread = new Thread(new ThreadStart(() => new AsyncCustomMessage(this, channelID, message, variables)));
                 messageThread.Start();
             }
         }
@@ -168,10 +206,6 @@ namespace SCPDiscord
             return false;
         }
 
-        public override void OnDisable()
-        {
-            this.Info("SCPDiscord disabled.");
-            clientSocket.Close();
-        }
+
     }
 }

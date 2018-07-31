@@ -53,6 +53,61 @@ namespace SCPDiscord
             }
         }
     }
+    class AsyncCustomMessage
+    {
+        public AsyncCustomMessage(SCPDiscordPlugin plugin, string channelID, string message, string[] strings)
+        {
+            //Abort if client is dead
+            if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
+            {
+                plugin.Warn("Error sending message '" + message + "' to discord: Not connected to bot.");
+                return;
+            }
+
+            //Abort on empty message
+            if (message == null || message == "" || message == " " || message == ".")
+            {
+                plugin.Warn("Tried to send empty message to discord.");
+                return;
+            }
+
+            //Change the default keyword to the bot's representation of it
+            if (channelID == "default")
+            {
+                channelID = "000000000000000000";
+            }
+
+            // Replace variables in message
+            for(int i = 0; i < strings.Length; i++)
+            {
+                message = message.Replace("<var" + i + ">", strings[i]);
+            }
+
+            //Try to send the message to the bot
+            try
+            {
+                NetworkStream serverStream = plugin.clientSocket.GetStream();
+                byte[] outStream = System.Text.Encoding.UTF8.GetBytes(channelID + message + '\0');
+                serverStream.Write(outStream, 0, outStream.Length);
+
+                if (plugin.GetConfigBool("discord_verbose"))
+                {
+                    plugin.Info("Sent message '" + message + "' to discord.");
+                }
+            }
+            catch (InvalidOperationException e)
+            {
+                plugin.Error("Error sending message '" + message + "' to discord.");
+                plugin.Debug(e.ToString());
+            }
+            catch (ArgumentNullException e)
+            {
+                plugin.Error("Error sending message '" + message + "' to discord.");
+                plugin.Debug(e.ToString());
+            }
+        }
+    }
+
     class AsyncConnect
     {
         //This is ran once on the first time connecting to the bot

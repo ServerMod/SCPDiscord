@@ -40,6 +40,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Smod2\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="SharpYaml, Version=1.6.4.0, Culture=neutral, PublicKeyToken=1ced8108e942bc02, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpYaml.1.6.4\lib\net35\SharpYaml.dll</HintPath>
+    </Reference>
     <Reference Include="Smod2">
       <HintPath>E:\SteamLibrary\steamapps\common\SCP Secret Laboratory2\SCPSL_Data\Managed\Smod2.dll</HintPath>
     </Reference>
@@ -51,19 +54,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminEventHandler.cs" />
+    <Compile Include="EventListeners\AdminEventListener.cs" />
     <Compile Include="AsyncTask.cs" />
     <Compile Include="BotListener.cs" />
-    <Compile Include="EnvironmentEventHandler.cs" />
-    <Compile Include="PlayerEventHandler.cs" />
+    <Compile Include="EventListeners\EnvironmentEventListener.cs" />
+    <Compile Include="EventListeners\PlayerEventListener.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RoundEventHandler.cs" />
+    <Compile Include="EventListeners\RoundEventListener.cs" />
     <Compile Include="SCPDiscord.cs" />
-    <Compile Include="TeamEventHandler.cs" />
+    <Compile Include="EventListeners\TeamEventListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -76,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\Smod2\Smod2.dll" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\Smod2\Assembly-CSharp.dll" />
