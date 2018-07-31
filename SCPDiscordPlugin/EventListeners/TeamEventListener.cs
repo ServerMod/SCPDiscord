@@ -3,11 +3,11 @@ using Smod2.EventSystem.Events;
 
 namespace SCPDiscord
 {
-    class TeamEventHandler : IEventHandlerTeamRespawn, IEventHandlerSetRoleMaxHP, IEventHandlerDecideTeamRespawnQueue, IEventHandlerSetSCPConfig
+    class TeamEventListener : IEventHandlerTeamRespawn, IEventHandlerSetRoleMaxHP, IEventHandlerDecideTeamRespawnQueue, IEventHandlerSetSCPConfig
     {
         private SCPDiscordPlugin plugin;
 
-        public TeamEventHandler(SCPDiscordPlugin plugin)
+        public TeamEventListener(SCPDiscordPlugin plugin)
         {
             this.plugin = plugin;
         }

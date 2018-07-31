@@ -4,11 +4,11 @@ using Smod2.Events;
 namespace SCPDiscord
 {
     //Comments here are my own as there were none in the Smod2 api
-    class AdminEventHandler : IEventHandlerAdminQuery, IEventHandlerAuthCheck, IEventHandlerBan
+    class AdminEventListener : IEventHandlerAdminQuery, IEventHandlerAuthCheck, IEventHandlerBan
     {
         private SCPDiscordPlugin plugin;
 
-        public AdminEventHandler(SCPDiscordPlugin plugin)
+        public AdminEventListener(SCPDiscordPlugin plugin)
         {
             this.plugin = plugin;
         }

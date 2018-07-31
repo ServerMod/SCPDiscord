@@ -3,12 +3,12 @@ using Smod2.Events;
 
 namespace SCPDiscord
 {
-    class RoundEventHandler : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerWaitingForPlayers, IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName
+    class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerWaitingForPlayers, IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName
     {
         private SCPDiscordPlugin plugin;
         bool roundHasStarted = false;
 
-        public RoundEventHandler(SCPDiscordPlugin plugin)
+        public RoundEventListener(SCPDiscordPlugin plugin)
         {
             this.plugin = plugin;
         }
