@@ -26,6 +26,8 @@ namespace SCPDiscord
 
         public bool hasConnectedOnce = false;
 
+        public MessageConfig messageConfig;
+
         public override void Register()
         {
             //Event handlers
@@ -90,7 +92,8 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onteamrespawn", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetscpconfig", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
 
-            //Misc options
+            //Message options
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_language", "english", Smod2.Config.SettingType.STRING, true, "Name of the language config to use."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_formatting_date", "HH:mm:ss", Smod2.Config.SettingType.STRING, true, "Discord time formatting, 'off' to remove."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_verbose", false, Smod2.Config.SettingType.BOOL, true, "Log every message sent to discord in the console."));
 
@@ -100,7 +103,8 @@ namespace SCPDiscord
         {
             this.Info("SCPDiscord " + this.Details.version + " enabled.");
 
-            CheckMessagesConfig();
+            messageConfig = new MessageConfig(this);
+
             //Runs until the server has connected once
             Thread connectionThread = new Thread(new ThreadStart(() => new AsyncConnect(this)));
             connectionThread.Start();
@@ -114,25 +118,15 @@ namespace SCPDiscord
             watchdogThread.Start();
         }
 
+        public void Disable()
+        {
+            pluginManager.DisablePlugin(this);
+        }
+
         public override void OnDisable()
         {
             this.Info("SCPDiscord disabled.");
             clientSocket.Close();
-        }
-
-        public void CheckMessagesConfig()
-        {
-            if(!File.Exists(FileManager.AppFolder + "scpdiscord_messages.yml"))
-            {
-                this.Info("Messages config does not exist: creating file.");
-                File.Create((FileManager.AppFolder + "scpdiscord_messages.yml"));
-            }
-            else
-            {
-                this.Info("Messages config found.");
-            }
-
-
         }
 
         /// <summary>
@@ -154,16 +148,17 @@ namespace SCPDiscord
             }
         }
 
-        public void SendCustomMessageAsync(string channelID, string message, string[] variables)
+        /// <summary>
+        /// Gets a message from the language file, parses it and sends it.
+        /// </summary>
+        /// <param name="channelID">The channel ID to post the message in.</param>
+        /// <param name="messagePath">The JSON JPath describing the message node location.</param>
+        /// <param name="variables">Variables to be parsed into the string.</param>
+        public void SendParsedMessageAsync(string channelID, string messagePath, params string[] variables)
         {
             if (channelID != "off")
             {
-                if (this.GetConfigString("discord_formatting_date") != "off")
-                {
-                    message = "[" + DateTime.Now.ToString(this.GetConfigString("discord_formatting_date")) + "]: " + message;
-                }
-
-                Thread messageThread = new Thread(new ThreadStart(() => new AsyncCustomMessage(this, channelID, message, variables)));
+                Thread messageThread = new Thread(new ThreadStart(() => new AsyncParsedMessage(this, channelID, messagePath, variables)));
                 messageThread.Start();
             }
         }

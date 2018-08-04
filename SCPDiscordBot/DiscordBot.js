@@ -55,10 +55,13 @@ listenServer.createServer(function (socket)
                 {
                     //Message is copied to a new variable as it's deletion later may happen before the send function finishes
                     var message = messageQueue[channelID].slice(0, -1);
-                    verifiedChannel.send(message);
-                    if (verbose)
+                    if (message != null && message != " " && message != "")
                     {
-                        console.log("Sent: " + channelID + ": '" + message + "' to Discord.");
+                        verifiedChannel.send(message);
+                        if (verbose)
+                        {
+                            console.log("Sent: " + channelID + ": '" + message + "' to Discord.");
+                        }
                     }
                 }
                 else

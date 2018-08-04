@@ -1,0 +1,148 @@
+#############################################################################################################
+#                                                                                                           #
+#                                           EVENTS                                                          #
+#                                                                                                           #
+#   message: The message to be displayed. Variables are inserted with <var0>, <var1>, <var2>, and so on.    #
+#   regex: A regex expression that can edit the message after variables have been added. (optional)         #
+#                                                                                                           #
+#############################################################################################################
+
+round:
+    onroundstart: 
+        message: "**Round started.**"
+        regex: ""
+    onconnect:
+        message: "Player attempting connection... (<var0>)"
+        regex: ""
+    ondisconnect:
+        message: "A player has disconnected."
+        regex: ""
+    oncheckroundend:
+        message: "Checking if round has ended..."
+        regex: ""
+    onroundend:
+        message: >+
+            **Round ended after (ev.Round.Duration/60) minutes.**
+            ```
+            Escaped D-class:    ev.Round.Stats.ClassDEscaped / ev.Round.Stats.ClassDStart
+            Rescued Scientists: ev.Round.Stats.ScientistsEscaped / ev.Round.Stats.ScientistsStart
+            Contained SCPs:     ev.Round.Stats.SCPDead / ev.Round.Stats.SCPStart
+            Killed by SCP:      ev.Round.Stats.SCPKills
+            ```"
+        regex: ""
+    onwaitingforplayers:
+        message: "**Server is ready and waiting for players.**"
+        regex: ""
+    onroundrestart:
+        message: "**Round is restarting...**"
+        regex: ""
+    onsetservername:
+        message: "**Server name set to <var0>.**"
+        regex: ""
+
+environment:
+    onscp914activate:
+        message: ""
+        regex: ""
+    onstartcountdown:
+        message: ""
+        regex: ""
+    onstopcountdown:
+        message: ""
+        regex: ""
+    ondetonate:
+        message: ""
+        regex: ""
+    ondecontaminate:
+        message: ""
+        regex: ""
+    
+player:
+    onplayerdie:
+        message: ""
+        regex: ""
+    onplayerhurt:
+        message: ""
+        regex: ""
+    onplayerpickupitem:
+        message: ""
+        regex: ""
+    onplayerdropitem:
+        message: ""
+        regex: ""
+    onplayerjoin:
+        message: ""
+        regex: ""
+    onnicknameset:
+        message: ""
+        regex: ""
+    onassignteam:
+        message: ""
+        regex: ""
+    onsetrole:
+        message: ""
+        regex: ""
+    oncheckescape:
+        message: ""
+        regex: ""
+    onspawn:
+        message: ""
+        regex: ""
+    ondooraccess:
+        message: ""
+        regex: ""
+    onintercom:
+        message: ""
+        regex: ""
+    onintercomcooldowncheck:
+        message: ""
+        regex: ""
+    onpocketdimensionexit:
+        message: ""
+        regex: ""
+    onpocketdimensionenter:
+        message: ""
+        regex: ""
+    onpocketdimensiondie:
+        message: ""
+        regex: ""
+    onthrowgrenade:
+        message: ""
+        regex: ""
+    onplayerinfected:
+        message: ""
+        regex: ""
+    onspawnragdoll:
+        message: ""
+        regex: ""
+    onlure:
+        message: ""
+        regex: ""
+    oncontain106:
+        message: ""
+        regex: ""
+
+admin:
+    onadminquery:
+        message: ""
+        regex: ""
+    onauthcheck:
+        message: ""
+        regex: ""
+    onban:
+        message: ""
+        regex: ""
+    
+team:
+    ondecideteamrespawnqueue:
+        message: ""
+        regex: ""
+    onsetrolemaxhp:
+        message: ""
+        regex: ""
+    onteamrespawn:
+        message: ""
+        regex: ""
+    onsetscpconfig:
+        message: ""
+        regex: ""

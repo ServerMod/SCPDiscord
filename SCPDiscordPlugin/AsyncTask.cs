@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
@@ -53,10 +54,27 @@ namespace SCPDiscord
             }
         }
     }
-    class AsyncCustomMessage
+    class AsyncParsedMessage
     {
-        public AsyncCustomMessage(SCPDiscordPlugin plugin, string channelID, string message, string[] strings)
+        public AsyncParsedMessage(SCPDiscordPlugin plugin, string channelID, string messagePath, string[] strings)
         {
+            JToken eventNode = plugin.messageConfig.root.SelectToken(messagePath); 
+            if (eventNode == null)
+            {
+                plugin.Error("Error reading message from language file: " + messagePath);
+                return;
+            }
+
+            string message = eventNode.Value<string>("message");
+            string regex = eventNode.Value<string>("regex");
+
+            //Abort on empty message
+            if (message == null || message == "" || message == " " || message == ".")
+            {
+                plugin.Error("Tried to send empty message to discord. Verify your language file.");
+                return;
+            }
+
             //Abort if client is dead
             if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
@@ -64,11 +82,9 @@ namespace SCPDiscord
                 return;
             }
 
-            //Abort on empty message
-            if (message == null || message == "" || message == " " || message == ".")
+            if (plugin.GetConfigString("discord_formatting_date") != "off")
             {
-                plugin.Warn("Tried to send empty message to discord.");
-                return;
+                message = "[" + DateTime.Now.ToString(plugin.GetConfigString("discord_formatting_date")) + "]: " + message;
             }
 
             //Change the default keyword to the bot's representation of it
