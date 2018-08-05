@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -13,7 +16,8 @@ namespace SCPDiscord
             //Abort if client is dead
             if(plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
-                plugin.Warn("Error sending message '" + message + "' to discord: Not connected to bot.");
+                if(plugin.hasConnectedOnce)
+                    plugin.Warn("Error sending message '" + message + "' to discord: Not connected to bot.");
                 return;
             }
 
@@ -54,9 +58,10 @@ namespace SCPDiscord
             }
         }
     }
+
     class AsyncParsedMessage
     {
-        public AsyncParsedMessage(SCPDiscordPlugin plugin, string channelID, string messagePath, string[] strings)
+        public AsyncParsedMessage(SCPDiscordPlugin plugin, string channelID, string messagePath, string[][] variables)
         {
             JToken eventNode = plugin.messageConfig.root.SelectToken(messagePath); 
             if (eventNode == null)
@@ -66,7 +71,7 @@ namespace SCPDiscord
             }
 
             string message = eventNode.Value<string>("message");
-            string regex = eventNode.Value<string>("regex");
+
 
             //Abort on empty message
             if (message == null || message == "" || message == " " || message == ".")
@@ -78,7 +83,8 @@ namespace SCPDiscord
             //Abort if client is dead
             if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
-                plugin.Warn("Error sending message '" + message + "' to discord: Not connected to bot.");
+                if(plugin.hasConnectedOnce)
+                    plugin.Warn("Error sending message '" + message + "' to discord: Not connected to bot.");
                 return;
             }
 
@@ -93,10 +99,48 @@ namespace SCPDiscord
                 channelID = "000000000000000000";
             }
 
-            // Replace variables in message
-            for(int i = 0; i < strings.Length; i++)
+            // Variable insertion
+            for(int i = 0; i < variables.Length; i++)
             {
-                message = message.Replace("<var" + i + ">", strings[i]);
+                message = message.Replace("<var:" + variables[i][0] + ">", variables[i][1]);
+            }
+
+            // Global regex replacements
+            try
+            {
+                // Gets the regex array as a JArray and then converts it to a Dictionary of string pairs
+                Dictionary<string, string> regex = plugin.messageConfig.root.Value<JArray>("global_regex").ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+
+                // Run the regex replacements
+                foreach (KeyValuePair<string, string> entry in regex)
+                {
+                    message = message.Replace(entry.Key, entry.Value);
+                }
+            }
+            catch (Exception e)
+            {
+                plugin.Info("Regex error in " + messagePath);
+                plugin.Error(e.ToString());
+                throw;
+            }
+
+            // Local regex replacements
+            try
+            {
+                // Gets the regex array as a JArray and then converts it to a Dictionary of string pairs
+                Dictionary<string, string> regex = eventNode.Value<JArray>("regex").ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+
+                // Run the regex replacements
+                foreach (KeyValuePair<string, string> entry in regex)
+                {
+                    message = message.Replace(entry.Key, entry.Value);
+                }
+            }
+            catch (Exception e)
+            {
+                plugin.Info("Regex error in " + messagePath);
+                plugin.Error(e.ToString());
+                throw;
             }
 
             //Try to send the message to the bot

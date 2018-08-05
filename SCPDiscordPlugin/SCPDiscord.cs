@@ -154,8 +154,12 @@ namespace SCPDiscord
         /// <param name="channelID">The channel ID to post the message in.</param>
         /// <param name="messagePath">The JSON JPath describing the message node location.</param>
         /// <param name="variables">Variables to be parsed into the string.</param>
-        public void SendParsedMessageAsync(string channelID, string messagePath, params string[] variables)
+        public void SendParsedMessageAsync(string channelID, string messagePath, string[][] variables = null)
         {
+            if(variables == null)
+            {
+                variables = new string[0][];
+            }
             if (channelID != "off")
             {
                 Thread messageThread = new Thread(new ThreadStart(() => new AsyncParsedMessage(this, channelID, messagePath, variables)));

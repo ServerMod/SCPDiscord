@@ -40,7 +40,7 @@ namespace SCPDiscord
                 {
                     File.WriteAllText((languagesPath + defaultLanguages[i][0] + ".yml"), defaultLanguages[i][1]);
                 }
-                catch (DirectoryNotFoundException e)
+                catch (DirectoryNotFoundException)
                 {
                     DirectoryInfo di = Directory.CreateDirectory(languagesPath);
                     File.WriteAllText((languagesPath + defaultLanguages[i][0] + ".yml"), defaultLanguages[i][1]);

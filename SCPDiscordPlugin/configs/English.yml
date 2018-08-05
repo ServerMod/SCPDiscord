@@ -1,148 +1,170 @@
-#############################################################################################################
-#                                                                                                           #
-#                                           EVENTS                                                          #
-#                                                                                                           #
-#   message: The message to be displayed. Variables are inserted with <var0>, <var1>, <var2>, and so on.    #
-#   regex: A regex expression that can edit the message after variables have been added. (optional)         #
-#                                                                                                           #
-#############################################################################################################
+#####################################################################################################################
+#                                                                                                                   #
+#                                                     EVENTS                                                        #
+#                                                                                                                   #
+#   message: The message to be displayed. Variables are inserted in the format <var:name>, such as <var:ipaddress>. #
+#   regex: A regex expression paired with a string to find and replace parts of a message.                          #
+#                                                                                                                   #
+#####################################################################################################################
+
+# Executed after variables have been inserted but before the message specific regex replacement on all messages
+global_regex: ["Server":"Dat boi","players":"memes"]
 
 round:
-    onroundstart: 
+    onroundstart:
+        # ipaddress
         message: "**Round started.**"
-        regex: ""
+        regex: []
     onconnect:
-        message: "Player attempting connection... (<var0>)"
-        regex: ""
+        message: "Player attempting connection... (<var:ipaddress>)"
+        regex: []
     ondisconnect:
-        message: "A player has disconnected."
-        regex: ""
+        # ipaddress
+        message: "A player has disconnected. (<var:ipaddress>)"
+        regex: []
     oncheckroundend:
         message: "Checking if round has ended..."
-        regex: ""
+        regex: []
     onroundend:
+        # duration
+        # dclassalive
+        # dclassdead
+        # dclassescaped
+        # dclassstart
+        # mtfalive
+        # scientistsalive
+        # scientistsdead
+        # scientistsescaped
+        # scientistsstart
+        # scpalive
+        # scpdead
+        # scpkills
+        # scpstart
+        # warheaddetonated
+        # zombies
         message: >+
-            **Round ended after (ev.Round.Duration/60) minutes.**
+            **Round ended after <var:duration> minutes.**
             ```
-            Escaped D-class:    ev.Round.Stats.ClassDEscaped / ev.Round.Stats.ClassDStart
-            Rescued Scientists: ev.Round.Stats.ScientistsEscaped / ev.Round.Stats.ScientistsStart
-            Contained SCPs:     ev.Round.Stats.SCPDead / ev.Round.Stats.SCPStart
-            Killed by SCP:      ev.Round.Stats.SCPKills
+            Escaped D-class:    <var:dclassalive> / <var:dclassstart>
+            Rescued Scientists: <var:scientistsalive> / <var:scientistsstart>
+            Contained SCPs:     <var:scpdead> / <var:scpstart>
+            Killed by SCP:      <var:scpkills>
+            Warhead detonated:  <var:warheaddetonated>
             ```"
-        regex: ""
+        regex: []
     onwaitingforplayers:
         message: "**Server is ready and waiting for players.**"
-        regex: ""
+        regex: []
     onroundrestart:
         message: "**Round is restarting...**"
-        regex: ""
+        regex: []
     onsetservername:
         message: "**Server name set to <var0>.**"
-        regex: ""
+        regex: []
 
 environment:
     onscp914activate:
         message: ""
-        regex: ""
+        regex: []
     onstartcountdown:
         message: ""
-        regex: ""
+        regex: []
     onstopcountdown:
         message: ""
-        regex: ""
+        regex: []
     ondetonate:
         message: ""
-        regex: ""
+        regex: []
     ondecontaminate:
         message: ""
-        regex: ""
+        regex: []
     
 player:
     onplayerdie:
         message: ""
-        regex: ""
+        regex: []
     onplayerhurt:
         message: ""
-        regex: ""
+        regex: []
     onplayerpickupitem:
         message: ""
-        regex: ""
+        regex: []
     onplayerdropitem:
         message: ""
-        regex: ""
+        regex: []
     onplayerjoin:
         message: ""
-        regex: ""
+        regex: []
     onnicknameset:
         message: ""
-        regex: ""
+        regex: []
     onassignteam:
         message: ""
-        regex: ""
+        regex: []
     onsetrole:
         message: ""
-        regex: ""
+        regex: []
     oncheckescape:
         message: ""
-        regex: ""
+        regex: []
     onspawn:
         message: ""
-        regex: ""
+        regex: []
     ondooraccess:
         message: ""
-        regex: ""
+        regex: []
     onintercom:
         message: ""
-        regex: ""
+        regex: []
     onintercomcooldowncheck:
         message: ""
-        regex: ""
+        regex: []
     onpocketdimensionexit:
         message: ""
-        regex: ""
+        regex: []
     onpocketdimensionenter:
         message: ""
-        regex: ""
+        regex: []
     onpocketdimensiondie:
         message: ""
-        regex: ""
+        regex: []
     onthrowgrenade:
         message: ""
-        regex: ""
+        regex: []
     onplayerinfected:
         message: ""
-        regex: ""
+        regex: []
     onspawnragdoll:
         message: ""
-        regex: ""
+        regex: []
     onlure:
         message: ""
-        regex: ""
+        regex: []
     oncontain106:
         message: ""
-        regex: ""
+        regex: []
 
 admin:
     onadminquery:
         message: ""
-        regex: ""
+        regex: []
     onauthcheck:
         message: ""
-        regex: ""
+        regex: []
     onban:
         message: ""
-        regex: ""
+        regex: []
     
 team:
     ondecideteamrespawnqueue:
         message: ""
-        regex: ""
+        regex: []
     onsetrolemaxhp:
         message: ""
-        regex: ""
+        regex: []
     onteamrespawn:
         message: ""
-        regex: ""
+        regex: []
     onsetscpconfig:
         message: ""
-        regex: ""
+        regex: []

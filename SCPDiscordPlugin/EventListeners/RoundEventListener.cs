@@ -1,6 +1,7 @@
 ﻿using SCPDiscord.Properties;
 using Smod2.EventHandlers;
 using Smod2.Events;
+using System.Text;
 
 namespace SCPDiscord
 {
@@ -28,15 +29,24 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for connection events, before players have been created, so names and what not are available. See PlayerJoin if you need that information
             /// </summary>
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onconnect"), "round.onconnect", ev.Connection.IpAddress.ToString());
+            string[][] variables = new string[1][]
+            {
+                new string[] { "ipaddress", ev.Connection.IpAddress.ToString().Substring(7) }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onconnect"), "round.onconnect", variables);
         }
 
         public void OnDisconnect(DisconnectEvent ev)
         {
             /// <summary>  
             ///  This is the event handler for disconnection events.
-            /// </summary> 
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_ondisconnect"), "round.ondisconnect");
+            /// </summary>
+            ///             
+            string[][] variables = new string[1][]
+            {
+                new string[] { "ipaddress", ev.Connection.IpAddress.ToString().Substring(7) }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_ondisconnect"), "round.ondisconnect", variables);
         }
 
         public void OnCheckRoundEnd(CheckRoundEndEvent ev)
@@ -56,23 +66,26 @@ namespace SCPDiscord
             /// </summary>
             if(roundHasStarted && ev.Round.Duration > 60)
             {
-                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onroundend"), "round.onroundend", 
-                    ev.Round.Duration.ToString(), 
-                    ev.Round.Stats.ClassDAlive.ToString(), 
-                    ev.Round.Stats.ClassDDead.ToString(), 
-                    ev.Round.Stats.ClassDEscaped.ToString(), 
-                    ev.Round.Stats.ClassDStart.ToString(), 
-                    ev.Round.Stats.NTFAlive.ToString(), 
-                    ev.Round.Stats.ScientistsAlive.ToString(), 
-                    ev.Round.Stats.ScientistsDead.ToString(), 
-                    ev.Round.Stats.ScientistsEscaped.ToString(),
-                    ev.Round.Stats.ScientistsStart.ToString(), 
-                    ev.Round.Stats.SCPAlive.ToString(), 
-                    ev.Round.Stats.SCPDead.ToString(), 
-                    ev.Round.Stats.SCPKills.ToString(), 
-                    ev.Round.Stats.SCPStart.ToString(),
-                    ev.Round.Stats.WarheadDetonated.ToString(), 
-                    ev.Round.Stats.Zombies.ToString());
+                string[][] variables = new string[16][]
+                {
+                    new string[] { "duration", (ev.Round.Duration/60).ToString() },
+                    new string[] { "dclassalive", ev.Round.Stats.ClassDAlive.ToString() },
+                    new string[] { "dclassdead", ev.Round.Stats.ClassDDead.ToString() },
+                    new string[] { "dclassescaped", ev.Round.Stats.ClassDEscaped.ToString() },
+                    new string[] { "dclassstart", ev.Round.Stats.ClassDStart.ToString() },
+                    new string[] { "mtfalive", ev.Round.Stats.NTFAlive.ToString() },
+                    new string[] { "scientistsalive", ev.Round.Stats.ScientistsAlive.ToString() },
+                    new string[] { "scientistsdead", ev.Round.Stats.ScientistsDead.ToString() },
+                    new string[] { "scientistsescaped", ev.Round.Stats.ScientistsEscaped.ToString() },
+                    new string[] { "scientistsstart", ev.Round.Stats.ScientistsStart.ToString() },
+                    new string[] { "scpalive", ev.Round.Stats.SCPAlive.ToString() },
+                    new string[] { "scpdead", ev.Round.Stats.SCPDead.ToString() },
+                    new string[] { "scpkills", ev.Round.Stats.SCPKills.ToString() },
+                    new string[] { "scpstart", ev.Round.Stats.SCPStart.ToString() },
+                    new string[] { "warheaddetonated", ev.Round.Stats.WarheadDetonated.ToString() },
+                    new string[] { "zombies", ev.Round.Stats.Zombies.ToString() }
+                };
+                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onroundend"), "round.onroundend", variables);
                 roundHasStarted = false;
             }
         }
@@ -97,8 +110,12 @@ namespace SCPDiscord
         {
             /// <summary>  
             ///  This event handler will call when the server name is set
-            /// </summary> 
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onsetservername"), "round.onsetservername", ev.ServerName);
+            /// </summary>
+            string[][] variables = new string[1][]
+            {
+                new string[] { "servername", ev.ServerName }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onsetservername"), "round.onsetservername", variables);
         }
 
 
