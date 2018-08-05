@@ -1,6 +1,7 @@
 ﻿using SCPDiscord.Properties;
 using Smod2.EventHandlers;
 using Smod2.Events;
+using System.Collections.Generic;
 using System.Text;
 
 namespace SCPDiscord
@@ -17,7 +18,7 @@ namespace SCPDiscord
 
         public void OnRoundStart(RoundStartEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             ///  This is the event handler for Round start events (before people are spawned in)
             /// </summary> 
             plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onroundstart"), "round.onroundstart");
@@ -26,25 +27,24 @@ namespace SCPDiscord
 
         public void OnConnect(ConnectEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             ///  This is the event handler for connection events, before players have been created, so names and what not are available. See PlayerJoin if you need that information
             /// </summary>
-            string[][] variables = new string[1][]
+            Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                new string[] { "ipaddress", ev.Connection.IpAddress.ToString().Substring(7) }
+                { "ipaddress", ev.Connection.IpAddress.ToString() }
             };
             plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onconnect"), "round.onconnect", variables);
         }
 
         public void OnDisconnect(DisconnectEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             ///  This is the event handler for disconnection events.
             /// </summary>
-            ///             
-            string[][] variables = new string[1][]
+            Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                new string[] { "ipaddress", ev.Connection.IpAddress.ToString().Substring(7) }
+                { "ipaddress", ev.Connection.IpAddress.ToString() }
             };
             plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_ondisconnect"), "round.ondisconnect", variables);
         }
@@ -66,24 +66,24 @@ namespace SCPDiscord
             /// </summary>
             if(roundHasStarted && ev.Round.Duration > 60)
             {
-                string[][] variables = new string[16][]
+                Dictionary<string, string> variables = new Dictionary<string, string>
                 {
-                    new string[] { "duration", (ev.Round.Duration/60).ToString() },
-                    new string[] { "dclassalive", ev.Round.Stats.ClassDAlive.ToString() },
-                    new string[] { "dclassdead", ev.Round.Stats.ClassDDead.ToString() },
-                    new string[] { "dclassescaped", ev.Round.Stats.ClassDEscaped.ToString() },
-                    new string[] { "dclassstart", ev.Round.Stats.ClassDStart.ToString() },
-                    new string[] { "mtfalive", ev.Round.Stats.NTFAlive.ToString() },
-                    new string[] { "scientistsalive", ev.Round.Stats.ScientistsAlive.ToString() },
-                    new string[] { "scientistsdead", ev.Round.Stats.ScientistsDead.ToString() },
-                    new string[] { "scientistsescaped", ev.Round.Stats.ScientistsEscaped.ToString() },
-                    new string[] { "scientistsstart", ev.Round.Stats.ScientistsStart.ToString() },
-                    new string[] { "scpalive", ev.Round.Stats.SCPAlive.ToString() },
-                    new string[] { "scpdead", ev.Round.Stats.SCPDead.ToString() },
-                    new string[] { "scpkills", ev.Round.Stats.SCPKills.ToString() },
-                    new string[] { "scpstart", ev.Round.Stats.SCPStart.ToString() },
-                    new string[] { "warheaddetonated", ev.Round.Stats.WarheadDetonated.ToString() },
-                    new string[] { "zombies", ev.Round.Stats.Zombies.ToString() }
+                    { "duration",          (ev.Round.Duration/60).ToString() },
+                    { "dclassalive",        ev.Round.Stats.ClassDAlive.ToString() },
+                    { "dclassdead",         ev.Round.Stats.ClassDDead.ToString() },
+                    { "dclassescaped",      ev.Round.Stats.ClassDEscaped.ToString() },
+                    { "dclassstart",        ev.Round.Stats.ClassDStart.ToString() },
+                    { "mtfalive",           ev.Round.Stats.NTFAlive.ToString() },
+                    { "scientistsalive",    ev.Round.Stats.ScientistsAlive.ToString() },
+                    { "scientistsdead",     ev.Round.Stats.ScientistsDead.ToString() },
+                    { "scientistsescaped",  ev.Round.Stats.ScientistsEscaped.ToString() },
+                    { "scientistsstart",    ev.Round.Stats.ScientistsStart.ToString() },
+                    { "scpalive",           ev.Round.Stats.SCPAlive.ToString() },
+                    { "scpdead",            ev.Round.Stats.SCPDead.ToString() },
+                    { "scpkills",           ev.Round.Stats.SCPKills.ToString() },
+                    { "scpstart",           ev.Round.Stats.SCPStart.ToString() },
+                    { "warheaddetonated",   ev.Round.Stats.WarheadDetonated.ToString() },
+                    { "zombies",            ev.Round.Stats.Zombies.ToString() }
                 };
                 plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onroundend"), "round.onroundend", variables);
                 roundHasStarted = false;
@@ -111,9 +111,9 @@ namespace SCPDiscord
             /// <summary>  
             ///  This event handler will call when the server name is set
             /// </summary>
-            string[][] variables = new string[1][]
+            Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                new string[] { "servername", ev.ServerName }
+                { "servername", ev.ServerName }
             };
             plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onsetservername"), "round.onsetservername", variables);
         }

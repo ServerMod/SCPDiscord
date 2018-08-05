@@ -61,8 +61,9 @@ namespace SCPDiscord
 
     class AsyncParsedMessage
     {
-        public AsyncParsedMessage(SCPDiscordPlugin plugin, string channelID, string messagePath, string[][] variables)
+        public AsyncParsedMessage(SCPDiscordPlugin plugin, string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
+            // Check if node exists
             JToken eventNode = plugin.messageConfig.root.SelectToken(messagePath); 
             if (eventNode == null)
             {
@@ -70,17 +71,17 @@ namespace SCPDiscord
                 return;
             }
 
+            // Get unparsed message from config
             string message = eventNode.Value<string>("message");
 
-
-            //Abort on empty message
+            // Abort on empty message
             if (message == null || message == "" || message == " " || message == ".")
             {
                 plugin.Error("Tried to send empty message to discord. Verify your language file.");
                 return;
             }
 
-            //Abort if client is dead
+            // Abort if client is dead
             if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
                 if(plugin.hasConnectedOnce)
@@ -88,21 +89,25 @@ namespace SCPDiscord
                 return;
             }
 
+            // Add time stamp
             if (plugin.GetConfigString("discord_formatting_date") != "off")
             {
                 message = "[" + DateTime.Now.ToString(plugin.GetConfigString("discord_formatting_date")) + "]: " + message;
             }
 
-            //Change the default keyword to the bot's representation of it
+            // Change the default keyword to the bot's representation of it
             if (channelID == "default")
             {
                 channelID = "000000000000000000";
             }
 
-            // Variable insertion
-            for(int i = 0; i < variables.Length; i++)
+            if(variables != null)
             {
-                message = message.Replace("<var:" + variables[i][0] + ">", variables[i][1]);
+                // Variable insertion
+                foreach (KeyValuePair<string, string> variable in variables)
+                {
+                    message = message.Replace("<var:" + variable.Key + ">", variable.Value);
+                }
             }
 
             // Global regex replacements
@@ -143,7 +148,7 @@ namespace SCPDiscord
                 throw;
             }
 
-            //Try to send the message to the bot
+            // Try to send the message to the bot
             try
             {
                 NetworkStream serverStream = plugin.clientSocket.GetStream();

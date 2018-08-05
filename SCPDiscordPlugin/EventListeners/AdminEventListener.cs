@@ -1,5 +1,6 @@
 ﻿using Smod2.EventHandlers;
 using Smod2.Events;
+using System.Collections.Generic;
 
 namespace SCPDiscord
 {
@@ -20,20 +21,37 @@ namespace SCPDiscord
             {
                 return;
             }
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onadminquery"), "Admin " + ev.Admin.Name + " (" + ev.Admin.SteamId + ") executed command '" + ev.Query + "'.");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress",      ev.Admin.IpAddress },
+                { "name",           ev.Admin.Name },
+                { "playerid",       ev.Admin.PlayerId.ToString() },
+                { "steamid",        ev.Admin.SteamId },
+                { "class",          ev.Admin.TeamRole.Role.ToString() },
+                { "handled",        ev.Handled.ToString() },
+                { "output",         ev.Output },
+                { "query",          ev.Query },
+                { "successful",     ev.Successful.ToString() }
+            };
+
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onadminquery"), "admin.onadminquery", variables);
         }
 
         public void OnAuthCheck(AuthCheckEvent ev)
         {
             ///Probably triggered when someone gains access to the admin panel using a password, not sure
-            if(ev.Allow)
+            Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onauthcheck"), ev.Requester + " (" + ev.Requester.SteamId + ") was granted access to the RA panel.");
-            }
-            else
-            {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onauthcheck"), ev.Requester + " (" + ev.Requester.SteamId + ") was denied access to the RA panel.");
-            }
+                { "allow",          ev.Allow.ToString() },
+                { "authtype",       ev.AuthType.ToString() },
+                { "deniedmessage",  ev.DeniedMessage },
+                { "ipaddress",      ev.Requester.IpAddress },
+                { "name",           ev.Requester.Name },
+                { "playerid",       ev.Requester.PlayerId.ToString() },
+                { "steamid",        ev.Requester.SteamId },
+                { "class",          ev.Requester.TeamRole.Role.ToString() },
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onauthcheck"), "admin.onauthcheck", variables);
         }
 
         //public void OnBan(BanEvent ev)

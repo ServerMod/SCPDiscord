@@ -8,7 +8,7 @@
 #####################################################################################################################
 
 # Executed after variables have been inserted but before the message specific regex replacement on all messages
-global_regex: ["Server":"Dat boi","players":"memes"]
+global_regex: ["::ffff:":""]
 
 round:
     onroundstart:
@@ -59,7 +59,8 @@ round:
         message: "**Round is restarting...**"
         regex: []
     onsetservername:
-        message: "**Server name set to <var0>.**"
+        # servername
+        message: "**Server name set to <var:servername>.**"
         regex: []
 
 environment:
@@ -146,11 +147,28 @@ player:
 
 admin:
     onadminquery:
-        message: ""
+        # ipaddress
+        # name 
+        # playerid
+        # steamid
+        # class
+        # handled
+        # output
+        # query
+        # successful
+        message: "Admin <var:name> (<var:steamid>) executed command '<var:query>'"
         regex: []
     onauthcheck:
-        message: ""
-        regex: []
+        # allow 
+        # authtype  
+        # deniedmessage
+        # ipaddress
+        # name 
+        # playerid 
+        # steamid  
+        # class    
+        message: "<var:name> (<var:steamid>) checkaccess<var:allowed>."
+        regex: ["checkaccesstrue":"was allowed access to the admin panel", "checkaccessfalse":"tried to get access to the admin panel but was denied"]
     onban:
         message: ""
         regex: []

@@ -6,6 +6,7 @@ using System;
 
 using System.Threading;
 using System.IO;
+using System.Collections.Generic;
 
 namespace SCPDiscord
 {
@@ -136,9 +137,9 @@ namespace SCPDiscord
         /// <param name="message">The message to send.</param>
         public void SendMessageAsync(string channelID, string message)
         {
-            if(channelID != "off")
+            if (channelID != "off")
             {
-                if(this.GetConfigString("discord_formatting_date") != "off")
+                if (this.GetConfigString("discord_formatting_date") != "off")
                 {
                     message = "[" + DateTime.Now.ToString(this.GetConfigString("discord_formatting_date")) + "]: " + message;
                 }
@@ -154,12 +155,8 @@ namespace SCPDiscord
         /// <param name="channelID">The channel ID to post the message in.</param>
         /// <param name="messagePath">The JSON JPath describing the message node location.</param>
         /// <param name="variables">Variables to be parsed into the string.</param>
-        public void SendParsedMessageAsync(string channelID, string messagePath, string[][] variables = null)
+        public void SendParsedMessageAsync(string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
-            if(variables == null)
-            {
-                variables = new string[0][];
-            }
             if (channelID != "off")
             {
                 Thread messageThread = new Thread(new ThreadStart(() => new AsyncParsedMessage(this, channelID, messagePath, variables)));
