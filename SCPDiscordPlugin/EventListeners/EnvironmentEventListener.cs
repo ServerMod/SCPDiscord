@@ -1,5 +1,6 @@
 ﻿using Smod2.EventHandlers;
 using Smod2.Events;
+using System.Collections.Generic;
 
 namespace SCPDiscord
 {
@@ -17,23 +18,47 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for when a SCP914 is activated
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onscp914activate"), "SCP-914 has been activated on setting " + ev.KnobSetting + ".");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "inputs",         ev.Inputs.ToString()        },
+                { "knobsetting",    ev.KnobSetting.ToString()   }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onscp914activate"), "environment.onscp914activate", variables);
         }
 
         public void OnStartCountdown(WarheadStartEvent ev)
         {
             /// <summary>  
             ///  This is the event handler for when the warhead starts counting down, isResumed is false if its the initial count down. Note: activator can be null
-            /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onstartcountdown"), "The on-site nuclear warhead has been activated with authorization of either the Site Director or a member of the O5-council");
+            /// </summary>
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "allow",          ev.IsResumed.ToString()                 },
+                { "authtype",       ev.TimeLeft.ToString()                  },
+                { "ipaddress",      ev.Activator.IpAddress                  },
+                { "name",           ev.Activator.Name                       },
+                { "playerid",       ev.Activator.PlayerId.ToString()        },
+                { "steamid",        ev.Activator.SteamId                    },
+                { "class",          ev.Activator.TeamRole.Role.ToString()   }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onstartcountdown"), "environment.onstartcountdown", variables);
         }
 
         public void OnStopCountdown(WarheadStopEvent ev)
         {
             /// <summary>  
             ///  This is the event handler for when the warhead stops counting down.
-            /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onstopcountdown"), "The on-site nuclear warhead has been deactivated.");
+            /// </summary>
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "authtype",       ev.TimeLeft.ToString()                  },
+                { "ipaddress",      ev.Activator.IpAddress                  },
+                { "name",           ev.Activator.Name                       },
+                { "playerid",       ev.Activator.PlayerId.ToString()        },
+                { "steamid",        ev.Activator.SteamId                    },
+                { "class",          ev.Activator.TeamRole.Role.ToString()   }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onstopcountdown"), "environment.onstopcountdown");
         }
 
         public void OnDetonate()
@@ -41,7 +66,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for when the warhead is about to detonate (so before it actually triggers)
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondetonate"), "Detonation of the on-site nuclear warhead has been detected. Dispatching Foundation operatives to investigate.");
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_ondetonate"), "environment.ondetonate");
         }
 
         public void OnDecontaminate()
@@ -49,7 +74,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for when the LCZ is decontaminated
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondecontaminate"), "Light Containment Zone de-contamination has been initiated, all biological samples will be destroyed.");
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_ondecontaminate"), "environment.ondecontaminate");
         }
     }
 }

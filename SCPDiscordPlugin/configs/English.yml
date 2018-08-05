@@ -65,19 +65,19 @@ round:
 
 environment:
     onscp914activate:
-        message: ""
+        message: "SCP-914 has been activated on setting <var:knobsetting>."
         regex: []
     onstartcountdown:
-        message: ""
+        message: "**The on-site nuclear warhead has been activated.**"
         regex: []
     onstopcountdown:
-        message: ""
+        message: "**The on-site nuclear warhead has been deactivated.**"
         regex: []
     ondetonate:
-        message: ""
+        message: "**Detonation of the on-site nuclear warhead has been detected. Dispatching Foundation operatives to investigate.**"
         regex: []
     ondecontaminate:
-        message: ""
+        message: "**Light Containment Zone de-contamination has been initiated, all biological material will be destroyed.**"
         regex: []
     
 player:
@@ -170,19 +170,56 @@ admin:
         message: "<var:name> (<var:steamid>) checkaccess<var:allowed>."
         regex: ["checkaccesstrue":"was allowed access to the admin panel", "checkaccessfalse":"tried to get access to the admin panel but was denied"]
     onban:
-        message: ""
+        # allowban   
+        # duration
+        # reason
+        # result
+        # bannedipaddress
+        # bannedname
+        # bannedplayerid
+        # bannedsteamid
+        # bannedclass
+        # adminipaddress
+        # adminname
+        # adminplayerid
+        # adminsteamid
+        # adminclass
+        message: "Player <var:bannedname> (<var:bannedsteamid) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes."
         regex: []
     
 team:
     ondecideteamrespawnqueue:
-        message: ""
+        # teams
+        message: "Respawn queue decided."
         regex: []
     onsetrolemaxhp:
-        message: ""
-        regex: []
+        # players
+        # spawnchaos
+        message: "chaosspawn<var:spawnchaos>"
+        regex: 
+        [
+            "chaosspawnfalse":"**MTF Epsilon-11 - \"Nine-Tailed Fox\" have arrived at the facility.**",
+            "chaosspawntrue":"**Hostile incursion detected, intruders identified as members of hostile GOI \"Chaos Insurgency\".**"
+        ]
     onteamrespawn:
-        message: ""
+        # maxhp
+        # role
+        message: "Max HP for <var:role> set to <var:maxhp>."
         regex: []
     onsetscpconfig:
-        message: ""
+        # banned049  
+        # banned079  
+        # banned096  
+        # banned106  
+        # banned173
+        # banned939_53
+        # banned939_89
+        # 049amount
+        # 079amount
+        # 096amount
+        # 106amount
+        # 173amount
+        # 939_53amount
+        # 939_89amount
+        message: "SCP settings set."
         regex: []

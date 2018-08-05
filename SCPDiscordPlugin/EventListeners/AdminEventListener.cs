@@ -23,15 +23,15 @@ namespace SCPDiscord
             }
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "ipaddress",      ev.Admin.IpAddress },
-                { "name",           ev.Admin.Name },
-                { "playerid",       ev.Admin.PlayerId.ToString() },
-                { "steamid",        ev.Admin.SteamId },
-                { "class",          ev.Admin.TeamRole.Role.ToString() },
-                { "handled",        ev.Handled.ToString() },
-                { "output",         ev.Output },
-                { "query",          ev.Query },
-                { "successful",     ev.Successful.ToString() }
+                { "ipaddress",      ev.Admin.IpAddress                  },
+                { "name",           ev.Admin.Name                       },
+                { "playerid",       ev.Admin.PlayerId.ToString()        },
+                { "steamid",        ev.Admin.SteamId                    },
+                { "class",          ev.Admin.TeamRole.Role.ToString()   },
+                { "handled",        ev.Handled.ToString()               },
+                { "output",         ev.Output                           },
+                { "query",          ev.Query                            },
+                { "successful",     ev.Successful.ToString()            }
             };
 
             plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onadminquery"), "admin.onadminquery", variables);
@@ -42,33 +42,39 @@ namespace SCPDiscord
             ///Probably triggered when someone gains access to the admin panel using a password, not sure
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "allow",          ev.Allow.ToString() },
-                { "authtype",       ev.AuthType.ToString() },
-                { "deniedmessage",  ev.DeniedMessage },
-                { "ipaddress",      ev.Requester.IpAddress },
-                { "name",           ev.Requester.Name },
-                { "playerid",       ev.Requester.PlayerId.ToString() },
-                { "steamid",        ev.Requester.SteamId },
-                { "class",          ev.Requester.TeamRole.Role.ToString() },
+                { "allow",          ev.Allow.ToString()                     },
+                { "authtype",       ev.AuthType.ToString()                  },
+                { "deniedmessage",  ev.DeniedMessage                        },
+                { "ipaddress",      ev.Requester.IpAddress                  },
+                { "name",           ev.Requester.Name                       },
+                { "playerid",       ev.Requester.PlayerId.ToString()        },
+                { "steamid",        ev.Requester.SteamId                    },
+                { "class",          ev.Requester.TeamRole.Role.ToString()   }
             };
             plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onauthcheck"), "admin.onauthcheck", variables);
         }
 
-        //public void OnBan(BanEvent ev)
-        //{
-        //    ///Doesn't seem to trigger at all, not sure why
-        //    if(ev.AllowBan)
-        //    {
-        //        plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onban"), "Player " + ev.Player.Name + " (" + ev.Player.SteamId + ") was banned by " + ev.Admin.Name + " (" + ev.Admin.SteamId + ") for " + (ev.Duration / 60) + " minutes.");
-        //    }
-        //    else
-        //    {
-        //        plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onban"), ev.Admin.Name + " (" + ev.Admin.SteamId + ") tried to ban " + ev.Player.Name + " (" + ev.Player.SteamId + ") for " + (ev.Duration / 60) + " minutes but was not allowed.");
-        //    }
-        //}
         public void OnBan(BanEvent ev)
         {
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onban"), "Player " + ev.Player.Name + " (" + ev.Player.SteamId + ") was banned by " + ev.Admin.Name + " (" + ev.Admin.SteamId + ") for " + (ev.Duration / 60) + " minutes.");
+            ///Probably triggers when someone is banned, I can't get it to trigger though
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "allowban",               ev.AllowBan.ToString()              },
+                { "duration",              (ev.Duration/60).ToString()          },
+                { "reason",                 ev.Reason                           },
+                { "result",                 ev.Result                           },
+                { "bannedipaddress",        ev.Player.IpAddress                 },
+                { "bannedname",             ev.Player.Name                      },
+                { "bannedplayerid",         ev.Player.PlayerId.ToString()       },
+                { "bannedsteamid",          ev.Player.SteamId                   },
+                { "bannedclass",            ev.Player.TeamRole.Role.ToString()  },
+                { "adminipaddress",         ev.Admin.IpAddress                  },
+                { "adminname",              ev.Admin.Name                       },
+                { "adminplayerid",          ev.Admin.PlayerId.ToString()        },
+                { "adminsteamid",           ev.Admin.SteamId                    },
+                { "adminclass",             ev.Admin.TeamRole.Role.ToString()   },
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onban"), "admin.onban", variables);
         }
     }
 }

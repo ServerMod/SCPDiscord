@@ -68,22 +68,22 @@ namespace SCPDiscord
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
-                    { "duration",          (ev.Round.Duration/60).ToString() },
-                    { "dclassalive",        ev.Round.Stats.ClassDAlive.ToString() },
-                    { "dclassdead",         ev.Round.Stats.ClassDDead.ToString() },
-                    { "dclassescaped",      ev.Round.Stats.ClassDEscaped.ToString() },
-                    { "dclassstart",        ev.Round.Stats.ClassDStart.ToString() },
-                    { "mtfalive",           ev.Round.Stats.NTFAlive.ToString() },
-                    { "scientistsalive",    ev.Round.Stats.ScientistsAlive.ToString() },
-                    { "scientistsdead",     ev.Round.Stats.ScientistsDead.ToString() },
+                    { "duration",          (ev.Round.Duration/60).ToString()            },
+                    { "dclassalive",        ev.Round.Stats.ClassDAlive.ToString()       },
+                    { "dclassdead",         ev.Round.Stats.ClassDDead.ToString()        },
+                    { "dclassescaped",      ev.Round.Stats.ClassDEscaped.ToString()     },
+                    { "dclassstart",        ev.Round.Stats.ClassDStart.ToString()       },
+                    { "mtfalive",           ev.Round.Stats.NTFAlive.ToString()          },
+                    { "scientistsalive",    ev.Round.Stats.ScientistsAlive.ToString()   },
+                    { "scientistsdead",     ev.Round.Stats.ScientistsDead.ToString()    },
                     { "scientistsescaped",  ev.Round.Stats.ScientistsEscaped.ToString() },
-                    { "scientistsstart",    ev.Round.Stats.ScientistsStart.ToString() },
-                    { "scpalive",           ev.Round.Stats.SCPAlive.ToString() },
-                    { "scpdead",            ev.Round.Stats.SCPDead.ToString() },
-                    { "scpkills",           ev.Round.Stats.SCPKills.ToString() },
-                    { "scpstart",           ev.Round.Stats.SCPStart.ToString() },
-                    { "warheaddetonated",   ev.Round.Stats.WarheadDetonated.ToString() },
-                    { "zombies",            ev.Round.Stats.Zombies.ToString() }
+                    { "scientistsstart",    ev.Round.Stats.ScientistsStart.ToString()   },
+                    { "scpalive",           ev.Round.Stats.SCPAlive.ToString()          },
+                    { "scpdead",            ev.Round.Stats.SCPDead.ToString()           },
+                    { "scpkills",           ev.Round.Stats.SCPKills.ToString()          },
+                    { "scpstart",           ev.Round.Stats.SCPStart.ToString()          },
+                    { "warheaddetonated",   ev.Round.Stats.WarheadDetonated.ToString()  },
+                    { "zombies",            ev.Round.Stats.Zombies.ToString()           }
                 };
                 plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onroundend"), "round.onroundend", variables);
                 roundHasStarted = false;
