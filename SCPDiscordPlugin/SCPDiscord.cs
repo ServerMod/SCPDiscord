@@ -5,6 +5,9 @@ using System.Net.Sockets;
 using System;
 
 using System.Threading;
+using System.IO;
+using System.Collections.Generic;
+using Smod2.Events;
 
 namespace SCPDiscord
 {
@@ -25,14 +28,16 @@ namespace SCPDiscord
 
         public bool hasConnectedOnce = false;
 
+        public MessageConfig messageConfig;
+
         public override void Register()
         {
             //Event handlers
-            this.AddEventHandlers(new RoundEventHandler(this));
-            this.AddEventHandlers(new PlayerEventHandler(this));
-            this.AddEventHandlers(new AdminEventHandler(this));
-            this.AddEventHandlers(new EnvironmentEventHandler(this));
-            this.AddEventHandlers(new TeamEventHandler(this));
+            this.AddEventHandlers(new RoundEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new PlayerEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new AdminEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new EnvironmentEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new TeamEventListener(this), Priority.Highest);
 
             //Connection settings
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
@@ -89,7 +94,8 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onteamrespawn", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetscpconfig", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
 
-            //Misc options
+            //Message options
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_language", "english", Smod2.Config.SettingType.STRING, true, "Name of the language config to use."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_formatting_date", "HH:mm:ss", Smod2.Config.SettingType.STRING, true, "Discord time formatting, 'off' to remove."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_verbose", false, Smod2.Config.SettingType.BOOL, true, "Log every message sent to discord in the console."));
 
@@ -97,9 +103,12 @@ namespace SCPDiscord
 
         public override void OnEnable()
         {
-            this.Info("SCPDiscord enabled.");
+            this.Info("SCPDiscord " + this.Details.version + " enabled.");
+
+            messageConfig = new MessageConfig(this);
+
             //Runs until the server has connected once
-            Thread connectionThread = new Thread(new ThreadStart(() => new AsyncConnect(this)));
+            Thread connectionThread = new Thread(new ThreadStart(() => new ConnectToBot(this)));
             connectionThread.Start();
 
             //Runs the listener
@@ -107,25 +116,32 @@ namespace SCPDiscord
             botListenerThread.Start();
 
             //Keeps running to auto-reconnect if needed
-            Thread watchdogThread = new Thread(new ThreadStart(() => new AsyncConnectionWatchdog(this)));
+            Thread watchdogThread = new Thread(new ThreadStart(() => new StartConnectionWatchdog(this)));
             watchdogThread.Start();
         }
 
-        /// <summary>
-        /// Sends a message to Discord.
-        /// </summary>
-        /// <param name="channelID">The channel id to post the message in.</param>
-        /// <param name="message">The message to send.</param>
-        public void SendMessageAsync(string channelID, string message)
+        public void Disable()
         {
-            if(channelID != "off")
-            {
-                if(this.GetConfigString("discord_formatting_date") != "off")
-                {
-                    message = "[" + DateTime.Now.ToString(this.GetConfigString("discord_formatting_date")) + "]: " + message;
-                }
+            pluginManager.DisablePlugin(this);
+        }
 
-                Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(this, channelID, message)));
+        public override void OnDisable()
+        {
+            this.Info("SCPDiscord disabled.");
+            clientSocket.Close();
+        }
+
+        /// <summary>
+        /// Gets a message from the language file, parses it and sends it.
+        /// </summary>
+        /// <param name="channelID">The channel ID to post the message in.</param>
+        /// <param name="messagePath">The JSON JPath describing the message node location.</param>
+        /// <param name="variables">Variables to be parsed into the string.</param>
+        public void SendDiscordMessage(string channelID, string messagePath, Dictionary<string, string> variables = null)
+        {
+            if (channelID != "off")
+            {
+                Thread messageThread = new Thread(new ThreadStart(() => new SendDiscordMessage(this, channelID, messagePath, variables)));
                 messageThread.Start();
             }
         }
@@ -168,10 +184,6 @@ namespace SCPDiscord
             return false;
         }
 
-        public override void OnDisable()
-        {
-            this.Info("SCPDiscord disabled.");
-            clientSocket.Close();
-        }
+
     }
 }

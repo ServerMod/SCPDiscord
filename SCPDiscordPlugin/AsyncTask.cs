@@ -1,47 +1,152 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
 
 namespace SCPDiscord
 {
-    class AsyncMessage
+    class SendDiscordMessage
     {
-        public AsyncMessage(SCPDiscordPlugin plugin, string channelID, string message)
+        public SendDiscordMessage(SCPDiscordPlugin plugin, string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
-            //Abort if client is dead
-            if(plugin.clientSocket == null || !plugin.clientSocket.Connected)
+            // Check if node exists
+            JToken eventNode = plugin.messageConfig.root.SelectToken(messagePath); 
+            if (eventNode == null)
             {
-                plugin.Warn("Error sending message '" + message + "' to discord: Not connected to bot.");
+                plugin.Error("Error reading message from language file: " + messagePath);
                 return;
             }
 
-            //Abort on empty message
+            // Get unparsed message from config
+            string message = eventNode.Value<string>("message");
+
+            // Abort on empty message
             if (message == null || message == "" || message == " " || message == ".")
             {
-                plugin.Warn("Tried to send empty message to discord.");
+                plugin.Error("Tried to send empty message to discord. Verify your language file.");
                 return;
             }
 
-            //Change the default keyword to the bot's representation of it
-            if(channelID == "default")
+            // Abort if client is dead
+            if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
+            {
+                if(plugin.hasConnectedOnce)
+                    plugin.Warn("Error sending message '" + message + "' to discord: Not connected to bot.");
+                return;
+            }
+
+            // Add time stamp
+            if (plugin.GetConfigString("discord_formatting_date") != "off")
+            {
+                message = "[" + DateTime.Now.ToString(plugin.GetConfigString("discord_formatting_date")) + "]: " + message;
+            }
+
+            // Change the default keyword to the bot's representation of it
+            if (channelID == "default")
             {
                 channelID = "000000000000000000";
             }
 
-            //Try to send the message to the bot
+            if(variables != null)
+            {
+                // Variable insertion
+                foreach (KeyValuePair<string, string> variable in variables)
+                {
+                    // Wait until after the regex replacements to add the player names
+                    if(variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname")
+                    {
+                        continue;
+                    }
+                    message = message.Replace("<var:" + variable.Key + ">", variable.Value);
+                }
+            }
+
+            // Global regex replacements
+            try
+            {
+                // Gets the regex array as a JArray and then converts it to a Dictionary of string pairs
+                Dictionary<string, string> regex = plugin.messageConfig.root.Value<JArray>("global_regex").ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+
+                // Run the regex replacements
+                foreach (KeyValuePair<string, string> entry in regex)
+                {
+                    message = message.Replace(entry.Key, entry.Value);
+                }
+            }
+            catch (Exception e)
+            {
+                plugin.Info("Regex error in " + messagePath);
+                plugin.Error(e.ToString());
+                throw;
+            }
+
+            // Local regex replacements
+            try
+            {
+                // Gets the regex array as a JArray and then converts it to a Dictionary of string pairs
+                Dictionary<string, string> regex = eventNode.Value<JArray>("regex").ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+
+                // Run the regex replacements
+                foreach (KeyValuePair<string, string> entry in regex)
+                {
+                    message = message.Replace(entry.Key, entry.Value);
+                }
+            }
+            catch (Exception e)
+            {
+                plugin.Info("Regex error in " + messagePath);
+                plugin.Error(e.ToString());
+                throw;
+            }
+
+            // Add names to the message
+            if (variables != null)
+            {
+                // Variable insertion
+                foreach (KeyValuePair<string, string> variable in variables)
+                {
+                    if (variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname")
+                    {
+                        message = message.Replace("<var:" + variable.Key + ">", variable.Value);
+                    }
+                }
+                // Final regex replacements
+                try
+                {
+                    // Gets the regex array as a JArray and then converts it to a Dictionary of string pairs
+                    Dictionary<string, string> regex = plugin.messageConfig.root.Value<JArray>("final_regex").ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+
+                    // Run the regex replacements
+                    foreach (KeyValuePair<string, string> entry in regex)
+                    {
+                        message = message.Replace(entry.Key, entry.Value);
+                    }
+                }
+                catch (Exception e)
+                {
+                    plugin.Info("Regex error in " + messagePath);
+                    plugin.Error(e.ToString());
+                    throw;
+                }
+            }
+
+            // Try to send the message to the bot
             try
             {
                 NetworkStream serverStream = plugin.clientSocket.GetStream();
                 byte[] outStream = System.Text.Encoding.UTF8.GetBytes(channelID + message + '\0');
                 serverStream.Write(outStream, 0, outStream.Length);
 
-                if(plugin.GetConfigBool("discord_verbose"))
+                if (plugin.GetConfigBool("discord_verbose"))
                 {
                     plugin.Info("Sent message '" + message + "' to discord.");
                 }
             }
-            catch(InvalidOperationException e)
+            catch (InvalidOperationException e)
             {
                 plugin.Error("Error sending message '" + message + "' to discord.");
                 plugin.Debug(e.ToString());
@@ -53,10 +158,10 @@ namespace SCPDiscord
             }
         }
     }
-    class AsyncConnect
+    class ConnectToBot
     {
         //This is ran once on the first time connecting to the bot
-        public AsyncConnect(SCPDiscordPlugin plugin)
+        public ConnectToBot(SCPDiscordPlugin plugin)
         {
             Thread.Sleep(2000);
             while (!plugin.clientSocket.Connected)
@@ -93,14 +198,14 @@ namespace SCPDiscord
                 }
             }
             plugin.Info("Connected to Discord bot.");
-            plugin.SendMessageAsync("default", "Plugin Connected.");
+            plugin.SendDiscordMessage("default", "botmessages.connectedtobot");
             plugin.hasConnectedOnce = true;
         }
     }
-    class AsyncConnectionWatchdog
+    class StartConnectionWatchdog
     {
         //This is a loop that keeps running and checks if the bot has been disconnected
-        public AsyncConnectionWatchdog(SCPDiscordPlugin plugin)
+        public StartConnectionWatchdog(SCPDiscordPlugin plugin)
         {
             while (true)
             {
@@ -113,7 +218,7 @@ namespace SCPDiscord
                         plugin.Info("Your Bot IP: " + plugin.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + plugin.GetConfigInt("discord_bot_port") + ".");
                         plugin.clientSocket = new TcpClient(plugin.GetConfigString("discord_bot_ip"), plugin.GetConfigInt("discord_bot_port"));
                         plugin.Info("Reconnected to Discord bot.");
-                        plugin.SendMessageAsync("default", "Plugin Reconnected.");
+                        plugin.SendDiscordMessage("default", "botmessages.reconnectedtobot");
                     }
                     catch (SocketException e)
                     {

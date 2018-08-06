@@ -55,10 +55,13 @@ listenServer.createServer(function (socket)
                 {
                     //Message is copied to a new variable as it's deletion later may happen before the send function finishes
                     var message = messageQueue[channelID].slice(0, -1);
-                    verifiedChannel.send(message);
-                    if (verbose)
+                    if (message != null && message != " " && message != "")
                     {
-                        console.log("Sent: " + channelID + ": '" + message + "' to Discord.");
+                        verifiedChannel.send(message);
+                        if (verbose)
+                        {
+                            console.log("Sent: " + channelID + ": '" + message + "' to Discord.");
+                        }
                     }
                 }
                 else
@@ -92,7 +95,8 @@ listenServer.createServer(function (socket)
     client.on('message', message =>
     {
         //Abort if message does not start with the prefix
-        if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id != defaultChannel) return;
+        if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id != defaultChannel)
+            return;
 
         //Cut message into base command and arguments
         const args = message.content.slice(prefix.length).split(/ +/);
@@ -126,6 +130,24 @@ listenServer.createServer(function (socket)
         else
         {
             message.channel.send('Invalid SCPDiscord command, or you do not have permission to use it.');
+        }
+    });
+
+    client.on("error", (e) =>
+    {
+        console.error(e)
+    });
+
+    client.on("warn", (e) =>
+    {
+        console.warn(e)
+    });
+
+    client.on("debug", (e) =>
+    {
+        if (verbose)
+        {
+            console.info(e)
         }
     });
 }).listen(listeningPort)

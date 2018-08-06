@@ -50,7 +50,11 @@ namespace SCPDiscord
                                     }
                                     else
                                     {
-                                        plugin.SendMessageAsync("default", "Missing arguments.");
+                                        Dictionary<string, string> variables = new Dictionary<string, string>
+                                        {
+                                            { "command", discordMessage }
+                                        };
+                                        plugin.SendDiscordMessage("default", "botresponses.missingarguments", variables);
                                     }
                                 }
                                 else if (args[1] == "kick")
@@ -62,7 +66,11 @@ namespace SCPDiscord
                                     }
                                     else
                                     {
-                                        plugin.SendMessageAsync("default", "Missing arguments.");
+                                        Dictionary<string, string> variables = new Dictionary<string, string>
+                                        {
+                                            { "command", discordMessage }
+                                        };
+                                        plugin.SendDiscordMessage("default", "botresponses.missingarguments", variables);
                                     }
                                 }
                                 else if (args[1] == "unban")
@@ -74,7 +82,11 @@ namespace SCPDiscord
                                     }
                                     else
                                     {
-                                        plugin.SendMessageAsync("default", "Missing arguments.");
+                                        Dictionary<string, string> variables = new Dictionary<string, string>
+                                        {
+                                            { "command", discordMessage }
+                                        };
+                                        plugin.SendDiscordMessage("default", "botresponses.missingarguments", variables);
                                     }
                                 }
                                 plugin.Info("From discord: " + discordMessage);
@@ -106,7 +118,11 @@ namespace SCPDiscord
             // Perform very basic SteamID validation.
             if (!IsPossibleSteamID(steamID))
             {
-                plugin.SendMessageAsync("default", "Invalid SteamID.");
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "steamid", steamID }
+                };
+                plugin.SendDiscordMessage("default", "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -115,7 +131,11 @@ namespace SCPDiscord
             DateTime endTime = ParseBanDuration(duration, ref humanReadableDuration);
             if (endTime == DateTime.MinValue)
             {
-                plugin.SendMessageAsync("default", "Invalid Duration.");
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "duration", duration }
+                };
+                plugin.SendDiscordMessage("default", "botresponses.invalidduration", variables);
                 return;
             }
 
@@ -133,8 +153,14 @@ namespace SCPDiscord
             // Kicks the player if they are online.
             plugin.KickPlayer(steamID, "Banned for the following reason: '" + reason + "'");
 
-
-            plugin.SendMessageAsync("default", "'" + name + "'(" + steamID + ") was banned from the server for the reason '" + reason + "' (" + humanReadableDuration + ").");
+            Dictionary<string, string> banVars = new Dictionary<string, string>
+                {
+                    { "name",       name                    },
+                    { "steamid",    steamID                 },
+                    { "reason",     reason                  },
+                    { "duration",   humanReadableDuration   }
+                };
+            plugin.SendDiscordMessage("default", "botresponses.playerbanned", banVars);
         }
 
         /// <summary>
@@ -146,7 +172,11 @@ namespace SCPDiscord
             // Perform very basic SteamID validation. (Also secretly maybe works on ip addresses now)
             if (!IsPossibleSteamID(steamID) && !IPAddress.TryParse(steamID, out IPAddress address))
             {
-                plugin.SendMessageAsync("default", "Invalid SteamID.");
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "steamidorip", steamID }
+                };
+                plugin.SendDiscordMessage("default", "botresponses.invalidsteamidorip", variables);
                 return;
             }
 
@@ -156,7 +186,11 @@ namespace SCPDiscord
             // Read and save all lines to file except for the one to be unbanned
             File.WriteAllLines(FileManager.AppFolder + "/IpBans.txt", File.ReadAllLines(FileManager.AppFolder + "/IpBans.txt").Where(w => !w.Contains(steamID)).ToArray());
 
-            plugin.SendMessageAsync("default", "Players with this SteamID/IP have been cleared from the ban lists.");
+            Dictionary<string, string> unbanVars = new Dictionary<string, string>
+            {
+                { "steamidorip", steamID }
+            };
+            plugin.SendDiscordMessage("default", "botresponses.playerunbanned", unbanVars);
         }
 
         /// <summary>
@@ -168,7 +202,11 @@ namespace SCPDiscord
             //Perform very basic SteamID validation
             if (!IsPossibleSteamID(steamID))
             {
-                plugin.SendMessageAsync("default", "Invalid SteamID.");
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "steamid", steamID }
+                };
+                plugin.SendDiscordMessage("default", "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -179,11 +217,20 @@ namespace SCPDiscord
             //Kicks the player
             if (plugin.KickPlayer(steamID))
             {
-                plugin.SendMessageAsync("default", "'" + playerName + "' was kicked from the server.");
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "name", playerName },
+                    { "steamid", steamID }
+                };
+                plugin.SendDiscordMessage("default", "botresponses.playerkicked", variables);
             }
             else
             {
-                plugin.SendMessageAsync("default", "Player not found.");
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "steamid", steamID }
+                };
+                plugin.SendDiscordMessage("default", "botresponses.playernotfound", variables);
             }
         }
        
