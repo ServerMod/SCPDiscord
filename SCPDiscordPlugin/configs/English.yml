@@ -430,3 +430,50 @@ team:
         # 939_89amount
         message: "SCP settings set."
         regex: []
+
+#####################################################################################################################
+#                                                                                                                   #
+#                                               DISCORD FEEDBACK                                                    #
+#                                                                                                                   #
+#   message: The message to be displayed. Variables are inserted in the format <var:name>, such as <var:ipaddress>. #
+#   regex: A regular expression paired with a replacement string to find and replace parts of a message.            #
+#                                                                                                                   #
+#####################################################################################################################
+
+botresponses:
+    missingarguments:
+        # command
+        message: "Missing arguments."
+        regex: []
+    invalidsteamid:
+        # steamid
+        message: "Invalid SteamID '<var:steamid>'."
+        regex: []
+    invalidsteamidorip:
+        # steamidorip
+        message: "Invalid SteamID or IP '<var:steamidorip>'."
+        regex: []
+    invalidduration:
+        # duration
+        message: "Invalid duration '<var:duration>'."
+        regex: []
+    playernotfound:
+        # steamid
+        message: "Player with SteamID '<var:steamid>' not found."
+        regex: []
+    playerkicked:
+        # name
+        # steamid
+        message: "'<var:name>' (<var:steamid>) was kicked from the server."
+        regex: []
+    playerbanned:
+        # name
+        # steamid
+        # reason
+        # duration
+        message: "'<var:name>' (<var:steamid>) was banned from the server for the reason '<var:reason>' (<var:duration>)."
+        regex: []
+    playerunbanned:
+        # steamidorip
+        message: "All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists."
+        regex: []
