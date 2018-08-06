@@ -17,11 +17,12 @@ namespace SCPDiscord
 
         public JObject root = null;
 
-        private string languagesPath = FileManager.AppFolder + "SCPDiscord_Languages/";
+        private readonly string languagesPath = FileManager.AppFolder + "SCPDiscord_Languages/";
 
-        private string[][] defaultLanguages = new string[1][]
+        // All default languages included in the .dll
+        private readonly Dictionary<string, string> defaultLanguages = new Dictionary<string, string>
         {
-            new string[] { "english", Encoding.UTF8.GetString(Resources.english) }
+            { "english", Encoding.UTF8.GetString(Resources.english) }
         };
 
         public MessageConfig(SCPDiscordPlugin plugin)
@@ -31,25 +32,30 @@ namespace SCPDiscord
             ReadLanguage();
         }
 
+        /// <summary>
+        /// Saves all default language files included in the .dll
+        /// </summary>
         public void SaveDefaultLanguages()
         {
             plugin.Info("Creating language files...");
-            for(int i = 0; i < defaultLanguages.Length; i++)
+            foreach(KeyValuePair<string, string> language in defaultLanguages)
             {
                 try
                 {
-                    File.WriteAllText((languagesPath + defaultLanguages[i][0] + ".yml"), defaultLanguages[i][1]);
+                    File.WriteAllText((languagesPath + language.Key + ".yml"), language.Value);
                 }
                 catch (DirectoryNotFoundException)
                 {
                     DirectoryInfo di = Directory.CreateDirectory(languagesPath);
-                    File.WriteAllText((languagesPath + defaultLanguages[i][0] + ".yml"), defaultLanguages[i][1]);
+                    File.WriteAllText((languagesPath + language.Key + ".yml"), language.Value);
                 }
             }
         }
 
         /// <summary>
         /// This function makes me want to die too, don't worry.
+        /// 
+        /// Parses a yaml file into a yaml object, parses the yaml object into a json string, parses the json string into a json object
         /// </summary>
         public void ReadLanguage()
         {

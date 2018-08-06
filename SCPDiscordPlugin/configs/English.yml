@@ -15,15 +15,15 @@ final_regex: ["(?i)nigger":"Edgy boi"]
 
 round:
     onroundstart:
-        # ipaddress
         message: "**Round started.**"
         regex: []
     onconnect:
-        message: "Player attempting connection... (<var:ipaddress>)"
+        # ipaddress
+        message: "Player attempting connection..."
         regex: []
     ondisconnect:
         # ipaddress
-        message: "A player has disconnected. (<var:ipaddress>)"
+        message: "A player has disconnected."
         regex: []
     oncheckroundend:
         message: "Checking if round has ended..."

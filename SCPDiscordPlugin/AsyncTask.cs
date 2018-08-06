@@ -9,9 +9,9 @@ using System.Threading;
 
 namespace SCPDiscord
 {
-    class AsyncParsedMessage
+    class SendDiscordMessage
     {
-        public AsyncParsedMessage(SCPDiscordPlugin plugin, string channelID, string messagePath, Dictionary<string, string> variables = null)
+        public SendDiscordMessage(SCPDiscordPlugin plugin, string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
             // Check if node exists
             JToken eventNode = plugin.messageConfig.root.SelectToken(messagePath); 
@@ -158,11 +158,10 @@ namespace SCPDiscord
             }
         }
     }
-
-    class AsyncConnect
+    class ConnectToBot
     {
         //This is ran once on the first time connecting to the bot
-        public AsyncConnect(SCPDiscordPlugin plugin)
+        public ConnectToBot(SCPDiscordPlugin plugin)
         {
             Thread.Sleep(2000);
             while (!plugin.clientSocket.Connected)
@@ -199,14 +198,14 @@ namespace SCPDiscord
                 }
             }
             plugin.Info("Connected to Discord bot.");
-            plugin.SendParsedMessageAsync("default", "botmessages.connectedtobot");
+            plugin.SendDiscordMessage("default", "botmessages.connectedtobot");
             plugin.hasConnectedOnce = true;
         }
     }
-    class AsyncConnectionWatchdog
+    class StartConnectionWatchdog
     {
         //This is a loop that keeps running and checks if the bot has been disconnected
-        public AsyncConnectionWatchdog(SCPDiscordPlugin plugin)
+        public StartConnectionWatchdog(SCPDiscordPlugin plugin)
         {
             while (true)
             {
@@ -219,7 +218,7 @@ namespace SCPDiscord
                         plugin.Info("Your Bot IP: " + plugin.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + plugin.GetConfigInt("discord_bot_port") + ".");
                         plugin.clientSocket = new TcpClient(plugin.GetConfigString("discord_bot_ip"), plugin.GetConfigInt("discord_bot_port"));
                         plugin.Info("Reconnected to Discord bot.");
-                        plugin.SendParsedMessageAsync("default", "botmessages.reconnectedtobot");
+                        plugin.SendDiscordMessage("default", "botmessages.reconnectedtobot");
                     }
                     catch (SocketException e)
                     {

@@ -108,7 +108,7 @@ namespace SCPDiscord
             messageConfig = new MessageConfig(this);
 
             //Runs until the server has connected once
-            Thread connectionThread = new Thread(new ThreadStart(() => new AsyncConnect(this)));
+            Thread connectionThread = new Thread(new ThreadStart(() => new ConnectToBot(this)));
             connectionThread.Start();
 
             //Runs the listener
@@ -116,7 +116,7 @@ namespace SCPDiscord
             botListenerThread.Start();
 
             //Keeps running to auto-reconnect if needed
-            Thread watchdogThread = new Thread(new ThreadStart(() => new AsyncConnectionWatchdog(this)));
+            Thread watchdogThread = new Thread(new ThreadStart(() => new StartConnectionWatchdog(this)));
             watchdogThread.Start();
         }
 
@@ -132,35 +132,16 @@ namespace SCPDiscord
         }
 
         /// <summary>
-        /// Sends a message to Discord.
-        /// </summary>
-        /// <param name="channelID">The channel id to post the message in.</param>
-        /// <param name="message">The message to send.</param>
-        //public void SendMessageAsync(string channelID, string message)
-        //{
-        //    if (channelID != "off")
-        //    {
-        //        if (this.GetConfigString("discord_formatting_date") != "off")
-        //        {
-        //            message = "[" + DateTime.Now.ToString(this.GetConfigString("discord_formatting_date")) + "]: " + message;
-        //        }
-
-        //        Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(this, channelID, message)));
-        //        messageThread.Start();
-        //    }
-        //}
-
-        /// <summary>
         /// Gets a message from the language file, parses it and sends it.
         /// </summary>
         /// <param name="channelID">The channel ID to post the message in.</param>
         /// <param name="messagePath">The JSON JPath describing the message node location.</param>
         /// <param name="variables">Variables to be parsed into the string.</param>
-        public void SendParsedMessageAsync(string channelID, string messagePath, Dictionary<string, string> variables = null)
+        public void SendDiscordMessage(string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
             if (channelID != "off")
             {
-                Thread messageThread = new Thread(new ThreadStart(() => new AsyncParsedMessage(this, channelID, messagePath, variables)));
+                Thread messageThread = new Thread(new ThreadStart(() => new SendDiscordMessage(this, channelID, messagePath, variables)));
                 messageThread.Start();
             }
         }

@@ -21,7 +21,7 @@ namespace SCPDiscord
             /// <summary>
             ///  This is the event handler for Round start events (before people are spawned in)
             /// </summary> 
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onroundstart"), "round.onroundstart");
+            plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onroundstart"), "round.onroundstart");
             roundHasStarted = true;
         }
 
@@ -34,7 +34,7 @@ namespace SCPDiscord
             {
                 { "ipaddress", ev.Connection.IpAddress.ToString() }
             };
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onconnect"), "round.onconnect", variables);
+            plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onconnect"), "round.onconnect", variables);
         }
 
         public void OnDisconnect(DisconnectEvent ev)
@@ -46,7 +46,7 @@ namespace SCPDiscord
             {
                 { "ipaddress", ev.Connection.IpAddress.ToString() }
             };
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_ondisconnect"), "round.ondisconnect", variables);
+            plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_ondisconnect"), "round.ondisconnect", variables);
         }
 
         public void OnCheckRoundEnd(CheckRoundEndEvent ev)
@@ -56,7 +56,7 @@ namespace SCPDiscord
             /// </summary> 
 
             //Protip, don't turn this on.
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_oncheckroundend"), "round.oncheckroundend");
+            plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_oncheckroundend"), "round.oncheckroundend");
         }
 
         public void OnRoundEnd(RoundEndEvent ev)
@@ -85,7 +85,7 @@ namespace SCPDiscord
                     { "warheaddetonated",   ev.Round.Stats.WarheadDetonated.ToString()  },
                     { "zombies",            ev.Round.Stats.Zombies.ToString()           }
                 };
-                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onroundend"), "round.onroundend", variables);
+                plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onroundend"), "round.onroundend", variables);
                 roundHasStarted = false;
             }
         }
@@ -95,7 +95,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This event handler will call when the server is waiting for players
             /// </summary> 
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onwaitingforplayers"), "round.onwaitingforplayers");
+            plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onwaitingforplayers"), "round.onwaitingforplayers");
         }
 
         public void OnRoundRestart(RoundRestartEvent ev)
@@ -103,7 +103,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This event handler will call when the server is about to restart
             /// </summary> 
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onroundrestart"), "round.onroundrestart");
+            plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onroundrestart"), "round.onroundrestart");
         }
 
         public void OnSetServerName(SetServerNameEvent ev)
@@ -115,7 +115,7 @@ namespace SCPDiscord
             {
                 { "servername", ev.ServerName }
             };
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onsetservername"), "round.onsetservername", variables);
+            plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onsetservername"), "round.onsetservername", variables);
         }
 
 
