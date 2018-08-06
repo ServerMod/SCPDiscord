@@ -22,6 +22,8 @@ You can for instance have one public channel for each of your servers where thin
 Ability to use Different commands through Discord, currently kick and ban.
 To my knowledge this is the only plugin that currently offers banning offline players, so hackers leaving as soon as they see an admin coming on is no longer an issue.
 
+The ability to completely customise every single message from the plugin and use different languages.
+
 ## Bot commands
 
 `setavatar <url>/<path>` - Sets the avatar picture for your bot.
