@@ -383,19 +383,19 @@ admin:
         # duration
         # reason
         # result
-        # bannedipaddress
-        # bannedname
-        # bannedplayerid
-        # bannedsteamid
-        # bannedclass
-        # bannedteam
+        # playeripaddress
+        # playername
+        # playerplayerid
+        # playersteamid
+        # playerclass
+        # playerteam
         # adminipaddress
         # adminname
         # adminplayerid
         # adminsteamid
         # adminclass
         # adminteam
-        message: "Player <var:bannedname> (<var:bannedsteamid) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes."
+        message: "Player <var:playername> (<var:playersteamid) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes."
         regex: []
     
 team:
