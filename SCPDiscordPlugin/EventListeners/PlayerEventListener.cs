@@ -121,12 +121,12 @@ namespace SCPDiscord
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "spawnragdoll",       ev.SpawnRagdoll.ToString()          },
-                { "killeripaddress",    ev.Killer.IpAddress                 },
-                { "killername",         ev.Killer.Name                      },
-                { "killerplayerid",     ev.Killer.PlayerId.ToString()       },
-                { "killersteamid",      ev.Killer.SteamId                   },
-                { "killerclass",        ev.Killer.TeamRole.Role.ToString()  },
-                { "killerteam",         ev.Killer.TeamRole.Team.ToString()  },
+                { "attackeripaddress",  ev.Killer.IpAddress                 },
+                { "attackername",       ev.Killer.Name                      },
+                { "attackerplayerid",   ev.Killer.PlayerId.ToString()       },
+                { "attackersteamid",    ev.Killer.SteamId                   },
+                { "attackerclass",      ev.Killer.TeamRole.Role.ToString()  },
+                { "attackerteam",       ev.Killer.TeamRole.Team.ToString()  },
                 { "playeripaddress",    ev.Player.IpAddress                 },
                 { "playername",         ev.Player.Name                      },
                 { "playerplayerid",     ev.Player.PlayerId.ToString()       },

@@ -7,8 +7,11 @@
 #                                                                                                                   #
 #####################################################################################################################
 
-# Executed after variables have been inserted but before the message specific regex replacement on all messages
-global_regex: ["::ffff:":""]
+# Executed after variables have been inserted but before the message specific regex replacement and before player names have been added on all messages.
+global_regex: ["::ffff:":""," ()":"", "''":""]
+
+# Executes on the final version of the message, this is the only regex that affects player names
+final_regex: ["(?i)nigger":"Edgy boi"]
 
 round:
     onroundstart:
@@ -126,22 +129,22 @@ player:
             regex: []
     onplayerdie:
         # spawnragdoll
-        # killeripaddress
-        # killername
-        # killerplayerid
-        # killersteamid
-        # killerclass
-        # killerteam
+        # attackeripaddress
+        # attackername
+        # attackerplayerid
+        # attackersteamid
+        # attackerclass
+        # attackerteam
         # playeripaddress
         # playername
         # playerplayerid
         # playersteamid
         # playerclass
         # playerteam
-        message: "<var:playername> (<var:playersteamid>) was killed by <var:killername> (<var:killersteamid>)."
+        message: "<var:playername> (<var:playersteamid>) was killed by <var:attackername> (<var:attackersteamid>)."
         regex: []
         friendlyfire:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) was teamkilled by <var:killerteam> <var:killername> (<var:killersteamid>).**"
+            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) was teamkilled by <var:attackerteam> <var:attackername> (<var:attackersteamid>).**"
             regex: []
         nokiller:
             message: "<var:playername> (<var:playersteamid>) died."
@@ -433,12 +436,20 @@ team:
 
 #####################################################################################################################
 #                                                                                                                   #
-#                                               DISCORD FEEDBACK                                                    #
+#                                                   DISCORD BOT                                                     #
 #                                                                                                                   #
 #   message: The message to be displayed. Variables are inserted in the format <var:name>, such as <var:ipaddress>. #
 #   regex: A regular expression paired with a replacement string to find and replace parts of a message.            #
 #                                                                                                                   #
 #####################################################################################################################
+
+botmessages:
+    connectedtobot:
+        message: "Plugin connected."
+        regex: []
+    reconnectedtobot:
+        message: "Plugin reconnected."
+        regex: []
 
 botresponses:
     missingarguments:

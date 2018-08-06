@@ -9,56 +9,6 @@ using System.Threading;
 
 namespace SCPDiscord
 {
-    class AsyncMessage
-    {
-        public AsyncMessage(SCPDiscordPlugin plugin, string channelID, string message)
-        {
-            //Abort if client is dead
-            if(plugin.clientSocket == null || !plugin.clientSocket.Connected)
-            {
-                if(plugin.hasConnectedOnce)
-                    plugin.Warn("Error sending message '" + message + "' to discord: Not connected to bot.");
-                return;
-            }
-
-            //Abort on empty message
-            if (message == null || message == "" || message == " " || message == ".")
-            {
-                plugin.Warn("Tried to send empty message to discord.");
-                return;
-            }
-
-            //Change the default keyword to the bot's representation of it
-            if(channelID == "default")
-            {
-                channelID = "000000000000000000";
-            }
-
-            //Try to send the message to the bot
-            try
-            {
-                NetworkStream serverStream = plugin.clientSocket.GetStream();
-                byte[] outStream = System.Text.Encoding.UTF8.GetBytes(channelID + message + '\0');
-                serverStream.Write(outStream, 0, outStream.Length);
-
-                if(plugin.GetConfigBool("discord_verbose"))
-                {
-                    plugin.Info("Sent message '" + message + "' to discord.");
-                }
-            }
-            catch(InvalidOperationException e)
-            {
-                plugin.Error("Error sending message '" + message + "' to discord.");
-                plugin.Debug(e.ToString());
-            }
-            catch (ArgumentNullException e)
-            {
-                plugin.Error("Error sending message '" + message + "' to discord.");
-                plugin.Debug(e.ToString());
-            }
-        }
-    }
-
     class AsyncParsedMessage
     {
         public AsyncParsedMessage(SCPDiscordPlugin plugin, string channelID, string messagePath, Dictionary<string, string> variables = null)
@@ -106,6 +56,11 @@ namespace SCPDiscord
                 // Variable insertion
                 foreach (KeyValuePair<string, string> variable in variables)
                 {
+                    // Wait until after the regex replacements to add the player names
+                    if(variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername")
+                    {
+                        continue;
+                    }
                     message = message.Replace("<var:" + variable.Key + ">", variable.Value);
                 }
             }
@@ -146,6 +101,37 @@ namespace SCPDiscord
                 plugin.Info("Regex error in " + messagePath);
                 plugin.Error(e.ToString());
                 throw;
+            }
+
+            // Add names to the message
+            if (variables != null)
+            {
+                // Variable insertion
+                foreach (KeyValuePair<string, string> variable in variables)
+                {
+                    if (variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername")
+                    {
+                        message = message.Replace("<var:" + variable.Key + ">", variable.Value);
+                    }
+                }
+                // Final regex replacements
+                try
+                {
+                    // Gets the regex array as a JArray and then converts it to a Dictionary of string pairs
+                    Dictionary<string, string> regex = plugin.messageConfig.root.Value<JArray>("final_regex").ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+
+                    // Run the regex replacements
+                    foreach (KeyValuePair<string, string> entry in regex)
+                    {
+                        message = message.Replace(entry.Key, entry.Value);
+                    }
+                }
+                catch (Exception e)
+                {
+                    plugin.Info("Regex error in " + messagePath);
+                    plugin.Error(e.ToString());
+                    throw;
+                }
             }
 
             // Try to send the message to the bot
@@ -213,7 +199,7 @@ namespace SCPDiscord
                 }
             }
             plugin.Info("Connected to Discord bot.");
-            plugin.SendMessageAsync("default", "Plugin Connected.");
+            plugin.SendParsedMessageAsync("default", "botmessages.connectedtobot");
             plugin.hasConnectedOnce = true;
         }
     }
@@ -233,7 +219,7 @@ namespace SCPDiscord
                         plugin.Info("Your Bot IP: " + plugin.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + plugin.GetConfigInt("discord_bot_port") + ".");
                         plugin.clientSocket = new TcpClient(plugin.GetConfigString("discord_bot_ip"), plugin.GetConfigInt("discord_bot_port"));
                         plugin.Info("Reconnected to Discord bot.");
-                        plugin.SendMessageAsync("default", "Plugin Reconnected.");
+                        plugin.SendParsedMessageAsync("default", "botmessages.reconnectedtobot");
                     }
                     catch (SocketException e)
                     {
