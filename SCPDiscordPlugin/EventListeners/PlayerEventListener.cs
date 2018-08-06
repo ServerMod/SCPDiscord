@@ -1,6 +1,7 @@
 ﻿using Smod2.EventHandlers;
 using Smod2.Events;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SCPDiscord
@@ -41,23 +42,52 @@ namespace SCPDiscord
 
             if (ev.Attacker == null)
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerhurt"), ev.Player.Name + " (" + ev.Player.SteamId + ") died.");
+                Dictionary<string, string> noAttackerVar = new Dictionary<string, string>
+                {
+                    { "damage",             ev.Damage.ToString()                },
+                    { "damagetype",         ev.DamageType.ToString()            },
+                    { "playeripaddress",    ev.Player.IpAddress                 },
+                    { "playername",         ev.Player.Name                      },
+                    { "playerplayerid",     ev.Player.PlayerId.ToString()       },
+                    { "playersteamid",      ev.Player.SteamId                   },
+                    { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
+                    { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
+                };
+                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt.noattacker", noAttackerVar);
                 return;
             }
 
-            if(ev.Player.SteamId != ev.Attacker.SteamId)
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "damage",             ev.Damage.ToString()                    },
+                { "damagetype",         ev.DamageType.ToString()                },
+                { "attackeripaddress",  ev.Attacker.IpAddress                   },
+                { "attackername",       ev.Attacker.Name                        },
+                { "attackerplayerid",   ev.Attacker.PlayerId.ToString()         },
+                { "attackersteamid",    ev.Attacker.SteamId                     },
+                { "attackerclass",      ev.Attacker.TeamRole.Role.ToString()    },
+                { "attackerteam",       ev.Attacker.TeamRole.Team.ToString()    },
+                { "playeripaddress",    ev.Player.IpAddress                     },
+                { "playername",         ev.Player.Name                          },
+                { "playerplayerid",     ev.Player.PlayerId.ToString()           },
+                { "playersteamid",      ev.Player.SteamId                       },
+                { "playerclass",        ev.Player.TeamRole.Role.ToString()      },
+                { "playerteam",         ev.Player.TeamRole.Team.ToString()      }
+            };
+
+            if (ev.Player.SteamId != ev.Attacker.SteamId)
             {
                 foreach (int friendlyTeam in teamKillingMatrix[(int)ev.Attacker.TeamRole.Team])
                 {
                     if ((int)ev.Player.TeamRole.Team == friendlyTeam)
                     {
-                        plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerhurt"), "**" + ev.Player.TeamRole.Team.ToString() + " " + ev.Player.Name + " (" + ev.Player.SteamId + ") was team damaged by " + ev.Attacker.TeamRole.Team.ToString() + " " + ev.Attacker.Name + " (" + ev.Attacker.SteamId + ").**");
+                        plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt.friendlyfire", variables);
                         return;
                     }
                 }
             }
 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerhurt"), ev.Player.Name + " (" + ev.Player.SteamId + ") was hurt by " + ev.Attacker.Name + " (" + ev.Attacker.SteamId + ") using " + ev.DamageType + ".");
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt", variables);
         }
 
         public void OnPlayerDie(PlayerDeathEvent ev)
@@ -74,22 +104,50 @@ namespace SCPDiscord
 
             if(ev.Killer == null)
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerdie"), ev.Player.Name + " (" + ev.Player.SteamId + ") died.");
+                Dictionary<string, string> noKillerVar = new Dictionary<string, string>
+                {
+                    { "spawnragdoll",       ev.SpawnRagdoll.ToString()          },
+                    { "playeripaddress",    ev.Player.IpAddress                 },
+                    { "playername",         ev.Player.Name                      },
+                    { "playerplayerid",     ev.Player.PlayerId.ToString()       },
+                    { "playersteamid",      ev.Player.SteamId                   },
+                    { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
+                    { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
+                };
+                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie.nokiller", noKillerVar);
                 return;
             }
-            
-            if(ev.Player.SteamId != ev.Killer.SteamId)
+
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "spawnragdoll",       ev.SpawnRagdoll.ToString()          },
+                { "killeripaddress",    ev.Killer.IpAddress                 },
+                { "killername",         ev.Killer.Name                      },
+                { "killerplayerid",     ev.Killer.PlayerId.ToString()       },
+                { "killersteamid",      ev.Killer.SteamId                   },
+                { "killerclass",        ev.Killer.TeamRole.Role.ToString()  },
+                { "killerteam",         ev.Killer.TeamRole.Team.ToString()  },
+                { "playeripaddress",    ev.Player.IpAddress                 },
+                { "playername",         ev.Player.Name                      },
+                { "playerplayerid",     ev.Player.PlayerId.ToString()       },
+                { "playersteamid",      ev.Player.SteamId                   },
+                { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
+                { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
+            };
+
+            if (ev.Player.SteamId != ev.Killer.SteamId)
             {
                 foreach(int friendlyTeam in teamKillingMatrix[(int)ev.Killer.TeamRole.Team])
                 {
                     if((int)ev.Player.TeamRole.Team == friendlyTeam)
                     {
-                        plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerdie"), "**" + ev.Player.TeamRole.Team.ToString() + " " + ev.Player.Name + " (" + ev.Player.SteamId + ") was teamkilled by " + ev.Killer.TeamRole.Team.ToString() + " " + ev.Killer.Name + " (" + ev.Killer.SteamId + ").**");
+                        plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie.friendlyfire", variables);
                         return;
                     }
                 }
             }
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerdie"), ev.Player.Name + " (" + ev.Player.SteamId + ") died. Killed by " + ev.Killer.Name + " (" + ev.Killer.SteamId + ").");
+
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie", variables);
         }
 
         public void OnPlayerPickupItem(PlayerPickupItemEvent ev)
@@ -97,7 +155,17 @@ namespace SCPDiscord
             /// <summary>  
             /// This is called when a player picks up an item.
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerpickupitem"), ev.Player.Name + " (" + ev.Player.SteamId + ") picked up item " + ev.Item + ".");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "item",         ev.Item.ToString()                    },
+                { "ipaddress",    ev.Player.IpAddress                   },
+                { "name",         ev.Player.Name                        },
+                { "playerid",     ev.Player.PlayerId.ToString()         },
+                { "steamid",      ev.Player.SteamId                     },
+                { "class",        ev.Player.TeamRole.Role.ToString()    },
+                { "team",         ev.Player.TeamRole.Team.ToString()    }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onplayerpickupitem"), "player.onplayerpickupitem", variables);
         }
 
         public void OnPlayerDropItem(PlayerDropItemEvent ev)
@@ -105,7 +173,17 @@ namespace SCPDiscord
             /// <summary>  
             /// This is called when a player drops up an item.
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerdropitem"), ev.Player.Name + " (" + ev.Player.SteamId + ") dropped item " + ev.Item + ".");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "item",         ev.Item.ToString()                    },
+                { "ipaddress",    ev.Player.IpAddress                   },
+                { "name",         ev.Player.Name                        },
+                { "playerid",     ev.Player.PlayerId.ToString()         },
+                { "steamid",      ev.Player.SteamId                     },
+                { "class",        ev.Player.TeamRole.Role.ToString()    },
+                { "team",         ev.Player.TeamRole.Team.ToString()    }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onplayerdropitem"), "player.onplayerdropitem", variables);
         }
 
         public void OnPlayerJoin(PlayerJoinEvent ev)
@@ -113,7 +191,16 @@ namespace SCPDiscord
             /// <summary>  
             /// This is called when a player joins and is initialised.
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerjoin"), ev.Player.Name + " (" + ev.Player.SteamId + ") joined the game.");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress",    ev.Player.IpAddress                   },
+                { "name",         ev.Player.Name                        },
+                { "playerid",     ev.Player.PlayerId.ToString()         },
+                { "steamid",      ev.Player.SteamId                     },
+                { "class",        ev.Player.TeamRole.Role.ToString()    },
+                { "team",         ev.Player.TeamRole.Team.ToString()    }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onplayerjoin"), "player.onplayerjoin", variables);
         }
 
         public void OnNicknameSet(PlayerNicknameSetEvent ev)
@@ -121,7 +208,17 @@ namespace SCPDiscord
             /// <summary>  
             /// This is called when a player attempts to set their nickname after joining. This will only be called once per game join.
             /// </summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onnicknameset"), ev.Player.Name + " (" + ev.Player.SteamId + ") set their nickname to " + ev.Nickname + ".");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "nickname",       ev.Nickname                         },
+                { "ipaddress",      ev.Player.IpAddress                 },
+                { "name",           ev.Player.Name                      },
+                { "playerid",       ev.Player.PlayerId.ToString()       },
+                { "steamid",        ev.Player.SteamId                   },
+                { "class",          ev.Player.TeamRole.Role.ToString()  },
+                { "team",           ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onnicknameset"), "player.onnicknameset", variables);
         }
 
         public void OnAssignTeam(PlayerInitialAssignTeamEvent ev)
@@ -129,7 +226,16 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a team is picked for a player. Nothing is assigned to the player, but you can change what team the player will spawn as.
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onassignteam"), ev.Player.Name + " (" + ev.Player.SteamId + ") has been assugned to team " + ev.Team + ".");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress",      ev.Player.IpAddress                 },
+                { "name",           ev.Player.Name                      },
+                { "playerid",       ev.Player.PlayerId.ToString()       },
+                { "steamid",        ev.Player.SteamId                   },
+                { "class",          ev.Player.TeamRole.Role.ToString()  },
+                { "team",           ev.Team.ToString()                  }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onassignteam"), "player.onassignteam", variables);
         }
 
         public void OnSetRole(PlayerSetRoleEvent ev)
@@ -137,7 +243,16 @@ namespace SCPDiscord
             /// <summary>  
             /// Called after the player is set a class, at any point in the game. 
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onsetrole"), ev.Player.Name + " (" + ev.Player.SteamId + ") got the role " + ev.TeamRole.Name + ".");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress",      ev.Player.IpAddress                 },
+                { "name",           ev.Player.Name                      },
+                { "playerid",       ev.Player.PlayerId.ToString()       },
+                { "steamid",        ev.Player.SteamId                   },
+                { "class",          ev.Player.TeamRole.Role.ToString()  },
+                { "team",           ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onsetrole"), "player.onsetrole", variables);
         }
 
         public void OnCheckEscape(PlayerCheckEscapeEvent ev)
@@ -145,7 +260,25 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player is checking if they should escape (this is regardless of class)
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_oncheckescape"), ev.Player.Name + " (" + ev.Player.SteamId + ") has escaped as " + ev.Player.TeamRole + ".");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "allowescape",    ev.AllowEscape.ToString()           },
+                { "ipaddress",      ev.Player.IpAddress                 },
+                { "name",           ev.Player.Name                      },
+                { "playerid",       ev.Player.PlayerId.ToString()       },
+                { "steamid",        ev.Player.SteamId                   },
+                { "class",          ev.Player.TeamRole.Role.ToString()  },
+                { "team",           ev.Player.TeamRole.Team.ToString()  }
+            };
+
+            if(ev.AllowEscape)
+            {
+                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_oncheckescape"), "player.oncheckescape", variables);
+            }
+            else
+            {
+                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_oncheckescape"), "player.oncheckescape.denied", variables);
+            }
         }
 
         public void OnSpawn(PlayerSpawnEvent ev)
@@ -153,7 +286,18 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player spawns into the world
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onspawn"), ev.Player.Name + " (" + ev.Player.SteamId + ") spawned as " + ev.Player.TeamRole.Name + ".");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "spawnpos",       ev.SpawnPos.ToString()              },
+                { "ipaddress",      ev.Player.IpAddress                 },
+                { "name",           ev.Player.Name                      },
+                { "playerid",       ev.Player.PlayerId.ToString()       },
+                { "steamid",        ev.Player.SteamId                   },
+                { "class",          ev.Player.TeamRole.Role.ToString()  },
+                { "team",           ev.Player.TeamRole.Team.ToString()  }
+            };
+
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onspawn"), "player.onspawn", variables);
         }
 
         public void OnDoorAccess(PlayerDoorAccessEvent ev)
@@ -161,13 +305,26 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player attempts to access a door that requires perms
             /// <summary> 
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "locked",         ev.Door.Locked.ToString()           },
+                { "lockcooldown",   ev.Door.LockCooldown.ToString()     },
+                { "open",           ev.Door.Open.ToString()             },
+                { "ipaddress",      ev.Player.IpAddress                 },
+                { "name",           ev.Player.Name                      },
+                { "playerid",       ev.Player.PlayerId.ToString()       },
+                { "steamid",        ev.Player.SteamId                   },
+                { "class",          ev.Player.TeamRole.Role.ToString()  },
+                { "team",           ev.Player.TeamRole.Team.ToString()  }
+            };
+
             if (ev.Allow)
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondooraccess"), ev.Player.Name + " (" + ev.Player.SteamId + ") opened a door.");
+                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_ondooraccess"), "player.ondooraccess", variables);
             }
             else
             {
-                plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_ondooraccess"), ev.Player.Name + " (" + ev.Player.SteamId + ") tried to access a locked door.");
+                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_ondooraccess"), "player.ondooraccess.notallowed", variables);
             }
         }
 
@@ -176,7 +333,20 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player attempts to use intercom.
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onintercom"), ev.Player.Name + " (" + ev.Player.SteamId + ") started using the intercom.");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "allowspeech",    ev.AllowSpeech.ToString()           },
+                { "cooldowntime",   ev.CooldownTime.ToString()          },
+                { "speechtime",     ev.SpeechTime.ToString()            },
+                { "ipaddress",      ev.Player.IpAddress                 },
+                { "name",           ev.Player.Name                      },
+                { "playerid",       ev.Player.PlayerId.ToString()       },
+                { "steamid",        ev.Player.SteamId                   },
+                { "class",          ev.Player.TeamRole.Role.ToString()  },
+                { "team",           ev.Player.TeamRole.Team.ToString()  }
+            };
+
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onintercom"), "player.onintercom", variables);
         }
 
         public void OnIntercomCooldownCheck(PlayerIntercomCooldownCheckEvent ev)
@@ -184,7 +354,18 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player attempts to use intercom. This happens before the cooldown check.
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onintercomcooldowncheck"), ev.Player.Name + " (" + ev.Player.SteamId + ") is trying to use the intercom.");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "currentcooldown",    ev.CurrentCooldown.ToString()       },
+                { "ipaddress",          ev.Player.IpAddress                 },
+                { "name",               ev.Player.Name                      },
+                { "playerid",           ev.Player.PlayerId.ToString()       },
+                { "steamid",            ev.Player.SteamId                   },
+                { "class",              ev.Player.TeamRole.Role.ToString()  },
+                { "team",               ev.Player.TeamRole.Team.ToString()  }
+            };
+
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onintercomcooldowncheck"), "player.onintercomcooldowncheck", variables);
         }
 
         public void OnPocketDimensionExit(PlayerPocketDimensionExitEvent ev)
@@ -192,7 +373,16 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player escapes from Pocket Demension
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onpocketdimensionexit"), ev.Player.Name + " (" + ev.Player.SteamId + ") escaped the pocket dimension.");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress",          ev.Player.IpAddress                 },
+                { "name",               ev.Player.Name                      },
+                { "playerid",           ev.Player.PlayerId.ToString()       },
+                { "steamid",            ev.Player.SteamId                   },
+                { "class",              ev.Player.TeamRole.Role.ToString()  },
+                { "team",               ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onpocketdimensionexit"), "player.onpocketdimensionexit", variables);
         }
 
         public void OnPocketDimensionEnter(PlayerPocketDimensionEnterEvent ev)
@@ -200,7 +390,17 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player enters Pocket Demension
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onpocketdimensionenter"), ev.Player.Name + " (" + ev.Player.SteamId + ") was taken into the pocket dimension.");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "damage",             ev.Damage.ToString()                },
+                { "ipaddress",          ev.Player.IpAddress                 },
+                { "name",               ev.Player.Name                      },
+                { "playerid",           ev.Player.PlayerId.ToString()       },
+                { "steamid",            ev.Player.SteamId                   },
+                { "class",              ev.Player.TeamRole.Role.ToString()  },
+                { "team",               ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onpocketdimensionenter"), "player.onpocketdimensionenter", variables);
         }
 
         public void OnPocketDimensionDie(PlayerPocketDimensionDieEvent ev)
@@ -208,7 +408,16 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player enters the wrong way of Pocket Demension. This happens before the player is killed.
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onpocketdimensiondie"), ev.Player.Name + " (" + ev.Player.SteamId + ") was lost in the pocket dimension.");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress",          ev.Player.IpAddress                 },
+                { "name",               ev.Player.Name                      },
+                { "playerid",           ev.Player.PlayerId.ToString()       },
+                { "steamid",            ev.Player.SteamId                   },
+                { "class",              ev.Player.TeamRole.Role.ToString()  },
+                { "team",               ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onpocketdimensiondie"), "player.onpocketdimensiondie", variables);
         }
 
         public void OnThrowGrenade(PlayerThrowGrenadeEvent ev)
@@ -216,7 +425,17 @@ namespace SCPDiscord
             /// <summary>  
             /// Called after a player throws a grenade
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onthrowgrenade"), ev.Player.Name + " (" + ev.Player.SteamId + ") threw a grenade.");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "type",               ev.GrenadeType.ToString()           },
+                { "ipaddress",          ev.Player.IpAddress                 },
+                { "name",               ev.Player.Name                      },
+                { "playerid",           ev.Player.PlayerId.ToString()       },
+                { "steamid",            ev.Player.SteamId                   },
+                { "class",              ev.Player.TeamRole.Role.ToString()  },
+                { "team",               ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onthrowgrenade"), "player.onthrowgrenade", variables);
         }
 
         public void OnPlayerInfected(PlayerInfectedEvent ev)
@@ -224,7 +443,24 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player is cured by SCP-049
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onplayerinfected"), ev.Player.Name + " (" + ev.Player.SteamId + ") was cured by SCP-049.");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "damage",                 ev.Damage.ToString()                    },
+                { "infecttime",             ev.InfectTime.ToString()                },
+                { "attackeripaddress",      ev.Attacker.IpAddress                   },
+                { "attackername",           ev.Attacker.Name                        },
+                { "attackerplayerid",       ev.Attacker.PlayerId.ToString()         },
+                { "attackersteamid",        ev.Attacker.SteamId                     },
+                { "attackerclass",          ev.Attacker.TeamRole.Role.ToString()    },
+                { "attackerteam",           ev.Attacker.TeamRole.Team.ToString()    },
+                { "playeripaddress",        ev.Attacker.IpAddress                   },
+                { "playername",             ev.Player.Name                          },
+                { "playerplayerid",         ev.Player.PlayerId.ToString()           },
+                { "playersteamid",          ev.Player.SteamId                       },
+                { "playerclass",            ev.Player.TeamRole.Role.ToString()      },
+                { "playerteam",             ev.Player.TeamRole.Team.ToString()      }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onplayerinfected"), "player.onplayerinfected", variables);
         }
 
         public void OnSpawnRagdoll(PlayerSpawnRagdollEvent ev)
@@ -232,7 +468,16 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a ragdoll is spawned
             /// <summary>  
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onspawnragdoll"), ev.Player.Name + " (" + ev.Player.SteamId + ")'s ragdoll spawned.");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress",          ev.Player.IpAddress                 },
+                { "name",               ev.Player.Name                      },
+                { "playerid",           ev.Player.PlayerId.ToString()       },
+                { "steamid",            ev.Player.SteamId                   },
+                { "class",              ev.Role.ToString()                  },
+                { "team",               ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onspawnragdoll"), "player.onspawnragdoll", variables);
         }
 
         public void OnLure(PlayerLureEvent ev)
@@ -240,7 +485,18 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player enters FemurBreaker
             /// <summary> 
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_onlure"), ev.Player.Name + " (" + ev.Player.SteamId + ") gave their life in order to contain SCP-106.");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "allowcontain",       ev.AllowContain.ToString()          },
+                { "ipaddress",          ev.Player.IpAddress                 },
+                { "name",               ev.Player.Name                      },
+                { "playerid",           ev.Player.PlayerId.ToString()       },
+                { "steamid",            ev.Player.SteamId                   },
+                { "class",              ev.Player.TeamRole.Role.ToString()  },
+                { "team",               ev.Player.TeamRole.Team.ToString()  }
+            };
+
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onlure"), "player.onplayerinfected.", variables);
         }
 
         public void OnContain106(PlayerContain106Event ev)
@@ -248,7 +504,17 @@ namespace SCPDiscord
             /// <summary>  
             /// Called when a player presses the button to contain SCP-106
             /// <summary>
-            plugin.SendMessageAsync(plugin.GetConfigString("discord_channel_oncontain106"), ev.Player.Name + " (" + ev.Player.SteamId + ") has initialized SCP-106 recall protocol.");
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "activatecontainment",    ev.ActivateContainment.ToString()   },
+                { "ipaddress",              ev.Player.IpAddress                 },
+                { "name",                   ev.Player.Name                      },
+                { "playerid",               ev.Player.PlayerId.ToString()       },
+                { "steamid",                ev.Player.SteamId                   },
+                { "class",                  ev.Player.TeamRole.Role.ToString()  },
+                { "team",                   ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_oncontain106"), "player.oncontain106", variables);
         }
     }
 }

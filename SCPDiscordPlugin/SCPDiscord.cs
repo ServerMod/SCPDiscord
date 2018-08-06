@@ -7,6 +7,7 @@ using System;
 using System.Threading;
 using System.IO;
 using System.Collections.Generic;
+using Smod2.Events;
 
 namespace SCPDiscord
 {
@@ -32,11 +33,11 @@ namespace SCPDiscord
         public override void Register()
         {
             //Event handlers
-            this.AddEventHandlers(new RoundEventListener(this));
-            this.AddEventHandlers(new PlayerEventListener(this));
-            this.AddEventHandlers(new AdminEventListener(this));
-            this.AddEventHandlers(new EnvironmentEventListener(this));
-            this.AddEventHandlers(new TeamEventListener(this));
+            this.AddEventHandlers(new RoundEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new PlayerEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new AdminEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new EnvironmentEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new TeamEventListener(this), Priority.Highest);
 
             //Connection settings
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
@@ -135,19 +136,19 @@ namespace SCPDiscord
         /// </summary>
         /// <param name="channelID">The channel id to post the message in.</param>
         /// <param name="message">The message to send.</param>
-        public void SendMessageAsync(string channelID, string message)
-        {
-            if (channelID != "off")
-            {
-                if (this.GetConfigString("discord_formatting_date") != "off")
-                {
-                    message = "[" + DateTime.Now.ToString(this.GetConfigString("discord_formatting_date")) + "]: " + message;
-                }
+        //public void SendMessageAsync(string channelID, string message)
+        //{
+        //    if (channelID != "off")
+        //    {
+        //        if (this.GetConfigString("discord_formatting_date") != "off")
+        //        {
+        //            message = "[" + DateTime.Now.ToString(this.GetConfigString("discord_formatting_date")) + "]: " + message;
+        //        }
 
-                Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(this, channelID, message)));
-                messageThread.Start();
-            }
-        }
+        //        Thread messageThread = new Thread(new ThreadStart(() => new AsyncMessage(this, channelID, message)));
+        //        messageThread.Start();
+        //    }
+        //}
 
         /// <summary>
         /// Gets a message from the language file, parses it and sends it.

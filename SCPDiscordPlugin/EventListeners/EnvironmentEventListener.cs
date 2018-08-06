@@ -33,15 +33,24 @@ namespace SCPDiscord
             /// </summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "allow",          ev.IsResumed.ToString()                 },
-                { "authtype",       ev.TimeLeft.ToString()                  },
+                { "isresumed",      ev.IsResumed.ToString()                 },
+                { "timeleft",       ev.TimeLeft.ToString()                  },
                 { "ipaddress",      ev.Activator.IpAddress                  },
                 { "name",           ev.Activator.Name                       },
                 { "playerid",       ev.Activator.PlayerId.ToString()        },
                 { "steamid",        ev.Activator.SteamId                    },
-                { "class",          ev.Activator.TeamRole.Role.ToString()   }
+                { "class",          ev.Activator.TeamRole.Role.ToString()   },
+                { "team",           ev.Activator.TeamRole.Team.ToString()   }
             };
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onstartcountdown"), "environment.onstartcountdown", variables);
+
+            if(ev.IsResumed)
+            {
+                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onstartcountdown"), "environment.onstartcountdown.countdownresumed", variables);
+            }
+            else
+            {
+                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onstartcountdown"), "environment.onstartcountdown", variables);
+            }
         }
 
         public void OnStopCountdown(WarheadStopEvent ev)
@@ -51,14 +60,15 @@ namespace SCPDiscord
             /// </summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "authtype",       ev.TimeLeft.ToString()                  },
+                { "timeleft",       ev.TimeLeft.ToString()                  },
                 { "ipaddress",      ev.Activator.IpAddress                  },
                 { "name",           ev.Activator.Name                       },
                 { "playerid",       ev.Activator.PlayerId.ToString()        },
                 { "steamid",        ev.Activator.SteamId                    },
-                { "class",          ev.Activator.TeamRole.Role.ToString()   }
+                { "class",          ev.Activator.TeamRole.Role.ToString()   },
+                { "team",           ev.Activator.TeamRole.Team.ToString()   }
             };
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onstopcountdown"), "environment.onstopcountdown");
+            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onstopcountdown"), "environment.onstopcountdown", variables);
         }
 
         public void OnDetonate()

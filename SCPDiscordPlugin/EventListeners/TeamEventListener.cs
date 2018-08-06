@@ -35,7 +35,15 @@ namespace SCPDiscord
                 { "players",    ev.PlayerList.ToString()    },
                 { "spawnchaos", ev.SpawnChaos.ToString()    }
             };
-            plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onteamrespawn"), "team.onteamrespawn", variables);
+
+            if(ev.SpawnChaos)
+            {
+                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onteamrespawn"), "team.onteamrespawn.cispawn", variables);
+            }
+            else
+            {
+                plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onteamrespawn"), "team.onteamrespawn", variables);
+            }
 
         }
 

@@ -28,6 +28,7 @@ namespace SCPDiscord
                 { "playerid",       ev.Admin.PlayerId.ToString()        },
                 { "steamid",        ev.Admin.SteamId                    },
                 { "class",          ev.Admin.TeamRole.Role.ToString()   },
+                { "team",           ev.Admin.TeamRole.Team.ToString()   },
                 { "handled",        ev.Handled.ToString()               },
                 { "output",         ev.Output                           },
                 { "query",          ev.Query                            },
@@ -49,7 +50,8 @@ namespace SCPDiscord
                 { "name",           ev.Requester.Name                       },
                 { "playerid",       ev.Requester.PlayerId.ToString()        },
                 { "steamid",        ev.Requester.SteamId                    },
-                { "class",          ev.Requester.TeamRole.Role.ToString()   }
+                { "class",          ev.Requester.TeamRole.Role.ToString()   },
+                { "team",           ev.Requester.TeamRole.Team.ToString()   }
             };
             plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onauthcheck"), "admin.onauthcheck", variables);
         }
@@ -68,11 +70,13 @@ namespace SCPDiscord
                 { "bannedplayerid",         ev.Player.PlayerId.ToString()       },
                 { "bannedsteamid",          ev.Player.SteamId                   },
                 { "bannedclass",            ev.Player.TeamRole.Role.ToString()  },
+                { "bannedteam",             ev.Player.TeamRole.Team.ToString()  },
                 { "adminipaddress",         ev.Admin.IpAddress                  },
                 { "adminname",              ev.Admin.Name                       },
                 { "adminplayerid",          ev.Admin.PlayerId.ToString()        },
                 { "adminsteamid",           ev.Admin.SteamId                    },
                 { "adminclass",             ev.Admin.TeamRole.Role.ToString()   },
+                { "adminteam",              ev.Admin.TeamRole.Team.ToString()   }
             };
             plugin.SendParsedMessageAsync(plugin.GetConfigString("discord_channel_onban"), "admin.onban", variables);
         }
