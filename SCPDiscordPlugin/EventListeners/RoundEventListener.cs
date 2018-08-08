@@ -6,7 +6,8 @@ using System.Text;
 
 namespace SCPDiscord
 {
-    class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerWaitingForPlayers, IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName
+    class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerWaitingForPlayers, 
+        IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName, IEventHandlerSceneChanged
     {
         private SCPDiscordPlugin plugin;
         bool roundHasStarted = false;
@@ -118,6 +119,13 @@ namespace SCPDiscord
             plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onsetservername"), "round.onsetservername", variables);
         }
 
-
+        public void OnSceneChanged(SceneChangedEvent ev)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "scenename", ev.SceneName }
+            };
+            plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onscenechanged"), "round.onscenechanged", variables);
+        }
     }
 }

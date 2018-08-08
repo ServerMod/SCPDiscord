@@ -63,7 +63,7 @@ global_regex: [
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
-final_regex: ["(?i)nigger":"Edgy boi"]
+final_regex: ["''":""]
 
 round:
     onroundstart:
@@ -98,15 +98,15 @@ round:
         # warheaddetonated
         # zombies
         message: >+
-            **Round ended after <var:duration> minutes.**\n
+            **Round ended after <var:duration> minutes.**
             ```
-            Escaped D-class:    <var:dclassalive> / <var:dclassstart>\n
-            Rescued Scientists: <var:scientistsalive> / <var:scientistsstart>\n
-            Contained SCPs:     <var:scpdead> / <var:scpstart>\n
-            Killed by SCP:      <var:scpkills>\n
-            Warhead switchwas<var:warheaddetonated> detonated.\n
-            ```"
-        regex: ["switchwasTrue":"was","switchwasFalse":"wasn't"]
+            Escaped D-class:            <var:dclassalive>/<var:dclassstart>\n
+            Rescued Scientists:         <var:scientistsalive>/<var:scientistsstart>\n
+            Contained SCPs:             <var:scpdead>/<var:scpstart>\n
+            Killed by SCP:              <var:scpkills>\n
+            Warhead switchwas<var:warheaddetonated> detonated.
+            ```
+        regex: ["switchwasTrue":"was","switchwasFalse":"was not"]
     onwaitingforplayers:
         message: "**Server is ready and waiting for players.**"
         regex: []
@@ -116,6 +116,10 @@ round:
     onsetservername:
         # servername
         message: "**Server name: <var:servername>.**"
+        regex: []
+    onscenechanged:
+        # scenename
+        message: "**Scene loaded: <var:scenename>.**"
         regex: []
 
 environment:
@@ -281,6 +285,8 @@ player:
         message: "<var:name> (<var:steamid>) spawned as <var:class>."
         regex: []
     ondooraccess:
+        # doorname
+        # permission
         # locked
         # lockcooldown
         # open     
@@ -290,14 +296,13 @@ player:
         # steamid
         # class
         # team 
-        message: "<var:name> (<var:steamid>) opened a door."
-        regex: []
+        message: "<var:name> (<var:steamid>) isopen:<var:open> a door (<var:doorname>) requiring the permission <var:permission>."
+        regex: ["isopen:True":"closed", "isopen:False":"opened", " requiring the permission .":""]
         notallowed:
-            message: "<var:name> (<var:steamid>) tried to isopen:<var:open> a locked door."
-            regex: ["isopen:True":"close", "isopen:False":"open"]
+            message: "<var:name> (<var:steamid>) tried to isopen:<var:open> a locked door (<var:doorname>) requiring the permission <var:permission>."
+            regex: ["isopen:True":"close", "isopen:False":"open"," requiring the permission .":"."]
     onintercom:
         # This is not recommended to use outside of debugging
-        # allowspeech
         # cooldowntime
         # speechtime
         # ipaddress
@@ -402,6 +407,65 @@ player:
         # class
         # team 
         message: "<var:name> (<var:steamid>) has initiated SCP-106 recall protocol."
+        regex: []
+    onmedkituse:
+        # recoveredamount
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team 
+        message: "<var:name> (<var:steamid>) used a medkit and healed <var:recoveredhealth>."
+        regex: []
+    onshoot:
+        # weapon
+        # attackeripaddress
+        # attackername
+        # attackerplayerid
+        # attackersteamid
+        # attackerclass
+        # attackerteam
+        # playeripaddress
+        # playername
+        # playerplayerid
+        # playersteamid
+        # playerclass
+        # playerteam
+        message: "<var:attackername> (<var:attackersteamid>) shot <var:playername> (<var:playersteamid>) with <var:weapon>."
+        regex: []
+        notarget:
+            message: "<var:attackername> (<var:attackersteamid>) shot at nothing in particular with <var:weapon>."
+            regex: []
+        friendlyfire:
+            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) shot ally <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:weapon>.**"
+            regex: []
+    on106createportal:
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team 
+        message: "<var:name> (<var:steamid>) has opened a dimensional portal."
+        regex: []
+    on106teleport:
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team 
+        message: "<var:name> (<var:steamid>) travelled through their pocket dimension."
+        regex: []
+    onelevatoruse:
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team 
+        message: "<var:name> (<var:steamid>) used an elevator."
         regex: []
 
 admin:

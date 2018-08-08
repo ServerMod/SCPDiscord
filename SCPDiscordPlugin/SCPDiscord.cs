@@ -53,6 +53,7 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onwaitingforplayers", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundrestart", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetservername", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onscenechanged", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
 
             //Environment events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onscp914activate", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
@@ -83,7 +84,12 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onspawnragdoll", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onlure", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_oncontain106", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onmedkituse", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onshoot", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_on106createportal", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_on106teleport", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onelevatoruse", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            
             //Admin events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onadminquery", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onauthcheck", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));

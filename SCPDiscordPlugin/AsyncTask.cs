@@ -51,7 +51,9 @@ namespace SCPDiscord
                 channelID = "000000000000000000";
             }
 
-            if(variables != null)
+            message = message.Replace("\\n", "\n");
+
+            if (variables != null)
             {
                 // Variable insertion
                 foreach (KeyValuePair<string, string> variable in variables)
