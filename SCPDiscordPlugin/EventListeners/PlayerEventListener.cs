@@ -13,13 +13,12 @@ namespace SCPDiscord
     {
         private SCPDiscordPlugin plugin;
         // First dimension is target player second dimension is attacking player
-        int[][] teamKillingMatrix = new int[6][] {
-            new int[] { 0 },
-            new int[] { 1, 3 },
-            new int[] { 2, 4 },
-            new int[] { 3, 1 },
-            new int[] { 4, 2 },
-            new int[] { 5 }
+        Dictionary<int,int> teamKillingMatrix = new Dictionary<int, int>
+        {
+            { 1, 3 },
+            { 2, 4 },
+            { 3, 1 },
+            { 4, 2 }
         };
 
         public PlayerEventListener(SCPDiscordPlugin plugin)
@@ -98,9 +97,9 @@ namespace SCPDiscord
 
             if (ev.Player.SteamId != ev.Attacker.SteamId)
             {
-                foreach (int friendlyTeam in teamKillingMatrix[(int)ev.Attacker.TeamRole.Team])
+                foreach (KeyValuePair<int, int> team in teamKillingMatrix)
                 {
-                    if ((int)ev.Player.TeamRole.Team == friendlyTeam)
+                    if ((int)ev.Attacker.TeamRole.Team == team.Value && (int)ev.Player.TeamRole.Team == team.Key)
                     {
                         plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt.friendlyfire", variables);
                         return;
@@ -177,16 +176,15 @@ namespace SCPDiscord
 
             if (ev.Player.SteamId != ev.Killer.SteamId)
             {
-                foreach(int friendlyTeam in teamKillingMatrix[(int)ev.Killer.TeamRole.Team])
+                foreach (KeyValuePair<int, int> team in teamKillingMatrix)
                 {
-                    if((int)ev.Player.TeamRole.Team == friendlyTeam)
+                    if ((int)ev.Killer.TeamRole.Team == team.Value && (int)ev.Player.TeamRole.Team == team.Key)
                     {
                         plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie.friendlyfire", variables);
                         return;
                     }
                 }
             }
-
             plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie", variables);
         }
 
