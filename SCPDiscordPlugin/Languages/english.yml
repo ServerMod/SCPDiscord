@@ -98,15 +98,15 @@ round:
         # warheaddetonated
         # zombies
         message: >+
-            **Round ended after <var:duration> minutes.**
+            **Round ended after <var:duration> minutes.**\n
             ```
-            Escaped D-class:    <var:dclassalive> / <var:dclassstart>
-            Rescued Scientists: <var:scientistsalive> / <var:scientistsstart>
-            Contained SCPs:     <var:scpdead> / <var:scpstart>
-            Killed by SCP:      <var:scpkills>
-            Warhead detonated:  <var:warheaddetonated>
+            Escaped D-class:    <var:dclassalive> / <var:dclassstart>\n
+            Rescued Scientists: <var:scientistsalive> / <var:scientistsstart>\n
+            Contained SCPs:     <var:scpdead> / <var:scpstart>\n
+            Killed by SCP:      <var:scpkills>\n
+            Warhead switchwas<var:warheaddetonated> detonated.\n
             ```"
-        regex: []
+        regex: ["switchwasTrue":"was","switchwasFalse":"wasn't"]
     onwaitingforplayers:
         message: "**Server is ready and waiting for players.**"
         regex: []

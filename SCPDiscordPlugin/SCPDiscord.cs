@@ -8,6 +8,7 @@ using System.Threading;
 using System.IO;
 using System.Collections.Generic;
 using Smod2.Events;
+using SCPDiscord.Properties;
 
 namespace SCPDiscord
 {
@@ -16,10 +17,10 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "0.2.0",
+        version = "0.2.1",
         SmodMajor = 3,
         SmodMinor = 1,
-        SmodRevision = 10
+        SmodRevision = 11
         )]
     class SCPDiscordPlugin : Plugin
     {

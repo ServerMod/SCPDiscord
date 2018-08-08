@@ -40,6 +40,27 @@ namespace SCPDiscord
                 return;
             }
 
+            if (plugin.GetConfigBool("discord_verbose"))
+            {
+                plugin.Info("Damage: " +            ev.Damage                   );
+                plugin.Info("DamageType: " +        ev.DamageType               );
+                plugin.Info("Attacker: " +          ev.Attacker                 );
+                plugin.Info("Attacker IP: " +       ev.Attacker.IpAddress       );
+                plugin.Info("Attacker Name: " +     ev.Attacker.Name            );
+                plugin.Info("Attacker PlayerID: " + ev.Attacker.PlayerId        );
+                plugin.Info("Attacker SteamID: " +  ev.Attacker.SteamId         );
+                plugin.Info("Attacker TeamRole: " + ev.Attacker.TeamRole        );
+                plugin.Info("Attacker Role: " +     ev.Attacker.TeamRole.Role   );
+                plugin.Info("Attacker Team: " +     ev.Attacker.TeamRole.Team   );
+                plugin.Info("Player: " +            ev.Player                   );
+                plugin.Info("Player IP: " +         ev.Player.IpAddress         );
+                plugin.Info("Player Name: " +       ev.Player.Name              );
+                plugin.Info("Player PlayerID: " +   ev.Player.PlayerId          );
+                plugin.Info("Player SteamID: " +    ev.Player.SteamId           );
+                plugin.Info("Player Role: " +       ev.Player.TeamRole.Role     );
+                plugin.Info("Player Team: " +       ev.Player.TeamRole.Team     );
+            }
+
             if (ev.Attacker == null)
             {
                 Dictionary<string, string> noAttackerVar = new Dictionary<string, string>
@@ -102,7 +123,26 @@ namespace SCPDiscord
                 return;
             }
 
-            if(ev.Killer == null)
+            if (plugin.GetConfigBool("discord_verbose"))
+            {
+                plugin.Info("Attacker: " +          ev.Killer               );
+                plugin.Info("Attacker IP: " +       ev.Killer.IpAddress     );
+                plugin.Info("Attacker Name: " +     ev.Killer.Name          );
+                plugin.Info("Attacker PlayerID: " + ev.Killer.PlayerId      );
+                plugin.Info("Attacker SteamID: " +  ev.Killer.SteamId       );
+                plugin.Info("Attacker TeamRole: " + ev.Killer.TeamRole      );
+                plugin.Info("Attacker Role: " +     ev.Killer.TeamRole.Role );
+                plugin.Info("Attacker Team: " +     ev.Killer.TeamRole.Team );
+                plugin.Info("Player: " +            ev.Player               );
+                plugin.Info("Player IP: " +         ev.Player.IpAddress     );
+                plugin.Info("Player Name: " +       ev.Player.Name          );
+                plugin.Info("Player PlayerID: " +   ev.Player.PlayerId      );
+                plugin.Info("Player SteamID: " +    ev.Player.SteamId       );
+                plugin.Info("Player Role: " +       ev.Player.TeamRole.Role );
+                plugin.Info("Player Team: " +       ev.Player.TeamRole.Team );
+            }
+
+            if (ev.Killer == null)
             {
                 Dictionary<string, string> noKillerVar = new Dictionary<string, string>
                 {
@@ -335,7 +375,6 @@ namespace SCPDiscord
             /// <summary>  
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "allowspeech",    ev.AllowSpeech.ToString()           },
                 { "cooldowntime",   ev.CooldownTime.ToString()          },
                 { "speechtime",     ev.SpeechTime.ToString()            },
                 { "ipaddress",      ev.Player.IpAddress                 },
