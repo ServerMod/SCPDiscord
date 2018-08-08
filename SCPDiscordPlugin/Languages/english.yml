@@ -63,7 +63,7 @@ global_regex: [
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
-final_regex: ["''":""]
+final_regex: ["'' ":""]
 
 round:
     onroundstart:
