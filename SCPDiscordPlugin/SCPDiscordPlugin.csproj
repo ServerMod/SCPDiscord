@@ -87,7 +87,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="configs\english.yml" />
+    <None Include="Languages\english.yml" />
     <None Include="lib\Smod2\Smod2.dll" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
