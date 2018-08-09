@@ -22,7 +22,8 @@ namespace SCPDiscord
         // All default languages included in the .dll
         private readonly Dictionary<string, string> defaultLanguages = new Dictionary<string, string>
         {
-            { "english", Encoding.UTF8.GetString(Resources.english) }
+            { "english", Encoding.UTF8.GetString(Resources.english) },
+            { "russian", Encoding.UTF8.GetString(Resources.russian) }
         };
 
         public MessageConfig(SCPDiscordPlugin plugin)
