@@ -104,7 +104,7 @@ round:
             Научных Сотрудников выжило:             <var:scientistsalive>/<var:scientistsstart>\n
             Объектов SCP было уничтожено:           <var:scpdead>/<var:scpstart>\n
             Людей убито объектами SCP:              <var:scpkills>\n
-            Боеголовка "Альфа" switchwas<var:warheaddetonated> взорвана.
+            Боеголовка «Альфа» switchwas<var:warheaddetonated> взорвана.
             ```
         regex: ["switchwasTrue":"была","switchwasFalse":"не была"]
     onwaitingforplayers:
@@ -137,10 +137,10 @@ environment:
         # steamid
         # class
         # team
-        message: "**Был произведён запуск боеголовки "Альфа" игроком <var:name> (<var:steamid>), <var:timeleft> секунд осталось до детонации. Всему персоналу - немедленно пройти в зону эвакуации.**"
+        message: "**Был произведён запуск боеголовки «Альфа» игроком <var:name> (<var:steamid>), <var:timeleft> секунд осталось до детонации. Всему персоналу - немедленно пройти в зону эвакуации.**"
         regex: []
         countdownresumed:
-            message: "**Детонация боеголовки "Альфа" возобновлена игроком <var:name> (<var:steamid>), <var:timeleft> секунд осталось до детонации.**"
+            message: "**Детонация боеголовки «Альфа» возобновлена игроком <var:name> (<var:steamid>), <var:timeleft> секунд осталось до детонации.**"
             regex: []
     onstopcountdown:
         # timeleft
@@ -150,10 +150,10 @@ environment:
         # steamid
         # class
         # team
-        message: "**Детонация боеголовки "Альфа" была отключена игроком <var:name> (<var:steamid>).**"
+        message: "**Детонация боеголовки «Альфа» была отключена игроком <var:name> (<var:steamid>).**"
         regex: []
     ondetonate:
-        message: "**Обнаружен запуск детонации боеголовки "Альфа". Высланы оперативники Фонда для расследования инцидента.**"
+        message: "**Обнаружен запуск детонации боеголовки «Альфа». Высланы оперативники Фонда для расследования инцидента.**"
         regex: []
     ondecontaminate:
         message: "**Инициировано обеззараживание Лёгкой Зоны Содержания, все биологические субстании будут уничтожены.**"
