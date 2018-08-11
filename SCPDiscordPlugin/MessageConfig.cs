@@ -24,7 +24,8 @@ namespace SCPDiscord
         private readonly Dictionary<string, string> defaultLanguages = new Dictionary<string, string>
         {
             { "english", Encoding.UTF8.GetString(Resources.english) },
-            { "russian", Encoding.UTF8.GetString(Resources.russian) }
+            { "russian", Encoding.UTF8.GetString(Resources.russian) },
+            { "french",  Encoding.UTF8.GetString(Resources.french)  }
         };
 
         public MessageConfig(SCPDiscordPlugin plugin)
