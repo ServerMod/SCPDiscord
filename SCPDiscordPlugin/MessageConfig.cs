@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using YamlDotNet.Core;
+using System.Threading;
 
 namespace SCPDiscord
 {
-    class MessageConfig
+    internal class MessageConfig
     {
         private SCPDiscordPlugin plugin;
 
@@ -28,8 +29,24 @@ namespace SCPDiscord
         public MessageConfig(SCPDiscordPlugin plugin)
         {
             this.plugin = plugin;
+            plugin.messageConfig = this;
+
+            Thread.Sleep(2500);
+
             SaveDefaultLanguages();
             ReadLanguage();
+
+            //Runs until the server has connected once
+            Thread connectionThread = new Thread(new ThreadStart(() => new ConnectToBot(plugin)));
+            connectionThread.Start();
+
+            //Runs the listener
+            Thread botListenerThread = new Thread(new ThreadStart(() => new BotListener(plugin)));
+            botListenerThread.Start();
+
+            //Keeps running to auto-reconnect if needed
+            Thread watchdogThread = new Thread(new ThreadStart(() => new StartConnectionWatchdog(plugin)));
+            watchdogThread.Start();
         }
 
         /// <summary>
@@ -38,7 +55,7 @@ namespace SCPDiscord
         public void SaveDefaultLanguages()
         {
             plugin.Info("Creating language files...");
-            foreach(KeyValuePair<string, string> language in defaultLanguages)
+            foreach (KeyValuePair<string, string> language in defaultLanguages)
             {
                 try
                 {
@@ -54,7 +71,7 @@ namespace SCPDiscord
 
         /// <summary>
         /// This function makes me want to die too, don't worry.
-        /// 
+        ///
         /// Parses a yaml file into a yaml object, parses the yaml object into a json string, parses the json string into a json object
         /// </summary>
         public void ReadLanguage()
@@ -79,7 +96,7 @@ namespace SCPDiscord
             }
             catch (Exception e)
             {
-                if(e is DirectoryNotFoundException)
+                if (e is DirectoryNotFoundException)
                 {
                     plugin.Error("Language directory not found.");
                 }
@@ -91,7 +108,7 @@ namespace SCPDiscord
                 {
                     plugin.Error("'" + plugin.GetConfigString("discord_language") + ".yml' was not found.");
                 }
-                else if(e is JsonReaderException || e is YamlException)
+                else if (e is JsonReaderException || e is YamlException)
                 {
                     plugin.Error("'" + plugin.GetConfigString("discord_language") + ".yml' formatting error.");
                 }
@@ -100,6 +117,5 @@ namespace SCPDiscord
                 plugin.Disable();
             }
         }
-
     }
 }

@@ -18,6 +18,6 @@
     "url": "https://github.com/KarlOfDuty/SCPDiscord"
   },
   "dependencies": {
-    "discord.js": "^11.3.2"
+    "discord.js": "^11.4.0"
   }
 }
