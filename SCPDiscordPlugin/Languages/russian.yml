@@ -511,7 +511,7 @@ admin:
         # adminsteamid
         # adminclass
         # adminteam
-        message: "Игрок <var:playername> (<var:playersteamid) был забанен администратором <var:adminname> (<var:adminsteamid>) на <var:duration> минут."
+        message: "Игрок <var:playername> (<var:playersteamid>) был забанен администратором <var:adminname> (<var:adminsteamid>) на <var:duration> минут."
         regex: []
     
 team:
