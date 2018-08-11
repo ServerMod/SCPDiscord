@@ -17,12 +17,12 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "0.2.1",
+        version = "0.2.2",
         SmodMajor = 3,
         SmodMinor = 1,
         SmodRevision = 11
         )]
-    class SCPDiscordPlugin : Plugin
+    internal class SCPDiscordPlugin : Plugin
     {
         //Sends outgoing messages
         public TcpClient clientSocket = new TcpClient();
@@ -43,7 +43,7 @@ namespace SCPDiscord
             //Connection settings
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_port", 8888, Smod2.Config.SettingType.NUMERIC, true, "Port to send messages to the bot on."));
-            
+
             //Round events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundstart", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onconnect", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
@@ -89,7 +89,7 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_on106createportal", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_on106teleport", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onelevatoruse", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            
+
             //Admin events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onadminquery", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onauthcheck", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
@@ -105,26 +105,15 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_language", "english", Smod2.Config.SettingType.STRING, true, "Name of the language config to use."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_formatting_date", "HH:mm:ss", Smod2.Config.SettingType.STRING, true, "Discord time formatting, 'off' to remove."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_verbose", false, Smod2.Config.SettingType.BOOL, true, "Log every message sent to discord in the console."));
-
         }
 
         public override void OnEnable()
         {
             this.Info("SCPDiscord " + this.Details.version + " enabled.");
 
-            messageConfig = new MessageConfig(this);
-
-            //Runs until the server has connected once
-            Thread connectionThread = new Thread(new ThreadStart(() => new ConnectToBot(this)));
-            connectionThread.Start();
-
-            //Runs the listener
-            Thread botListenerThread = new Thread(new ThreadStart(() => new BotListener(this)));
-            botListenerThread.Start();
-
-            //Keeps running to auto-reconnect if needed
-            Thread watchdogThread = new Thread(new ThreadStart(() => new StartConnectionWatchdog(this)));
-            watchdogThread.Start();
+            // Fucks with things until the plugin works - hopefully I remember to add a more elegant fix in the future
+            Thread messageThread = new Thread(new ThreadStart(() => new MessageConfig(this)));
+            messageThread.Start();
         }
 
         public void Disable()
@@ -190,7 +179,5 @@ namespace SCPDiscord
             }
             return false;
         }
-
-
     }
 }
