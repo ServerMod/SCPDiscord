@@ -1,10 +1,8 @@
 # SCPDiscord
 
-Ever wished to interact with your SCP:SL server without having to open your ssh client? Now you can, this plugin will in the future let you execute commands remotely from Discord, sync information such as how many players are online both to bot status and channel topic.
+Ever wished to interact with your SCP:SL server without having to open your SSH client?
 
-It will also be possible to sync ranks from discord to the game, letting you automate things like patreon rewards and moderator positions. 
-
-It will also be possible to list the number of players on your server in the bot's status and a more detailed status in a channel's topic field.
+SCPDiscord links features from your server console to Discord channels, such as printing out server events to Discord and using server commands through Discord. It is incredibly customisable as you can read more about below.
 
 I was going to wait with making this plugin until SCP:SL updates to .NET 4.6 from the current .NET 3.5 but apperently that has been delayed (indefinitely?). This means I can't use a C# Discord API directly from the plugin and thus have to seperate it into two different programs.
 
@@ -12,17 +10,25 @@ They send messages along like this: SCPDiscordPlugin -> SCPDiscordBot -> Discord
 
 ## Current features:
 
-Ability to log any ServerMod event to Discord. All are optional and can be toggled individually.
+*Ability to log any ServerMod event to Discord. All are optional and can be toggled individually.
 
 Complete multi-channel support letting you post different events to different channels. All can be individually re-routed.
-Support for multi-admin servers, each server can post to the same channel, different channels or even different bots and different Discord servers.
+Support for MultiAdmin managed servers, each sub-server can post to the same channel, different channels or even different bots and different Discord servers.
 
-You can for instance have one public channel for each of your servers where things like player joins, kills round starts and round ends are posted. You could then add one channel for each server visible only to moderators, showing things like admin actions and logging who attacks who on each server to check for teamkillers.
+You can for instance have one public channel for each of your servers where things like player joins, kills, round starts and round ends are posted. You could then add one channel for each server visible only to moderators, showing things like admin actions and logging who attacks who on each server to check for teamkillers.
 
-Ability to use Different commands through Discord, currently kick and ban.
-To my knowledge this is the only plugin that currently offers banning offline players, so hackers leaving as soon as they see an admin coming on is no longer an issue.
+Ability to use different commands through Discord, currently kick, ban and unban.
+To my knowledge this is the only plugin that currently offers banning offline players, so hackers leaving as soon as they see an admin coming on is no longer an issue. It is also the only plugin I'm aware of that lets you unban players.
 
-The ability to completely customise every single message from the plugin and use different languages.
+The ability to completely customise every single message from the plugin and use different languages. More info [here](https://github.com/KarlOfDuty/SCPDiscord/wiki/Adding-a-language-or-switching-language).
+
+## Upcoming features
+
+This plugin will in the future let you sync information such as how many players are online both to bot status and channel topic.
+
+It will also be possible to sync ranks from discord to the game, letting you automate things like patreon rewards and moderator positions. 
+
+It will also be possible to list the number of players on your server in the bot's status and a more detailed status in a channel's topic field.
 
 ## Bot commands
 
