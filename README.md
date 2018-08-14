@@ -8,17 +8,17 @@ They send messages along like this: SCPDiscordPlugin -> SCPDiscordBot -> Discord
 
 ## Current features:
 
-*Ability to log any ServerMod event to Discord. All are optional and can be toggled individually.
+* Ability to log any ServerMod event to Discord. All are optional and can be toggled individually.
 
-Complete multi-channel support letting you post different events to different channels. All can be individually re-routed.
-Support for MultiAdmin managed servers, each sub-server can post to the same channel, different channels or even different bots and different Discord servers.
+* Complete multi-channel support letting you post different events to different channels. All can be individually re-routed.
 
-You can for instance have one public channel for each of your servers where things like player joins, kills, round starts and round ends are posted. You could then add one channel for each server visible only to moderators, showing things like admin actions and logging who attacks who on each server to check for teamkillers.
+* Support for MultiAdmin managed servers, each sub-server can post to the same channel, different channels or even different bots and different Discord servers.
 
-Ability to use different commands through Discord, currently kick, ban and unban.
-To my knowledge this is the only plugin that currently offers banning offline players, so hackers leaving as soon as they see an admin coming on is no longer an issue. It is also the only plugin I'm aware of that lets you unban players.
+* You can for instance have one public channel for each of your servers where things like player joins, kills, round starts and round ends are posted. You could then add one channel for each server visible only to moderators, showing things like admin actions and logging who attacks who on each server to check for teamkillers.
 
-The ability to completely customise every single message from the plugin and use different languages. More info [here](https://github.com/KarlOfDuty/SCPDiscord/wiki/Adding-a-language-or-switching-language).
+* Ability to use different commands through Discord, currently kick, ban and unban. To my knowledge this is the only plugin that currently offers banning offline players, so hackers leaving as soon as they see an admin coming on is no longer an issue. It is also the only plugin I'm aware of that lets you unban players.
+
+* The ability to completely customise every single message from the plugin and use different languages. More info [here](https://github.com/KarlOfDuty/SCPDiscord/wiki/Adding-a-language-or-switching-language).
 
 ## Upcoming features
 
