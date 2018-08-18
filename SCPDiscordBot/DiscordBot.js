@@ -1,6 +1,6 @@
 console.log('Config loading...');
 
-const { token, prefix, listeningPort, defaultChannel, verbose, cooldown } = require('./config.json');
+const { token, prefix, listeningPort, defaultChannel, verbose, cooldown, requirepermission } = require('./config.json');
 
 console.log('Config loaded.');
 
@@ -21,12 +21,12 @@ listenServer.createServer(function (socket)
     // Messages from the plugin
     socket.on('data', function (data)
     {
-        var messages = data.split('\u0000')
+        var messages = data.split('\u0000');
         messages.forEach(function (packet)
         {
-            var destinationChannel = packet.slice(0, 18)
-            var message = packet.slice(18)
-            if (message != "")
+            var destinationChannel = packet.slice(0, 18);
+            var message = packet.slice(18);
+            if (message !== "")
             {
                 //Switch the default channel key for the actual default channel id
                 if (destinationChannel === "000000000000000000")
@@ -35,13 +35,13 @@ listenServer.createServer(function (socket)
                 }
 
                 // If this channel has not been used yet it must be initialized
-                if (messageQueue[destinationChannel] == null)
+                if (messageQueue[destinationChannel] === null)
                 {
-                    messageQueue[destinationChannel] = (message + "\n");
+                    messageQueue[destinationChannel] = message + "\n";
                 }
                 else
                 {
-                    messageQueue[destinationChannel] += (message + "\n");
+                    messageQueue[destinationChannel] += message + "\n";
                 }
 
             }
@@ -51,12 +51,30 @@ listenServer.createServer(function (socket)
             if (client !== null)
             {
                 var verifiedChannel = client.channels.get(channelID);
-                if (verifiedChannel != null)
+                if (verifiedChannel !== null)
                 {
                     //Message is copied to a new variable as it's deletion later may happen before the send function finishes
                     var message = messageQueue[channelID].slice(0, -1);
-                    if (message != null && message != " " && message != "")
+
+                    // If message is too long, split it up
+                    while (message.length >= 2000)
                     {
+                        var cutMessage = message.slice(0, 1999);
+                        message = message.slice(1999);
+                        if (cutMessage !== null && cutMessage !== " " && cutMessage !== "") {
+
+                            verifiedChannel.send(cutMessage);
+                            if (verbose)
+                            {
+                                console.log("Sent: " + channelID + ": '" + cutMessage + "' to Discord.");
+                            }
+                        }
+                    }
+
+                    // Send remaining message
+                    if (message !== null && message !== " " && message !== "")
+                    {
+
                         verifiedChannel.send(message);
                         if (verbose)
                         {
@@ -85,7 +103,7 @@ listenServer.createServer(function (socket)
     {
         console.log('Plugin connection lost.');
         var verifiedChannel = client.channels.get(defaultChannel);
-        if (verifiedChannel != null)
+        if (verifiedChannel !== null)
         {
             verifiedChannel.send("Plugin connection lost.");
         }
@@ -95,7 +113,7 @@ listenServer.createServer(function (socket)
     client.on('message', message =>
     {
         //Abort if message does not start with the prefix
-        if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id != defaultChannel)
+        if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel)
             return;
 
         //Cut message into base command and arguments
@@ -103,27 +121,21 @@ listenServer.createServer(function (socket)
         const command = args.shift().toLowerCase();
 
         //Add commands here, I only verify permissions and that the command exists here
-        if (command === 'setavatar' && message.member.hasPermission("ADMINISTRATOR"))
+        if (command === 'setavatar' && (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false))
         {
             var url = args.shift();
             client.user.setAvatar(url);
             message.channel.send('Avatar Updated.');
         }
-        else if (command === 'test' && message.member.hasPermission("ADMINISTRATOR"))
-        {
-            socket.write(message.member.displayName + " used the command 'test'. If you can read this it means everything works as it should.\n");
-            console.log("Forwarded test message to plugin.");
-            message.channel.send('Check your SCP server console for confirmation.');
-        }
-        else if (command === 'ban' && message.member.hasPermission("BAN_MEMBERS"))
+        else if (command === 'ban' && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
         {
             socket.write("command " + message.content.slice(prefix.length) + "\n");
         }
-        else if (command === 'unban' && message.member.hasPermission("BAN_MEMBERS"))
+        else if (command === 'unban' && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
         {
             socket.write("command " + message.content.slice(prefix.length) + "\n");
         }
-        else if (command === 'kick' && message.member.hasPermission("KICK_MEMBERS"))
+        else if (command === 'kick' && (message.member.hasPermission("KICK_MEMBERS") || requirepermission === false))
         {
             socket.write("command " + message.content.slice(prefix.length) + "\n");
         }
@@ -135,19 +147,22 @@ listenServer.createServer(function (socket)
 
     client.on("error", (e) =>
     {
-        console.error(e)
+        console.error(e);
     });
 
     client.on("warn", (e) =>
     {
-        console.warn(e)
+        if (verbose)
+        {
+            console.warn(e);
+        }
     });
 
     client.on("debug", (e) =>
     {
         if (verbose)
         {
-            console.info(e)
+            console.info(e);
         }
     });
 }).listen(listeningPort)
