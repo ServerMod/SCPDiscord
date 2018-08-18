@@ -211,4 +211,47 @@ client.on('ready', () =>
     });
 });
 
+process.on('exit', function ()
+{
+    console.log('Signing out...');
+    if (client != null)
+    {
+        client.destroy();
+    }
+});
+process.on('SIGINT', function ()
+{
+    console.log('Signing out...');
+    if (client != null)
+    {
+        client.destroy();
+    }
+});
+
+process.on('SIGUSR1', function ()
+{
+    console.log('Signing out...');
+    if (client != null)
+    {
+        client.destroy();
+    }
+});
+
+process.on('SIGUSR2', function ()
+{
+    console.log('Signing out...');
+    if (client != null)
+    {
+        client.destroy();
+    }
+});
+
+process.on('SIGHUP', function ()
+{
+    console.log('Signing out...');
+    if (client != null)
+    {
+        client.destroy();
+    }
+});
 client.login(token);
