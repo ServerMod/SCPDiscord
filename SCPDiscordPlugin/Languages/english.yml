@@ -29,6 +29,10 @@ global_regex: [
     "NTF_LIEUTENANT":"MTF Lieutenant",
     "NTF_COMMANDER":"MTF Commander",
 
+	# Non-weapon damage types
+
+	"NUKE":"Nuke or Grenade",
+
     # Items
     "JANITOR_KEYCARD":"Janitor keycard",
     "SCIENTIST_KEYCARD":"Scientist keycard",
