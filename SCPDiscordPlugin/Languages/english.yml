@@ -175,15 +175,19 @@ player:
         # playersteamid
         # playerclass
         # playerteam
-        message: "<var:playername> (<var:playersteamid>) was hurt by <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage>)."
+        message: "<var:playername> (<var:playersteamid>) was hurt by <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp)."
         regex: []
         friendlyfire:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) was attacked by teammate <var:attackerteam> <var:attackername> (<var:attackersteamid>).**"
+            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) was attacked by teammate <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp).**"
+            regex: []
+        self:
+            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) hurt themselves with <var:damagetype> (<var:damage> hp).**"
             regex: []
         noattacker: 
             message: "**<var:playername> (<var:playersteamid>) took <var:damage> damage by <var:damagetype>.**"
             regex: []
     onplayerdie:
+        # damagetype
         # spawnragdoll
         # attackeripaddress
         # attackername
@@ -197,13 +201,16 @@ player:
         # playersteamid
         # playerclass
         # playerteam
-        message: "<var:playername> (<var:playersteamid>) was killed by <var:attackername> (<var:attackersteamid>)."
+        message: "<var:playername> (<var:playersteamid>) was killed by <var:attackername> (<var:attackersteamid>) using <var:damagetype>."
         regex: []
         friendlyfire:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) was teamkilled by <var:attackerteam> <var:attackername> (<var:attackersteamid>).**"
+            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) was teamkilled by <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype>.**"
+            regex: []
+        self:
+            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) killed themselves using <var:damagetype>.**"
             regex: []
         nokiller:
-            message: "<var:playername> (<var:playersteamid>) died."
+            message: "<var:playername> (<var:playersteamid>) died by <var:damagetype>."
             regex: []
     onplayerpickupitem:
         # item

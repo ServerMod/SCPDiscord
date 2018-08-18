@@ -104,6 +104,9 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>cd $(ProjectDir)
-copy /y bin\SCPDiscord.dll ..\..\..\scpserver\sm_plugins</PostBuildEvent>
+copy /y bin\SCPDiscord.dll ..\..\..\scpserver\sm_plugins\
+mkdir ..\..\..\scpserver\sm_plugins\dependencies
+copy /y bin\Newtonsoft.Json.dll ..\..\..\scpserver\sm_plugins\dependencies\
+copy /y bin\YamlDotNet.dll ..\..\..\scpserver\sm_plugins\dependencies\</PostBuildEvent>
   </PropertyGroup>
 </Project>
