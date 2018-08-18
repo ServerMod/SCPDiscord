@@ -29,6 +29,10 @@ namespace SCPDiscord
 
         private bool IsTeamDamage(int attackerTeam, int targetTeam)
         {
+            if(attackerTeam == targetTeam)
+            {
+                return true;
+            }
             foreach (KeyValuePair<int, int> team in teamKillingMatrix)
             {
                 if (attackerTeam == team.Value && targetTeam == team.Key)
@@ -87,7 +91,13 @@ namespace SCPDiscord
                 { "playerteam",         ev.Player.TeamRole.Team.ToString()      }
             };
 
-            if (ev.Player.SteamId != ev.Attacker.SteamId && IsTeamDamage((int)ev.Attacker.TeamRole.Team, (int)ev.Player.TeamRole.Team))
+            if(ev.Player.PlayerId == ev.Attacker.PlayerId)
+            {
+                plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt.self", variables);
+                return;
+            }
+
+            if (IsTeamDamage((int)ev.Attacker.TeamRole.Team, (int)ev.Player.TeamRole.Team))
             {
                 plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt.friendlyfire", variables);
                 return;
@@ -112,6 +122,7 @@ namespace SCPDiscord
             {
                 Dictionary<string, string> noKillerVar = new Dictionary<string, string>
                 {
+                    { "damagetype",         ev.DamageTypeVar.ToString()         },
                     { "spawnragdoll",       ev.SpawnRagdoll.ToString()          },
                     { "playeripaddress",    ev.Player.IpAddress                 },
                     { "playername",         ev.Player.Name                      },
@@ -126,6 +137,7 @@ namespace SCPDiscord
 
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
+                { "damagetype",         ev.DamageTypeVar.ToString()         },
                 { "spawnragdoll",       ev.SpawnRagdoll.ToString()          },
                 { "attackeripaddress",  ev.Killer.IpAddress                 },
                 { "attackername",       ev.Killer.Name                      },
@@ -141,7 +153,13 @@ namespace SCPDiscord
                 { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
             };
 
-            if (ev.Player.SteamId != ev.Killer.SteamId && IsTeamDamage((int)ev.Killer.TeamRole.Team, (int)ev.Player.TeamRole.Team))
+            if (ev.Player.PlayerId == ev.Killer.PlayerId)
+            {
+                plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie.self", variables);
+                return;
+            }
+
+            if (IsTeamDamage((int)ev.Killer.TeamRole.Team, (int)ev.Player.TeamRole.Team))
             {
                 plugin.SendDiscordMessage(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie.friendlyfire", variables);
                 return;
