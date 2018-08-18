@@ -6,7 +6,7 @@ I was going to wait with making this plugin until SCP:SL updates to .NET 4.6 fro
 
 They send messages along like this: SCPDiscordPlugin -> SCPDiscordBot -> Discord Channel
 
-## Current features:
+## Features:
 
 * Ability to log any ServerMod event to Discord. All are optional and can be toggled individually.
 
