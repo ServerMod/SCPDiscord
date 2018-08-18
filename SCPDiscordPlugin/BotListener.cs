@@ -145,6 +145,9 @@ namespace SCPDiscord
                 name = "Offline player";
             }
 
+            name = name.Replace(";","");
+            reason = reason.Replace(";","");
+
             // Add the player to the SteamIDBans file.
             StreamWriter streamWriter = new StreamWriter(FileManager.AppFolder + "/SteamIdBans.txt", true);
             streamWriter.WriteLine(name + ';' + steamID + ';' + endTime.Ticks + ';' + reason + ";DISCORD;" + DateTime.UtcNow.Ticks);
