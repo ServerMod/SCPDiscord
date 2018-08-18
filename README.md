@@ -22,7 +22,7 @@ They send messages along like this: SCPDiscordPlugin -> SCPDiscordBot -> Discord
 
 * Player count is displayed in the bot activity field. The bot's status changes from dnd when the scp server is on but the bot server is on, away when there are no players on a server and online when a server has players.
 
-* Server admin can set an auto-updating channel topic with information such as number of players, server uptims, ip and gameplay information.
+* An auto-updating channel topic with information such as number of players, server uptime, ip and gameplay information.
 
 ## Upcoming features
 
