@@ -20,13 +20,13 @@ They send messages along like this: SCPDiscordPlugin -> SCPDiscordBot -> Discord
 
 * The ability to completely customise every single message from the plugin and use different languages. More info [here](https://github.com/KarlOfDuty/SCPDiscord/wiki/Adding-a-language-or-switching-language).
 
+* Player count is displayed in the bot activity field. The bot's status changes from dnd when the scp server is on but the bot server is on, away when there are no players on a server and online when a server has players.
+
+* Server admin can set an auto-updating channel topic with information such as number of players, server uptims, ip and gameplay information.
+
 ## Upcoming features
 
-This plugin will in the future let you sync information such as how many players are online both to bot status and channel topic.
-
-It will also be possible to sync ranks from discord to the game, letting you automate things like patreon rewards and moderator positions. 
-
-It will also be possible to list the number of players on your server in the bot's status and a more detailed status in a channel's topic field.
+It will be possible to sync ranks from discord to the game, letting you automate things like patreon rewards and moderator positions.
 
 ## Bot commands
 
