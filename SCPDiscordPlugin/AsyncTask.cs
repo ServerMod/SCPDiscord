@@ -355,7 +355,8 @@ namespace SCPDiscord
             }
             catch(Exception e)
             {
-                plugin.Error(e.ToString());
+                if(plugin.GetConfigBool("discord_verbose"))
+                    plugin.Warn(e.ToString());
             }
 
 
