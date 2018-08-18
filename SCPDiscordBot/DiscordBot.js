@@ -32,6 +32,14 @@ listenServer.createServer(function (socket)
 
             if (packet.slice(0, 11) === "playercount")
             {
+                if (packet.slice(11)[0] === "0")
+                {
+                    client.user.setStatus('idle');
+                }
+                else
+                {
+                    client.user.setStatus('available');
+                }
                 client.user.setActivity(packet.slice(11),
                 {
                     type: "PLAYING"
@@ -122,6 +130,11 @@ listenServer.createServer(function (socket)
         if (verifiedChannel !== null)
         {
             verifiedChannel.send("Plugin connection lost.");
+            client.user.setStatus('dnd');
+            client.user.setActivity("for server startup.",
+            {
+                type: "LISTENING"
+            });
         }
     });
 
@@ -191,6 +204,11 @@ client.on('ready', () =>
 {
     console.log('Discord connection established.');
     client.channels.get(defaultChannel).send("Bot Online.");
+    client.user.setStatus('dnd');
+    client.user.setActivity("for server startup.",
+    {
+        type: "WATCHING"
+    });
 });
 
 client.login(token);
