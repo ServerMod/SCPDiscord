@@ -21,16 +21,46 @@ listenServer.createServer(function (socket)
     // Messages from the plugin
     socket.on('data', function (data)
     {
+        if (client == null)
+        {
+            console.log("Recieved " + data + " but Discord client was null.");
+            return;
+        }
         var messages = data.split('\u0000');
 
         messages.forEach(function (packet)
         {
-            if (client == null)
+            if (packet.slice(0, 12) === "channeltopic")
             {
-                return;
-            }
+                var channel = packet.slice(12, 30);
+                if (channel === "000000000000000000")
+                {
+                    channel = defaultChannel;
+                }
 
-            if (packet.slice(0, 11) === "playercount")
+                // Try finding the channel
+                var verifiedChannel = client.channels.get(channel);
+                if (verifiedChannel != null)
+                {
+                    if (verifiedChannel.manageable)
+                    {
+                        if (verbose)
+                            console.log("Changed to topic: " + packet.slice(30));
+                        verifiedChannel.setTopic(packet.slice(30));
+                    }
+                    else
+                    {
+                        if(verbose)
+                            console.warn("No permission to change channel topic.");
+                    }
+                }
+                else
+                {
+                    if(verbose)
+                        console.warn("Server status channel was not found.");
+                }
+            }
+            else if (packet.slice(0, 11) === "botactivity" && client.user != null)
             {
                 if (packet.slice(11)[0] === "0")
                 {
@@ -44,6 +74,8 @@ listenServer.createServer(function (socket)
                 {
                     type: "PLAYING"
                 });
+                if (verbose)
+                    console.warn("Set activity to " + packet.slice(11));
             }
             else
             {
@@ -71,55 +103,52 @@ listenServer.createServer(function (socket)
         });
         for (var channelID in messageQueue)
         {
-            if (client !== null)
+            var verifiedChannel = client.channels.get(channelID);
+            if (verifiedChannel != null)
             {
-                var verifiedChannel = client.channels.get(channelID);
-                if (verifiedChannel != null)
+                //Message is copied to a new variable as it's deletion later may happen before the send function finishes
+                var message = messageQueue[channelID].slice(0, -1);
+
+                // If message is too long, split it up
+                while (message.length >= 2000)
                 {
-                    //Message is copied to a new variable as it's deletion later may happen before the send function finishes
-                    var message = messageQueue[channelID].slice(0, -1);
-
-                    // If message is too long, split it up
-                    while (message.length >= 2000)
+                    var cutMessage = message.slice(0, 1999);
+                    message = message.slice(1999);
+                    if (cutMessage != null && cutMessage !== " " && cutMessage !== "")
                     {
-                        var cutMessage = message.slice(0, 1999);
-                        message = message.slice(1999);
-                        if (cutMessage != null && cutMessage !== " " && cutMessage !== "")
-                        {
-                            if (client.status)
-                            verifiedChannel.send(cutMessage);
-                            if (verbose)
-                            {
-                                console.log("Sent: " + channelID + ": '" + cutMessage + "' to Discord.");
-                            }
-                        }
-                    }
-
-                    // Send remaining message
-                    if (message !== null && message !== " " && message !== "")
-                    {
-
-                        verifiedChannel.send(message);
+                        if (client.status)
+                        verifiedChannel.send(cutMessage);
                         if (verbose)
                         {
-                            console.log("Sent: " + channelID + ": '" + message + "' to Discord.");
+                            console.log("Sent: " + channelID + ": '" + cutMessage + "' to Discord.");
                         }
                     }
                 }
-                else
+
+                // Send remaining message
+                if (message != null && message !== " " && message !== "")
                 {
+
+                    verifiedChannel.send(message);
                     if (verbose)
                     {
-                        console.log("Channel not found for message: " + messageQueue);
+                        console.log("Sent: " + channelID + ": '" + message + "' to Discord.");
                     }
                 }
-                messageQueue[channelID] = "";
             }
+            else
+            {
+                if (verbose)
+                {
+                    console.warn("Channel not found for message: " + messageQueue);
+                }
+            }
+            messageQueue[channelID] = "";
         }
 
         // Wait for the rate limit
         var waitTill = new Date(new Date().getTime() + cooldown);
-        while (waitTill > new Date()) { }
+        while (waitTill > new Date()) { } //eslint-disable-line
     });
 
     //Connection issues
@@ -127,7 +156,7 @@ listenServer.createServer(function (socket)
     {
         console.log('Plugin connection lost.');
         var verifiedChannel = client.channels.get(defaultChannel);
-        if (verifiedChannel !== null)
+        if (verifiedChannel != null)
         {
             verifiedChannel.send("Plugin connection lost.");
             client.user.setStatus('dnd');
@@ -135,6 +164,10 @@ listenServer.createServer(function (socket)
             {
                 type: "LISTENING"
             });
+        }
+        else {
+            if (verbose)
+                console.warn("Error sending status to Discord.");
         }
     });
 
@@ -194,7 +227,7 @@ listenServer.createServer(function (socket)
             console.info(e);
         }
     });
-}).listen(listeningPort)
+}).listen(listeningPort);
 {
     console.log('Server is listening on port ' + listeningPort);
 }

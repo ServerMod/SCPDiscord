@@ -22,7 +22,7 @@ namespace SCPDiscord
             {
                 { "teams", ev.Teams.ToString() },
             };
-            plugin.SendToBot(plugin.GetConfigString("discord_channel_ondecideteamrespawnqueue"), "team.ondecideteamrespawnqueue", variables);
+            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_ondecideteamrespawnqueue"), "team.ondecideteamrespawnqueue", variables);
         }
 
         public void OnTeamRespawn(TeamRespawnEvent ev)
@@ -38,11 +38,11 @@ namespace SCPDiscord
 
             if(ev.SpawnChaos)
             {
-                plugin.SendToBot(plugin.GetConfigString("discord_channel_onteamrespawn"), "team.onteamrespawn.cispawn", variables);
+                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onteamrespawn"), "team.onteamrespawn.cispawn", variables);
             }
             else
             {
-                plugin.SendToBot(plugin.GetConfigString("discord_channel_onteamrespawn"), "team.onteamrespawn", variables);
+                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onteamrespawn"), "team.onteamrespawn", variables);
             }
 
         }
@@ -57,7 +57,7 @@ namespace SCPDiscord
                 { "maxhp",  ev.MaxHP.ToString() },
                 { "role",   ev.Role.ToString()  }
             };
-            plugin.SendToBot(plugin.GetConfigString("discord_channel_onsetrolemaxhp"), "Max HP for " + ev.Role + " set to " + ev.MaxHP + ".");
+            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onsetrolemaxhp"), "Max HP for " + ev.Role + " set to " + ev.MaxHP + ".");
         }
 
         public void OnSetSCPConfig(SetSCPConfigEvent ev)
@@ -82,7 +82,7 @@ namespace SCPDiscord
                 { "939_53amount",   ev.SCP939_53amount.ToString()   },
                 { "939_89amount",   ev.SCP939_89amount.ToString()   }
             };
-            plugin.SendToBot(plugin.GetConfigString("discord_channel_onsetscpconfig"), "SCP settings set.");
+            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onsetscpconfig"), "SCP settings set.");
         }
 
     }

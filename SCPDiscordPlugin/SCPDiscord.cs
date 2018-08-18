@@ -9,6 +9,7 @@ using System.IO;
 using System.Collections.Generic;
 using Smod2.Events;
 using SCPDiscord.Properties;
+using System.Diagnostics;
 
 namespace SCPDiscord
 {
@@ -17,7 +18,7 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "0.2.3",
+        version = "0.3.0",
         SmodMajor = 3,
         SmodMinor = 1,
         SmodRevision = 12
@@ -30,6 +31,8 @@ namespace SCPDiscord
         public bool hasConnectedOnce = false;
 
         public MessageConfig messageConfig;
+
+        public Stopwatch serverStartTime = new Stopwatch();
 
         public override void Register()
         {
@@ -106,12 +109,15 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_language", "english", Smod2.Config.SettingType.STRING, true, "Name of the language config to use."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_formatting_date", "HH:mm:ss", Smod2.Config.SettingType.STRING, true, "Discord time formatting, 'off' to remove."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_verbose", false, Smod2.Config.SettingType.BOOL, true, "Log every message sent to discord in the console."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status", "Use the config option discord_server_status to change this text.", Smod2.Config.SettingType.STRING, true, "The server status to be pasted as a channel topic."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status_regex", new Dictionary<string, string>(), Smod2.Config.SettingType.DICTIONARY, true, "The regex replacement to be executed on this server's channel topic."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status_channel", "default", Smod2.Config.SettingType.STRING, true, "Channel to put server status in."));
         }
 
         public override void OnEnable()
         {
             this.Info("SCPDiscord " + this.Details.version + " enabled.");
-
+            serverStartTime.Start();
             // Fucks with things until the plugin works - hopefully I remember to add a more elegant fix in the future
             Thread messageThread = new Thread(new ThreadStart(() => new MessageConfig(this)));
             messageThread.Start();
@@ -131,14 +137,29 @@ namespace SCPDiscord
         /// <summary>
         /// Gets a message from the language file, parses it and sends it.
         /// </summary>
-        /// <param name="prefix">The channel ID to post the message in. Also can be a keyword such as default, off or bot function such as playercount.</param>
+        /// <param name="channelID">The channel ID to post the message in.</param>
         /// <param name="messagePath">The JSON JPath describing the message node location.</param>
         /// <param name="variables">Variables to be parsed into the string.</param>
-        public void SendToBot(string prefix, string messagePath, Dictionary<string, string> variables = null)
+        public void SendMessageToBot(string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
-            if (prefix != "off")
+            if (channelID != "off")
             {
-                Thread messageThread = new Thread(new ThreadStart(() => new SendToBot(this, prefix, messagePath, variables)));
+                Thread messageThread = new Thread(new ThreadStart(() => new SendMessageToBot(this, channelID, messagePath, variables)));
+                messageThread.Start();
+            }
+        }
+
+        public void RefreshBotActivity()
+        {
+            Thread messageThread = new Thread(new ThreadStart(() => new RefreshBotActivity(this)));
+            messageThread.Start();
+        }
+
+        public void RefreshChannelTopic()
+        {
+            if (GetConfigString("discord_server_status_channel") != "off")
+            {
+                Thread messageThread = new Thread(new ThreadStart(() => new RefreshChannelTopic(this, GetConfigString("discord_server_status_channel"))));
                 messageThread.Start();
             }
         }

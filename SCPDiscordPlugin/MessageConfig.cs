@@ -1,14 +1,13 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SCPDiscord.Properties;
-using YamlDotNet.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using Newtonsoft.Json;
-using YamlDotNet.Core;
 using System.Threading;
+using YamlDotNet.Core;
+using YamlDotNet.Serialization;
 
 namespace SCPDiscord
 {
