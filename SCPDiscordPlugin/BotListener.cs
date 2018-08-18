@@ -54,7 +54,7 @@ namespace SCPDiscord
                                         {
                                             { "command", discordMessage }
                                         };
-                                        plugin.SendDiscordMessage("default", "botresponses.missingarguments", variables);
+                                        plugin.SendToBot("default", "botresponses.missingarguments", variables);
                                     }
                                 }
                                 else if (args[1] == "kick")
@@ -70,7 +70,7 @@ namespace SCPDiscord
                                         {
                                             { "command", discordMessage }
                                         };
-                                        plugin.SendDiscordMessage("default", "botresponses.missingarguments", variables);
+                                        plugin.SendToBot("default", "botresponses.missingarguments", variables);
                                     }
                                 }
                                 else if (args[1] == "unban")
@@ -86,7 +86,7 @@ namespace SCPDiscord
                                         {
                                             { "command", discordMessage }
                                         };
-                                        plugin.SendDiscordMessage("default", "botresponses.missingarguments", variables);
+                                        plugin.SendToBot("default", "botresponses.missingarguments", variables);
                                     }
                                 }
                                 plugin.Info("From discord: " + discordMessage);
@@ -122,7 +122,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendDiscordMessage("default", "botresponses.invalidsteamid", variables);
+                plugin.SendToBot("default", "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -135,7 +135,7 @@ namespace SCPDiscord
                 {
                     { "duration", duration }
                 };
-                plugin.SendDiscordMessage("default", "botresponses.invalidduration", variables);
+                plugin.SendToBot("default", "botresponses.invalidduration", variables);
                 return;
             }
 
@@ -163,7 +163,7 @@ namespace SCPDiscord
                     { "reason",     reason                  },
                     { "duration",   humanReadableDuration   }
                 };
-            plugin.SendDiscordMessage("default", "botresponses.playerbanned", banVars);
+            plugin.SendToBot("default", "botresponses.playerbanned", banVars);
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace SCPDiscord
                 {
                     { "steamidorip", steamID }
                 };
-                plugin.SendDiscordMessage("default", "botresponses.invalidsteamidorip", variables);
+                plugin.SendToBot("default", "botresponses.invalidsteamidorip", variables);
                 return;
             }
 
@@ -193,7 +193,7 @@ namespace SCPDiscord
             {
                 { "steamidorip", steamID }
             };
-            plugin.SendDiscordMessage("default", "botresponses.playerunbanned", unbanVars);
+            plugin.SendToBot("default", "botresponses.playerunbanned", unbanVars);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendDiscordMessage("default", "botresponses.invalidsteamid", variables);
+                plugin.SendToBot("default", "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -225,7 +225,7 @@ namespace SCPDiscord
                     { "name", playerName },
                     { "steamid", steamID }
                 };
-                plugin.SendDiscordMessage("default", "botresponses.playerkicked", variables);
+                plugin.SendToBot("default", "botresponses.playerkicked", variables);
             }
             else
             {
@@ -233,7 +233,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendDiscordMessage("default", "botresponses.playernotfound", variables);
+                plugin.SendToBot("default", "botresponses.playernotfound", variables);
             }
         }
        

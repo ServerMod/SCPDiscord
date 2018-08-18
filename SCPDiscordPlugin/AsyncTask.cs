@@ -9,15 +9,15 @@ using System.Threading;
 
 namespace SCPDiscord
 {
-    class SendDiscordMessage
+    class SendToBot
     {
-        public SendDiscordMessage(SCPDiscordPlugin plugin, string channelID, string messagePath, Dictionary<string, string> variables = null)
+        public SendToBot(SCPDiscordPlugin plugin, string prefix, string messagePath, Dictionary<string, string> variables = null)
         {
             // Check if node exists
             JToken eventNode = plugin.messageConfig.root.SelectToken(messagePath); 
             if (eventNode == null)
             {
-                plugin.Error("Error reading message from language file: " + messagePath);
+                plugin.Error("Error reading string from language file: " + messagePath);
                 return;
             }
 
@@ -34,8 +34,8 @@ namespace SCPDiscord
             // Abort if client is dead
             if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
-                if(plugin.hasConnectedOnce)
-                    plugin.Warn("Error sending message '" + message + "' to discord: Not connected to bot.");
+                if(plugin.hasConnectedOnce && plugin.GetConfigBool("discord_verbose"))
+                    plugin.Warn("Error sending data '" + message + "' to bot: Not connected.");
                 return;
             }
 
@@ -46,9 +46,9 @@ namespace SCPDiscord
             }
 
             // Change the default keyword to the bot's representation of it
-            if (channelID == "default")
+            if (prefix == "default")
             {
-                channelID = "000000000000000000";
+                prefix = "000000000000000000";
             }
 
             message = message.Replace("\\n", "\n");
@@ -140,22 +140,22 @@ namespace SCPDiscord
             try
             {
                 NetworkStream serverStream = plugin.clientSocket.GetStream();
-                byte[] outStream = System.Text.Encoding.UTF8.GetBytes(channelID + message + '\0');
+                byte[] outStream = System.Text.Encoding.UTF8.GetBytes(prefix + message + '\0');
                 serverStream.Write(outStream, 0, outStream.Length);
 
                 if (plugin.GetConfigBool("discord_verbose"))
                 {
-                    plugin.Info("Sent message '" + message + "' to discord.");
+                    plugin.Info("Sent data '" + message + "' to bot.");
                 }
             }
             catch (InvalidOperationException e)
             {
-                plugin.Error("Error sending message '" + message + "' to discord.");
+                plugin.Error("Error sending data '" + message + "' to bot.");
                 plugin.Debug(e.ToString());
             }
             catch (ArgumentNullException e)
             {
-                plugin.Error("Error sending message '" + message + "' to discord.");
+                plugin.Error("Error sending data '" + message + "' to bot.");
                 plugin.Debug(e.ToString());
             }
         }
@@ -200,7 +200,7 @@ namespace SCPDiscord
                 }
             }
             plugin.Info("Connected to Discord bot.");
-            plugin.SendDiscordMessage("default", "botmessages.connectedtobot");
+            plugin.SendToBot("default", "botmessages.connectedtobot");
             plugin.hasConnectedOnce = true;
         }
     }
@@ -220,7 +220,7 @@ namespace SCPDiscord
                         plugin.Info("Your Bot IP: " + plugin.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + plugin.GetConfigInt("discord_bot_port") + ".");
                         plugin.clientSocket = new TcpClient(plugin.GetConfigString("discord_bot_ip"), plugin.GetConfigInt("discord_bot_port"));
                         plugin.Info("Reconnected to Discord bot.");
-                        plugin.SendDiscordMessage("default", "botmessages.reconnectedtobot");
+                        plugin.SendToBot("default", "botmessages.reconnectedtobot");
                     }
                     catch (SocketException e)
                     {
