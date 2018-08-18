@@ -618,6 +618,7 @@ botresponses:
 
 botstatus:
     activity:
+        # If you edit this changing bot status may stop working
         # players
         # maxplayers
         message: "<var:players> / <var:maxplayers>"
