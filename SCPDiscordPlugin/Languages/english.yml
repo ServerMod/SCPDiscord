@@ -29,9 +29,9 @@ global_regex: [
     "NTF_LIEUTENANT":"MTF Lieutenant",
     "NTF_COMMANDER":"MTF Commander",
 
-	# Non-weapon damage types
+    # Non-weapon damage types
 
-	"NUKE":"Nuke or Grenade",
+    "NUKE":"Nuke or Grenade",
 
     # Items
     "JANITOR_KEYCARD":"Janitor keycard",
@@ -614,4 +614,11 @@ botresponses:
     playerunbanned:
         # steamidorip
         message: "All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists."
+        regex: []
+
+botstatus:
+    activity:
+        # players
+        # maxplayers
+        message: "<var:players> / <var:maxplayers>"
         regex: []

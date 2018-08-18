@@ -39,6 +39,7 @@ namespace SCPDiscord
             this.AddEventHandlers(new AdminEventListener(this), Priority.Highest);
             this.AddEventHandlers(new EnvironmentEventListener(this), Priority.Highest);
             this.AddEventHandlers(new TeamEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new StatusUpdater(this), Priority.Highest);
 
             //Connection settings
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
@@ -130,14 +131,14 @@ namespace SCPDiscord
         /// <summary>
         /// Gets a message from the language file, parses it and sends it.
         /// </summary>
-        /// <param name="channelID">The channel ID to post the message in.</param>
+        /// <param name="prefix">The channel ID to post the message in. Also can be a keyword such as default, off or bot function such as playercount.</param>
         /// <param name="messagePath">The JSON JPath describing the message node location.</param>
         /// <param name="variables">Variables to be parsed into the string.</param>
-        public void SendDiscordMessage(string channelID, string messagePath, Dictionary<string, string> variables = null)
+        public void SendToBot(string prefix, string messagePath, Dictionary<string, string> variables = null)
         {
-            if (channelID != "off")
+            if (prefix != "off")
             {
-                Thread messageThread = new Thread(new ThreadStart(() => new SendDiscordMessage(this, channelID, messagePath, variables)));
+                Thread messageThread = new Thread(new ThreadStart(() => new SendToBot(this, prefix, messagePath, variables)));
                 messageThread.Start();
             }
         }

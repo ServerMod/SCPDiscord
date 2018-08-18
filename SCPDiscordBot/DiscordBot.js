@@ -6,7 +6,7 @@ console.log('Config loaded.');
 
 const Discord = require('discord.js');
 
-const client = new Discord.Client();
+const client = new Discord.Client({ autoReconnect: true });
 
 var messageQueue = JSON.parse('{}');
 
@@ -22,28 +22,43 @@ listenServer.createServer(function (socket)
     socket.on('data', function (data)
     {
         var messages = data.split('\u0000');
+
         messages.forEach(function (packet)
         {
-            var destinationChannel = packet.slice(0, 18);
-            var message = packet.slice(18);
-            if (message !== "")
+            if (client == null)
             {
-                //Switch the default channel key for the actual default channel id
-                if (destinationChannel === "000000000000000000")
-                {
-                    destinationChannel = defaultChannel;
-                }
+                return;
+            }
 
-                // If this channel has not been used yet it must be initialized
-                if (messageQueue[destinationChannel] === null)
+            if (packet.slice(0, 11) === "playercount")
+            {
+                client.user.setActivity(packet.slice(11),
                 {
-                    messageQueue[destinationChannel] = message + "\n";
-                }
-                else
+                    type: "PLAYING"
+                });
+            }
+            else
+            {
+                var destinationChannel = packet.slice(0, 18);
+                var message = packet.slice(18);
+                if (message !== "")
                 {
-                    messageQueue[destinationChannel] += message + "\n";
-                }
+                    //Switch the default channel key for the actual default channel id
+                    if (destinationChannel === "000000000000000000")
+                    {
+                        destinationChannel = defaultChannel;
+                    }
 
+                    // If this channel has not been used yet it must be initialized
+                    if (messageQueue[destinationChannel] == null)
+                    {
+                        messageQueue[destinationChannel] = message + "\n";
+                    }
+                    else
+                    {
+                        messageQueue[destinationChannel] += message + "\n";
+                    }
+                }
             }
         });
         for (var channelID in messageQueue)
@@ -51,7 +66,7 @@ listenServer.createServer(function (socket)
             if (client !== null)
             {
                 var verifiedChannel = client.channels.get(channelID);
-                if (verifiedChannel !== null)
+                if (verifiedChannel != null)
                 {
                     //Message is copied to a new variable as it's deletion later may happen before the send function finishes
                     var message = messageQueue[channelID].slice(0, -1);
@@ -61,8 +76,9 @@ listenServer.createServer(function (socket)
                     {
                         var cutMessage = message.slice(0, 1999);
                         message = message.slice(1999);
-                        if (cutMessage !== null && cutMessage !== " " && cutMessage !== "") {
-
+                        if (cutMessage != null && cutMessage !== " " && cutMessage !== "")
+                        {
+                            if (client.status)
                             verifiedChannel.send(cutMessage);
                             if (verbose)
                             {

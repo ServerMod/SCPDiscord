@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="SCPDiscord.cs" />
     <Compile Include="EventListeners\TeamEventListener.cs" />
+    <Compile Include="StatusUpdater.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
