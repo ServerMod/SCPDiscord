@@ -35,7 +35,7 @@ namespace SCPDiscord
                 { "successful",     ev.Successful.ToString()            }
             };
 
-            plugin.SendToBot(plugin.GetConfigString("discord_channel_onadminquery"), "admin.onadminquery", variables);
+            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onadminquery"), "admin.onadminquery", variables);
         }
 
         public void OnAuthCheck(AuthCheckEvent ev)
@@ -53,7 +53,7 @@ namespace SCPDiscord
                 { "class",          ev.Requester.TeamRole.Role.ToString()   },
                 { "team",           ev.Requester.TeamRole.Team.ToString()   }
             };
-            plugin.SendToBot(plugin.GetConfigString("discord_channel_onauthcheck"), "admin.onauthcheck", variables);
+            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onauthcheck"), "admin.onauthcheck", variables);
         }
 
         public void OnBan(BanEvent ev)
@@ -78,7 +78,7 @@ namespace SCPDiscord
                 { "adminclass",             ev.Admin.TeamRole.Role.ToString()   },
                 { "adminteam",              ev.Admin.TeamRole.Team.ToString()   }
             };
-            plugin.SendToBot(plugin.GetConfigString("discord_channel_onban"), "admin.onban", variables);
+            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onban"), "admin.onban", variables);
         }
     }
 }

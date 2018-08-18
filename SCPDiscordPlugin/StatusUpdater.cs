@@ -2,8 +2,6 @@
 using Smod2.Events;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SCPDiscord
 {
@@ -21,12 +19,12 @@ namespace SCPDiscord
         {
             if(DateTime.Now > nextUpdate && plugin.hasConnectedOnce)
             {
-                Dictionary<string, string> variables = new Dictionary<string, string>
-                {
-                    { "players",       (plugin.pluginManager.Server.NumPlayers - 1).ToString()  },
-                    { "maxplayers",     plugin.pluginManager.Server.MaxPlayers.ToString()       }
-                };
-                plugin.SendToBot("playercount", "botstatus.activity", variables);
+                // Update player count
+                plugin.RefreshBotActivity();
+
+                // Update channel topic
+                plugin.RefreshChannelTopic();
+
                 nextUpdate = DateTime.Now.AddSeconds(5);
             }
         }
