@@ -1,4 +1,4 @@
-﻿using Smod2.EventHandlers;
+using Smod2.EventHandlers;
 using Smod2.Events;
 using System;
 using System.Collections.Generic;
@@ -29,6 +29,10 @@ namespace SCPDiscord
 
         private bool IsTeamDamage(int attackerTeam, int targetTeam)
         {
+            if(attackerTeam == targetTeam)
+            {
+                return true;
+            }
             foreach (KeyValuePair<int, int> team in teamKillingMatrix)
             {
                 if (attackerTeam == team.Value && targetTeam == team.Key)
