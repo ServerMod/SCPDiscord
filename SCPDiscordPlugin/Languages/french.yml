@@ -29,6 +29,10 @@ global_regex: [
     "NTF_LIEUTENANT":"Lieutenant Epsilon-11",
     "NTF_COMMANDER":"Commandant Epsilon-11",
 
+    # Non-weapon damage types
+
+    "NUKE":"Ogive ou une grenade",
+    
     # Items
     "JANITOR_KEYCARD":"Carte d'accès de Concierge",
     "SCIENTIST_KEYCARD":"Carte d'accès de Scientifique",
@@ -100,11 +104,11 @@ round:
         message: >+
             **Partie terminée après <var:duration> minutes.**
             ```
-            Classe-D échappés :            <var:dclassalive>/<var:dclassstart>\n
-            Scientifique(s) échappés :         <var:scientistsalive>/<var:scientistsstart>\n
+            Classe-D échappés :          <var:dclassescaped>/<var:dclassstart>\n
+            Scientifique(s) échappés :   <var:scientistsescaped>/<var:scientistsstart>\n
             SCP éliminé(s) :             <var:scpdead>/<var:scpstart>\n
-            Mort par SCP :              <var:scpkills>\n
-            l'ogive alpha switchwas<var:warheaddetonated>a explosé.
+            Mort par SCP :               <var:scpkills>\n
+            l'ogive alpha switchwas<var:warheaddetonated> explosé.
             ```
         regex: ["switchwasTrue":"a","switchwasFalse":"n'a pas"]
     onwaitingforplayers:
@@ -180,10 +184,14 @@ player:
         friendlyfire:
             message: "**<var:playerteam> <var:playername> (<var:playersteamid>) a été attaqué par son équipier <var:attackerteam> <var:attackername> (<var:attackersteamid>).**"
             regex: []
+        self:
+            message: "<var:playerteam> <var:playername> (<var:playersteamid>) s'est blessé avec <var:damagetype> (<var:damage> hp)."
+            regex: []
         noattacker: 
-            message: "**<var:playername> (<var:playersteamid>) a pris <var:damage> dégât par <var:damagetype>.**"
+            message: "<var:playername> (<var:playersteamid>) a pris <var:damage> dégât par <var:damagetype>."
             regex: []
     onplayerdie:
+        # damagetype
         # spawnragdoll
         # attackeripaddress
         # attackername
@@ -201,6 +209,9 @@ player:
         regex: []
         friendlyfire:
             message: "**<var:playerteam> <var:playername> (<var:playersteamid>) a été tué par son équipier <var:attackerteam> <var:attackername> (<var:attackersteamid>).**"
+            regex: []
+        self:
+            message: "<var:playerteam> <var:playername> (<var:playersteamid>) s'est suicidé avec <var:damagetype>."
             regex: []
         nokiller:
             message: "<var:playername> (<var:playersteamid>) mort."
@@ -311,7 +322,7 @@ player:
         # steamid
         # class
         # team 
-        message: "<var:name> (<var:steamid>) utilise l'interphone."
+        message: "<var:name> (<var:steamid>) utilise l'intercom."
         regex: []
     onintercomcooldowncheck:
         # This is not recommended to use outside of debugging
@@ -511,7 +522,7 @@ admin:
         # adminsteamid
         # adminclass
         # adminteam
-        message: "Player <var:playername> (<var:playersteamid>) a été banni par <var:adminname> (<var:adminsteamid>) pendant <var:duration> minutes."
+        message: "Le joueur <var:playername> (<var:playersteamid>) a été banni par <var:adminname> (<var:adminsteamid>) pendant <var:duration> minutes."
         regex: []
     
 team:
@@ -603,4 +614,12 @@ botresponses:
     playerunbanned:
         # steamidorip
         message: "Toute les lignes de SteamID/IP '<var:steamidorip>' ont été effacés des listes de ban."
+        regex: []
+
+botstatus:
+    activity:
+        # If you edit this changing bot status may stop working
+        # players
+        # maxplayers
+        message: "<var:players> / <var:maxplayers>"
         regex: []
