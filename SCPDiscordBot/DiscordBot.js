@@ -154,20 +154,28 @@ listenServer.createServer(function (socket)
     //Connection issues
     socket.on('error', function (data)
     {
-        console.log('Plugin connection lost.');
-        var verifiedChannel = client.channels.get(defaultChannel);
-        if (verifiedChannel != null)
+        if (data.message === "read ECONNRESET")
         {
-            verifiedChannel.send("Plugin connection lost.");
-            client.user.setStatus('dnd');
-            client.user.setActivity("for server startup.",
+            console.log('Plugin connection lost.');
+            var verifiedChannel = client.channels.get(defaultChannel);
+            if (verifiedChannel != null)
             {
-                type: "LISTENING"
-            });
+                verifiedChannel.send("Plugin connection lost.");
+                client.user.setStatus('dnd');
+                client.user.setActivity("for server startup.",
+                {
+                    type: "LISTENING"
+                });
+            }
+            else
+            {
+                if (verbose)
+                    console.warn("Error sending status to Discord.");
+            }
         }
-        else {
-            if (verbose)
-                console.warn("Error sending status to Discord.");
+        else if (verbose === true)
+        {
+            console.log("Socket error <" + data.message + ">");
         }
     });
 
@@ -246,6 +254,7 @@ client.on('ready', () =>
 
 process.on('exit', function ()
 {
+    client.send("Bot shutting down...");
     console.log('Signing out...');
     if (client != null)
     {
@@ -254,6 +263,7 @@ process.on('exit', function ()
 });
 process.on('SIGINT', function ()
 {
+    client.send("Bot shutting down...");
     console.log('Signing out...');
     if (client != null)
     {
@@ -263,6 +273,7 @@ process.on('SIGINT', function ()
 
 process.on('SIGUSR1', function ()
 {
+    client.send("Bot shutting down...");
     console.log('Signing out...');
     if (client != null)
     {
@@ -272,6 +283,7 @@ process.on('SIGUSR1', function ()
 
 process.on('SIGUSR2', function ()
 {
+    client.send("Bot shutting down...");
     console.log('Signing out...');
     if (client != null)
     {
@@ -281,6 +293,7 @@ process.on('SIGUSR2', function ()
 
 process.on('SIGHUP', function ()
 {
+    client.send("Bot shutting down...");
     console.log('Signing out...');
     if (client != null)
     {

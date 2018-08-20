@@ -186,7 +186,7 @@ player:
             message: "**<var:playerteam> <var:playername> (<var:playersteamid>) was attacked by teammate <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp).**"
             regex: []
         self:
-            message: "**<var:playername> (<var:playersteamid>) hurt themselves with <var:damagetype> (<var:damage> hp).**"
+            message: "<var:playername> (<var:playersteamid>) hurt themselves with <var:damagetype> (<var:damage> hp)."
             regex: []
         noattacker: 
             message: "<var:playername> (<var:playersteamid>) took <var:damage> damage by <var:damagetype>."
