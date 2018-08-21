@@ -1,4 +1,4 @@
-using Smod2;
+﻿using Smod2;
 using Smod2.Attributes;
 
 using System.Net.Sockets;
@@ -18,7 +18,7 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "0.3.0",
+        version = "0.3.1",
         SmodMajor = 3,
         SmodMinor = 1,
         SmodRevision = 12
