@@ -51,12 +51,12 @@ namespace SCPDiscord
             /// This may be broken into two events in the future
             /// </summary> 
 
-            if (ev.Player == null)
+            if (ev.Player == null || ev.Player.TeamRole.Role == Smod2.API.Role.UNASSIGNED)
             {
                 return;
             }
 
-            if (ev.Attacker == null)
+            if (ev.Attacker == null || ev.Player.PlayerId == ev.Attacker.PlayerId)
             {
                 Dictionary<string, string> noAttackerVar = new Dictionary<string, string>
                 {
@@ -91,11 +91,11 @@ namespace SCPDiscord
                 { "playerteam",         ev.Player.TeamRole.Team.ToString()      }
             };
 
-            if(ev.Player.PlayerId == ev.Attacker.PlayerId)
-            {
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt.self", variables);
-                return;
-            }
+            //if(ev.Player.PlayerId == ev.Attacker.PlayerId)
+            //{
+            //    plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt.self", variables);
+            //    return;
+            //}
 
             if (IsTeamDamage((int)ev.Attacker.TeamRole.Team, (int)ev.Player.TeamRole.Team))
             {
@@ -113,12 +113,12 @@ namespace SCPDiscord
             /// In case the killer can't be passed, attacker will be null, so check for that before doing something.
             /// </summary> 
 
-            if (ev.Player == null)
+            if (ev.Player == null || ev.Player.TeamRole.Role == Smod2.API.Role.UNASSIGNED)
             {
                 return;
             }
 
-            if (ev.Killer == null)
+            if (ev.Killer == null || ev.Player.PlayerId == ev.Killer.PlayerId)
             {
                 Dictionary<string, string> noKillerVar = new Dictionary<string, string>
                 {
@@ -153,11 +153,11 @@ namespace SCPDiscord
                 { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
             };
 
-            if (ev.Player.PlayerId == ev.Killer.PlayerId)
-            {
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie.self", variables);
-                return;
-            }
+            //if (ev.Player.PlayerId == ev.Killer.PlayerId)
+            //{
+            //    plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie.self", variables);
+            //    return;
+            //}
 
             if (IsTeamDamage((int)ev.Killer.TeamRole.Team, (int)ev.Player.TeamRole.Team))
             {
@@ -242,7 +242,12 @@ namespace SCPDiscord
         {
             /// <summary>  
             /// Called when a team is picked for a player. Nothing is assigned to the player, but you can change what team the player will spawn as.
-            /// <summary>  
+            /// <summary>
+            if(ev.Team == Smod2.API.Team.NONE)
+            {
+                return;
+            }
+
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "ipaddress",      ev.Player.IpAddress                 },
@@ -260,6 +265,11 @@ namespace SCPDiscord
             /// <summary>  
             /// Called after the player is set a class, at any point in the game. 
             /// <summary>  
+            if(ev.Role == Smod2.API.Role.UNASSIGNED)
+            {
+                return;
+            }
+
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "ipaddress",      ev.Player.IpAddress                 },
