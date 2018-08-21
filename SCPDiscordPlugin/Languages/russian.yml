@@ -28,6 +28,9 @@ global_regex: [
     "NTF_SCIENTIST":"Мобильная Опергруппа - Научный Сотрудник",
     "NTF_LIEUTENANT":"Мобильная Опергруппа - Лейтенант",
     "NTF_COMMANDER":"Мобильная Опергруппа - Командир",
+    # Non-weapon damage types
+
+    "NUKE":"Боеголовка или Граната",
 
     # Items
     "JANITOR_KEYCARD":"Ключ-карта Уборщика",
@@ -180,6 +183,9 @@ player:
         friendlyfire:
             message: "**<var:playerteam> <var:playername> (<var:playersteamid>) был атакован союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>).**"
             regex: []
+        self:
+            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) нанёс урон сам себе используя <var:damagetype> (<var:damage> hp).**"
+            regex: []
         noattacker: 
             message: "**<var:playername> (<var:playersteamid>) получил <var:damage> урона от <var:damagetype>.**"
             regex: []
@@ -201,6 +207,9 @@ player:
         regex: []
         friendlyfire:
             message: "**<var:playerteam> <var:playername> (<var:playersteamid>) был убит союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>).**"
+            regex: []
+        self:
+            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) совершил самоубийство используя <var:damagetype>.**"
             regex: []
         nokiller:
             message: "<var:playername> (<var:playersteamid>) погиб."
@@ -603,4 +612,12 @@ botresponses:
     playerunbanned:
         # steamidorip
         message: "Все записи по SteamID/IP '<var:steamidorip>' были удалены из бан листа."
+        regex: []
+
+botstatus:
+    activity:
+        # If you edit this changing bot status may stop working
+        # players
+        # maxplayers
+        message: "<var:players> / <var:maxplayers>"
         regex: []
