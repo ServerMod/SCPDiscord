@@ -20,7 +20,10 @@ namespace SCPDiscord
             if(DateTime.Now > nextUpdate && plugin.hasConnectedOnce)
             {
                 // Update player count
-                plugin.RefreshBotActivity();
+                if(plugin.GetConfigString("discord_activity_playercount") == "on")
+                {
+                    plugin.RefreshBotActivity();
+                }
 
                 // Update channel topic
                 plugin.RefreshChannelTopic();
