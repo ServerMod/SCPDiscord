@@ -186,6 +186,7 @@ listenServer.createServer(function (socket)
         if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel)
             return;
 
+        console.log("Command recieved.");
         //Cut message into base command and arguments
         const args = message.content.slice(prefix.length).split(/ +/);
         const command = args.shift().toLowerCase();
@@ -211,7 +212,7 @@ listenServer.createServer(function (socket)
         }
         else
         {
-            message.channel.send('Invalid SCPDiscord command, or you do not have permission to use it.');
+            socket.write("command " + message.content.slice(prefix.length) + "\n");
         }
     });
 

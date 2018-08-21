@@ -582,45 +582,42 @@ botmessages:
 botresponses:
     missingarguments:
         # command
-        message: "Missing arguments."
+        message: "```diff\n- Missing arguments.```"
         regex: []
     invalidsteamid:
         # steamid
-        message: "Invalid SteamID '<var:steamid>'."
+        message: "```diff\n- Invalid SteamID '<var:steamid>'.```"
         regex: []
     invalidsteamidorip:
         # steamidorip
-        message: "Invalid SteamID or IP '<var:steamidorip>'."
+        message: "```diff\n- Invalid SteamID or IP '<var:steamidorip>'.```"
         regex: []
     invalidduration:
         # duration
-        message: "Invalid duration '<var:duration>'."
+        message: "```diff\n- Invalid duration '<var:duration>'.```"
         regex: []
     playernotfound:
         # steamid
-        message: "Player with SteamID '<var:steamid>' not found."
+        message: "```diff\n- Player with SteamID '<var:steamid>' not found.```"
         regex: []
     playerkicked:
         # name
         # steamid
-        message: "'<var:name>' (<var:steamid>) was kicked from the server."
+        message: "```diff\n+ '<var:name>' (<var:steamid>) was kicked from the server.```"
         regex: []
     playerbanned:
         # name
         # steamid
         # reason
         # duration
-        message: "'<var:name>' (<var:steamid>) was banned from the server for the reason '<var:reason>' (<var:duration>)."
+        message: "```diff\n+ '<var:name>' (<var:steamid>) was banned from the server for the reason '<var:reason>' (<var:duration>).```"
         regex: []
     playerunbanned:
         # steamidorip
-        message: "All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists."
+        message: "```diff\n+ All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists.```"
         regex: []
-
-botstatus:
-    activity:
-        # If you edit this changing bot status may stop working
-        # players
-        # maxplayers
-        message: "<var:players> / <var:maxplayers>"
+    # The feedback from a console command, except for kick, ban and unban.
+    consolecommandfeedback:
+        # feedback
+        message: "```fix\n> <var:feedback>```"
         regex: []
