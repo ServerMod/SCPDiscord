@@ -29,74 +29,100 @@ namespace SCPDiscord
                         int lengthOfData = stream.Read(data, 0, data.Length);
 
                         string incomingData = System.Text.Encoding.UTF8.GetString(data, 0, lengthOfData);
-
                         List<string> messages = new List<string>(incomingData.Split('\n'));
 
                         //If several messages come in at the same time, process all of them
-                        while(messages.Count > 0)
+                        while (messages.Count > 0)
                         {
-                            string discordMessage = messages[0];
-                            string[] args = discordMessage.Split(' ');
+                            if(messages[0].Length == 0)
+                            {
+                                messages.RemoveAt(0);
+                                continue;
+                            }
+                            string[] words = messages[0].Split(' ');
+
+                            bool isCommand = words[0] == "command";
+                            string command = words[1];
+                            string[] arguments = new string[0];
+                            if(words.Length >= 3)
+                            {
+                                arguments = words.Skip(2).ToArray();
+                            }
 
                             //A verification that message is a command and not some left over string in the socket
-                            if (args[0] == "command")
+                            if (isCommand)
                             {
-                                if (args[1] == "ban")
+                                if (command == "ban")
                                 {
                                     //Check if the command has enough arguments
-                                    if (args.Length >= 4)
+                                    if (arguments.Length >= 2)
                                     {
-                                        BanCommand(args[2], args[3], MergeBanReason(args));
+                                        BanCommand(arguments[0], arguments[1], MergeBanReason(arguments));
                                     }
                                     else
                                     {
                                         Dictionary<string, string> variables = new Dictionary<string, string>
                                         {
-                                            { "command", discordMessage }
+                                            { "command", messages[0] }
                                         };
                                         plugin.SendMessageToBot("default", "botresponses.missingarguments", variables);
                                     }
                                 }
-                                else if (args[1] == "kick")
+                                else if (command == "kick")
                                 {
                                     //Check if the command has enough arguments
-                                    if (args.Length >= 3)
+                                    if (arguments.Length >= 1)
                                     {
-                                        KickCommand(args[2]);
+                                        KickCommand(arguments[0]);
                                     }
                                     else
                                     {
                                         Dictionary<string, string> variables = new Dictionary<string, string>
                                         {
-                                            { "command", discordMessage }
+                                            { "command", messages[0] }
                                         };
                                         plugin.SendMessageToBot("default", "botresponses.missingarguments", variables);
                                     }
                                 }
-                                else if (args[1] == "unban")
+                                else if (command == "unban")
                                 {
                                     //Check if the command has enough arguments
-                                    if (args.Length >= 3)
+                                    if (arguments.Length >= 1)
                                     {
-                                        UnbanCommand(args[2]);
+                                        UnbanCommand(arguments[0]);
                                     }
                                     else
                                     {
                                         Dictionary<string, string> variables = new Dictionary<string, string>
                                         {
-                                            { "command", discordMessage }
+                                            { "command", messages[0] }
                                         };
                                         plugin.SendMessageToBot("default", "botresponses.missingarguments", variables);
                                     }
                                 }
-                                plugin.Info("From discord: " + discordMessage);
+                                else
+                                {
+                                    string[] feedback = plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, command, new string[0]);
+                                    string response = "";
+                                    foreach (string line in feedback)
+                                    {
+                                        response += line + "\n";
+                                    }
+
+                                    Dictionary<string, string> variables = new Dictionary<string, string>
+                                    {
+                                        { "feedback", response }
+                                    };
+                                    plugin.SendMessageToBot("default", "botresponses.consolecommandfeedback", variables);
+                                }
                             }
+                            plugin.Info("From discord: " + messages[0]);
                             messages.RemoveAt(0);
                         }
                     }
                     catch (Exception ex)
                     {
-                        plugin.Debug(ex.ToString());
+                        plugin.Info(ex.ToString());
                         plugin.clientSocket.Close();
                     }
                 }
@@ -145,8 +171,14 @@ namespace SCPDiscord
                 name = "Offline player";
             }
 
+            //Semicolons are seperators in the ban file so cannot be part of strings
             name = name.Replace(";","");
             reason = reason.Replace(";","");
+
+            if(reason == "")
+            {
+                reason = "No reason provided.";
+            }
 
             // Add the player to the SteamIDBans file.
             StreamWriter streamWriter = new StreamWriter(FileManager.AppFolder + "/SteamIdBans.txt", true);
@@ -245,7 +277,7 @@ namespace SCPDiscord
         private string MergeBanReason(string[] args)
         {
             string output = "";
-            for(int i = 4; i < args.Length; i++)
+            for(int i = 2; i < args.Length; i++)
             {
                 output += args[i];
                 output += ' ';

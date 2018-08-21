@@ -165,7 +165,7 @@ namespace SCPDiscord
     {
         public RefreshBotActivity(SCPDiscordPlugin plugin)
         {
-            var message = (plugin.pluginManager.Server.NumPlayers - 1) + " / " + plugin.pluginManager.Server.MaxPlayers;
+            var message = (plugin.pluginManager.Server.NumPlayers - 1) + " / " + plugin.GetConfigString("max_players");
 
             if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
@@ -212,7 +212,7 @@ namespace SCPDiscord
                     serverVariables = new Dictionary<string, string>
                     {
                         { "players",           (server.NumPlayers - 1) + ""                                     },
-                        { "maxplayers",         server.MaxPlayers + ""                                          },
+                        { "maxplayers",         plugin.GetConfigString("max_players")                           },
                         { "ip",                 server.IpAddress                                                },
                         { "port",               server.Port + ""                                                },
                         { "isvisible",          server.Visible + ""                                             },

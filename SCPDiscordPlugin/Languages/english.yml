@@ -20,7 +20,8 @@ global_regex: [
     "SCP-939_":"SCP-939-",
     "SCP-939-89":"SCP-939-109",
     "CLASSD":"D-Class",
-    "CHAOS_INSUGENCY":"Chaos Insurgency ",
+    "CHAOS_INSUGENCY":"Chaos Insurgency",
+    "CHAOS_INSURGENCY":"Chaos Insurgency",
     "SPECTATOR":"Spectator",
     "SCIENTIST":"Scientist",
     "FACILITY_GUARD":"Facility Guard",
@@ -104,8 +105,8 @@ round:
         message: >+
             **Round ended after <var:duration> minutes.**
             ```
-            Escaped D-class:            <var:dclassalive>/<var:dclassstart>\n
-            Rescued Scientists:         <var:scientistsalive>/<var:scientistsstart>\n
+            Escaped D-class:            <var:dclassescaped>/<var:dclassstart>\n
+            Rescued Scientists:         <var:scientistsescaped>/<var:scientistsstart>\n
             Contained SCPs:             <var:scpdead>/<var:scpstart>\n
             Killed by SCP:              <var:scpkills>\n
             Warhead switchwas<var:warheaddetonated> detonated.
@@ -185,10 +186,10 @@ player:
             message: "**<var:playerteam> <var:playername> (<var:playersteamid>) was attacked by teammate <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp).**"
             regex: []
         self:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) hurt themselves with <var:damagetype> (<var:damage> hp).**"
+            message: "<var:playername> (<var:playersteamid>) hurt themselves with <var:damagetype> (<var:damage> hp)."
             regex: []
         noattacker: 
-            message: "**<var:playername> (<var:playersteamid>) took <var:damage> damage by <var:damagetype>.**"
+            message: "<var:playername> (<var:playersteamid>) took <var:damage> damage by <var:damagetype>."
             regex: []
     onplayerdie:
         # damagetype
@@ -211,7 +212,7 @@ player:
             message: "**<var:playerteam> <var:playername> (<var:playersteamid>) was teamkilled by <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype>.**"
             regex: []
         self:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) killed themselves using <var:damagetype>.**"
+            message: "<var:playername> (<var:playersteamid>) killed themselves using <var:damagetype>."
             regex: []
         nokiller:
             message: "<var:playername> (<var:playersteamid>) died by <var:damagetype>."
@@ -581,45 +582,42 @@ botmessages:
 botresponses:
     missingarguments:
         # command
-        message: "Missing arguments."
+        message: "```diff\n- Missing arguments.```"
         regex: []
     invalidsteamid:
         # steamid
-        message: "Invalid SteamID '<var:steamid>'."
+        message: "```diff\n- Invalid SteamID '<var:steamid>'.```"
         regex: []
     invalidsteamidorip:
         # steamidorip
-        message: "Invalid SteamID or IP '<var:steamidorip>'."
+        message: "```diff\n- Invalid SteamID or IP '<var:steamidorip>'.```"
         regex: []
     invalidduration:
         # duration
-        message: "Invalid duration '<var:duration>'."
+        message: "```diff\n- Invalid duration '<var:duration>'.```"
         regex: []
     playernotfound:
         # steamid
-        message: "Player with SteamID '<var:steamid>' not found."
+        message: "```diff\n- Player with SteamID '<var:steamid>' not found.```"
         regex: []
     playerkicked:
         # name
         # steamid
-        message: "'<var:name>' (<var:steamid>) was kicked from the server."
+        message: "```diff\n+ '<var:name>' (<var:steamid>) was kicked from the server.```"
         regex: []
     playerbanned:
         # name
         # steamid
         # reason
         # duration
-        message: "'<var:name>' (<var:steamid>) was banned from the server for the reason '<var:reason>' (<var:duration>)."
+        message: "```diff\n+ '<var:name>' (<var:steamid>) was banned from the server for the reason '<var:reason>' (<var:duration>).```"
         regex: []
     playerunbanned:
         # steamidorip
-        message: "All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists."
+        message: "```diff\n+ All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists.```"
         regex: []
-
-botstatus:
-    activity:
-        # If you edit this changing bot status may stop working
-        # players
-        # maxplayers
-        message: "<var:players> / <var:maxplayers>"
+    # The feedback from a console command, except for kick, ban and unban.
+    consolecommandfeedback:
+        # feedback
+        message: "```fix\n> <var:feedback>```"
         regex: []

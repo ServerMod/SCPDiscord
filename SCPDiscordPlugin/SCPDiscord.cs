@@ -44,6 +44,8 @@ namespace SCPDiscord
             this.AddEventHandlers(new TeamEventListener(this), Priority.Highest);
             this.AddEventHandlers(new StatusUpdater(this), Priority.Highest);
 
+            this.AddConfig(new Smod2.Config.ConfigSetting("max_players", "20", Smod2.Config.SettingType.STRING, true, "Look, idk."));
+
             //Connection settings
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_port", 8888, Smod2.Config.SettingType.NUMERIC, true, "Port to send messages to the bot on."));

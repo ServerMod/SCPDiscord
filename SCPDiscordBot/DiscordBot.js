@@ -154,30 +154,39 @@ listenServer.createServer(function (socket)
     //Connection issues
     socket.on('error', function (data)
     {
-        console.log('Plugin connection lost.');
-        var verifiedChannel = client.channels.get(defaultChannel);
-        if (verifiedChannel != null)
+        if (data.message === "read ECONNRESET")
         {
-            verifiedChannel.send("Plugin connection lost.");
-            client.user.setStatus('dnd');
-            client.user.setActivity("for server startup.",
+            console.log('Plugin connection lost.');
+            var verifiedChannel = client.channels.get(defaultChannel);
+            if (verifiedChannel != null)
             {
-                type: "LISTENING"
-            });
+                verifiedChannel.send("Plugin connection lost.");
+                client.user.setStatus('dnd');
+                client.user.setActivity("for server startup.",
+                {
+                    type: "LISTENING"
+                });
+            }
+            else
+            {
+                if (verbose)
+                    console.warn("Error sending status to Discord.");
+            }
         }
-        else {
-            if (verbose)
-                console.warn("Error sending status to Discord.");
+        else if (verbose === true)
+        {
+            console.log("Socket error <" + data.message + ">");
         }
     });
 
     //Messages from Discord
     client.on('message', message =>
     {
-        //Abort if message does not start with the prefix
-        if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel)
+        //Abort if message does not start with the prefix, if the sender is a bot, if the message is not from the right channel or if it does not contain any letters
+        if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel || !/[a-z]/i.test(message.content))
             return;
 
+        console.log("Command recieved.");
         //Cut message into base command and arguments
         const args = message.content.slice(prefix.length).split(/ +/);
         const command = args.shift().toLowerCase();
@@ -203,7 +212,7 @@ listenServer.createServer(function (socket)
         }
         else
         {
-            message.channel.send('Invalid SCPDiscord command, or you do not have permission to use it.');
+            socket.write("command " + message.content.slice(prefix.length) + "\n");
         }
     });
 
@@ -246,6 +255,7 @@ client.on('ready', () =>
 
 process.on('exit', function ()
 {
+    client.send("Bot shutting down...");
     console.log('Signing out...');
     if (client != null)
     {
@@ -254,6 +264,7 @@ process.on('exit', function ()
 });
 process.on('SIGINT', function ()
 {
+    client.send("Bot shutting down...");
     console.log('Signing out...');
     if (client != null)
     {
@@ -263,6 +274,7 @@ process.on('SIGINT', function ()
 
 process.on('SIGUSR1', function ()
 {
+    client.send("Bot shutting down...");
     console.log('Signing out...');
     if (client != null)
     {
@@ -272,6 +284,7 @@ process.on('SIGUSR1', function ()
 
 process.on('SIGUSR2', function ()
 {
+    client.send("Bot shutting down...");
     console.log('Signing out...');
     if (client != null)
     {
@@ -281,6 +294,7 @@ process.on('SIGUSR2', function ()
 
 process.on('SIGHUP', function ()
 {
+    client.send("Bot shutting down...");
     console.log('Signing out...');
     if (client != null)
     {
