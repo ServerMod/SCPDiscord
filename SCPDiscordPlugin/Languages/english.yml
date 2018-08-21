@@ -21,7 +21,6 @@ global_regex: [
     "SCP-939-89":"SCP-939-109",
     "CLASSD":"D-Class",
     "CHAOS_INSUGENCY":"Chaos Insurgency",
-    "CHAOS_INSURGENCY":"Chaos Insurgency",
     "SPECTATOR":"Spectator",
     "SCIENTIST":"Scientist",
     "FACILITY_GUARD":"Facility Guard",
@@ -29,10 +28,31 @@ global_regex: [
     "NTF_SCIENTIST":"MTF Scientist",
     "NTF_LIEUTENANT":"MTF Lieutenant",
     "NTF_COMMANDER":"MTF Commander",
+    "ZOMBIE":"Zombie",
+
+    # Teams
+    "CHAOS_INSURGENCY":"Chaos Insurgency",
+    "NINETAILFOX":"MTF",
+    "SCIENTISTS":"Scientist",
+    "SPECTATOR":"Spectator",
+
+    # Elevators
+    "GateA":"Gate A",
+    "GateB":"Gate B",
+    "LiftA":"Lift A",
+    "LiftB":"Lift B",
+    "SCP049Chamber":"SCP-049 Containment Chamber",
+    "WarheadRoom":"the warhead room",
 
     # Non-weapon damage types
-
-    "NUKE":"Nuke or Grenade",
+    "NUKE":"nuke or grenade",
+    "FALLDOWN":"fall damage",
+    "CONTAIN":"containment",
+    "DECONT":"LCZ decontamination",
+    "LURE":"the femur breaker",
+    "POCKET":"the pocket dimension",
+    "TESLA":"a tesla gate",
+    "WALL":"a wall?? (wtf?)"
 
     # Items
     "JANITOR_KEYCARD":"Janitor keycard",
