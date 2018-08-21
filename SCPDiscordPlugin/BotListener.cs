@@ -102,7 +102,7 @@ namespace SCPDiscord
                                 }
                                 else
                                 {
-                                    string[] feedback = plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, "roundrestart", new string[0]);
+                                    string[] feedback = plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, command, new string[0]);
                                     string response = "";
                                     foreach (string line in feedback)
                                     {

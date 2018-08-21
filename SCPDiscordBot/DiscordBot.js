@@ -182,8 +182,8 @@ listenServer.createServer(function (socket)
     //Messages from Discord
     client.on('message', message =>
     {
-        //Abort if message does not start with the prefix
-        if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel)
+        //Abort if message does not start with the prefix, if the sender is a bot, if the message is not from the right channel or if it does not contain any letters
+        if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel || !/[a-z]/i.test(message.content))
             return;
 
         console.log("Command recieved.");
