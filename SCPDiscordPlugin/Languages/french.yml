@@ -17,6 +17,7 @@ global_regex: [
 
     # Classes
     "SCP_":"SCP-",
+    "SCP-049_2":"SCP-049-2",
     "SCP-939_":"SCP-939-",
     "SCP-939-89":"SCP-939-109",
     "CLASSD":"Classe-D",
