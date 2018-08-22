@@ -28,10 +28,30 @@ global_regex: [
     "NTF_SCIENTIST":"Scientifique Epsilon-11",
     "NTF_LIEUTENANT":"Lieutenant Epsilon-11",
     "NTF_COMMANDER":"Commandant Epsilon-11",
+    "ZOMBIE":"Zombie",
+
+    # Teams
+    "CHAOS_INSURGENCY":"Chaos Insurgency",
+    "NINETAILFOX":"MTF",
+    "SCIENTISTS":"Scientist",
+
+    # Elevators
+    "GateA":"Gate A",
+    "GateB":"Gate B",
+    "LiftA":"Lift A",
+    "LiftB":"Lift B",
+    "SCP049Chamber":"SCP-049 Containment Chamber",
+    "WarheadRoom":"the warhead room",
 
     # Non-weapon damage types
-
     "NUKE":"Ogive ou une grenade",
+    "FALLDOWN":"fall damage",
+    "CONTAIN":"containment",
+    "DECONT":"LCZ decontamination",
+    "LURE":"the femur breaker",
+    "POCKET":"the pocket dimension",
+    "TESLA":"a tesla gate",
+    "WALL":"getting crushed",
     
     # Items
     "JANITOR_KEYCARD":"Carte d'accès de Concierge",
@@ -67,7 +87,7 @@ global_regex: [
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
-final_regex: ["'' ":""]
+final_regex: ["discord.gg":"","http":"","www.":""]
 
 round:
     onroundstart:
