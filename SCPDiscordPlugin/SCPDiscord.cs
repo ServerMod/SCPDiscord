@@ -30,7 +30,7 @@ namespace SCPDiscord
 
         public bool hasConnectedOnce = false;
 
-        public MessageConfig messageConfig;
+        public Language language;
 
         public Stopwatch serverStartTime = new Stopwatch();
 
@@ -122,7 +122,7 @@ namespace SCPDiscord
             this.Info("SCPDiscord " + this.Details.version + " enabled.");
             serverStartTime.Start();
             // Fucks with things until the plugin works - hopefully I remember to add a more elegant fix in the future
-            Thread messageThread = new Thread(new ThreadStart(() => new MessageConfig(this)));
+            Thread messageThread = new Thread(new ThreadStart(() => new Language(this)));
             messageThread.Start();
         }
 

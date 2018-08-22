@@ -17,6 +17,7 @@ global_regex: [
 
     # Classes
     "SCP_":"SCP-",
+    "SCP-049_2":"SCP-049-2",
     "SCP-939_":"SCP-939-",
     "SCP-939-89":"SCP-939-109",
     "CLASSD":"D-Class",
@@ -34,7 +35,6 @@ global_regex: [
     "CHAOS_INSURGENCY":"Chaos Insurgency",
     "NINETAILFOX":"MTF",
     "SCIENTISTS":"Scientist",
-    "SPECTATOR":"Spectator",
 
     # Elevators
     "GateA":"Gate A",
@@ -52,7 +52,7 @@ global_regex: [
     "LURE":"the femur breaker",
     "POCKET":"the pocket dimension",
     "TESLA":"a tesla gate",
-    "WALL":"a wall?? (wtf?)"
+    "WALL":"getting crushed",
 
     # Items
     "JANITOR_KEYCARD":"Janitor keycard",

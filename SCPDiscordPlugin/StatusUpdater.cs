@@ -17,19 +17,19 @@ namespace SCPDiscord
 
         public void OnUpdate(UpdateEvent ev)
         {
-            if(DateTime.Now > nextUpdate && plugin.hasConnectedOnce)
-            {
-                // Update player count
-                if(plugin.GetConfigString("discord_activity_playercount") == "on")
-                {
-                    plugin.RefreshBotActivity();
-                }
+            //if(DateTime.Now > nextUpdate && plugin.hasConnectedOnce)
+            //{
+            //    // Update player count
+            //    if(plugin.GetConfigString("discord_activity_playercount") == "on")
+            //    {
+            //        plugin.RefreshBotActivity();
+            //    }
 
-                // Update channel topic
-                plugin.RefreshChannelTopic();
+            //    // Update channel topic
+            //    plugin.RefreshChannelTopic();
 
-                nextUpdate = DateTime.Now.AddSeconds(5);
-            }
+            //    nextUpdate = DateTime.Now.AddSeconds(5);
+            //}
         }
     }
 }
