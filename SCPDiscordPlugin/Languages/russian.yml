@@ -28,6 +28,9 @@ global_regex: [
     "NTF_SCIENTIST":"Мобильная Опергруппа - Научный Сотрудник",
     "NTF_LIEUTENANT":"Мобильная Опергруппа - Лейтенант",
     "NTF_COMMANDER":"Мобильная Опергруппа - Командир",
+    # Non-weapon damage types
+
+    "NUKE":"Боеголовка или Граната",
 
     # Items
     "JANITOR_KEYCARD":"Ключ-карта Уборщика",
@@ -100,8 +103,8 @@ round:
         message: >+
             **Раунд завершён. Прошло <var:duration> минут.**
             ```
-            Сотрудников Класса D сбежало:           <var:dclassalive>/<var:dclassstart>\n
-            Научных Сотрудников выжило:             <var:scientistsalive>/<var:scientistsstart>\n
+            Сотрудников Класса D сбежало:           <var:dclassescaped>/<var:dclassstart>\n
+            Научных Сотрудников выжило:             <var:scientistsescaped>/<var:scientistsstart>\n
             Объектов SCP было уничтожено:           <var:scpdead>/<var:scpstart>\n
             Людей убито объектами SCP:              <var:scpkills>\n
             Боеголовка «Альфа» switchwas<var:warheaddetonated> взорвана.
@@ -180,8 +183,11 @@ player:
         friendlyfire:
             message: "**<var:playerteam> <var:playername> (<var:playersteamid>) был атакован союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>).**"
             regex: []
+        self:
+            message: "<var:playername> (<var:playersteamid>) нанёс урон сам себе используя <var:damagetype> (<var:damage> hp)."
+            regex: []
         noattacker: 
-            message: "**<var:playername> (<var:playersteamid>) получил <var:damage> урона от <var:damagetype>.**"
+            message: "(<var:playersteamid>) получил <var:damage> урона от <var:damagetype>."
             regex: []
     onplayerdie:
         # spawnragdoll
@@ -200,7 +206,10 @@ player:
         message: "<var:playername> (<var:playersteamid>) был убит игроком <var:attackername> (<var:attackersteamid>)."
         regex: []
         friendlyfire:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) был убит союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>).**"
+            message: "<var:playername> (<var:playersteamid>) был убит союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>)."
+            regex: []
+        self:
+            message: "<var:playername> (<var:playersteamid>) совершил самоубийство используя <var:damagetype>."
             regex: []
         nokiller:
             message: "<var:playername> (<var:playersteamid>) погиб."
