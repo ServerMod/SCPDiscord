@@ -236,7 +236,8 @@ namespace SCPDiscord
             }
             try
             {
-                return plugin.language.primary.Value<JArray>(path).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+                JArray jsonArray = plugin.language.primary.SelectToken(path).Value<JArray>();
+                return jsonArray.ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
             }
             // This exception means the node does not exist in the language file, the plugin attempts to find it in the backup file
             catch (Exception primaryException)
@@ -246,7 +247,7 @@ namespace SCPDiscord
                     plugin.Warn("Error reading dictionary '" + path + "' from primary language file, switching to backup...");
                     try
                     {
-                        return plugin.language.backup.Value<JArray>(path).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+                        return plugin.language.backup.SelectToken(path).Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
                     }
                     // The node exists but the array is empty
                     catch (ArgumentNullException)
