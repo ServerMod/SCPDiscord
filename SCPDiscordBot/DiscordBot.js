@@ -164,7 +164,7 @@ listenServer.createServer(function (socket)
                 client.user.setStatus('dnd');
                 client.user.setActivity("for server startup.",
                 {
-                    type: "LISTENING"
+                    type: "WATCHING"
                 });
             }
             else
