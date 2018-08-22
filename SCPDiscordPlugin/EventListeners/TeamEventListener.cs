@@ -57,7 +57,7 @@ namespace SCPDiscord
                 { "maxhp",  ev.MaxHP.ToString() },
                 { "role",   ev.Role.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onsetrolemaxhp"), "Max HP for " + ev.Role + " set to " + ev.MaxHP + ".");
+            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onsetrolemaxhp"), "team.onsetrolemaxhp", variables);
         }
 
         public void OnSetSCPConfig(SetSCPConfigEvent ev)
@@ -82,7 +82,7 @@ namespace SCPDiscord
                 { "939_53amount",   ev.SCP939_53amount.ToString()   },
                 { "939_89amount",   ev.SCP939_89amount.ToString()   }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onsetscpconfig"), "SCP settings set.");
+            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onsetscpconfig"), "team.onsetscpconfig", variables);
         }
 
     }

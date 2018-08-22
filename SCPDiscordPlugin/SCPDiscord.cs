@@ -18,7 +18,7 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "0.3.0",
+        version = "0.3.1",
         SmodMajor = 3,
         SmodMinor = 1,
         SmodRevision = 12
@@ -30,7 +30,7 @@ namespace SCPDiscord
 
         public bool hasConnectedOnce = false;
 
-        public MessageConfig messageConfig;
+        public Language language;
 
         public Stopwatch serverStartTime = new Stopwatch();
 
@@ -44,7 +44,7 @@ namespace SCPDiscord
             this.AddEventHandlers(new TeamEventListener(this), Priority.Highest);
             this.AddEventHandlers(new StatusUpdater(this), Priority.Highest);
 
-            this.AddConfig(new Smod2.Config.ConfigSetting("max_players", "20", Smod2.Config.SettingType.STRING, true, "Look, idk."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("max_players", "20", Smod2.Config.SettingType.STRING, true, "Gets the max players without reserved slots."));
 
             //Connection settings
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
@@ -111,6 +111,7 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_language", "english", Smod2.Config.SettingType.STRING, true, "Name of the language config to use."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_formatting_date", "HH:mm:ss", Smod2.Config.SettingType.STRING, true, "Discord time formatting, 'off' to remove."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_verbose", false, Smod2.Config.SettingType.BOOL, true, "Log every message sent to discord in the console."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_activity_playercount", "on", Smod2.Config.SettingType.STRING, true, "Sync player count to bot activity."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status", "Use the config option discord_server_status to change this text.", Smod2.Config.SettingType.STRING, true, "The server status to be pasted as a channel topic."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status_regex", new Dictionary<string, string>(), Smod2.Config.SettingType.DICTIONARY, true, "The regex replacement to be executed on this server's channel topic."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status_channel", "default", Smod2.Config.SettingType.STRING, true, "Channel to put server status in."));
@@ -121,7 +122,7 @@ namespace SCPDiscord
             this.Info("SCPDiscord " + this.Details.version + " enabled.");
             serverStartTime.Start();
             // Fucks with things until the plugin works - hopefully I remember to add a more elegant fix in the future
-            Thread messageThread = new Thread(new ThreadStart(() => new MessageConfig(this)));
+            Thread messageThread = new Thread(new ThreadStart(() => new Language(this)));
             messageThread.Start();
         }
 

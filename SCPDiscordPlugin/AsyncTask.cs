@@ -14,21 +14,22 @@ namespace SCPDiscord
     {
         public SendMessageToBot(SCPDiscordPlugin plugin, string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
-            // Check if node exists
-            JToken eventNode = plugin.messageConfig.root.SelectToken(messagePath); 
-            if (eventNode == null)
+            // Get unparsed message from config
+            string message = "";
+            try
             {
-                plugin.Error("Error reading string from language file: " + messagePath);
+                message = plugin.language.GetString(messagePath + ".message");
+            }
+            catch (Exception e)
+            {
+                plugin.Error("Error reading base message" + e);
                 return;
             }
-
-            // Get unparsed message from config
-            string message = eventNode.Value<string>("message");
 
             // Abort on empty message
             if (message == null || message == "" || message == " " || message == ".")
             {
-                plugin.Error("Tried to send empty message to discord. Verify your language file.");
+                plugin.Error("Tried to send empty message " + messagePath + " to discord. Verify your language file.");
                 return;
             }
 
@@ -52,8 +53,10 @@ namespace SCPDiscord
                 channelID = "000000000000000000";
             }
 
+            // Re-add newlines
             message = message.Replace("\\n", "\n");
 
+            // Add variables //////////////////////////////
             if (variables != null)
             {
                 // Variable insertion
@@ -67,49 +70,47 @@ namespace SCPDiscord
                     message = message.Replace("<var:" + variable.Key + ">", variable.Value);
                 }
             }
+            ///////////////////////////////////////////////
 
-            // Global regex replacements
+            // Global regex replacements //////////////////
+            Dictionary<string, string> globalRegex = new Dictionary<string, string>();
             try
             {
-                // Gets the regex array as a JArray and then converts it to a Dictionary of string pairs
-                Dictionary<string, string> regex = plugin.messageConfig.root.Value<JArray>("global_regex").ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
-
-                // Run the regex replacements
-                foreach (KeyValuePair<string, string> entry in regex)
-                {
-                    message = message.Replace(entry.Key, entry.Value);
-                }
+                globalRegex = plugin.language.GetRegexDictionary("global_regex");
             }
             catch (Exception e)
             {
-                plugin.Info("Regex error in " + messagePath);
-                plugin.Error(e.ToString());
-                throw;
+                plugin.Error("Error reading global regex" + e);
+                return;
             }
+            // Run the global regex replacements
+            foreach (KeyValuePair<string, string> entry in globalRegex)
+            {
+                message = message.Replace(entry.Key, entry.Value);
+            }
+            ///////////////////////////////////////////////
 
-            // Local regex replacements
+            // Local regex replacements ///////////////////
+            Dictionary<string, string> localRegex = new Dictionary<string, string>();
             try
             {
-                // Gets the regex array as a JArray and then converts it to a Dictionary of string pairs
-                Dictionary<string, string> regex = eventNode.Value<JArray>("regex").ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
-
-                // Run the regex replacements
-                foreach (KeyValuePair<string, string> entry in regex)
-                {
-                    message = message.Replace(entry.Key, entry.Value);
-                }
+                localRegex = plugin.language.GetRegexDictionary(messagePath + ".regex");
             }
             catch (Exception e)
             {
-                plugin.Info("Regex error in " + messagePath);
-                plugin.Error(e.ToString());
-                throw;
+                plugin.Error("Error reading local regex" + e);
+                return;
             }
+            // Run the local regex replacements
+            foreach (KeyValuePair<string, string> entry in localRegex)
+            {
+                message = message.Replace(entry.Key, entry.Value);
+            }
+            ///////////////////////////////////////////////
 
-            // Add names to the message
             if (variables != null)
             {
-                // Variable insertion
+                // Add names to the message ///////////////////
                 foreach (KeyValuePair<string, string> variable in variables)
                 {
                     if (variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname")
@@ -117,24 +118,25 @@ namespace SCPDiscord
                         message = message.Replace("<var:" + variable.Key + ">", variable.Value);
                     }
                 }
-                // Final regex replacements
+                ///////////////////////////////////////////////
+
+                // Final regex replacements ///////////////////
+                Dictionary<string, string> finalRegex = new Dictionary<string, string>();
                 try
                 {
-                    // Gets the regex array as a JArray and then converts it to a Dictionary of string pairs
-                    Dictionary<string, string> regex = plugin.messageConfig.root.Value<JArray>("final_regex").ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
-
-                    // Run the regex replacements
-                    foreach (KeyValuePair<string, string> entry in regex)
-                    {
-                        message = message.Replace(entry.Key, entry.Value);
-                    }
+                    finalRegex = plugin.language.GetRegexDictionary("final_regex");
                 }
                 catch (Exception e)
                 {
-                    plugin.Info("Regex error in " + messagePath);
-                    plugin.Error(e.ToString());
-                    throw;
+                    plugin.Error("Error reading final regex" + e);
+                    return;
                 }
+                // Run the final regex replacements
+                foreach (KeyValuePair<string, string> entry in finalRegex)
+                {
+                    message = message.Replace(entry.Key, entry.Value);
+                }
+                ///////////////////////////////////////////////
             }
 
             // Try to send the message to the bot

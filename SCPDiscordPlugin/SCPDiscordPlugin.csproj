@@ -62,7 +62,7 @@
     <Compile Include="BotListener.cs" />
     <Compile Include="EventListeners\EnvironmentEventListener.cs" />
     <Compile Include="EventListeners\PlayerEventListener.cs" />
-    <Compile Include="MessageConfig.cs" />
+    <Compile Include="Language.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
