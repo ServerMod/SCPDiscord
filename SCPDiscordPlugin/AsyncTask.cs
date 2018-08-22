@@ -22,7 +22,10 @@ namespace SCPDiscord
             }
             catch (Exception e)
             {
-                plugin.Error("Error reading base message" + e);
+                if(!(e is NullReferenceException))
+                {
+                    plugin.Error("Error reading base message" + e);
+                }
                 return;
             }
 
