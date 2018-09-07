@@ -32,16 +32,23 @@ It will be possible to sync ranks from discord to the game, letting you automate
 
 ## Bot commands
 
+### Setavatar
+
+**Command usage:**
+
 `setavatar <url>/<path>` - Sets the avatar picture for your bot.
 
-Variables: 
+**Variables:** 
 
 * `<url>/<path>` - Either a local path or url to an image to set as your bot's avatar.
 
----
+### Ban
+
+**Command usage:**
+
 `ban <steamid> <duration> (reason)` - Bans a player from the server. (Ban permission in Discord required)
 
-Variables: 
+**Variables:**
 
 * `<steamid>` - The SteamID of the player to be banned.
 
@@ -51,24 +58,25 @@ Variables:
 
 Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with the reason "Bad man."
 
----
+### Unban
+
+**Command usage:**
 
 `unban <steamid/ip>` - Unbans a player from the server. (Ban permission in Discord required)
 
-Variables: 
+**Variables:**
 
 * `<steamid/ip>` - The SteamID or IP of the player to be unbanned.
 
----
+### Kick
 
 `kick <steamid>` - Kicks a player from the server. (Kick permission in Discord required)
 
-Variables: 
+**Variables:**
 
 * `<steamid>` - The SteamID of the player to be kicked.
 
----
-**Time**
+## Time
 
 Time is expressed in the format NumberUnit where unit is a unit of time and number is the amount of that time unit, for example 6M represents six months.
 
