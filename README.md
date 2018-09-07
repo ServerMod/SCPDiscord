@@ -32,6 +32,8 @@ It will be possible to sync ranks from discord to the game, letting you automate
 
 ## Bot commands
 
+---
+
 ### Setavatar
 
 **Command usage:**
