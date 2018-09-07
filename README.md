@@ -42,6 +42,8 @@ It will be possible to sync ranks from discord to the game, letting you automate
 
 * `<url>/<path>` - Either a local path or url to an image to set as your bot's avatar.
 
+---
+
 ### Ban
 
 **Command usage:**
@@ -58,6 +60,8 @@ It will be possible to sync ranks from discord to the game, letting you automate
 
 Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with the reason "Bad man."
 
+---
+
 ### Unban
 
 **Command usage:**
@@ -68,13 +72,19 @@ Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with
 
 * `<steamid/ip>` - The SteamID or IP of the player to be unbanned.
 
+---
+
 ### Kick
+
+**Command usage:**
 
 `kick <steamid>` - Kicks a player from the server. (Kick permission in Discord required)
 
 **Variables:**
 
 * `<steamid>` - The SteamID of the player to be kicked.
+
+---
 
 ## Time
 
