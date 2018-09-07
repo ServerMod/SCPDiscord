@@ -88,6 +88,14 @@ Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with
 
 ---
 
+### Any other console commands
+
+**Command usage:**
+
+Enter the command in all caps starting with your command prefix. Example with command prefix `+`: +ROUNDRESTART calls the console command roundrestart but +roundrestart does not. This is fixed in a future smod version.
+
+---
+
 ## Time
 
 Time is expressed in the format NumberUnit where unit is a unit of time and number is the amount of that time unit, for example 6M represents six months.
