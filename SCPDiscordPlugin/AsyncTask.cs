@@ -66,7 +66,7 @@ namespace SCPDiscord
                 foreach (KeyValuePair<string, string> variable in variables)
                 {
                     // Wait until after the regex replacements to add the player names
-                    if(variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname")
+                    if(variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname" || variable.Key == "feedback")
                     {
                         continue;
                     }
@@ -113,10 +113,10 @@ namespace SCPDiscord
 
             if (variables != null)
             {
-                // Add names to the message ///////////////////
+                // Add names/command feedback to the message //
                 foreach (KeyValuePair<string, string> variable in variables)
                 {
-                    if (variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname")
+                    if (variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname" || variable.Key == "feedback")
                     {
                         message = message.Replace("<var:" + variable.Key + ">", variable.Value);
                     }
@@ -304,11 +304,20 @@ namespace SCPDiscord
                 }
 
                 foreach (var entry in serverVariables)
+                {
                     variables.Add(entry.Key, entry.Value);
+                }
+
                 foreach (var entry in mapVariables)
+                {
                     variables.Add(entry.Key, entry.Value);
+                }
+
                 foreach (var entry in roundVariables)
+                {
                     variables.Add(entry.Key, entry.Value);
+                }
+
 
                 var topic = plugin.GetConfigString("discord_server_status");
 

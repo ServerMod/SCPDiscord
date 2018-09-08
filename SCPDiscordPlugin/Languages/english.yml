@@ -636,7 +636,7 @@ botresponses:
         # steamidorip
         message: "```diff\n+ All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists.```"
         regex: []
-    # The feedback from a console command, except for kick, ban and unban.
+    # The feedback from a console command, except for kick, ban and unban. (Is not affected by regex other than final_regex)
     consolecommandfeedback:
         # feedback
         message: "```fix\n> <var:feedback>```"
