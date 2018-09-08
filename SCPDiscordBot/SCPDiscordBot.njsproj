@@ -11,7 +11,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>411104b7-0882-4fc1-8fb7-73883bef966c</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>DiscordBot.js</StartupFile>
+    <StartupFile>SCPDiscordBot.js</StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -37,7 +37,7 @@
     <Content Include="package.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DiscordBot.js" />
+    <Compile Include="SCPDiscordBot.js" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
