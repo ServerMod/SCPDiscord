@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 
 namespace SCPDiscord
@@ -104,10 +105,14 @@ namespace SCPDiscord
                                 {
                                     string[] feedback = plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, command, new string[0]);
                                     string response = "";
+
+                                    StringBuilder builder = new StringBuilder();
                                     foreach (string line in feedback)
                                     {
-                                        response += line + "\n";
+                                        builder.Append(line + "\n");
                                     }
+                                    response = builder.ToString();
+
 
                                     Dictionary<string, string> variables = new Dictionary<string, string>
                                     {
@@ -279,8 +284,7 @@ namespace SCPDiscord
             string output = "";
             for(int i = 2; i < args.Length; i++)
             {
-                output += args[i];
-                output += ' ';
+                output += args[i] + ' ';
             }
             while(output.Length > 0 && output.EndsWith(" "))
             {
@@ -357,7 +361,7 @@ namespace SCPDiscord
         /// </summary>
         /// <param name="steamID">A SteamID.</param>
         /// <returns>True if a possible SteamID, false if not.</returns>
-        private bool IsPossibleSteamID(string steamID)
+        private static bool IsPossibleSteamID(string steamID)
         {
             return (steamID.Length == 17 && long.TryParse(steamID, out long n));
         }

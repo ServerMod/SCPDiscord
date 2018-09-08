@@ -6,7 +6,7 @@ namespace SCPDiscord
 {
     class EnvironmentEventListener : IEventHandlerSCP914Activate, IEventHandlerWarheadStartCountdown, IEventHandlerWarheadStopCountdown, IEventHandlerWarheadDetonate, IEventHandlerLCZDecontaminate
     {
-        private SCPDiscordPlugin plugin;
+        private readonly SCPDiscordPlugin plugin;
 
         public EnvironmentEventListener(SCPDiscordPlugin plugin)
         {
