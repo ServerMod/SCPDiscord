@@ -167,10 +167,9 @@ listenServer.createServer(function (socket)
                     type: "WATCHING"
                 });
             }
-            else
+            else if (verbose)
             {
-                if (verbose)
-                    console.warn("Error sending status to Discord.");
+                console.warn("Error sending status to Discord.");
             }
         }
         else if (verbose === true)
@@ -180,11 +179,14 @@ listenServer.createServer(function (socket)
     });
 
     //Messages from Discord
-    client.on("message", message =>
+    client.on("message", (message) =>
     {
         //Abort if message does not start with the prefix, if the sender is a bot, if the message is not from the right channel or if it does not contain any letters
         if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel || !/[a-z]/i.test(message.content))
+        {
             return;
+        }
+
 
         console.log("Command recieved.");
         //Cut message into base command and arguments
