@@ -21,8 +21,6 @@ listenServer.createServer(function (socket)
     // Messages from the plugin
     socket.on('data', function (data)
     {
-		console.log("Recieved " + data + ".");
-		socket.write("waddup\n");
         if (client == null)
         {
             console.log("Recieved " + data + " but Discord client was null.");
