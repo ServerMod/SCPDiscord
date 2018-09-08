@@ -14,7 +14,7 @@ namespace SCPDiscord
     {
         private readonly SCPDiscordPlugin plugin;
         // First dimension is target player second dimension is attacking player
-        Dictionary<int,int> teamKillingMatrix = new Dictionary<int, int>
+        private readonly Dictionary<int,int> teamKillingMatrix = new Dictionary<int, int>
         {
             { 1, 3 },
             { 2, 4 },
@@ -595,7 +595,7 @@ namespace SCPDiscord
                 { "playerteam",             ev.Target.TeamRole.Team.ToString()  }
             };
 
-            if (ev.Player.SteamId != ev.Player.SteamId && IsTeamDamage((int)ev.Player.TeamRole.Team, (int)ev.Player.TeamRole.Team))
+            if (ev.Player.SteamId != ev.Target.SteamId && IsTeamDamage((int)ev.Player.TeamRole.Team, (int)ev.Target.TeamRole.Team))
             {
                 plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onshoot"), "player.onshoot.friendlyfire", variables);
             }
