@@ -1,32 +1,32 @@
-console.log('Config loading...');
+console.log("Config loading...");
 
-const { token, prefix, listeningPort, defaultChannel, verbose, cooldown, requirepermission } = require('./config.json');
+const { token, prefix, listeningPort, defaultChannel, verbose, cooldown, requirepermission } = require("./config.json");
 
-console.log('Config loaded.');
+console.log("Config loaded.");
 
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
 const client = new Discord.Client({ autoReconnect: true });
 
-var messageQueue = JSON.parse('{}');
+var messageQueue = JSON.parse("{}");
 
-console.log('Binding TCP port...');
-var listenServer = require('net');
+console.log("Binding TCP port...");
+var listenServer = require("net");
 listenServer.createServer(function (socket)
 {
     socket.setEncoding("utf8");
 
-    console.log('Plugin connected.');
+    console.log("Plugin connected.");
 
     // Messages from the plugin
-    socket.on('data', function (data)
+    socket.on("data", function (data)
     {
         if (client == null)
         {
             console.log("Recieved " + data + " but Discord client was null.");
             return;
         }
-        var messages = data.split('\u0000');
+        var messages = data.split("\u0000");
 
         messages.forEach(function (packet)
         {
@@ -64,11 +64,11 @@ listenServer.createServer(function (socket)
             {
                 if (packet.slice(11)[0] === "0")
                 {
-                    client.user.setStatus('idle');
+                    client.user.setStatus("idle");
                 }
                 else
                 {
-                    client.user.setStatus('available');
+                    client.user.setStatus("available");
                 }
                 client.user.setActivity(packet.slice(11),
                 {
@@ -106,7 +106,7 @@ listenServer.createServer(function (socket)
             var verifiedChannel = client.channels.get(channelID);
             if (verifiedChannel != null)
             {
-                //Message is copied to a new variable as it's deletion later may happen before the send function finishes
+                //Message is copied to a new variable as it"s deletion later may happen before the send function finishes
                 var message = messageQueue[channelID].slice(0, -1);
 
                 // If message is too long, split it up
@@ -152,25 +152,24 @@ listenServer.createServer(function (socket)
     });
 
     //Connection issues
-    socket.on('error', function (data)
+    socket.on("error", function (data)
     {
         if (data.message === "read ECONNRESET")
         {
-            console.log('Plugin connection lost.');
+            console.log("Plugin connection lost.");
             var verifiedChannel = client.channels.get(defaultChannel);
             if (verifiedChannel != null)
             {
                 verifiedChannel.send("Plugin connection lost.");
-                client.user.setStatus('dnd');
+                client.user.setStatus("dnd");
                 client.user.setActivity("for server startup.",
                 {
                     type: "WATCHING"
                 });
             }
-            else
+            else if (verbose)
             {
-                if (verbose)
-                    console.warn("Error sending status to Discord.");
+                console.warn("Error sending status to Discord.");
             }
         }
         else if (verbose === true)
@@ -180,11 +179,14 @@ listenServer.createServer(function (socket)
     });
 
     //Messages from Discord
-    client.on('message', message =>
+    client.on("message", (message) =>
     {
         //Abort if message does not start with the prefix, if the sender is a bot, if the message is not from the right channel or if it does not contain any letters
         if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel || !/[a-z]/i.test(message.content))
+        {
             return;
+        }
+
 
         console.log("Command recieved.");
         //Cut message into base command and arguments
@@ -192,27 +194,34 @@ listenServer.createServer(function (socket)
         const command = args.shift().toLowerCase();
 
         //Add commands here, I only verify permissions and that the command exists here
-        if (command === 'setavatar' && (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false))
+        if (command === "setavatar" && (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false))
         {
             var url = args.shift();
             client.user.setAvatar(url);
-            message.channel.send('Avatar Updated.');
+            message.channel.send("```diff\n+ Avatar updated.```");
         }
-        else if (command === 'ban' && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
+        else if (command === "ban" && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
         {
             socket.write("command " + message.content.slice(prefix.length) + "\n");
         }
-        else if (command === 'unban' && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
+        else if (command === "unban" && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
         {
             socket.write("command " + message.content.slice(prefix.length) + "\n");
         }
-        else if (command === 'kick' && (message.member.hasPermission("KICK_MEMBERS") || requirepermission === false))
+        else if (command === "kick" && (message.member.hasPermission("KICK_MEMBERS") || requirepermission === false))
         {
             socket.write("command " + message.content.slice(prefix.length) + "\n");
         }
         else
         {
-            socket.write("command " + message.content.slice(prefix.length) + "\n");
+            if (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false)
+            {
+                socket.write("command " + message.content.slice(prefix.length) + "\n");
+            }
+            else
+            {
+                message.channel.send("```diff\n- You are not allowed to use this command.```");
+            }
         }
     });
 
@@ -238,64 +247,64 @@ listenServer.createServer(function (socket)
     });
 }).listen(listeningPort);
 {
-    console.log('Server is listening on port ' + listeningPort);
+    console.log("Server is listening on port " + listeningPort);
 }
 
-console.log('Connecting to Discord...');
-client.on('ready', () =>
+console.log("Connecting to Discord...");
+client.on("ready", () =>
 {
-    console.log('Discord connection established.');
+    console.log("Discord connection established.");
     client.channels.get(defaultChannel).send("Bot Online.");
-    client.user.setStatus('dnd');
+    client.user.setStatus("dnd");
     client.user.setActivity("for server startup.",
     {
         type: "WATCHING"
     });
 });
 
-process.on('exit', function ()
+process.on("exit", function ()
 {
     client.send("Bot shutting down...");
-    console.log('Signing out...');
+    console.log("Signing out...");
     if (client != null)
     {
         client.destroy();
     }
 });
-process.on('SIGINT', function ()
+process.on("SIGINT", function ()
 {
     client.send("Bot shutting down...");
-    console.log('Signing out...');
-    if (client != null)
-    {
-        client.destroy();
-    }
-});
-
-process.on('SIGUSR1', function ()
-{
-    client.send("Bot shutting down...");
-    console.log('Signing out...');
+    console.log("Signing out...");
     if (client != null)
     {
         client.destroy();
     }
 });
 
-process.on('SIGUSR2', function ()
+process.on("SIGUSR1", function ()
 {
     client.send("Bot shutting down...");
-    console.log('Signing out...');
+    console.log("Signing out...");
     if (client != null)
     {
         client.destroy();
     }
 });
 
-process.on('SIGHUP', function ()
+process.on("SIGUSR2", function ()
 {
     client.send("Bot shutting down...");
-    console.log('Signing out...');
+    console.log("Signing out...");
+    if (client != null)
+    {
+        client.destroy();
+    }
+});
+
+process.on("SIGHUP", function ()
+{
+    client.send("Bot shutting down...");
+    console.log("Signing out...");
     if (client != null)
     {
         client.destroy();

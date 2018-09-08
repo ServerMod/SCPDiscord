@@ -1,3 +1,3 @@
 # !/bin/bash
 
-screen -S SCPDiscordBot node DiscordBot.js
+screen -S SCPDiscordBot node SCPDiscordBot.js
