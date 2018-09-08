@@ -175,7 +175,9 @@ namespace SCPDiscord
             if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
                 if (plugin.hasConnectedOnce && plugin.GetConfigBool("discord_verbose"))
+                {
                     plugin.Warn("Error sending message '" + message + "' to bot: Not connected.");
+                }
                 return;
             }
 
@@ -370,10 +372,10 @@ namespace SCPDiscord
             catch(Exception e)
             {
                 if(plugin.GetConfigBool("discord_verbose"))
+                {
                     plugin.Warn(e.ToString());
+                }
             }
-
-
         }
     }
     class ConnectToBot
