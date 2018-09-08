@@ -274,7 +274,7 @@ namespace SCPDiscord
         /// </summary>
         /// <param name="args">The entire command split into words.</param>
         /// <returns>The resulting string, empty string if no reason was given.</returns>
-        private string MergeBanReason(string[] args)
+        private static string MergeBanReason(string[] args)
         {
             string output = "";
             for(int i = 2; i < args.Length; i++)
@@ -295,7 +295,7 @@ namespace SCPDiscord
         /// <param name="duration">Duration of ban in format 'xu' where x is a number and u is a character representing a unit of time.</param>
         /// <param name="humanReadableDuration">String to be filled by the function with the duration in human readable form.</param>
         /// <returns>Returns a timestamp of the duration's end.</returns>
-        private DateTime ParseBanDuration(string duration, ref string humanReadableDuration)
+        private static DateTime ParseBanDuration(string duration, ref string humanReadableDuration)
         {
             //Check if the amount is a number
             if (!int.TryParse(new string(duration.Where(Char.IsDigit).ToArray()), out int amount))

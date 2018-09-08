@@ -7,8 +7,8 @@ namespace SCPDiscord
 {
     class StatusUpdater : IEventHandlerUpdate
     {
-        DateTime nextUpdate = DateTime.Now;
-        SCPDiscordPlugin plugin;
+        private DateTime nextUpdate = DateTime.Now;
+        private readonly SCPDiscordPlugin plugin;
 
         public StatusUpdater(SCPDiscordPlugin plugin)
         {

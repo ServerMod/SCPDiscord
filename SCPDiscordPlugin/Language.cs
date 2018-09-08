@@ -14,7 +14,7 @@ namespace SCPDiscord
 {
     internal class Language
     {
-        private SCPDiscordPlugin plugin;
+        private readonly SCPDiscordPlugin plugin;
 
         private JObject primary = null;
         private JObject backup = null;
@@ -178,7 +178,7 @@ namespace SCPDiscord
         {
             if (primary == null && backup == null)
             {
-                throw new NullReferenceException();
+                throw new ArgumentNullException();
             }
             try
             {
@@ -218,7 +218,7 @@ namespace SCPDiscord
                 }
                 else
                 {
-                    throw primaryException;
+                    throw new Exception("Error occured reading from language file. ", primaryException);
                 }
             }
         }
