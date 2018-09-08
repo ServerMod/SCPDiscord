@@ -196,7 +196,7 @@ listenServer.createServer(function (socket)
         {
             var url = args.shift();
             client.user.setAvatar(url);
-            message.channel.send('Avatar Updated.');
+            message.channel.send('```diff\n+ Avatar updated.```');
         }
         else if (command === 'ban' && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
         {
@@ -212,7 +212,14 @@ listenServer.createServer(function (socket)
         }
         else
         {
-            socket.write("command " + message.content.slice(prefix.length) + "\n");
+            if (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false)
+            {
+                socket.write("command " + message.content.slice(prefix.length) + "\n");
+            }
+            else
+            {
+                message.channel.send('```diff\n- You are not allowed to use this command.```');
+            }
         }
     });
 
