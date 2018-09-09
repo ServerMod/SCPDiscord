@@ -92,7 +92,7 @@ Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with
 
 **Command usage:**
 
-Enter the command in all caps starting with your command prefix. Example with command prefix `+`: +ROUNDRESTART calls the console command roundrestart but +roundrestart does not. This is fixed in a future smod version.
+Enter the console command starting with your command prefix. Example with command prefix `+`: `+roundrestart`.
 
 ---
 
