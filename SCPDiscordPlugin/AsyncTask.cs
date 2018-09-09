@@ -120,7 +120,7 @@ namespace SCPDiscord
                 {
                     if (variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname" || variable.Key == "feedback")
                     {
-                        message = message.Replace("<var:" + variable.Key + ">", variable.Value);
+                        message = message.Replace("<var:" + variable.Key + ">", EscapeDiscordFormatting(variable.Value));
                     }
                 }
                 ///////////////////////////////////////////////
@@ -166,6 +166,14 @@ namespace SCPDiscord
                 plugin.Error("Error sending message '" + message + "' to bot.");
                 plugin.Debug(e.ToString());
             }
+        }
+        private static string EscapeDiscordFormatting(string input)
+        {
+            input.Replace("`","\\`");
+            input.Replace("*", "\\*");
+            input.Replace("_", "\\_");
+            input.Replace("~", "\\~");
+            return "";
         }
     }
     class RefreshBotActivity
