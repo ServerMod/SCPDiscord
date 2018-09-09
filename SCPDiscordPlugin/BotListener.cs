@@ -11,7 +11,7 @@ namespace SCPDiscord
 {
     class BotListener
     {
-        SCPDiscordPlugin plugin;
+        private readonly SCPDiscordPlugin plugin;
         public BotListener(SCPDiscordPlugin plugin)
         {
             this.plugin = plugin;

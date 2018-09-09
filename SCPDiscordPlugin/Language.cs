@@ -233,7 +233,7 @@ namespace SCPDiscord
         {
             if (primary == null && backup == null)
             {
-                throw new NullReferenceException();
+                throw new ArgumentNullException();
             }
             try
             {
