@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SCPDiscord
 {
-    class TeamEventListener : IEventHandlerTeamRespawn, IEventHandlerSetRoleMaxHP, IEventHandlerDecideTeamRespawnQueue, IEventHandlerSetSCPConfig
+    class TeamEventListener : IEventHandlerTeamRespawn, IEventHandlerSetRoleMaxHP, IEventHandlerDecideTeamRespawnQueue, IEventHandlerSetSCPConfig, IEventHandlerSetNTFUnitName
     {
         private readonly SCPDiscordPlugin plugin;
 
@@ -85,5 +85,16 @@ namespace SCPDiscord
             plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onsetscpconfig"), "team.onsetscpconfig", variables);
         }
 
+        public void OnSetNTFUnitName(SetNTFUnitNameEvent ev)
+        {
+            /// <summary>  
+            /// Called when the name of NTF unit is about to be set. This happens when NTF units respawn.
+            /// <summary>  
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "name", ev.Unit }
+            };
+            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onsetntfunitname"), "team.onsetntfunitname", variables);
+        }
     }
 }

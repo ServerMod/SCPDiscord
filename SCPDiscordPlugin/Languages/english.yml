@@ -45,7 +45,7 @@ global_regex: [
     "WarheadRoom":"the warhead room",
 
     # Non-weapon damage types
-    "NUKE":"nuke or grenade",
+    "NUKE":"nuke",
     "FALLDOWN":"fall damage",
     "CONTAIN":"containment",
     "DECONT":"LCZ decontamination",
@@ -53,6 +53,8 @@ global_regex: [
     "POCKET":"the pocket dimension",
     "TESLA":"a tesla gate",
     "WALL":"getting crushed",
+    "FLYING":"anticheat",
+    "RAGDOLLLESS":"RAGDOLLLESS",
 
     # Items
     "JANITOR_KEYCARD":"Janitor keycard",
@@ -84,7 +86,15 @@ global_regex: [
     "FLASHBANG":"flashbang",
     "DISARMER":"disarmer",
     "DROPPED_7":"7.62mm ammo",
-    "DROPPED_9":"9mm ammo"
+    "FRAG":"grenade",
+    "DROPPED_9":"9mm ammo",
+
+    # 914 settings
+    "ROUGH":"rough",
+    "COARSE":"coarse",
+    "ONE_TO_ONE":"1:1",
+    "FINE":"fine",
+    "VERY_FINE":"very fine"
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
@@ -491,13 +501,55 @@ player:
         message: "<var:name> (<var:steamid>) travelled through their pocket dimension."
         regex: []
     onelevatoruse:
+        # elevatorname
         # ipaddress
         # name
         # playerid
         # steamid
         # class
         # team 
-        message: "<var:name> (<var:steamid>) used an elevator."
+        message: "<var:name> (<var:steamid>) called the <var:elevatorname> elevator."
+        regex: []
+    onhandcuff:
+        # cuffed
+        # targetipaddress
+        # targetname
+        # targetplayerid
+        # targetsteamid
+        # targetclass
+        # targetteam
+        # playeripaddress
+        # playername
+        # playerplayerid
+        # playersteamid
+        # playerclass
+        # playerteam
+        message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) was switchcuffed<var:cuffed> by <var:playerclass> <var:playername> (<var:playersteamid>)."
+        regex: ["switchcuffedTrue":"cuffed","switchcuffedFalse":"released"]
+        nootherplayer:
+            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) was switchcuffed<var:cuffed>."
+            regex: ["switchcuffedTrue":"cuffed","switchcuffedFalse":"released"]
+    onplayertriggertesla:
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: "<var:team> <var:name> (<var:steamid>) activated a tesla gate."
+        regex: []
+        ignored:
+            message: "<var:team> <var:name> (<var:steamid>) went through a tesla gate without activating it."
+            regex: []
+    onscp914changeknob:
+        # setting
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: "<var:name> (<var:steamid>) set the SCP-914 knob to \"<var:setting>\"."
         regex: []
 
 admin:
@@ -554,7 +606,7 @@ team:
     onteamrespawn:
         # players
         # spawnchaos
-        message: "**MTF Epsilon-11 - \"Nine-Tailed Fox\" have arrived at the facility.**"
+        message: ""
         regex: []
         cispawn: 
             message: "**Hostile incursion detected, intruders identified as members of hostile GOI \"Chaos Insurgency\".**"
@@ -581,7 +633,10 @@ team:
         # 939_89amount
         message: "SCP settings set."
         regex: []
-
+    onsetntfunitname:
+        # name
+        message: "**MTF unit designated <var:name> has entered the facility.**"
+        regex: []
 #####################################################################################################################
 #                                                                                                                   #
 #                                                   DISCORD BOT                                                     #

@@ -10,11 +10,11 @@ namespace SCPDiscord
         IEventHandlerPlayerDropItem, IEventHandlerNicknameSet, IEventHandlerInitialAssignTeam, IEventHandlerSetRole, IEventHandlerCheckEscape, IEventHandlerDoorAccess,
         IEventHandlerIntercom, IEventHandlerIntercomCooldownCheck, IEventHandlerPocketDimensionExit, IEventHandlerPocketDimensionEnter, IEventHandlerPocketDimensionDie, 
         IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerSpawnRagdoll, IEventHandlerLure, IEventHandlerContain106, IEventHandlerMedkitUse, IEventHandlerShoot,
-        IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse
+        IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse, IEventHandlerHandcuff , IEventHandlerPlayerTriggerTesla, IEventHandlerSCP914ChangeKnob
     {
         private readonly SCPDiscordPlugin plugin;
         // First dimension is target player second dimension is attacking player
-        private readonly Dictionary<int,int> teamKillingMatrix = new Dictionary<int, int>
+        private static readonly Dictionary<int,int> teamKillingMatrix = new Dictionary<int, int>
         {
             { 1, 3 },
             { 2, 4 },
@@ -27,7 +27,7 @@ namespace SCPDiscord
             this.plugin = plugin;
         }
 
-        private bool IsTeamDamage(int attackerTeam, int targetTeam)
+        private static bool IsTeamDamage(int attackerTeam, int targetTeam)
         {
             if(attackerTeam == targetTeam)
             {
@@ -645,6 +645,7 @@ namespace SCPDiscord
             /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
+                { "elevatorname",           ev.Elevator.ElevatorType.ToString() },
                 { "ipaddress",              ev.Player.IpAddress                 },
                 { "name",                   ev.Player.Name                      },
                 { "playerid",               ev.Player.PlayerId.ToString()       },
@@ -653,6 +654,90 @@ namespace SCPDiscord
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
             plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onelevatoruse"), "player.onelevatoruse", variables);
+        }
+
+        public void OnHandcuff(PlayerHandcuffEvent ev)
+        {
+            /// <summary>  
+            /// Called when a player handcuffs/releases another player
+            /// <summary>
+            if (ev.Player != null)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "cuffed",             ev.Handcuffed.ToString()                },
+                    { "targetipaddress",    ev.Target.IpAddress                     },
+                    { "targetname",         ev.Target.Name                          },
+                    { "targetplayerid",     ev.Target.PlayerId.ToString()           },
+                    { "targetsteamid",      ev.Target.SteamId                       },
+                    { "targetclass",        ev.Target.TeamRole.Role.ToString()      },
+                    { "targetteam",         ev.Target.TeamRole.Team.ToString()      },
+                    { "playeripaddress",    ev.Player.IpAddress                     },
+                    { "playername",         ev.Player.Name                          },
+                    { "playerplayerid",     ev.Player.PlayerId.ToString()           },
+                    { "playersteamid",      ev.Player.SteamId                       },
+                    { "playerclass",        ev.Player.TeamRole.Role.ToString()      },
+                    { "playerteam",         ev.Player.TeamRole.Team.ToString()      }
+                };
+                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onhandcuff"), "player.onhandcuff", variables);
+            }
+            else
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "cuffed",             ev.Handcuffed.ToString()                },
+                    { "targetipaddress",    ev.Target.IpAddress                     },
+                    { "targetname",         ev.Target.Name                          },
+                    { "targetplayerid",     ev.Target.PlayerId.ToString()           },
+                    { "targetsteamid",      ev.Target.SteamId                       },
+                    { "targetclass",        ev.Target.TeamRole.Role.ToString()      },
+                    { "targetteam",         ev.Target.TeamRole.Team.ToString()      }
+                };
+                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onhandcuff"), "player.onhandcuff.nootherplayer", variables);
+            }
+        }
+
+        public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)
+        {
+            /// <summary>  
+            /// Called when a player triggers a tesla gate
+            /// <summary>
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress",              ev.Player.IpAddress                 },
+                { "name",                   ev.Player.Name                      },
+                { "playerid",               ev.Player.PlayerId.ToString()       },
+                { "steamid",                ev.Player.SteamId                   },
+                { "class",                  ev.Player.TeamRole.Role.ToString()  },
+                { "team",                   ev.Player.TeamRole.Team.ToString()  }
+            };
+            
+            if(ev.Triggerable)
+            {
+                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayertriggertesla"), "player.onplayertriggertesla", variables);
+            }
+            else
+            {
+                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayertriggertesla"), "player.onplayertriggertesla.ignored", variables);
+            }
+        }
+
+        public void OnSCP914ChangeKnob(PlayerSCP914ChangeKnobEvent ev)
+        {
+            /// <summary>  
+            /// Called when a player changes the knob of SCP-914
+            /// <summary>
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "setting",                ev.KnobSetting.ToString()           },
+                { "ipaddress",              ev.Player.IpAddress                 },
+                { "name",                   ev.Player.Name                      },
+                { "playerid",               ev.Player.PlayerId.ToString()       },
+                { "steamid",                ev.Player.SteamId                   },
+                { "class",                  ev.Player.TeamRole.Role.ToString()  },
+                { "team",                   ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onscp914changeknob"), "player.onscp914changeknob", variables);
         }
     }
 }
