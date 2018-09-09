@@ -103,7 +103,7 @@ namespace SCPDiscord
                                 }
                                 else
                                 {
-                                    string[] feedback = plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, command, new string[0]);
+                                    string[] feedback = plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, command, arguments);
                                     string response = "";
 
                                     StringBuilder builder = new StringBuilder();
