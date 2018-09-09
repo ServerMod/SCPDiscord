@@ -169,11 +169,12 @@ namespace SCPDiscord
         }
         private static string EscapeDiscordFormatting(string input)
         {
-            input.Replace("`","\\`");
-            input.Replace("*", "\\*");
-            input.Replace("_", "\\_");
-            input.Replace("~", "\\~");
-            return "";
+            string output = "";
+            output = input.Replace("`","\\`");
+            output = input.Replace("*", "\\*");
+            output = input.Replace("_", "\\_");
+            output = input.Replace("~", "\\~");
+            return output;
         }
     }
     class RefreshBotActivity
