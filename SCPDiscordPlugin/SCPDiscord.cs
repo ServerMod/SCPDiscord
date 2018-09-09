@@ -18,7 +18,7 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "0.3.1",
+        version = "0.3.2",
         SmodMajor = 3,
         SmodMinor = 1,
         SmodRevision = 12
@@ -95,6 +95,9 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_on106createportal", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_on106teleport", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onelevatoruse", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onhandcuff", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayertriggertesla", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onscp914changeknob", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
 
             //Admin events
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onadminquery", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
@@ -106,6 +109,7 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetrolemaxhp", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onteamrespawn", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetscpconfig", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetntfunitname", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
 
             //Message options
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_language", "english", Smod2.Config.SettingType.STRING, true, "Name of the language config to use."));
