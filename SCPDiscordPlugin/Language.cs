@@ -14,7 +14,7 @@ namespace SCPDiscord
 {
     internal class Language
     {
-        private SCPDiscordPlugin plugin;
+        private readonly SCPDiscordPlugin plugin;
 
         private JObject primary = null;
         private JObject backup = null;
@@ -130,7 +130,7 @@ namespace SCPDiscord
                 }
                 catch (DirectoryNotFoundException)
                 {
-                    DirectoryInfo di = Directory.CreateDirectory(languagesPath);
+                    Directory.CreateDirectory(languagesPath);
                     File.WriteAllText((languagesPath + language.Key + ".yml"), language.Value);
                 }
             }
@@ -178,7 +178,7 @@ namespace SCPDiscord
         {
             if (primary == null && backup == null)
             {
-                throw new NullReferenceException();
+                throw new ArgumentNullException();
             }
             try
             {
@@ -197,28 +197,29 @@ namespace SCPDiscord
                     // The node also does not exist in the backup file
                     catch (NullReferenceException e)
                     {
-                        plugin.Error("Error: Language config node '" + path + "' does not exist. Message can not be sent.");
-                        throw e;
+                        plugin.Error("Error: Language config node '" + path + "' does not exist. Message can not be sent." + e);
+                        throw;
                     }
                     catch (ArgumentNullException e)
                     {
-                        plugin.Error("Error: Language config node '" + path + "' does not exist. Message can not be sent.");
-                        throw e;
+                        plugin.Error("Error: Language config node '" + path + "' does not exist. Message can not be sent." + e);
+                        throw;
                     }
                     catch (InvalidCastException e)
                     {
                         plugin.Error(e.ToString());
-                        throw e;
+                        throw;
                     }
                     catch (JsonException e)
                     {
                         plugin.Error(e.ToString());
-                        throw e;
+                        throw;
                     }
                 }
                 else
                 {
-                    throw primaryException;
+                    plugin.Error(primaryException.ToString());
+                    throw;
                 }
             }
         }
@@ -232,7 +233,7 @@ namespace SCPDiscord
         {
             if (primary == null && backup == null)
             {
-                throw new NullReferenceException();
+                throw new ArgumentNullException();
             }
             try
             {
@@ -257,18 +258,18 @@ namespace SCPDiscord
                     // The node also does not exist in the backup file
                     catch (NullReferenceException e)
                     {
-                        plugin.Error("Error: Language config node '" + path + "' does not exist. Message can not be sent.");
-                        throw e;
+                        plugin.Error("Error: Language config node '" + path + "' does not exist. Message can not be sent. " + e);
+                        throw;
                     }
                     catch (InvalidCastException e)
                     {
                         plugin.Error(e.ToString());
-                        throw e;
+                        throw;
                     }
                     catch (JsonException e)
                     {
                         plugin.Error(e.ToString());
-                        throw e;
+                        throw;
                     }
                 }
                 else if(primaryException is ArgumentNullException)
@@ -277,7 +278,8 @@ namespace SCPDiscord
                 }
                 else
                 {
-                    throw primaryException;
+                    plugin.Error(primaryException.ToString());
+                    throw;
                 }
             }
         }

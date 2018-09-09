@@ -9,7 +9,7 @@ namespace SCPDiscord
     class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerWaitingForPlayers, 
         IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName, IEventHandlerSceneChanged
     {
-        private SCPDiscordPlugin plugin;
+        private readonly SCPDiscordPlugin plugin;
         bool roundHasStarted = false;
 
         public RoundEventListener(SCPDiscordPlugin plugin)

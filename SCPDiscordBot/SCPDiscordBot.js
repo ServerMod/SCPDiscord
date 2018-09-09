@@ -45,19 +45,19 @@ listenServer.createServer(function (socket)
                     if (verifiedChannel.manageable)
                     {
                         if (verbose)
+                        {
                             console.log("Changed to topic: " + packet.slice(30));
+                        }
                         verifiedChannel.setTopic(packet.slice(30));
                     }
-                    else
+                    else if(verbose)
                     {
-                        if(verbose)
-                            console.warn("No permission to change channel topic.");
+                        console.warn("No permission to change channel topic.");
                     }
                 }
-                else
+                else if(verbose)
                 {
-                    if(verbose)
-                        console.warn("Server status channel was not found.");
+                    console.warn("Server status channel was not found.");
                 }
             }
             else if (packet.slice(0, 11) === "botactivity" && client.user != null)
@@ -70,12 +70,16 @@ listenServer.createServer(function (socket)
                 {
                     client.user.setStatus("available");
                 }
+
                 client.user.setActivity(packet.slice(11),
                 {
                     type: "PLAYING"
                 });
+
                 if (verbose)
+                {
                     console.warn("Set activity to " + packet.slice(11));
+                }   
             }
             else
             {
@@ -117,10 +121,12 @@ listenServer.createServer(function (socket)
                     if (cutMessage != null && cutMessage !== " " && cutMessage !== "")
                     {
                         if (client.status)
-                        verifiedChannel.send(cutMessage);
-                        if (verbose)
                         {
+                            verifiedChannel.send(cutMessage);
+                            if (verbose)
+                            {
                             console.log("Sent: " + channelID + ": '" + cutMessage + "' to Discord.");
+                            }
                         }
                     }
                 }
@@ -128,7 +134,6 @@ listenServer.createServer(function (socket)
                 // Send remaining message
                 if (message != null && message !== " " && message !== "")
                 {
-
                     verifiedChannel.send(message);
                     if (verbose)
                     {

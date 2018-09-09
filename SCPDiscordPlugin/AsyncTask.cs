@@ -40,7 +40,9 @@ namespace SCPDiscord
             if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
                 if(plugin.hasConnectedOnce && plugin.GetConfigBool("discord_verbose"))
+                {
                     plugin.Warn("Error sending message '" + message + "' to bot: Not connected.");
+                }
                 return;
             }
 
@@ -66,7 +68,7 @@ namespace SCPDiscord
                 foreach (KeyValuePair<string, string> variable in variables)
                 {
                     // Wait until after the regex replacements to add the player names
-                    if(variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname")
+                    if(variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname" || variable.Key == "feedback")
                     {
                         continue;
                     }
@@ -113,12 +115,12 @@ namespace SCPDiscord
 
             if (variables != null)
             {
-                // Add names to the message ///////////////////
+                // Add names/command feedback to the message //
                 foreach (KeyValuePair<string, string> variable in variables)
                 {
-                    if (variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname")
+                    if (variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname" || variable.Key == "feedback")
                     {
-                        message = message.Replace("<var:" + variable.Key + ">", variable.Value);
+                        message = message.Replace("<var:" + variable.Key + ">", EscapeDiscordFormatting(variable.Value));
                     }
                 }
                 ///////////////////////////////////////////////
@@ -165,6 +167,15 @@ namespace SCPDiscord
                 plugin.Debug(e.ToString());
             }
         }
+        private static string EscapeDiscordFormatting(string input)
+        {
+            string output = "";
+            output = input.Replace("`","\\`");
+            output = input.Replace("*", "\\*");
+            output = input.Replace("_", "\\_");
+            output = input.Replace("~", "\\~");
+            return output;
+        }
     }
     class RefreshBotActivity
     {
@@ -175,7 +186,9 @@ namespace SCPDiscord
             if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
                 if (plugin.hasConnectedOnce && plugin.GetConfigBool("discord_verbose"))
+                {
                     plugin.Warn("Error sending message '" + message + "' to bot: Not connected.");
+                }
                 return;
             }
 
@@ -304,11 +317,20 @@ namespace SCPDiscord
                 }
 
                 foreach (var entry in serverVariables)
+                {
                     variables.Add(entry.Key, entry.Value);
+                }
+
                 foreach (var entry in mapVariables)
+                {
                     variables.Add(entry.Key, entry.Value);
+                }
+
                 foreach (var entry in roundVariables)
+                {
                     variables.Add(entry.Key, entry.Value);
+                }
+
 
                 var topic = plugin.GetConfigString("discord_server_status");
 
@@ -361,10 +383,10 @@ namespace SCPDiscord
             catch(Exception e)
             {
                 if(plugin.GetConfigBool("discord_verbose"))
+                {
                     plugin.Warn(e.ToString());
+                }
             }
-
-
         }
     }
     class ConnectToBot

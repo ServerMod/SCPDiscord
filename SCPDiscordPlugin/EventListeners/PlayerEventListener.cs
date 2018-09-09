@@ -12,9 +12,9 @@ namespace SCPDiscord
         IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerSpawnRagdoll, IEventHandlerLure, IEventHandlerContain106, IEventHandlerMedkitUse, IEventHandlerShoot,
         IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse
     {
-        private SCPDiscordPlugin plugin;
+        private readonly SCPDiscordPlugin plugin;
         // First dimension is target player second dimension is attacking player
-        Dictionary<int,int> teamKillingMatrix = new Dictionary<int, int>
+        private readonly Dictionary<int,int> teamKillingMatrix = new Dictionary<int, int>
         {
             { 1, 3 },
             { 2, 4 },
@@ -91,12 +91,6 @@ namespace SCPDiscord
                 { "playerteam",         ev.Player.TeamRole.Team.ToString()      }
             };
 
-            //if(ev.Player.PlayerId == ev.Attacker.PlayerId)
-            //{
-            //    plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt.self", variables);
-            //    return;
-            //}
-
             if (IsTeamDamage((int)ev.Attacker.TeamRole.Team, (int)ev.Player.TeamRole.Team))
             {
                 plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt.friendlyfire", variables);
@@ -152,12 +146,6 @@ namespace SCPDiscord
                 { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
                 { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
             };
-
-            //if (ev.Player.PlayerId == ev.Killer.PlayerId)
-            //{
-            //    plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie.self", variables);
-            //    return;
-            //}
 
             if (IsTeamDamage((int)ev.Killer.TeamRole.Team, (int)ev.Player.TeamRole.Team))
             {
@@ -607,7 +595,7 @@ namespace SCPDiscord
                 { "playerteam",             ev.Target.TeamRole.Team.ToString()  }
             };
 
-            if (ev.Player.SteamId != ev.Player.SteamId && IsTeamDamage((int)ev.Player.TeamRole.Team, (int)ev.Player.TeamRole.Team))
+            if (ev.Player.SteamId != ev.Target.SteamId && IsTeamDamage((int)ev.Player.TeamRole.Team, (int)ev.Target.TeamRole.Team))
             {
                 plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onshoot"), "player.onshoot.friendlyfire", variables);
             }

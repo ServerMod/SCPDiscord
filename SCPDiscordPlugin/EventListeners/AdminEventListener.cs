@@ -7,7 +7,7 @@ namespace SCPDiscord
     //Comments here are my own as there were none in the Smod2 api
     class AdminEventListener : IEventHandlerAdminQuery, IEventHandlerAuthCheck, IEventHandlerBan
     {
-        private SCPDiscordPlugin plugin;
+        private readonly SCPDiscordPlugin plugin;
 
         public AdminEventListener(SCPDiscordPlugin plugin)
         {

@@ -4,13 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 
 namespace SCPDiscord
 {
     class BotListener
     {
-        SCPDiscordPlugin plugin;
+        private readonly SCPDiscordPlugin plugin;
         public BotListener(SCPDiscordPlugin plugin)
         {
             this.plugin = plugin;
@@ -104,10 +105,14 @@ namespace SCPDiscord
                                 {
                                     string[] feedback = plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, command, new string[0]);
                                     string response = "";
+
+                                    StringBuilder builder = new StringBuilder();
                                     foreach (string line in feedback)
                                     {
-                                        response += line + "\n";
+                                        builder.Append(line + "\n");
                                     }
+                                    response = builder.ToString();
+
 
                                     Dictionary<string, string> variables = new Dictionary<string, string>
                                     {
@@ -274,13 +279,12 @@ namespace SCPDiscord
         /// </summary>
         /// <param name="args">The entire command split into words.</param>
         /// <returns>The resulting string, empty string if no reason was given.</returns>
-        private string MergeBanReason(string[] args)
+        private static string MergeBanReason(string[] args)
         {
             string output = "";
             for(int i = 2; i < args.Length; i++)
             {
-                output += args[i];
-                output += ' ';
+                output += args[i] + ' ';
             }
             while(output.Length > 0 && output.EndsWith(" "))
             {
@@ -295,7 +299,7 @@ namespace SCPDiscord
         /// <param name="duration">Duration of ban in format 'xu' where x is a number and u is a character representing a unit of time.</param>
         /// <param name="humanReadableDuration">String to be filled by the function with the duration in human readable form.</param>
         /// <returns>Returns a timestamp of the duration's end.</returns>
-        private DateTime ParseBanDuration(string duration, ref string humanReadableDuration)
+        private static DateTime ParseBanDuration(string duration, ref string humanReadableDuration)
         {
             //Check if the amount is a number
             if (!int.TryParse(new string(duration.Where(Char.IsDigit).ToArray()), out int amount))
@@ -357,7 +361,7 @@ namespace SCPDiscord
         /// </summary>
         /// <param name="steamID">A SteamID.</param>
         /// <returns>True if a possible SteamID, false if not.</returns>
-        private bool IsPossibleSteamID(string steamID)
+        private static bool IsPossibleSteamID(string steamID)
         {
             return (steamID.Length == 17 && long.TryParse(steamID, out long n));
         }
