@@ -29,30 +29,30 @@ global_regex: [
     "NTF_SCIENTIST":"Мобильная Опергруппа - Научный Сотрудник",
     "NTF_LIEUTENANT":"Мобильная Опергруппа - Лейтенант",
     "NTF_COMMANDER":"Мобильная Опергруппа - Командир",
-    "ZOMBIE":"Zombie",
+    "ZOMBIE":"Зомби",
 
     # Teams
-    "CHAOS_INSURGENCY":"Chaos Insurgency",
-    "NINETAILFOX":"MTF",
-    "SCIENTISTS":"Scientist",
+    "CHAOS_INSURGENCY":"Повстанцы Хаоса",
+    "NINETAILFOX":"Мобильная Оперативная Группа",
+    "SCIENTISTS":"Научные Сотрудники",
 
     # Elevators
-    "GateA":"Gate A",
-    "GateB":"Gate B",
-    "LiftA":"Lift A",
-    "LiftB":"Lift B",
-    "SCP049Chamber":"SCP-049 Containment Chamber",
-    "WarheadRoom":"the warhead room",
+    "GateA":"Ворота A",
+    "GateB":"Ворота B",
+    "LiftA":"Лифт A",
+    "LiftB":"Лифт B",
+    "SCP049Chamber":"Камера содержания SCP-049",
+    "WarheadRoom":"бункер с боеголовкой",
 
     # Non-weapon damage types
     "NUKE":"Боеголовка «Альфа»",
-    "FALLDOWN":"fall damage",
-    "CONTAIN":"containment",
-    "DECONT":"LCZ decontamination",
-    "LURE":"the femur breaker",
-    "POCKET":"the pocket dimension",
-    "TESLA":"a tesla gate",
-    "WALL":"getting crushed",
+    "FALLDOWN":"урон от падения с высоты",
+    "CONTAIN":"восстановлениие условий содержания",
+    "DECONT":"Обеззараживание Лёгкой Зоны Содержания",
+    "LURE":"перелом бедренной кости",
+    "POCKET":"карманное измерение",
+    "TESLA":"ворота Тесла",
+    "WALL":"раздавлен",
     "FLYING":"античит",
     "RAGDOLLLESS":"RAGDOLLLESS",
 
@@ -87,7 +87,7 @@ global_regex: [
     "DISARMER":"Разоружатель",
     "DROPPED_7":"Патроны 7.62мм",
     "FRAG":"Осколочная Граната",
-    "DROPPED_9":"Патроны 9мм"
+    "DROPPED_9":"Патроны 9мм",
 
     # 914 settings
     "ROUGH":"очень грубо",
@@ -222,6 +222,7 @@ player:
             message: "(<var:playersteamid>) получил <var:damage> урона от <var:damagetype>."
             regex: []
     onplayerdie:
+        # damagetype
         # spawnragdoll
         # attackeripaddress
         # attackername
@@ -500,6 +501,7 @@ player:
         message: "<var:name> (<var:steamid>) переместился через межпространственный портал."
         regex: []
     onelevatoruse:
+        # elevatorname
         # ipaddress
         # name
         # playerid
