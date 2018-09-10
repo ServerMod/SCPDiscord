@@ -45,7 +45,7 @@ global_regex: [
     "WarheadRoom":"the warhead room",
 
     # Non-weapon damage types
-    "NUKE":"Боеголовка или Граната",
+    "NUKE":"Боеголовка «Альфа»",
     "FALLDOWN":"fall damage",
     "CONTAIN":"containment",
     "DECONT":"LCZ decontamination",
@@ -53,14 +53,16 @@ global_regex: [
     "POCKET":"the pocket dimension",
     "TESLA":"a tesla gate",
     "WALL":"getting crushed",
+    "FLYING":"античит",
+    "RAGDOLLLESS":"RAGDOLLLESS",
 
     # Items
     "JANITOR_KEYCARD":"Ключ-карта Уборщика",
     "SCIENTIST_KEYCARD":"Ключ-карта Научного Сотрудника",
-    "MAJOR_SCIENTIST_KEYCARD":"Ключ-карта Старшего Научного Сотрудника",
+    "MAJOR_SCIENTIST_KEYCARD":"Ключ-карта Научного Руководителя",
     "ZONE_MANAGER_KEYCARD":"Ключ-карта Менеджера Зон Содержания",
     "GUARD_KEYCARD":"Ключ-карта Охранника",
-    "SENIOR_GUARD_KEYCARD":"Ключ-карта Старшего Охранника",
+    "SENIOR_GUARD_KEYCARD":"Ключ-карта Кадета МОГ",
     "CONTAINMENT_ENGINEER_KEYCARD":"Ключ-карта Инженера Камер Содержания",
     "MTF_LIEUTENANT_KEYCARD":"Ключ-карта Лейтенанта МОГ",
     "MTF_COMMANDER_KEYCARD":"Ключ-карта Командира МОГ",
@@ -71,11 +73,11 @@ global_regex: [
     "COM15":"Пистолет COM-15",
     "MEDKIT":"Аптечка",
     "FLASHLIGHT":"Фонарик",
-    "MICROHID":"Micro-HID",
+    "MICROHID":"Micro H.I.D.",
     "COIN":"Монета",
     "CUP":"Стаканчик",
     "WEAPON_MANAGER_TABLET":"Планшет Управления Вооружением",
-    "E11_STANDARD_RIFLE":"Винтовка Epsilon-11",
+    "E11_STANDARD_RIFLE":"MTF-E11-SR",
     "P90":"Project 90",
     "DROPPED_5":"Патроны 5.56мм",
     "MP4":"MP7",
@@ -84,7 +86,15 @@ global_regex: [
     "FLASHBANG":"Светошумовая Граната",
     "DISARMER":"Разоружатель",
     "DROPPED_7":"Патроны 7.62мм",
+    "FRAG":"Осколочная Граната",
     "DROPPED_9":"Патроны 9мм"
+
+    # 914 settings
+    "ROUGH":"очень грубо",
+    "COARSE":"грубо",
+    "ONE_TO_ONE":"1:1",
+    "FINE":"тонко",
+    "VERY_FINE":"очень тонко"
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
@@ -498,6 +508,47 @@ player:
         # team 
         message: "<var:name> (<var:steamid>) воспользовался лифтом."
         regex: []
+    onhandcuff:
+        # cuffed
+        # targetipaddress
+        # targetname
+        # targetplayerid
+        # targetsteamid
+        # targetclass
+        # targetteam
+        # playeripaddress
+        # playername
+        # playerplayerid
+        # playersteamid
+        # playerclass
+        # playerteam
+        message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) был switchcuffed<var:cuffed> игроком <var:playerclass> <var:playername> (<var:playersteamid>)."
+        regex: ["switchcuffedTrue":"связан","switchcuffedFalse":"развязан"]
+        nootherplayer:
+            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) был switchcuffed<var:cuffed>."
+            regex: ["switchcuffedTrue":"связан","switchcuffedFalse":"развязан"]
+    onplayertriggertesla:
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: "<var:team> <var:name> (<var:steamid>) активировал ворота Тесла."
+        regex: []
+        ignored:
+            message: "<var:team> <var:name> (<var:steamid>) прошел через ворота Тесла и при этом не активировал их."
+            regex: []
+    onscp914changeknob:
+        # setting
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: "<var:name> (<var:steamid>) повернул тумблер SCP-914 в положение \"<var:setting>\"."
+        regex: []
 
 admin:
     onadminquery:
@@ -580,7 +631,10 @@ team:
         # 939_89amount
         message: "Установлены настройки для SCP."
         regex: []
-
+    onsetntfunitname:
+        # name
+        message: "**Группа Мобильной Оперативной Группы <var:name> прибыла в комплекс.**"
+        regex: []
 #####################################################################################################################
 #                                                                                                                   #
 #                                                   DISCORD BOT                                                     #
@@ -634,4 +688,9 @@ botresponses:
     playerunbanned:
         # steamidorip
         message: "Все записи по SteamID/IP '<var:steamidorip>' были удалены из бан листа."
+        regex: []
+    # The feedback from a console command, except for kick, ban and unban. (Is not affected by regex other than final_regex)
+    consolecommandfeedback:
+        # feedback
+        message: "```fix\n> <var:feedback>```"
         regex: []
