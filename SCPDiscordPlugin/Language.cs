@@ -178,7 +178,11 @@ namespace SCPDiscord
         {
             if (primary == null && backup == null)
             {
-                throw new ArgumentNullException();
+                if (plugin.GetConfigBool("discord_verbose"))
+                {
+                    plugin.Warn("Tried to send Discord message before loading languages.");
+                }
+                return null;
             }
             try
             {
@@ -189,7 +193,7 @@ namespace SCPDiscord
             {
                 if(primaryException is NullReferenceException || primaryException is ArgumentNullException || primaryException is InvalidCastException || primaryException is JsonException)
                 {
-                    plugin.Warn("Error reading dictionary '" + path + "' from primary language file, switching to backup...");
+                    plugin.Warn("Error reading string '" + path + "' from primary language file, switching to backup...");
                     try
                     {
                         return plugin.language.backup.SelectToken(path).Value<string>();
@@ -197,13 +201,13 @@ namespace SCPDiscord
                     // The node also does not exist in the backup file
                     catch (NullReferenceException e)
                     {
-                        plugin.Error("Error: Language config node '" + path + "' does not exist. Message can not be sent." + e);
-                        throw;
+                        plugin.Error("Error: Language language string '" + path + "' does not exist. Message can not be sent." + e);
+                        return null;
                     }
                     catch (ArgumentNullException e)
                     {
-                        plugin.Error("Error: Language config node '" + path + "' does not exist. Message can not be sent." + e);
-                        throw;
+                        plugin.Error("Error: Language language string '" + path + "' does not exist. Message can not be sent." + e);
+                        return null;
                     }
                     catch (InvalidCastException e)
                     {
@@ -233,54 +237,39 @@ namespace SCPDiscord
         {
             if (primary == null && backup == null)
             {
-                throw new ArgumentNullException();
+                if (plugin.GetConfigBool("discord_verbose"))
+                {
+                    plugin.Warn("Tried to read regex dictionary before loading languages.");
+                }
+                return new Dictionary<string, string>();
             }
             try
             {
                 JArray jsonArray = plugin.language.primary.SelectToken(path).Value<JArray>();
                 return jsonArray.ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
             }
-            // This exception means the node does not exist in the language file, the plugin attempts to find it in the backup file
-            catch (Exception primaryException)
+            catch (NullReferenceException e)
             {
-                if(primaryException is NullReferenceException || primaryException is InvalidCastException || primaryException is JsonException)
+                if (plugin.GetConfigBool("discord_verbose"))
                 {
-                    plugin.Warn("Error reading dictionary '" + path + "' from primary language file, switching to backup...");
-                    try
-                    {
-                        return plugin.language.backup.SelectToken(path).Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
-                    }
-                    // The node exists but the array is empty
-                    catch (ArgumentNullException)
-                    {
-                        return new Dictionary<string, string>();
-                    }
-                    // The node also does not exist in the backup file
-                    catch (NullReferenceException e)
-                    {
-                        plugin.Error("Error: Language config node '" + path + "' does not exist. Message can not be sent. " + e);
-                        throw;
-                    }
-                    catch (InvalidCastException e)
-                    {
-                        plugin.Error(e.ToString());
-                        throw;
-                    }
-                    catch (JsonException e)
-                    {
-                        plugin.Error(e.ToString());
-                        throw;
-                    }
+                    plugin.Warn("Error: Language regex dictionary '" + path + "' does not exist." + e);
                 }
-                else if(primaryException is ArgumentNullException)
-                {
-                    return new Dictionary<string, string>();
-                }
-                else
-                {
-                    plugin.Error(primaryException.ToString());
-                    throw;
-                }
+                return new Dictionary<string, string>();
+            }
+            catch (ArgumentNullException)
+            {
+                // Regex array is empty
+                return new Dictionary<string, string>();
+            }
+            catch (InvalidCastException e)
+            {
+                plugin.Error(e.ToString());
+                throw;
+            }
+            catch (JsonException e)
+            {
+                plugin.Error(e.ToString());
+                throw;
             }
         }
     }

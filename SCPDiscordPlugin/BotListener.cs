@@ -58,7 +58,7 @@ namespace SCPDiscord
                                     //Check if the command has enough arguments
                                     if (arguments.Length >= 2)
                                     {
-                                        BanCommand(arguments[0], arguments[1], MergeBanReason(arguments));
+                                        BanCommand(arguments[0], arguments[1], MergeReason(arguments.Skip(2).ToArray()));
                                     }
                                     else
                                     {
@@ -85,6 +85,10 @@ namespace SCPDiscord
                                         plugin.SendMessageToBot("default", "botresponses.missingarguments", variables);
                                     }
                                 }
+                                else if (command == "kickall")
+                                {
+                                    KickallCommand(MergeReason(arguments));
+                                }
                                 else if (command == "unban")
                                 {
                                     //Check if the command has enough arguments
@@ -100,6 +104,18 @@ namespace SCPDiscord
                                         };
                                         plugin.SendMessageToBot("default", "botresponses.missingarguments", variables);
                                     }
+                                }
+                                else if (command == "exit")
+                                {
+                                    NetworkStream serverStream = plugin.clientSocket.GetStream();
+                                    byte[] outStream = System.Text.Encoding.UTF8.GetBytes("000000000000000000```diff\n- The exit command cannot be called from Discord.```\0");
+                                    serverStream.Write(outStream, 0, outStream.Length);
+                                    //if (arguments.Length >= 1)
+                                    //{
+                                    //    KickallCommand(MergeReason(arguments));
+                                    //}
+                                    //Thread exitThread = new Thread(new ThreadStart(() => new ExitCommand(plugin)));
+                                    //exitThread.Start();
                                 }
                                 else
                                 {
@@ -273,24 +289,53 @@ namespace SCPDiscord
                 plugin.SendMessageToBot("default", "botresponses.playernotfound", variables);
             }
         }
-       
+
+        /// <summary>
+        /// Kicks all players from the server
+        /// </summary>
+        /// <param name="reason">Reason displayed to kicked players</param>
+        private void KickallCommand(string reason)
+        {
+            if(reason == "")
+            {
+                reason = "All players kicked by Admin";
+            }
+            foreach (Smod2.API.Player player in plugin.pluginManager.Server.GetPlayers())
+            {
+                player.Ban(0, reason);
+            }
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "reason", reason }
+            };
+            plugin.SendMessageToBot("default", "botresponses.kickall", variables);
+        }
+
+        class ExitCommand
+        {
+            public ExitCommand(SCPDiscordPlugin plugin)
+            {
+                Thread.Sleep(2000);
+                plugin.SendMessageToBot("default", "botresponses.exit");
+                plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, "exit", new string[0]);
+            }
+        }
+
         /// <summary>
         /// Merges the words of the ban reason to one string.
         /// </summary>
-        /// <param name="args">The entire command split into words.</param>
+        /// <param name="args">The reason split into words.</param>
         /// <returns>The resulting string, empty string if no reason was given.</returns>
-        private static string MergeBanReason(string[] args)
+        private static string MergeReason(string[] reason)
         {
-            string output = "";
-            for(int i = 2; i < args.Length; i++)
+            StringBuilder output = new StringBuilder();
+            foreach(string word in reason)
             {
-                output += args[i] + ' ';
+                output.Append(word);
+                output.Append(' ');
             }
-            while(output.Length > 0 && output.EndsWith(" "))
-            {
-                output = output.Remove(output.Length -1);
-            }
-            return output;
+            
+            return output.ToString().Trim();
         }
 
         /// <summary>

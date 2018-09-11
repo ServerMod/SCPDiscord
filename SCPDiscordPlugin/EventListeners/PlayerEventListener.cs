@@ -3,6 +3,7 @@ using Smod2.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 
 namespace SCPDiscord
 {
@@ -10,7 +11,7 @@ namespace SCPDiscord
         IEventHandlerPlayerDropItem, IEventHandlerNicknameSet, IEventHandlerInitialAssignTeam, IEventHandlerSetRole, IEventHandlerCheckEscape, IEventHandlerDoorAccess,
         IEventHandlerIntercom, IEventHandlerIntercomCooldownCheck, IEventHandlerPocketDimensionExit, IEventHandlerPocketDimensionEnter, IEventHandlerPocketDimensionDie, 
         IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerSpawnRagdoll, IEventHandlerLure, IEventHandlerContain106, IEventHandlerMedkitUse, IEventHandlerShoot,
-        IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse, IEventHandlerHandcuff , IEventHandlerPlayerTriggerTesla, IEventHandlerSCP914ChangeKnob
+        IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse, IEventHandlerHandcuffed , IEventHandlerPlayerTriggerTesla, IEventHandlerSCP914ChangeKnob
     {
         private readonly SCPDiscordPlugin plugin;
         // First dimension is target player second dimension is attacking player
@@ -457,7 +458,20 @@ namespace SCPDiscord
         {
             /// <summary>  
             /// Called when a player is cured by SCP-049
-            /// <summary>  
+            /// <summary> 
+            
+            //if(ev.Player == null)
+            //{
+            //    NetworkStream serverStream = plugin.clientSocket.GetStream();
+            //    byte[] outStream = System.Text.Encoding.UTF8.GetBytes("000000000000000000DEBUG: PLAYER WAS NULL\0");
+            //    serverStream.Write(outStream, 0, outStream.Length);
+            //}
+            //if (ev.Attacker == null)
+            //{
+            //    NetworkStream serverStream = plugin.clientSocket.GetStream();
+            //    byte[] outStream = System.Text.Encoding.UTF8.GetBytes("000000000000000000DEBUG: ATTACKER WAS NULL\0");
+            //    serverStream.Write(outStream, 0, outStream.Length);
+            //}
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "damage",                 ev.Damage.ToString()                    },
@@ -656,45 +670,45 @@ namespace SCPDiscord
             plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onelevatoruse"), "player.onelevatoruse", variables);
         }
 
-        public void OnHandcuff(PlayerHandcuffEvent ev)
+        public void OnHandcuffed(PlayerHandcuffedEvent ev)
         {
             /// <summary>  
             /// Called when a player handcuffs/releases another player
             /// <summary>
-            if (ev.Player != null)
-            {
-                Dictionary<string, string> variables = new Dictionary<string, string>
-                {
-                    { "cuffed",             ev.Handcuffed.ToString()                },
-                    { "targetipaddress",    ev.Target.IpAddress                     },
-                    { "targetname",         ev.Target.Name                          },
-                    { "targetplayerid",     ev.Target.PlayerId.ToString()           },
-                    { "targetsteamid",      ev.Target.SteamId                       },
-                    { "targetclass",        ev.Target.TeamRole.Role.ToString()      },
-                    { "targetteam",         ev.Target.TeamRole.Team.ToString()      },
-                    { "playeripaddress",    ev.Player.IpAddress                     },
-                    { "playername",         ev.Player.Name                          },
-                    { "playerplayerid",     ev.Player.PlayerId.ToString()           },
-                    { "playersteamid",      ev.Player.SteamId                       },
-                    { "playerclass",        ev.Player.TeamRole.Role.ToString()      },
-                    { "playerteam",         ev.Player.TeamRole.Team.ToString()      }
-                };
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onhandcuff"), "player.onhandcuff", variables);
-            }
-            else
-            {
-                Dictionary<string, string> variables = new Dictionary<string, string>
-                {
-                    { "cuffed",             ev.Handcuffed.ToString()                },
-                    { "targetipaddress",    ev.Target.IpAddress                     },
-                    { "targetname",         ev.Target.Name                          },
-                    { "targetplayerid",     ev.Target.PlayerId.ToString()           },
-                    { "targetsteamid",      ev.Target.SteamId                       },
-                    { "targetclass",        ev.Target.TeamRole.Role.ToString()      },
-                    { "targetteam",         ev.Target.TeamRole.Team.ToString()      }
-                };
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onhandcuff"), "player.onhandcuff.nootherplayer", variables);
-            }
+            //if (ev.Player != null)
+            //{
+            //    Dictionary<string, string> variables = new Dictionary<string, string>
+            //    {
+            //        { "cuffed",             ev.Handcuffed.ToString()                },
+            //        //{ "targetipaddress",    ev.Target.IpAddress                     },
+            //        //{ "targetname",         ev.Target.Name                          },
+            //        //{ "targetplayerid",     ev.Target.PlayerId.ToString()           },
+            //        //{ "targetsteamid",      ev.Target.SteamId                       },
+            //        //{ "targetclass",        ev.Target.TeamRole.Role.ToString()      },
+            //        //{ "targetteam",         ev.Target.TeamRole.Team.ToString()      },
+            //        { "playeripaddress",    ev.Player.IpAddress                     },
+            //        { "playername",         ev.Player.Name                          },
+            //        { "playerplayerid",     ev.Player.PlayerId.ToString()           },
+            //        { "playersteamid",      ev.Player.SteamId                       },
+            //        { "playerclass",        ev.Player.TeamRole.Role.ToString()      },
+            //        { "playerteam",         ev.Player.TeamRole.Team.ToString()      }
+            //    };
+            //    plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onhandcuff"), "player.onhandcuff", variables);
+            //}
+            //else
+            //{
+            //    Dictionary<string, string> variables = new Dictionary<string, string>
+            //    {
+            //        { "cuffed",             ev.Handcuffed.ToString()                },
+            //        //{ "targetipaddress",    ev.Target.IpAddress                     },
+            //        //{ "targetname",         ev.Target.Name                          },
+            //        //{ "targetplayerid",     ev.Target.PlayerId.ToString()           },
+            //        //{ "targetsteamid",      ev.Target.SteamId                       },
+            //        //{ "targetclass",        ev.Target.TeamRole.Role.ToString()      },
+            //        //{ "targetteam",         ev.Target.TeamRole.Team.ToString()      }
+            //    };
+            //    plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onhandcuff"), "player.onhandcuff.nootherplayer", variables);
+            //}
         }
 
         public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)

@@ -88,6 +88,18 @@ Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with
 
 ---
 
+### Kickall
+
+**Command usage:**
+
+`kickall <reason>` - Kicks all players from the server with a message, useful for server shutdowns. (Kick permission in Discord required)
+
+**Variables:**
+
+* `<reason>` - Reason to be displayed to all players kicked (Message will not work until ServerMod 3.1.17).
+
+---
+
 ### Any other console commands
 
 **Command usage:**
