@@ -22,17 +22,23 @@ namespace SCPDiscord
             }
             catch (Exception e)
             {
-                if(!(e is NullReferenceException))
-                {
-                    plugin.Error("Error reading base message" + e);
-                }
+                plugin.Error("Error reading base message" + e);
+                return;
+            }
+
+            // An error mesage is already sent in the language function if this is null, so this just returns
+            if(message == null)
+            {
                 return;
             }
 
             // Abort on empty message
-            if (message == null || message == "" || message == " " || message == ".")
+            if (message == "" || message == " " || message == ".")
             {
-                plugin.Error("Tried to send empty message " + messagePath + " to discord. Verify your language file.");
+                if(plugin.GetConfigBool("discord_verbose"))
+                {
+                    plugin.Warn("Tried to send empty message " + messagePath + " to discord. Verify your language files.");
+                }
                 return;
             }
 

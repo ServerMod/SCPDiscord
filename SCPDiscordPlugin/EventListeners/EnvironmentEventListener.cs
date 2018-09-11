@@ -20,7 +20,6 @@ namespace SCPDiscord
             /// </summary> 
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "inputs",         ev.Inputs.ToString()        },
                 { "knobsetting",    ev.KnobSetting.ToString()   }
             };
             plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onscp914activate"), "environment.onscp914activate", variables);

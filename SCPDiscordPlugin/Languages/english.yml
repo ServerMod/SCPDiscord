@@ -93,8 +93,8 @@ global_regex: [
     "ROUGH":"rough",
     "COARSE":"coarse",
     "ONE_TO_ONE":"1:1",
-    "FINE":"fine",
-    "VERY_FINE":"very fine"
+    "VERY_FINE":"very fine",
+    "FINE":"fine"
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
@@ -159,9 +159,8 @@ round:
 
 environment:
     onscp914activate:
-        # inputs
         # knobsetting
-        message: "SCP-914 has been activated on setting <var:knobsetting> on items <var:inputs>."
+        message: "SCP-914 has been activated on setting <var:knobsetting>."
         regex: []
     onstartcountdown:
         # isresumed
@@ -597,6 +596,9 @@ admin:
         # adminteam
         message: "Player <var:playername> (<var:playersteamid>) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes."
         regex: []
+        noadmin:
+            message: "<var:playername> (<var:playersteamid>) was banned by Skynet for <var:duration> minutes."
+            regex: []
     
 team:
     ondecideteamrespawnqueue:
@@ -648,10 +650,10 @@ team:
 
 botmessages:
     connectedtobot:
-        message: "Plugin connected."
+        message: "```diff\n+ SCP:SL server connected.```"
         regex: []
     reconnectedtobot:
-        message: "Plugin reconnected."
+        message: "```diff\n+ SCP:SL server reconnected.```"
         regex: []
 
 botresponses:
@@ -691,7 +693,14 @@ botresponses:
         # steamidorip
         message: "```diff\n+ All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists.```"
         regex: []
-    # The feedback from a console command, except for kick, ban and unban. (Is not affected by regex other than final_regex)
+    kickall:
+        # reason
+        message: "```diff\n+ All players have been kicked from the server with the reason '<var:reason>'.```"
+        regex: []
+    exit:
+        message: "```diff\n+ Server shutting down...```"
+        regex: []
+    # The feedback from a console command, except the custom ones above. (Is not affected by regex other than final_regex)
     consolecommandfeedback:
         # feedback
         message: "```fix\n> <var:feedback>```"
