@@ -328,13 +328,14 @@ namespace SCPDiscord
         /// <returns>The resulting string, empty string if no reason was given.</returns>
         private static string MergeReason(string[] reason)
         {
-            string output = "";
+            StringBuilder output = new StringBuilder();
             foreach(string word in reason)
             {
-                output += word + ' ';
+                output.Append(word);
+                output.Append(' ');
             }
-            output.Trim();
-            return output;
+            
+            return output.ToString().Trim();
         }
 
         /// <summary>
