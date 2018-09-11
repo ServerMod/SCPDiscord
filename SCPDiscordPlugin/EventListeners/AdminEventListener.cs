@@ -58,27 +58,46 @@ namespace SCPDiscord
 
         public void OnBan(BanEvent ev)
         {
-            ///Probably triggers when someone is banned, I can't get it to trigger though
-            Dictionary<string, string> variables = new Dictionary<string, string>
+            if(ev.Admin != null)
             {
-                { "allowban",               ev.AllowBan.ToString()              },
-                { "duration",              (ev.Duration/60).ToString()          },
-                { "reason",                 ev.Reason                           },
-                { "result",                 ev.Result                           },
-                { "playeripaddress",        ev.Player.IpAddress                 },
-                { "playername",             ev.Player.Name                      },
-                { "playerplayerid",         ev.Player.PlayerId.ToString()       },
-                { "playersteamid",          ev.Player.SteamId                   },
-                { "playerclass",            ev.Player.TeamRole.Role.ToString()  },
-                { "playerteam",             ev.Player.TeamRole.Team.ToString()  },
-                { "adminipaddress",         ev.Admin.IpAddress                  },
-                { "adminname",              ev.Admin.Name                       },
-                { "adminplayerid",          ev.Admin.PlayerId.ToString()        },
-                { "adminsteamid",           ev.Admin.SteamId                    },
-                { "adminclass",             ev.Admin.TeamRole.Role.ToString()   },
-                { "adminteam",              ev.Admin.TeamRole.Team.ToString()   }
-            };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onban"), "admin.onban", variables);
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "allowban",               ev.AllowBan.ToString()              },
+                    { "duration",              (ev.Duration/60).ToString()          },
+                    { "reason",                 ev.Reason                           },
+                    { "result",                 ev.Result                           },
+                    { "playeripaddress",        ev.Player.IpAddress                 },
+                    { "playername",             ev.Player.Name                      },
+                    { "playerplayerid",         ev.Player.PlayerId.ToString()       },
+                    { "playersteamid",          ev.Player.SteamId                   },
+                    { "playerclass",            ev.Player.TeamRole.Role.ToString()  },
+                    { "playerteam",             ev.Player.TeamRole.Team.ToString()  },
+                    { "adminipaddress",         ev.Admin.IpAddress                  },
+                    { "adminname",              ev.Admin.Name                       },
+                    { "adminplayerid",          ev.Admin.PlayerId.ToString()        },
+                    { "adminsteamid",           ev.Admin.SteamId                    },
+                    { "adminclass",             ev.Admin.TeamRole.Role.ToString()   },
+                    { "adminteam",              ev.Admin.TeamRole.Team.ToString()   }
+                };
+                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onban"), "admin.onban", variables);
+            }
+            else
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "allowban",               ev.AllowBan.ToString()              },
+                    { "duration",              (ev.Duration/60).ToString()          },
+                    { "reason",                 ev.Reason                           },
+                    { "result",                 ev.Result                           },
+                    { "playeripaddress",        ev.Player.IpAddress                 },
+                    { "playername",             ev.Player.Name                      },
+                    { "playerplayerid",         ev.Player.PlayerId.ToString()       },
+                    { "playersteamid",          ev.Player.SteamId                   },
+                    { "playerclass",            ev.Player.TeamRole.Role.ToString()  },
+                    { "playerteam",             ev.Player.TeamRole.Team.ToString()  }
+                };
+                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onban"), "admin.onban.noadmin", variables);
+            }
         }
     }
 }

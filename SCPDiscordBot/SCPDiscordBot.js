@@ -10,6 +10,8 @@ const client = new Discord.Client({ autoReconnect: true });
 
 var messageQueue = JSON.parse("{}");
 
+var connectedToDiscord = false;
+
 console.log("Binding TCP port...");
 var listenServer = require("net");
 listenServer.createServer(function (socket)
@@ -26,6 +28,13 @@ listenServer.createServer(function (socket)
             console.log("Recieved " + data + " but Discord client was null.");
             return;
         }
+
+        if (!connectedToDiscord)
+        {
+            console.log("Recieved " + data + " but was not connected to Discord yet.");
+            return;
+        }
+
         var messages = data.split("\u0000");
 
         messages.forEach(function (packet)
@@ -125,7 +134,7 @@ listenServer.createServer(function (socket)
                             verifiedChannel.send(cutMessage);
                             if (verbose)
                             {
-                            console.log("Sent: " + channelID + ": '" + cutMessage + "' to Discord.");
+                                console.log("Sent: " + channelID + ": '" + cutMessage + "' to Discord.");
                             }
                         }
                     }
@@ -165,7 +174,7 @@ listenServer.createServer(function (socket)
             var verifiedChannel = client.channels.get(defaultChannel);
             if (verifiedChannel != null)
             {
-                verifiedChannel.send("Plugin connection lost.");
+                verifiedChannel.send("```diff\n- SCP:SL server connection lost.```");
                 client.user.setStatus("dnd");
                 client.user.setActivity("for server startup.",
                 {
@@ -217,6 +226,10 @@ listenServer.createServer(function (socket)
         {
             socket.write("command " + message.content.slice(prefix.length) + "\n");
         }
+        else if (command === "kickall" && (message.member.hasPermission("KICK_MEMBERS") || requirepermission === false))
+        {
+            socket.write("command " + message.content.slice(prefix.length) + "\n");
+        }
         else
         {
             if (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false)
@@ -259,60 +272,71 @@ console.log("Connecting to Discord...");
 client.on("ready", () =>
 {
     console.log("Discord connection established.");
-    client.channels.get(defaultChannel).send("Bot Online.");
+    client.channels.get(defaultChannel).send("```diff\n+ Bot Online.```");
     client.user.setStatus("dnd");
     client.user.setActivity("for server startup.",
     {
         type: "WATCHING"
     });
+    connectedToDiscord = true;
 });
 
 process.on("exit", function ()
 {
-    client.send("Bot shutting down...");
+    client.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
     console.log("Signing out...");
-    if (client != null)
+    client.user.setStatus("dnd");
+    client.user.setActivity("for server startup.",
     {
-        client.destroy();
-    }
+        type: "WATCHING"
+    });
+    client.destroy();
 });
 process.on("SIGINT", function ()
 {
-    client.send("Bot shutting down...");
+    client.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
     console.log("Signing out...");
-    if (client != null)
+    client.user.setStatus("dnd");
+    client.user.setActivity("for server startup.",
     {
-        client.destroy();
-    }
+        type: "WATCHING"
+    });
+    client.destroy();
 });
 
 process.on("SIGUSR1", function ()
 {
-    client.send("Bot shutting down...");
+    client.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
     console.log("Signing out...");
-    if (client != null)
+    client.user.setStatus("dnd");
+    client.user.setActivity("for server startup.",
     {
-        client.destroy();
-    }
+        type: "WATCHING"
+    });
+    client.destroy();
 });
 
 process.on("SIGUSR2", function ()
 {
-    client.send("Bot shutting down...");
+    client.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
     console.log("Signing out...");
-    if (client != null)
+    client.user.setStatus("dnd");
+    client.user.setActivity("for server startup.",
     {
-        client.destroy();
-    }
+        type: "WATCHING"
+    });
+    client.destroy();
 });
 
 process.on("SIGHUP", function ()
 {
-    client.send("Bot shutting down...");
+    client.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
     console.log("Signing out...");
-    if (client != null)
+    client.user.setStatus("dnd");
+    client.user.setActivity("for server startup.",
     {
-        client.destroy();
-    }
+        type: "WATCHING"
+    });
+    client.destroy();
 });
 client.login(token);
