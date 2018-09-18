@@ -28,6 +28,10 @@ They send messages along like this: SCPDiscordPlugin -> SCPDiscordBot -> Discord
 
 It will be possible to sync ranks from discord to the game, letting you automate things like patreon rewards and moderator positions.
 
+## Installation and configuration
+
+Check out the [Wiki tab](https://github.com/KarlOfDuty/SCPDiscord/wiki) for all guides on installation and configs.
+
 ## Bot commands
 
 ---
@@ -125,7 +129,3 @@ Valid time units:
 * `M` - Months
 
 * `y` - Years
-
-## Installation and configuration
-
-Check out the [Wiki tab](https://github.com/KarlOfDuty/SCPDiscord/wiki) for all guides on installation and configs.
