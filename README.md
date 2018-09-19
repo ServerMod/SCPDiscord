@@ -98,7 +98,7 @@ Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with
 
 **Variables:**
 
-* `<reason>` - Reason to be displayed to all players kicked (Message will not work until ServerMod 3.1.17).
+* `<reason>` - Reason to be displayed to all players kicked.
 
 ---
 
