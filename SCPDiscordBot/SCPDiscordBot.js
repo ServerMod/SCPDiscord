@@ -23,9 +23,9 @@ function setChannelTopic(channelID, topic)
         {
             if (verbose)
             {
-                console.log("Changed to topic: " + channelID);
+                console.log("Changed to topic: " + topic);
             }
-            verifiedChannel.setTopic(channelID);
+            verifiedChannel.setTopic(topic);
         }
         else if (verbose)
         {
@@ -305,10 +305,24 @@ discordClient.on("warn", (e) =>
 
 discordClient.login(token);
 
-tcpServer.listen(listeningPort);
+tcpServer.listen(listeningPort, () =>
 {
     console.log("Server is listening on port " + listeningPort);
-}
+});
+
+
+tcpServer.on('error', (e) =>
+{
+    if (e.code === 'EADDRINUSE')
+    {
+        console.log("Error: Could not bind to port " + listeningPort + ", is it already in use?");
+    }
+    else
+    {
+        console.log(e);
+    }
+    process.exit(0);
+});
 
 // Runs when the server shuts down
 function shutdown()
@@ -324,13 +338,16 @@ function shutdown()
         tcpServer.unref();
     });
 
-    discordClient.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
-    console.log("Signing out of Discord...");
-    discordClient.user.setStatus("dnd");
-    discordClient.user.setActivity("for server startup.",
+    if (connectedToDiscord)
     {
-        type: "WATCHING"
-    });
+        discordClient.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
+        console.log("Signing out of Discord...");
+        discordClient.user.setStatus("dnd");
+        discordClient.user.setActivity("for server startup.",
+        {
+            type: "WATCHING"
+        });
+    }
     discordClient.destroy();
 }
 process.on("exit", () => shutdown());
