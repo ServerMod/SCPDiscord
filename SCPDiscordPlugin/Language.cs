@@ -29,6 +29,93 @@ namespace SCPDiscord
             { "french",  Encoding.UTF8.GetString(Resources.french)  }
         };
 
+        private readonly List<string> messageNodes = new List<string>
+        {
+            "round.onroundstart",
+            "round.onconnect",
+            "round.ondisconnect",
+            "round.oncheckroundend",
+            "round.onroundend",
+            "round.onwaitingforplayers",
+            "round.onroundrestart",
+            "round.onsetservername",
+            "round.onscenechanged",
+
+            "environment.onscp914activate",
+            "environment.onstartcountdown.countdownresumed",
+            "environment.onstartcountdown",
+            "environment.onstopcountdown",
+            "environment.ondetonate",
+            "environment.ondecontaminate",
+
+            "player.onplayerhurt.noattacker",
+            "player.onplayerhurt.friendlyfire",
+            "player.onplayerhurt",
+            "player.onplayerdie.nokiller",
+            "player.onplayerdie.friendlyfire",
+            "player.onplayerdie",
+            "player.onplayerpickupitem",
+            "player.onplayerdropitem",
+            "player.onplayerjoin",
+            "player.onnicknameset",
+            "player.onassignteam",
+            "player.onsetrole",
+            "player.oncheckescape",
+            "player.oncheckescape.denied",
+            "player.onspawn",
+            "player.ondooraccess",
+            "player.ondooraccess.notallowed",
+            "player.onintercom",
+            "player.onintercomcooldowncheck",
+            "player.onpocketdimensionexit",
+            "player.onpocketdimensionenter",
+            "player.onpocketdimensiondie",
+            "player.onthrowgrenade",
+            "player.onplayerinfected",
+            "player.onspawnragdoll",
+            "player.onlure",
+            "player.oncontain106",
+            "player.onmedkituse",
+            "player.onshoot.notarget",
+            "player.onshoot.friendlyfire",
+            "player.onshoot",
+            "player.on106createportal",
+            "player.on106teleport",
+            "player.onelevatoruse",
+            "player.onhandcuff",
+            "player.onhandcuff.nootherplayer",
+            "player.onplayertriggertesla",
+            "player.onplayertriggertesla.ignored",
+            "player.onscp914changeknob",
+
+            "admin.onadminquery",
+            "admin.onauthcheck",
+            "admin.onban",
+            "admin.onban.noadmin",
+
+            "team.ondecideteamrespawnqueue",
+            "team.onteamrespawn.cispawn",
+            "team.onteamrespawn",
+            "team.onsetrolemaxhp",
+            "team.onsetscpconfig",
+            "team.onsetntfunitname",
+
+            "botmessages.connectedtobot",
+            "botmessages.reconnectedtobot",
+
+            "botresponses.missingarguments",
+            "botresponses.invalidsteamid",
+            "botresponses.invalidduration",
+            "botresponses.playerbanned",
+            "botresponses.consolecommandfeedback",
+            "botresponses.invalidsteamidorip",
+            "botresponses.playerunbanned",
+            "botresponses.playerkicked",
+            "botresponses.playernotfound",
+            "botresponses.exit",
+            "botresponses.kickall"
+        };
+
         public Language(SCPDiscordPlugin plugin)
         {
             this.plugin = plugin;
@@ -103,6 +190,8 @@ namespace SCPDiscord
                 plugin.Disable();
             }
 
+            ValidateLanguageStrings();
+
             //Runs until the server has connected once
             Thread connectionThread = new Thread(new ThreadStart(() => new ConnectToBot(plugin)));
             connectionThread.Start();
@@ -123,7 +212,7 @@ namespace SCPDiscord
         {
             foreach (KeyValuePair<string, string> language in defaultLanguages)
             {
-                if(!File.Exists(languagesPath + language.Key + ".yml"))
+                if(!File.Exists(languagesPath + language.Key + ".yml") || plugin.GetConfigBool("discord_overwrite_language"))
                 {
                     plugin.Info("Creating language file " + language.Key + ".yml...");
                     try
@@ -174,6 +263,21 @@ namespace SCPDiscord
             plugin.Info("Successfully loaded " + identifier + " language file '" + language + "'.");
         }
 
+        public void ValidateLanguageStrings()
+        {
+            foreach (string node in messageNodes)
+            {
+                try
+                {
+                    plugin.language.primary.SelectToken(node + ".message").Value<string>();
+                }
+                catch (Exception e)
+                {
+                    plugin.Warn("Your SCPDiscord language file \"" + plugin.GetConfigString("discord_language") + ".yml\" does not contain the node \"" + node + ".message\".\nEither add it to your language file or turn on the discord_overwrite_language config setting to use the default language.");
+                }
+            }
+        }
+
         /// <summary>
         /// Gets a string from the primary or backup language file
         /// </summary>
@@ -193,9 +297,9 @@ namespace SCPDiscord
             {
                 return plugin.language.primary.SelectToken(path).Value<string>();
             }
-            // This exception means the node does not exist in the language file, the plugin attempts to find it in the backup file
             catch (Exception primaryException)
             {
+                // This exception means the node does not exist in the language file, the plugin attempts to find it in the backup file
                 if(primaryException is NullReferenceException || primaryException is ArgumentNullException || primaryException is InvalidCastException || primaryException is JsonException)
                 {
                     plugin.Warn("Error reading string '" + path + "' from primary language file, switching to backup...");
