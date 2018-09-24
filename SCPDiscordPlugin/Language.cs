@@ -43,7 +43,7 @@ namespace SCPDiscord
             plugin.Info("Loading primary language file...");
             try
             {
-                ReadLanguage(plugin.GetConfigString("discord_language"), false);
+                LoadLanguageFile(plugin.GetConfigString("discord_language"), false);
             }
             catch (Exception e)
             {
@@ -73,7 +73,7 @@ namespace SCPDiscord
                 plugin.Info("Loading backup language file...");
                 try
                 {
-                    ReadLanguage("english", true);
+                    LoadLanguageFile("english", true);
                 }
                 catch (Exception e)
                 {
@@ -121,17 +121,22 @@ namespace SCPDiscord
         /// </summary>
         public void SaveDefaultLanguages()
         {
-            plugin.Info("Creating language files...");
             foreach (KeyValuePair<string, string> language in defaultLanguages)
             {
-                try
+                if(!File.Exists(languagesPath + language.Key + ".yml"))
                 {
-                    File.WriteAllText((languagesPath + language.Key + ".yml"), language.Value);
-                }
-                catch (DirectoryNotFoundException)
-                {
-                    Directory.CreateDirectory(languagesPath);
-                    File.WriteAllText((languagesPath + language.Key + ".yml"), language.Value);
+                    plugin.Info("Creating language file " + language.Key + ".yml...");
+                    try
+                    {
+                        File.WriteAllText((languagesPath + language.Key + ".yml"), language.Value);
+                    }
+                    catch (DirectoryNotFoundException)
+                    {
+                        plugin.Warn("Could not create language file: Language directory does not exist, attempting to create it... ");
+                        Directory.CreateDirectory(languagesPath);
+                        plugin.Info("Creating language file " + language.Key + ".yml...");
+                        File.WriteAllText((languagesPath + language.Key + ".yml"), language.Value);
+                    }
                 }
             }
         }
@@ -140,7 +145,7 @@ namespace SCPDiscord
         /// This function makes me want to die too, don't worry.
         /// Parses a yaml file into a yaml object, parses the yaml object into a json string, parses the json string into a json object
         /// </summary>
-        public void ReadLanguage(string language, bool isBackup)
+        public void LoadLanguageFile(string language, bool isBackup)
         {
             // Reads file contents into FileStream
             FileStream stream = File.OpenRead(languagesPath + language + ".yml");
