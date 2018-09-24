@@ -74,7 +74,7 @@ namespace SCPDiscord
                                     //Check if the command has enough arguments
                                     if (arguments.Length >= 1)
                                     {
-                                        KickCommand(arguments[0]);
+                                        KickCommand(arguments[0], MergeReason(arguments.Skip(1).ToArray()));
                                     }
                                     else
                                     {
@@ -107,15 +107,7 @@ namespace SCPDiscord
                                 }
                                 else if (command == "exit")
                                 {
-                                    NetworkStream serverStream = plugin.clientSocket.GetStream();
-                                    byte[] outStream = System.Text.Encoding.UTF8.GetBytes("000000000000000000```diff\n- The exit command cannot be called from Discord.```\0");
-                                    serverStream.Write(outStream, 0, outStream.Length);
-                                    //if (arguments.Length >= 1)
-                                    //{
-                                    //    KickallCommand(MergeReason(arguments));
-                                    //}
-                                    //Thread exitThread = new Thread(new ThreadStart(() => new ExitCommand(plugin)));
-                                    //exitThread.Start();
+                                    plugin.SendMessageToBot("default", "botresponses.exit");
                                 }
                                 else
                                 {
@@ -253,7 +245,7 @@ namespace SCPDiscord
         /// Handles the kick command.
         /// </summary>
         /// <param name="steamID">SteamID of player to be kicked.</param>
-        private void KickCommand(string steamID)
+        private void KickCommand(string steamID, string reason)
         {
             //Perform very basic SteamID validation
             if (!IsPossibleSteamID(steamID))
@@ -271,7 +263,7 @@ namespace SCPDiscord
             plugin.GetPlayerName(steamID, ref playerName);
 
             //Kicks the player
-            if (plugin.KickPlayer(steamID))
+            if (plugin.KickPlayer(steamID, reason))
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
@@ -309,16 +301,6 @@ namespace SCPDiscord
                 { "reason", reason }
             };
             plugin.SendMessageToBot("default", "botresponses.kickall", variables);
-        }
-
-        class ExitCommand
-        {
-            public ExitCommand(SCPDiscordPlugin plugin)
-            {
-                Thread.Sleep(2000);
-                plugin.SendMessageToBot("default", "botresponses.exit");
-                plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, "exit", new string[0]);
-            }
         }
 
         /// <summary>
