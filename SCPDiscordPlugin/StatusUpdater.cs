@@ -19,6 +19,10 @@ namespace SCPDiscord
         Stopwatch stopWatch = Stopwatch.StartNew();
         public void OnUpdate(UpdateEvent ev)
         {
+            if(!stopWatch.IsRunning)
+            {
+                stopWatch.Start();
+            }
             ticks++;
             if (stopWatch.ElapsedMilliseconds >= 5000 && plugin.hasConnectedOnce)
             {
