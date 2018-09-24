@@ -42,7 +42,7 @@ Check out the [Wiki tab](https://github.com/KarlOfDuty/SCPDiscord/wiki) for all 
 
 **Command usage:**
 
-`setavatar <url>/<path>` - Sets the avatar picture for your bot.
+`setavatar <url>/<path>` - Sets the avatar picture for your bot. (Administrator permission in Discord required)
 
 **Variables:** 
 
@@ -84,11 +84,12 @@ Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with
 
 **Command usage:**
 
-`kick <steamid>` - Kicks a player from the server. (Kick permission in Discord required)
+`kick <steamid> (reason)` - Kicks a player from the server. (Kick permission in Discord required)
 
 **Variables:**
 
 * `<steamid>` - The SteamID of the player to be kicked.
+* `(reason)` - Optional reason for the ban.
 
 ---
 
@@ -96,11 +97,11 @@ Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with
 
 **Command usage:**
 
-`kickall <reason>` - Kicks all players from the server with a message, useful for server shutdowns. (Kick permission in Discord required)
+`kickall (reason)` - Kicks all players from the server with a message, useful for server shutdowns. (Kick permission in Discord required)
 
 **Variables:**
 
-* `<reason>` - Reason to be displayed to all players kicked.
+* `(reason)` - Reason to be displayed to all players kicked.
 
 ---
 
