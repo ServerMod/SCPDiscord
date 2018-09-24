@@ -1,4 +1,4 @@
-using Smod2;
+﻿using Smod2;
 using Smod2.Attributes;
 using Smod2.Commands;
 
@@ -114,6 +114,7 @@ namespace SCPDiscord
 
             //Message options
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_language", "english", Smod2.Config.SettingType.STRING, true, "Name of the language config to use."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_overwrite_language", true, Smod2.Config.SettingType.BOOL, true, "Sets if the language files should be overwritten or not on startup"));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_formatting_date", "HH:mm:ss", Smod2.Config.SettingType.STRING, true, "Discord time formatting, 'off' to remove."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_verbose", false, Smod2.Config.SettingType.BOOL, true, "Log every message sent to discord in the console."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_activity_playercount", "on", Smod2.Config.SettingType.STRING, true, "Sync player count to bot activity."));
