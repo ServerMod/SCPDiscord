@@ -223,7 +223,7 @@ namespace SCPDiscord
     }
     class RefreshChannelTopic
     {
-        public RefreshChannelTopic(SCPDiscordPlugin plugin, string channelID)
+        public RefreshChannelTopic(SCPDiscordPlugin plugin, string channelID, float tps)
         {
             Dictionary<string, string> variables = new Dictionary<string, string>();
             try
@@ -240,7 +240,8 @@ namespace SCPDiscord
                         { "port",               server.Port + ""                                                },
                         { "isvisible",          server.Visible + ""                                             },
                         { "isverified",         server.Verified + ""                                            },
-                        { "uptime",            (plugin.serverStartTime.ElapsedMilliseconds / 1000 / 60) + ""    }
+                        { "uptime",            (plugin.serverStartTime.ElapsedMilliseconds / 1000 / 60) + ""    },
+                        { "tps",                tps.ToString ("0.00")                                           }
                     };
                 }
                 else
@@ -253,7 +254,8 @@ namespace SCPDiscord
                         { "port",           "----"              },
                         { "isvisible",      "False"             },
                         { "isverified",     "False"             },
-                        { "uptime",         "0"                 }
+                        { "uptime",         "0"                 },
+                        { "tps",            tps.ToString("0.00")}
                     };
                 }
 

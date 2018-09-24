@@ -194,11 +194,11 @@ namespace SCPDiscord
             messageThread.Start();
         }
 
-        public void RefreshChannelTopic()
+        public void RefreshChannelTopic(float tps)
         {
             if (GetConfigString("discord_server_status_channel") != "off")
             {
-                Thread messageThread = new Thread(new ThreadStart(() => new RefreshChannelTopic(this, GetConfigString("discord_server_status_channel"))));
+                Thread messageThread = new Thread(new ThreadStart(() => new RefreshChannelTopic(this, GetConfigString("discord_server_status_channel"), tps)));
                 messageThread.Start();
             }
         }
