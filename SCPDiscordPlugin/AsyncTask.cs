@@ -402,34 +402,52 @@ namespace SCPDiscord
             Thread.Sleep(2000);
             while (!plugin.clientSocket.Connected)
             {
-                plugin.Info("Attempting Bot Connection...");
+                if (plugin.GetConfigBool("discord_verbose"))
+                {
+                    plugin.Info("Attempting Bot Connection...");
+                }
                 try
                 {
-                    plugin.Info("Your Bot IP: " + plugin.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + plugin.GetConfigInt("discord_bot_port") + ".");
+                    if (plugin.GetConfigBool("discord_verbose"))
+                    {
+                        plugin.Info("Your Bot IP: " + plugin.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + plugin.GetConfigInt("discord_bot_port") + ".");
+                    }
                     plugin.clientSocket.Connect(plugin.GetConfigString("discord_bot_ip"), plugin.GetConfigInt("discord_bot_port"));
                 }
                 catch (SocketException e)
                 {
-                    plugin.Info("Error occured while connecting to discord bot server.");
-                    plugin.Debug(e.ToString());
+                    if (plugin.GetConfigBool("discord_verbose"))
+                    {
+                        plugin.Info("Error occured while connecting to discord bot server.");
+                        plugin.Debug(e.ToString());
+                    }
                     Thread.Sleep(5000);
                 }
                 catch (ObjectDisposedException e)
                 {
-                    plugin.Info("TCP client was unexpectedly closed.");
-                    plugin.Debug(e.ToString());
+                    if (plugin.GetConfigBool("discord_verbose"))
+                    {
+                        plugin.Info("TCP client was unexpectedly closed.");
+                        plugin.Debug(e.ToString());
+                    }
                     Thread.Sleep(5000);
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    plugin.Info("Invalid port.");
-                    plugin.Debug(e.ToString());
+                    if (plugin.GetConfigBool("discord_verbose"))
+                    {
+                        plugin.Info("Invalid port.");
+                        plugin.Debug(e.ToString());
+                    }
                     Thread.Sleep(5000);
                 }
                 catch (ArgumentNullException e)
                 {
-                    plugin.Info("IP address is null.");
-                    plugin.Debug(e.ToString());
+                    if (plugin.GetConfigBool("discord_verbose"))
+                    {
+                        plugin.Info("IP address is null.");
+                        plugin.Debug(e.ToString());
+                    }
                     Thread.Sleep(5000);
                 }
             }
@@ -448,36 +466,51 @@ namespace SCPDiscord
                 Thread.Sleep(200);
                 if(!plugin.clientSocket.Connected && plugin.hasConnectedOnce)
                 {
-                    plugin.Info("Discord bot connection issue detected, attempting reconnect...");
+                    if(plugin.GetConfigBool("discord_verbose"))
+                    {
+                        plugin.Warn("Discord bot connection issue detected, attempting reconnect...");
+                    }
+
                     try
                     {
-                        plugin.Info("Your Bot IP: " + plugin.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + plugin.GetConfigInt("discord_bot_port") + ".");
                         plugin.clientSocket = new TcpClient(plugin.GetConfigString("discord_bot_ip"), plugin.GetConfigInt("discord_bot_port"));
                         plugin.Info("Reconnected to Discord bot.");
                         plugin.SendMessageToBot("default", "botmessages.reconnectedtobot");
                     }
                     catch (SocketException e)
                     {
-                        plugin.Info("Error occured while reconnecting to discord bot server.");
-                        plugin.Debug(e.ToString());
+                        if (plugin.GetConfigBool("discord_verbose"))
+                        {
+                            plugin.Info("Error occured while reconnecting to discord bot server.");
+                            plugin.Debug(e.ToString());
+                        }
                         Thread.Sleep(5000);
                     }
                     catch (ObjectDisposedException e)
                     {
-                        plugin.Info("TCP client was unexpectedly closed.");
-                        plugin.Debug(e.ToString());
+                        if (plugin.GetConfigBool("discord_verbose"))
+                        {
+                            plugin.Info("TCP client was unexpectedly closed.");
+                            plugin.Debug(e.ToString());
+                        }
                         Thread.Sleep(5000);
                     }
                     catch (ArgumentOutOfRangeException e)
                     {
-                        plugin.Info("Invalid port.");
-                        plugin.Debug(e.ToString());
+                        if (plugin.GetConfigBool("discord_verbose"))
+                        {
+                            plugin.Info("Invalid port.");
+                            plugin.Debug(e.ToString());
+                        }
                         Thread.Sleep(5000);
                     }
                     catch (ArgumentNullException e)
                     {
-                        plugin.Info("IP address is null.");
-                        plugin.Debug(e.ToString());
+                        if (plugin.GetConfigBool("discord_verbose"))
+                        {
+                            plugin.Info("IP address is null.");
+                            plugin.Debug(e.ToString());
+                        }
                         Thread.Sleep(5000);
                     }
                 }
