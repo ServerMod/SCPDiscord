@@ -1,5 +1,6 @@
 ﻿using Smod2;
 using Smod2.Attributes;
+using Smod2.Commands;
 
 using System.Net.Sockets;
 using System;
@@ -121,10 +122,40 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status_channel", "default", Smod2.Config.SettingType.STRING, true, "Channel to put server status in."));
         }
 
+        class ReconnectCommand : ICommandHandler
+        {
+            private SCPDiscordPlugin plugin;
+            public ReconnectCommand(SCPDiscordPlugin plugin)
+            {
+                this.plugin = plugin;
+            }
+
+            public string GetCommandDescription()
+            {
+                // This prints when someone types HELP HELLO
+                return "Prints hello world";
+            }
+
+            public string GetUsage()
+            {
+                // This prints when someone types HELP HELLO
+                return "HELLO";
+            }
+
+            public string[] OnCall(ICommandSender sender, string[] args)
+            {
+                // This will print 3 lines in console.
+                plugin.clientSocket.Close();
+                return new string[] { "Connection closed, reconnecting will begin shortly." };
+            }
+        }
+
         public override void OnEnable()
         {
             this.Info("SCPDiscord " + this.Details.version + " enabled.");
             serverStartTime.Start();
+            this.AddCommand("discord_reconnect", new ReconnectCommand(this));
+
             // Fucks with things until the plugin works - hopefully I remember to add a more elegant fix in the future
             Thread messageThread = new Thread(new ThreadStart(() => new Language(this)));
             messageThread.Start();
