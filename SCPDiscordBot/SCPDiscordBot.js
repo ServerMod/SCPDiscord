@@ -1,29 +1,60 @@
 console.log("Config loading...");
-
 const { token, prefix, listeningPort, defaultChannel, verbose, cooldown, requirepermission } = require("./config.json");
-
 console.log("Config loaded.");
 
+var connectedToDiscord = false;
 const Discord = require("discord.js");
-
-const client = new Discord.Client({ autoReconnect: true });
+const discordClient = new Discord.Client({ autoReconnect: true });
 
 var messageQueue = JSON.parse("{}");
 
-var connectedToDiscord = false;
-
 console.log("Binding TCP port...");
-var listenServer = require("net");
-listenServer.createServer(function (socket)
+var sockets = [];
+var tcpServer = require("net").createServer();
+
+// Discord functions
+
+function setChannelTopic(channelID, topic)
 {
+    var verifiedChannel = discordClient.channels.get(channelID);
+    if (verifiedChannel != null)
+    {
+        if (verifiedChannel.manageable)
+        {
+            if (verbose)
+            {
+                console.log("Changed to topic: " + channelID);
+            }
+            verifiedChannel.setTopic(channelID);
+        }
+        else if (verbose)
+        {
+            console.warn("No permission to change channel topic.");
+        }
+    }
+    else if (verbose)
+    {
+        console.warn("Server status channel was not found.");
+    }
+}
+
+
+tcpServer.on('connection', (socket) =>
+{
+    sockets.push(socket);
+
+    socket.setTimeout(30000);
+
+    socket.setKeepAlive(true, 1000);
+
     socket.setEncoding("utf8");
 
     console.log("Plugin connected.");
 
     // Messages from the plugin
-    socket.on("data", function (data)
+    socket.on("data", data =>
     {
-        if (client == null)
+        if (discordClient == null)
         {
             console.log("Recieved " + data + " but Discord client was null.");
             return;
@@ -46,41 +77,20 @@ listenServer.createServer(function (socket)
                 {
                     channel = defaultChannel;
                 }
-
-                // Try finding the channel
-                var verifiedChannel = client.channels.get(channel);
-                if (verifiedChannel != null)
-                {
-                    if (verifiedChannel.manageable)
-                    {
-                        if (verbose)
-                        {
-                            console.log("Changed to topic: " + packet.slice(30));
-                        }
-                        verifiedChannel.setTopic(packet.slice(30));
-                    }
-                    else if(verbose)
-                    {
-                        console.warn("No permission to change channel topic.");
-                    }
-                }
-                else if(verbose)
-                {
-                    console.warn("Server status channel was not found.");
-                }
+                setChannelTopic(channel, packet.slice(30));
             }
-            else if (packet.slice(0, 11) === "botactivity" && client.user != null)
+            else if (packet.slice(0, 11) === "botactivity" && discordClient.user != null)
             {
                 if (packet.slice(11)[0] === "0")
                 {
-                    client.user.setStatus("idle");
+                    discordClient.user.setStatus("idle");
                 }
                 else
                 {
-                    client.user.setStatus("available");
+                    discordClient.user.setStatus("available");
                 }
 
-                client.user.setActivity(packet.slice(11),
+                discordClient.user.setActivity(packet.slice(11),
                 {
                     type: "PLAYING"
                 });
@@ -88,7 +98,7 @@ listenServer.createServer(function (socket)
                 if (verbose)
                 {
                     console.warn("Set activity to " + packet.slice(11));
-                }   
+                }
             }
             else
             {
@@ -116,7 +126,7 @@ listenServer.createServer(function (socket)
         });
         for (var channelID in messageQueue)
         {
-            var verifiedChannel = client.channels.get(channelID);
+            var verifiedChannel = discordClient.channels.get(channelID);
             if (verifiedChannel != null)
             {
                 //Message is copied to a new variable as it"s deletion later may happen before the send function finishes
@@ -129,7 +139,7 @@ listenServer.createServer(function (socket)
                     message = message.slice(1999);
                     if (cutMessage != null && cutMessage !== " " && cutMessage !== "")
                     {
-                        if (client.status)
+                        if (discordClient.status)
                         {
                             verifiedChannel.send(cutMessage);
                             if (verbose)
@@ -166,177 +176,165 @@ listenServer.createServer(function (socket)
     });
 
     //Connection issues
-    socket.on("error", function (data)
+    socket.on("error", (data) =>
     {
-        if (data.message === "read ECONNRESET")
-        {
-            console.log("Plugin connection lost.");
-            var verifiedChannel = client.channels.get(defaultChannel);
-            if (verifiedChannel != null)
-            {
-                verifiedChannel.send("```diff\n- SCP:SL server connection lost.```");
-                client.user.setStatus("dnd");
-                client.user.setActivity("for server startup.",
-                {
-                    type: "WATCHING"
-                });
-            }
-            else if (verbose)
-            {
-                console.warn("Error sending status to Discord.");
-            }
-        }
-        else if (verbose === true)
+        if (verbose === true)
         {
             console.log("Socket error <" + data.message + ">");
+            socket.destroy();
         }
     });
 
-    //Messages from Discord
-    client.on("message", (message) =>
+    socket.on('close', () =>
     {
-        //Abort if message does not start with the prefix, if the sender is a bot, if the message is not from the right channel or if it does not contain any letters
-        if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel || !/[a-z]/i.test(message.content))
+        console.log("Plugin connection lost.");
+        var verifiedChannel = discordClient.channels.get(defaultChannel);
+        if (verifiedChannel != null)
         {
-            return;
-        }
-
-
-        console.log("Command recieved.");
-        //Cut message into base command and arguments
-        const args = message.content.slice(prefix.length).split(/ +/);
-        const command = args.shift().toLowerCase();
-
-        //Add commands here, I only verify permissions and that the command exists here
-        if (command === "setavatar" && (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false))
-        {
-            var url = args.shift();
-            client.user.setAvatar(url);
-            message.channel.send("```diff\n+ Avatar updated.```");
-        }
-        else if (command === "ban" && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
-        {
-            socket.write("command " + message.content.slice(prefix.length) + "\n");
-        }
-        else if (command === "unban" && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
-        {
-            socket.write("command " + message.content.slice(prefix.length) + "\n");
-        }
-        else if (command === "kick" && (message.member.hasPermission("KICK_MEMBERS") || requirepermission === false))
-        {
-            socket.write("command " + message.content.slice(prefix.length) + "\n");
-        }
-        else if (command === "kickall" && (message.member.hasPermission("KICK_MEMBERS") || requirepermission === false))
-        {
-            socket.write("command " + message.content.slice(prefix.length) + "\n");
-        }
-        else
-        {
-            if (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false)
+            verifiedChannel.send("```diff\n- SCP:SL server connection lost.```");
+            discordClient.user.setStatus("dnd");
+            discordClient.user.setActivity("for server startup.",
             {
-                socket.write("command " + message.content.slice(prefix.length) + "\n");
-            }
-            else
-            {
-                message.channel.send("```diff\n- You are not allowed to use this command.```");
-            }
+                type: "WATCHING"
+            });
         }
-    });
-
-    client.on("error", (e) =>
-    {
-        console.error(e);
-    });
-
-    client.on("warn", (e) =>
-    {
-        if (verbose)
+        else if (verbose)
         {
-            console.warn(e);
+            console.warn("Error sending status to Discord.");
         }
+        sockets.splice(sockets.indexOf(socket), 1);
     });
 
-    client.on("debug", (e) =>
+    socket.on('timeout', () =>
     {
-        if (verbose)
-        {
-            console.info(e);
-        }
+        socket.destroy();
     });
-}).listen(listeningPort);
-{
-    console.log("Server is listening on port " + listeningPort);
-}
+
+});
 
 console.log("Connecting to Discord...");
-client.on("ready", () =>
+discordClient.on("ready", () =>
 {
     console.log("Discord connection established.");
-    client.channels.get(defaultChannel).send("```diff\n+ Bot Online.```");
-    client.user.setStatus("dnd");
-    client.user.setActivity("for server startup.",
+    discordClient.channels.get(defaultChannel).send("```diff\n+ Bot Online.```");
+    discordClient.user.setStatus("dnd");
+    discordClient.user.setActivity("for server startup.",
     {
         type: "WATCHING"
     });
     connectedToDiscord = true;
 });
 
-process.on("exit", function ()
-{
-    client.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
-    console.log("Signing out...");
-    client.user.setStatus("dnd");
-    client.user.setActivity("for server startup.",
+//Messages from Discord
+discordClient.on("message", (message) => {
+    //Abort if message does not start with the prefix, if the sender is a bot, if the message is not from the right channel or if it does not contain any letters
+    if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel || !/[a-z]/i.test(message.content))
     {
-        type: "WATCHING"
-    });
-    client.destroy();
-});
-process.on("SIGINT", function ()
-{
-    client.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
-    console.log("Signing out...");
-    client.user.setStatus("dnd");
-    client.user.setActivity("for server startup.",
+        return;
+    }
+
+    console.log("Command recieved.");
+    //Cut message into base command and arguments
+    const args = message.content.slice(prefix.length).split(/ +/);
+    const command = args.shift().toLowerCase();
+
+    //Add commands here, I only verify permissions and that the command exists here
+    if (command === "setavatar" && (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false))
     {
-        type: "WATCHING"
-    });
-    client.destroy();
+        var url = args.shift();
+        discordClient.user.setAvatar(url);
+        message.channel.send("```diff\n+ Avatar updated.```");
+    }
+    else if (command === "ban" && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
+    {
+        sockets.forEach((socket) =>
+        {
+            socket.write("command " + message.content.slice(prefix.length) + "\n");
+        });
+
+    }
+    else if (command === "unban" && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
+    {
+        sockets.forEach((socket) =>
+        {
+            socket.write("command " + message.content.slice(prefix.length) + "\n");
+        });
+    }
+    else if (command === "kick" && (message.member.hasPermission("KICK_MEMBERS") || requirepermission === false))
+    {
+        sockets.forEach((socket) =>
+        {
+            socket.write("command " + message.content.slice(prefix.length) + "\n");
+        });
+    }
+    else if (command === "kickall" && (message.member.hasPermission("KICK_MEMBERS") || requirepermission === false))
+    {
+        sockets.forEach((socket) =>
+        {
+            socket.write("command " + message.content.slice(prefix.length) + "\n");
+        });
+    }
+    else
+    {
+        if (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false)
+        {
+            sockets.forEach((socket) =>
+            {
+                socket.write("command " + message.content.slice(prefix.length) + "\n");
+            });
+        }
+        else
+        {
+            message.channel.send("```diff\n- You are not allowed to use this command.```");
+        }
+    }
 });
 
-process.on("SIGUSR1", function ()
+discordClient.on("error", (e) =>
 {
-    client.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
-    console.log("Signing out...");
-    client.user.setStatus("dnd");
-    client.user.setActivity("for server startup.",
-    {
-        type: "WATCHING"
-    });
-    client.destroy();
+    console.error(e);
 });
 
-process.on("SIGUSR2", function ()
+discordClient.on("warn", (e) =>
 {
-    client.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
-    console.log("Signing out...");
-    client.user.setStatus("dnd");
-    client.user.setActivity("for server startup.",
+    if (verbose)
     {
-        type: "WATCHING"
-    });
-    client.destroy();
+        console.warn(e);
+    }
 });
 
-process.on("SIGHUP", function ()
+discordClient.login(token);
+
+tcpServer.listen(listeningPort);
 {
-    client.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
-    console.log("Signing out...");
-    client.user.setStatus("dnd");
-    client.user.setActivity("for server startup.",
+    console.log("Server is listening on port " + listeningPort);
+}
+
+// Runs when the server shuts down
+function shutdown()
+{
+    sockets.forEach((socket) =>
+    {
+        socket.destroy();
+    });
+
+    tcpServer.close(() =>
+    {
+        console.log('TCP server closed.');
+        tcpServer.unref();
+    });
+
+    discordClient.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
+    console.log("Signing out of Discord...");
+    discordClient.user.setStatus("dnd");
+    discordClient.user.setActivity("for server startup.",
     {
         type: "WATCHING"
     });
-    client.destroy();
-});
-client.login(token);
+    discordClient.destroy();
+}
+process.on("exit", () => shutdown());
+process.on("SIGINT", () => shutdown());
+process.on("SIGUSR1", () => shutdown());
+process.on("SIGUSR2", () =>shutdown());
+process.on("SIGHUP", () => shutdown());
