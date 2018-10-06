@@ -23,7 +23,7 @@ namespace SCPDiscord
         SmodMajor = 3,
         SmodMinor = 1,
         SmodRevision = 18
-        )]
+    )]
     internal class SCPDiscordPlugin : Plugin
     {
         //Sends outgoing messages

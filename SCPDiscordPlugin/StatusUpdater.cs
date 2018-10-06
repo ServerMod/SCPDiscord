@@ -24,10 +24,10 @@ namespace SCPDiscord
                 stopWatch.Start();
             }
             ticks++;
-            if (stopWatch.ElapsedMilliseconds >= 5000 && plugin.hasConnectedOnce)
+            if (stopWatch.ElapsedMilliseconds >= 10000 && plugin.hasConnectedOnce)
             {
                 stopWatch.Reset();
-                float tps = ticks / 5.0f;
+                float tps = ticks / 10.0f;
                 ticks = 0;
 
                 // Update player count
