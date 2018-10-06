@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Languages\english.yml" />
+    <None Include="Languages\englishemote.yml" />
     <None Include="Languages\french.yml" />
     <None Include="Languages\russian.yml" />
     <None Include="lib\Smod2\Smod2.dll" />

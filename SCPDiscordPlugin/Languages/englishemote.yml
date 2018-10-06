@@ -1,4 +1,4 @@
-﻿# Note: If you want to edit this file you need to either rename it or set discord_overwrite_language to false or it will be reset on server start.
+# Note: If you want to edit this file you need to either rename it or set discord_overwrite_language to false or it will be reset on server start.
 
 #####################################################################################################################
 #                                                                                                                   #
@@ -162,7 +162,7 @@ round:
 environment:
     onscp914activate:
         # knobsetting
-        message: "SCP-914 has been activated on setting <var:knobsetting>."
+        message: ":credit_card: SCP-914 has been activated on setting <var:knobsetting>."
         regex: []
     onstartcountdown:
         # isresumed
@@ -173,10 +173,10 @@ environment:
         # steamid
         # class
         # team
-        message: "**The on-site nuclear warhead has been activated by <var:name> (<var:steamid>), <var:timeleft> seconds until detonation. All personnel must evacuate immediately.**"
+        message: ":rotating_light: **The on-site nuclear warhead has been activated by <var:name> (<var:steamid>), <var:timeleft> seconds until detonation. All personnel must evacuate immediately.**"
         regex: []
         countdownresumed:
-            message: "**The warhead countdown has been resumed <var:name> (<var:steamid>), <var:timeleft> seconds until detonation.**"
+            message: ":rotating_light: **The warhead countdown has been resumed <var:name> (<var:steamid>), <var:timeleft> seconds until detonation.**"
             regex: []
     onstopcountdown:
         # timeleft
@@ -186,13 +186,13 @@ environment:
         # steamid
         # class
         # team
-        message: "🚨 **The on-site nuclear warhead detonation has been canceled by <var:name> (<var:steamid>).**"
+        message: ":rotating_light: **The on-site nuclear warhead detonation has been canceled by <var:name> (<var:steamid>).**"
         regex: []
     ondetonate:
-        message: "🚨 **Detonation of the on-site nuclear warhead has been detected. Dispatching Foundation operatives to investigate.**"
+        message: ":rotating_light: **Detonation of the on-site nuclear warhead has been detected. Dispatching Foundation operatives to investigate.**"
         regex: []
     ondecontaminate:
-        message: "🚨 **Light Containment Zone de-contamination has been initiated, all biological material will be destroyed.**"
+        message: ":rotating_light: **Light Containment Zone de-contamination has been initiated, all biological material will be destroyed.**"
         regex: []
     
 player:
@@ -237,7 +237,7 @@ player:
         # playersteamid
         # playerclass
         # playerteam
-        message: "<var:playername> (<var:playersteamid>) was killed by <var:attackername> (<var:attackersteamid>) using <var:damagetype>."
+        message: ":gun: <var:playername> (<var:playersteamid>) was killed by <var:attackername> (<var:attackersteamid>) using <var:damagetype>."
         regex: []
         friendlyfire:
             message: ":warning: **<var:playerteam> <var:playername> (<var:playersteamid>) was teamkilled by <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype>.**"
@@ -275,7 +275,7 @@ player:
         # steamid
         # class
         # team
-        message: "📢 **<var:name> (<var:steamid>) joined the game.**"
+        message: ":loudspeaker: **<var:name> (<var:steamid>) joined the game.**"
         regex: []
     onnicknameset:
         # nickname
@@ -285,7 +285,7 @@ player:
         # steamid
         # class
         # team  
-        message: "📢 Player '<var:name> (<var:steamid>)' set their nickname to <var:nickname>."
+        message: "Player '<var:name> (<var:steamid>)' set their nickname to <var:nickname>."
         regex: []
     onassignteam:
         # ipaddress
@@ -294,7 +294,7 @@ player:
         # steamid
         # class
         # team  
-        message: "📢 <var:name> (<var:steamid>) has joined the <var:team> team."
+        message: ":loudspeaker: <var:name> (<var:steamid>) has joined the <var:team> team."
         regex: []
     onsetrole:
         # ipaddress
@@ -303,7 +303,7 @@ player:
         # steamid
         # class
         # team  
-        message: "📢 <var:name> (<var:steamid>) has has become a <var:class>."
+        message: ":loudspeaker: <var:name> (<var:steamid>) has has become a <var:class>."
         regex: []
     oncheckescape:
         # allowescape
@@ -313,7 +313,7 @@ player:
         # steamid
         # class
         # team  
-        message: "📢 <var:name> (<var:steamid>) has escaped as <var:class>."
+        message: ":loudspeaker:  <var:name> (<var:steamid>) has escaped as <var:class>."
         regex: []
         denied:
             message: ""
@@ -325,7 +325,7 @@ player:
         # steamid
         # class
         # team 
-        message: "📢 <var:name> (<var:steamid>) spawned as <var:class>."
+        message: ":loudspeaker: <var:name> (<var:steamid>) spawned as <var:class>."
         regex: []
     ondooraccess:
         # doorname
@@ -354,7 +354,7 @@ player:
         # steamid
         # class
         # team 
-        message: "📢 <var:name> (<var:steamid>) is using the intercom."
+        message: ":loudspeaker: <var:name> (<var:steamid>) is using the intercom."
         regex: []
     onintercomcooldowncheck:
         # This is not recommended to use outside of debugging
@@ -365,7 +365,7 @@ player:
         # steamid
         # class
         # team 
-        message: "📢 Intercom cooldown check: <var:currentcooldown>s."
+        message: ":loudspeaker: Intercom cooldown check: <var:currentcooldown>s."
         regex: []
     onpocketdimensionexit:
         # ipaddress
@@ -374,7 +374,7 @@ player:
         # steamid
         # class
         # team 
-        message: "👣 <var:name> (<var:steamid>) escaped the SCP-106 pocket dimension."
+        message: "<var:name> (<var:steamid>) escaped the SCP-106 pocket dimension."
         regex: []
     onpocketdimensionenter:
         # damage
@@ -384,7 +384,7 @@ player:
         # steamid
         # class
         # team 
-        message: "👣 <var:name> (<var:steamid>) was taken into the SCP-106 pocket dimension."
+        message: "<var:name> (<var:steamid>) was taken into the SCP-106 pocket dimension."
         regex: []
     onpocketdimensiondie:
         # ipaddress
@@ -481,7 +481,7 @@ player:
             message: "<var:attackername> (<var:attackersteamid>) shot at nothing in particular with <var:weapon>."
             regex: []
         friendlyfire:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) shot ally <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:weapon>.**"
+            message: ":grey_exclamation: **<var:playerteam> <var:playername> (<var:playersteamid>) shot ally <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:weapon>.**"
             regex: []
     on106createportal:
         # ipaddress
@@ -596,10 +596,10 @@ admin:
         # adminsteamid
         # adminclass
         # adminteam
-        message: ":shield: Player <var:playername> (<var:playersteamid>) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes."
+        message: ":no_entry: Player <var:playername> (<var:playersteamid>) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes."
         regex: []
         noadmin:
-            message: ":shield: <var:playername> (<var:playersteamid>) was banned by Skynet for <var:duration> minutes."
+            message: ":no_entry: <var:playername> (<var:playersteamid>) was banned by Skynet for <var:duration> minutes."
             regex: []
     
 team:
@@ -639,7 +639,7 @@ team:
         regex: []
     onsetntfunitname:
         # name
-        message: "📢 **MTF unit designated <var:name> has entered the facility.**"
+        message: ":loudspeaker: **MTF unit designated <var:name> has entered the facility.**"
         regex: []
 #####################################################################################################################
 #                                                                                                                   #

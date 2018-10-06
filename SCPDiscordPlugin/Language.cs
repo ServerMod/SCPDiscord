@@ -24,9 +24,10 @@ namespace SCPDiscord
         // All default languages included in the .dll
         private readonly Dictionary<string, string> defaultLanguages = new Dictionary<string, string>
         {
-            { "english", Encoding.UTF8.GetString(Resources.english) },
-            { "russian", Encoding.UTF8.GetString(Resources.russian) },
-            { "french",  Encoding.UTF8.GetString(Resources.french)  }
+            { "english", Encoding.UTF8.GetString(Resources.english)             },
+            { "russian", Encoding.UTF8.GetString(Resources.russian)             },
+            { "french",  Encoding.UTF8.GetString(Resources.french)              },
+            { "englishemote",  Encoding.UTF8.GetString(Resources.englishemote)  }
         };
 
         private readonly List<string> messageNodes = new List<string>

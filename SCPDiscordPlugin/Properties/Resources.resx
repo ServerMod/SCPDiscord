@@ -121,6 +121,9 @@
   <data name="english" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\english.yml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="englishemote" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Languages\englishemote.yml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="french" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\french.yml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
