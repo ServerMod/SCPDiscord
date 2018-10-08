@@ -114,7 +114,8 @@ namespace SCPDiscord
             "botresponses.playerkicked",
             "botresponses.playernotfound",
             "botresponses.exit",
-            "botresponses.kickall"
+            "botresponses.kickall",
+            "botresponses.toggletag.notinstalled"
         };
 
         public Language(SCPDiscordPlugin plugin)

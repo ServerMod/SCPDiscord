@@ -109,6 +109,44 @@ namespace SCPDiscord
                                 {
                                     plugin.SendMessageToBot("default", "botresponses.exit");
                                 }
+                                else if(command == "hidetag" || command == "showtag")
+                                {
+                                    if(plugin.pluginManager.GetEnabledPlugin("karlofduty.toggletag") != null)
+                                    {
+                                        if(arguments.Length > 0)
+                                        {
+                                            command = "console_" + command;
+                                            string[] feedback = plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, command, arguments);
+                                            string response = "";
+
+                                            StringBuilder builder = new StringBuilder();
+                                            foreach (string line in feedback)
+                                            {
+                                                builder.Append(line + "\n");
+                                            }
+                                            response = builder.ToString();
+
+
+                                            Dictionary<string, string> variables = new Dictionary<string, string>
+                                            {
+                                                { "feedback", response }
+                                            };
+                                            plugin.SendMessageToBot("default", "botresponses.consolecommandfeedback", variables);
+                                        }
+                                        else
+                                        {
+                                            Dictionary<string, string> variables = new Dictionary<string, string>
+                                            {
+                                                { "command", command }
+                                            };
+                                            plugin.SendMessageToBot("default", "botresponses.missingarguments", variables);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        plugin.SendMessageToBot("default", "botresponses.toggletag.notinstalled");
+                                    }
+                                }
                                 else
                                 {
                                     string[] feedback = plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, command, arguments);

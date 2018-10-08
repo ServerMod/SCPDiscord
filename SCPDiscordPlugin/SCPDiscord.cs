@@ -133,14 +133,12 @@ namespace SCPDiscord
 
             public string GetCommandDescription()
             {
-                // This prints when someone types HELP HELLO
-                return "Prints hello world";
+                return "Attempts to close the connection to the Discord bot and reconnect.";
             }
 
             public string GetUsage()
             {
-                // This prints when someone types HELP HELLO
-                return "HELLO";
+                return "discord_reconnect";
             }
 
             public string[] OnCall(ICommandSender sender, string[] args)
