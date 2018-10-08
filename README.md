@@ -105,6 +105,22 @@ Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with
 
 ---
 
+### Show and hide tag using ToggleTag plugin
+
+**Command usage:**
+
+`hidetag <steamid>` - Hides the tag of a player.
+
+`showtag <steamid>` - Shows the tag of a player
+
+
+**Variables:**
+
+* `<steamid>` - The SteamID of the player to change tag of.
+
+---
+
+
 ### Any other console commands
 
 **Command usage:**
