@@ -274,6 +274,13 @@ discordClient.on("message", (message) => {
             socket.write("command " + message.content.slice(prefix.length) + "\n");
         });
     }
+    else if ((command === "hidetag" || command === "showtag") && (message.member.hasPermission("MANAGE_NICKNAMES") || requirepermission === false))
+    {
+        sockets.forEach((socket) =>
+        {
+            socket.write("command " + message.content.slice(prefix.length) + "\n");
+        });
+    }
     else
     {
         if (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false)
