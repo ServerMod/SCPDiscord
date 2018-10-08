@@ -109,9 +109,9 @@ Example: `+ban 76561138022363616 4d Bad man.` Bans the player for four days with
 
 **Command usage:**
 
-`hidetag <steamid>` - Hides the tag of a player.
+`hidetag <steamid>` - Hides the tag of a player. (Requires manage nicknames permission in Discord)
 
-`showtag <steamid>` - Shows the tag of a player
+`showtag <steamid>` - Shows the tag of a player. (Requires manage nicknames permission in Discord)
 
 
 **Variables:**
