@@ -193,18 +193,6 @@ namespace SCPDiscord
             }
 
             ValidateLanguageStrings();
-
-            //Runs until the server has connected once
-            Thread connectionThread = new Thread(new ThreadStart(() => new ConnectToBot(plugin)));
-            connectionThread.Start();
-
-            //Runs the listener
-            Thread botListenerThread = new Thread(new ThreadStart(() => new BotListener(plugin)));
-            botListenerThread.Start();
-
-            //Keeps running to auto-reconnect if needed
-            Thread watchdogThread = new Thread(new ThreadStart(() => new StartConnectionWatchdog(plugin)));
-            watchdogThread.Start();
         }
 
         /// <summary>
@@ -273,7 +261,7 @@ namespace SCPDiscord
                 {
                     plugin.language.primary.SelectToken(node + ".message").Value<string>();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     plugin.Warn("Your SCPDiscord language file \"" + plugin.GetConfigString("discord_language") + ".yml\" does not contain the node \"" + node + ".message\".\nEither add it to your language file or turn on the discord_overwrite_language config setting to use the default language.");
                 }

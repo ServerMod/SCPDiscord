@@ -18,18 +18,53 @@ namespace SCPDiscord
             while (true)
             {
                 //Listen for connections
-                if (plugin.clientSocket.Connected)
+                if (plugin.clientSocket.Connected && plugin.hasConnectedOnce)
                 {
+                    Thread.Sleep(200);
                     try
                     {
                         //Discord messages can be up to 2000 chars long, UTF8 chars can be up to 4 bytes long.
                         byte[] data = new byte[8000];
 
-                        NetworkStream stream = plugin.clientSocket.GetStream();
+                        NetworkStream stream = null;
+                        try
+                        {
+                            stream = plugin.clientSocket.GetStream();
+                        }
+                        catch (Exception ex)
+                        {
+                            if(ex is IOException)
+                            {
+                                plugin.Error("Could not get stream from socket.");
+                            }
+                            else
+                            {
+                                plugin.Error("BotListener Error: " + ex.ToString());
+                            }
+                        }
 
-                        int lengthOfData = stream.Read(data, 0, data.Length);
+                        if(stream == null)
+                        {
+                            return;
+                        }
 
-                        string incomingData = System.Text.Encoding.UTF8.GetString(data, 0, lengthOfData);
+                        string incomingData = "";
+                        try
+                        {
+                            int lengthOfData = stream.Read(data, 0, data.Length);
+                            incomingData = Encoding.UTF8.GetString(data, 0, lengthOfData);
+                        }
+                        catch (Exception ex)
+                        {
+                            if(ex is IOException)
+                            {
+                                plugin.Error("Could not read from socket.");
+                            }
+                            else
+                            {
+                                plugin.Error("BotListener Error: " + ex.ToString());
+                            }
+                        }
                         List<string> messages = new List<string>(incomingData.Split('\n'));
 
                         //If several messages come in at the same time, process all of them
@@ -173,13 +208,16 @@ namespace SCPDiscord
                     }
                     catch (Exception ex)
                     {
-                        plugin.Info(ex.ToString());
-                        plugin.clientSocket.Close();
+                        if(ex is IOException)
+                        {
+                            plugin.Error("BotListener Error: " + ex.ToString());
+                        }
+                        plugin.Error("BotListener Error: " + ex.ToString());
                     }
                 }
                 else
                 {
-                    Thread.Sleep(200);
+                    Thread.Sleep(2000);
                 }
             }
         }

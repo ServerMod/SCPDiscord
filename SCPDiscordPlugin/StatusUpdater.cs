@@ -24,7 +24,7 @@ namespace SCPDiscord
                 stopWatch.Start();
             }
             ticks++;
-            if (stopWatch.ElapsedMilliseconds >= 10000 && plugin.hasConnectedOnce)
+            if (stopWatch.ElapsedMilliseconds >= 10000 && plugin.hasConnectedOnce && plugin.clientSocket.Connected)
             {
                 stopWatch.Reset();
                 float tps = ticks / 10.0f;

@@ -8,7 +8,6 @@ const discordClient = new Discord.Client({ autoReconnect: true });
 
 var messageQueue = JSON.parse("{}");
 
-console.log("Binding TCP port...");
 var sockets = [];
 var tcpServer = require("net").createServer();
 
@@ -42,8 +41,6 @@ function setChannelTopic(channelID, topic)
 tcpServer.on('connection', (socket) =>
 {
     sockets.push(socket);
-
-    socket.setTimeout(30000);
 
     socket.setKeepAlive(true, 1000);
 
@@ -212,7 +209,7 @@ tcpServer.on('connection', (socket) =>
 
 });
 
-console.log("Connecting to Discord...");
+
 discordClient.on("ready", () =>
 {
     console.log("Discord connection established.");
@@ -226,14 +223,14 @@ discordClient.on("ready", () =>
 });
 
 //Messages from Discord
-discordClient.on("message", (message) => {
+discordClient.on("message", (message) =>
+{
     //Abort if message does not start with the prefix, if the sender is a bot, if the message is not from the right channel or if it does not contain any letters
     if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel || !/[a-z]/i.test(message.content))
     {
         return;
     }
 
-    console.log("Command recieved.");
     //Cut message into base command and arguments
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
@@ -299,7 +296,15 @@ discordClient.on("message", (message) => {
 
 discordClient.on("error", (e) =>
 {
-    console.error(e);
+    if (e.message === "getaddrinfo ENOTFOUND gateway.discord.gg gateway.discord.gg:443")
+    {
+        connectedToDiscord = false;
+        console.error("Discord connection broken, retrying...");
+    }
+    else
+    {
+        console.error(e.message);
+    }
 });
 
 discordClient.on("warn", (e) =>
@@ -310,8 +315,20 @@ discordClient.on("warn", (e) =>
     }
 });
 
-discordClient.login(token);
+console.log("Connecting to Discord...");
+discordClient.login(token).then().catch((e) =>
+{
+    if (e.code === "ENOTFOUND")
+    {
+        console.error("ERROR: Connection to Discord could not be established. Are HTTP or HTTPS ports blocked (80 & 443)?");
+    }
+    else
+    {
+        console.error(e);
+    }
+});
 
+console.log("Binding TCP port...");
 tcpServer.listen(listeningPort, () =>
 {
     console.log("Server is listening on port " + listeningPort);

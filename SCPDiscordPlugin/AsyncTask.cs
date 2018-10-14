@@ -6,10 +6,28 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
 
-//TODO: Clean up duplicated code in SendMessageToBot and RefreshChannelTopic
-
 namespace SCPDiscord
 {
+    class StartThreads
+    {
+        public StartThreads(SCPDiscordPlugin plugin)
+        {
+            new Language(plugin);
+
+            //Runs until the server has connected once
+            Thread connectionThread = new Thread(new ThreadStart(() => new ConnectToBot(plugin)));
+            connectionThread.Start();
+
+            //Runs the listener
+            Thread botListenerThread = new Thread(new ThreadStart(() => new BotListener(plugin)));
+            botListenerThread.Start();
+
+            //Keeps running to auto-reconnect if needed
+            Thread watchdogThread = new Thread(new ThreadStart(() => new StartConnectionWatchdog(plugin)));
+            watchdogThread.Start();
+        }
+    }
+
     class SendMessageToBot
     {
         public SendMessageToBot(SCPDiscordPlugin plugin, string channelID, string messagePath, Dictionary<string, string> variables = null)
@@ -465,9 +483,11 @@ namespace SCPDiscord
         {
             while (true)
             {
-                Thread.Sleep(200);
+                Thread.Sleep(2000);
                 if(!plugin.clientSocket.Connected && plugin.hasConnectedOnce)
                 {
+                    plugin.clientSocket.Close();
+                    plugin.Info("Not connected, trying to reconnect");
                     if(plugin.GetConfigBool("discord_verbose"))
                     {
                         plugin.Warn("Discord bot connection issue detected, attempting reconnect...");
@@ -516,7 +536,6 @@ namespace SCPDiscord
                         Thread.Sleep(5000);
                     }
                 }
-
             }
         }
     }

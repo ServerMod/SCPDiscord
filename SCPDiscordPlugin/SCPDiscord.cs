@@ -22,7 +22,7 @@ namespace SCPDiscord
         version = "0.3.4",
         SmodMajor = 3,
         SmodMinor = 1,
-        SmodRevision = 18
+        SmodRevision = 19
     )]
     internal class SCPDiscordPlugin : Plugin
     {
@@ -143,9 +143,15 @@ namespace SCPDiscord
 
             public string[] OnCall(ICommandSender sender, string[] args)
             {
-                // This will print 3 lines in console.
-                plugin.clientSocket.Close();
-                return new string[] { "Connection closed, reconnecting will begin shortly." };
+                if(plugin.clientSocket.Connected)
+                {
+                    plugin.clientSocket.Close();
+                    return new string[] { "Connection closed, reconnecting will begin shortly." };
+                }
+                else
+                {
+                    return new string[] { "Connection was already closed, reconnecting is in progress." };
+                }
             }
         }
 
@@ -156,7 +162,7 @@ namespace SCPDiscord
             this.AddCommand("discord_reconnect", new ReconnectCommand(this));
 
             // Fucks with things until the plugin works - hopefully I remember to add a more elegant fix in the future
-            Thread messageThread = new Thread(new ThreadStart(() => new Language(this)));
+            Thread messageThread = new Thread(new ThreadStart(() => new StartThreads(this)));
             messageThread.Start();
         }
 
