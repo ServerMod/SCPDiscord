@@ -144,6 +144,10 @@ namespace SCPDiscord
                                 {
                                     plugin.SendMessageToBot("default", "botresponses.exit");
                                 }
+                                else if (command == "help")
+                                {
+                                    plugin.SendMessageToBot("default", "botresponses.help");
+                                }
                                 else if(command == "hidetag" || command == "showtag")
                                 {
                                     if(plugin.pluginManager.GetEnabledPlugin("karlofduty.toggletag") != null)

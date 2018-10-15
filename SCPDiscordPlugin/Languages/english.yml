@@ -702,6 +702,9 @@ botresponses:
     exit:
         message: "```diff\n- The exit command cannot be used from Discord.```"
         regex: []
+    help:
+        message: "```diff\n- The help command will be implemented in the next update of SCPDiscord.```"
+        regex: []
     toggletag:
         notinstalled:
             message: "```diff\n- This command requires the ToggleTag plugin.```"
