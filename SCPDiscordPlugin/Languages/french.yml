@@ -702,8 +702,15 @@ botresponses:
     exit:
         message: "```diff\n+ Fermeture du serveur...```"
         regex: []
+    help:
+        message: "```diff\n- The help command will be implemented in the next update of SCPDiscord.```"
+        regex: []
+    toggletag:
+        notinstalled:
+            message: "```diff\n- This command requires the ToggleTag plugin.```"
+            regex: []
     # The feedback from a console command, except the custom ones above. (Is not affected by regex other than final_regex)
     consolecommandfeedback:
         # feedback
         message: "```fix\n> <var:feedback>```"
-regex: []
+        regex: []
