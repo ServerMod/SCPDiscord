@@ -180,15 +180,24 @@ namespace SCPDiscord
                     plugin.Info("Sent message '" + message + "' to bot.");
                 }
             }
-            catch (InvalidOperationException e)
+            catch(Exception e)
             {
-                plugin.Error("Error sending message '" + message + "' to bot.");
-                plugin.Debug(e.ToString());
-            }
-            catch (ArgumentNullException e)
-            {
-                plugin.Error("Error sending message '" + message + "' to bot.");
-                plugin.Debug(e.ToString());
+                if (e is InvalidOperationException)
+                {
+                    plugin.Error("Error sending message '" + message + "' to bot.");
+                    plugin.Debug(e.ToString());
+                }
+                else if (e is ArgumentNullException)
+                {
+                    plugin.Error("Error sending message '" + message + "' to bot.");
+                    plugin.Debug(e.ToString());
+                }
+                else
+                {
+                    plugin.Error("Error sending message '" + message + "' to bot. Exception: " + e);
+                    plugin.Debug(e.ToString());
+                    throw e;
+                }
             }
         }
         private static string EscapeDiscordFormatting(string input)
