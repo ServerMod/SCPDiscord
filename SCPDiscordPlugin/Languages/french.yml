@@ -605,7 +605,7 @@ admin:
 team:
     ondecideteamrespawnqueue:
         # teams
-        message: "Respawn."
+        message: "Réapparition."
         regex: []
     onteamrespawn:
         # players
@@ -652,48 +652,48 @@ team:
 
 botmessages:
     connectedtobot:
-        message: "```diff\n+ Serveur SCP:SL connecté."
+        message: "```diff\n+ Serveur SCP:SL connecté.```"
         regex: []
     reconnectedtobot:
-        message: "```diff\n+ Serveur SCP:SL reconnecté."
+        message: "```diff\n+ Serveur SCP:SL reconnecté.```"
         regex: []
 
 botresponses:
     missingarguments:
         # command
-        message: "Argument manquant."
+        message: "```diff\n- Argument manquant.```"
         regex: []
     invalidsteamid:
         # steamid
-        message: "SteamID invalide '<var:steamid>'."
+        message: "```diff\n- SteamID invalide '<var:steamid>'.```"
         regex: []
     invalidsteamidorip:
         # steamidorip
-        message: "SteamID or IP invalide '<var:steamidorip>'."
+        message: "```diff\n- SteamID or IP invalide '<var:steamidorip>'.```"
         regex: []
     invalidduration:
         # duration
-        message: "Temps invalide '<var:duration>'."
+        message: "```diff\n- Temps invalide '<var:duration>'.```"
         regex: []
     playernotfound:
         # steamid
-        message: "Joueur avec le SteamID '<var:steamid>' n'a pas été trouvé."
+        message: "```diff\n- Joueur avec le SteamID '<var:steamid>' n'a pas été trouvé.```"
         regex: []
     playerkicked:
         # name
         # steamid
-        message: "'<var:name>' (<var:steamid>) a été kick du serveur."
+        message: "```diff\n+ '<var:name>' (<var:steamid>) a été kick du serveur.```"
         regex: []
     playerbanned:
         # name
         # steamid
         # reason
         # duration
-        message: "'<var:name>' (<var:steamid>) a été banni du serveur pour la raison '<var:reason>' (<var:duration>)."
+        message: "```diff\n+ '<var:name>' (<var:steamid>) a été banni du serveur pour la raison '<var:reason>' (<var:duration>).```"
         regex: []
     playerunbanned:
         # steamidorip
-        message: "diff\n+ Toute les lignes de SteamID/IP '<var:steamidorip>' ont été effacés des listes de ban."
+        message: "diff\n+ Toute les lignes de SteamID/IP '<var:steamidorip>' ont été effacés des listes de ban.```"
         regex: []
     kickall:
         # reason
@@ -706,4 +706,4 @@ botresponses:
     consolecommandfeedback:
         # feedback
         message: "```fix\n> <var:feedback>```"
-        regex: []
+regex: []
