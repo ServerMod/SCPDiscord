@@ -114,6 +114,7 @@ namespace SCPDiscord
             "botresponses.playerkicked",
             "botresponses.playernotfound",
             "botresponses.exit",
+            "botresponses.help",
             "botresponses.kickall",
             "botresponses.toggletag.notinstalled"
         };
