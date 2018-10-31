@@ -121,6 +121,7 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status", "Use the config option discord_server_status to change this text.", Smod2.Config.SettingType.STRING, true, "The server status to be pasted as a channel topic."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status_regex", new Dictionary<string, string>(), Smod2.Config.SettingType.DICTIONARY, true, "The regex replacement to be executed on this server's channel topic."));
             this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status_channel", "default", Smod2.Config.SettingType.STRING, true, "Channel to put server status in."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("discord_metrics", true, Smod2.Config.SettingType.BOOL, true, "Turn to false if you don't want people to be able to find your server by searching for the plugin in the server list. (Creates an invisible entry in the server name)"));
         }
 
         class ReconnectCommand : ICommandHandler

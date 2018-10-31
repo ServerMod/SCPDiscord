@@ -1,4 +1,5 @@
 ﻿using SCPDiscord.Properties;
+using Smod2;
 using Smod2.EventHandlers;
 using Smod2.Events;
 using System.Collections.Generic;
@@ -112,6 +113,8 @@ namespace SCPDiscord
             /// <summary>  
             ///  This event handler will call when the server name is set
             /// </summary>
+            ev.ServerName = (ConfigManager.Manager.Config.GetBoolValue("discord_metrics", true)) ? ev.ServerName += "<color=#ffffff00><size=1>SCPD:" + plugin.Details.version + "</size></color>" : ev.ServerName; 
+
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "servername", ev.ServerName }
