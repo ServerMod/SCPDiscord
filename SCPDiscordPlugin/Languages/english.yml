@@ -303,7 +303,7 @@ player:
         # steamid
         # class
         # team  
-        message: "<var:name> (<var:steamid>) has has become a <var:class>."
+        message: "<var:name> (<var:steamid>) has become a <var:class>."
         regex: []
     oncheckescape:
         # allowescape
