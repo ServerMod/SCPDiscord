@@ -19,7 +19,7 @@ namespace SCPDiscord
         private JObject primary = null;
         private JObject backup = null;
 
-        private readonly string languagesPath = FileManager.AppFolder + "SCPDiscord_Languages/";
+        private readonly string languagesPath = FileManager.GetAppFolder() + "SCPDiscord_Languages/";
 
         // All default languages included in the .dll
         private readonly Dictionary<string, string> defaultLanguages = new Dictionary<string, string>

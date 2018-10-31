@@ -274,7 +274,7 @@ namespace SCPDiscord
             }
 
             // Add the player to the SteamIDBans file.
-            StreamWriter streamWriter = new StreamWriter(FileManager.AppFolder + "/SteamIdBans.txt", true);
+            StreamWriter streamWriter = new StreamWriter(FileManager.GetAppFolder() + "/SteamIdBans.txt", true);
             streamWriter.WriteLine(name + ';' + steamID + ';' + endTime.Ticks + ';' + reason + ";DISCORD;" + DateTime.UtcNow.Ticks);
             streamWriter.Dispose();
 
@@ -309,10 +309,10 @@ namespace SCPDiscord
             }
 
             // Read and save all lines to file except for the one to be unbanned
-            File.WriteAllLines(FileManager.AppFolder + "/SteamIdBans.txt", File.ReadAllLines(FileManager.AppFolder + "/SteamIdBans.txt").Where(w => !w.Contains(steamID)).ToArray());
+            File.WriteAllLines(FileManager.GetAppFolder() + "/SteamIdBans.txt", File.ReadAllLines(FileManager.GetAppFolder() + "/SteamIdBans.txt").Where(w => !w.Contains(steamID)).ToArray());
 
             // Read and save all lines to file except for the one to be unbanned
-            File.WriteAllLines(FileManager.AppFolder + "/IpBans.txt", File.ReadAllLines(FileManager.AppFolder + "/IpBans.txt").Where(w => !w.Contains(steamID)).ToArray());
+            File.WriteAllLines(FileManager.GetAppFolder() + "/IpBans.txt", File.ReadAllLines(FileManager.GetAppFolder() + "/IpBans.txt").Where(w => !w.Contains(steamID)).ToArray());
 
             Dictionary<string, string> unbanVars = new Dictionary<string, string>
             {
