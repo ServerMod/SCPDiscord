@@ -6,7 +6,7 @@ var connectedToDiscord = false;
 const Discord = require("discord.js");
 const discordClient = new Discord.Client({ autoReconnect: true });
 
-var messageQueue = JSON.parse("{}");
+var messageQueue = {};
 
 var sockets = [];
 var tcpServer = require("net").createServer();
