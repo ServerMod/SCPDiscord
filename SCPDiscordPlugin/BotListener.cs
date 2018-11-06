@@ -1,4 +1,5 @@
-﻿using System;
+using Smod2.API;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -138,6 +139,50 @@ namespace SCPDiscord
                                             { "command", messages[0] }
                                         };
                                         plugin.SendMessageToBot("default", "botresponses.missingarguments", variables);
+                                    }
+                                }
+                                else if (command == "list")
+                                {
+
+                                    var message = "```md\n# Players online:\n";
+                                    foreach(Player player in plugin.Server.GetPlayers())
+                                    {
+                                        string line = player.Name.PadRight(32);
+                                        line += player.SteamId;
+                                        line += "\n";
+                                    }
+                                    message += "```";
+
+                                    if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
+                                    {
+                                        if (plugin.hasConnectedOnce && plugin.GetConfigBool("discord_verbose"))
+                                        {
+                                            plugin.Warn("Error sending message '" + message + "' to bot: Not connected.");
+                                        }
+                                        return;
+                                    }
+
+                                    // Try to send the message to the bot
+                                    try
+                                    {
+                                        NetworkStream serverStream = plugin.clientSocket.GetStream();
+                                        byte[] outStream = System.Text.Encoding.UTF8.GetBytes("000000000000000000" + message + '\0');
+                                        serverStream.Write(outStream, 0, outStream.Length);
+
+                                        if (plugin.GetConfigBool("discord_verbose"))
+                                        {
+                                            plugin.Info("Sent activity '" + message + "' to bot.");
+                                        }
+                                    }
+                                    catch (InvalidOperationException e)
+                                    {
+                                        plugin.Error("Error sending activity '" + message + "' to bot.");
+                                        plugin.Debug(e.ToString());
+                                    }
+                                    catch (ArgumentNullException e)
+                                    {
+                                        plugin.Error("Error sending activity '" + message + "' to bot.");
+                                        plugin.Debug(e.ToString());
                                     }
                                 }
                                 else if (command == "exit")
