@@ -10,20 +10,20 @@ namespace SCPDiscord
 {
     class StartThreads
     {
-        public StartThreads(SCPDiscordPlugin plugin)
+        public StartThreads()
         {
-            new Language(plugin);
+            Language.Initialise();
 
             //Runs until the server has connected once
-            Thread connectionThread = new Thread(new ThreadStart(() => new ConnectToBot(plugin)));
+            Thread connectionThread = new Thread(new ThreadStart(() => new ConnectToBot(SCPDiscordPlugin.instance)));
             connectionThread.Start();
 
             //Runs the listener
-            Thread botListenerThread = new Thread(new ThreadStart(() => new BotListener(plugin)));
+            Thread botListenerThread = new Thread(new ThreadStart(() => new BotListener(SCPDiscordPlugin.instance)));
             botListenerThread.Start();
 
             //Keeps running to auto-reconnect if needed
-            Thread watchdogThread = new Thread(new ThreadStart(() => new StartConnectionWatchdog(plugin)));
+            Thread watchdogThread = new Thread(new ThreadStart(() => new StartConnectionWatchdog(SCPDiscordPlugin.instance)));
             watchdogThread.Start();
         }
     }
@@ -36,7 +36,7 @@ namespace SCPDiscord
             string message = "";
             try
             {
-                message = plugin.language.GetString(messagePath + ".message");
+                message = Language.GetString(messagePath + ".message");
             }
             catch (Exception e)
             {
@@ -53,7 +53,7 @@ namespace SCPDiscord
             // Abort on empty message
             if (message == "" || message == " " || message == ".")
             {
-                if(plugin.GetConfigBool("discord_verbose"))
+                if(Config.settings.verbose)
                 {
                     plugin.Warn("Tried to send empty message " + messagePath + " to discord. Verify your language files.");
                 }
@@ -63,7 +63,7 @@ namespace SCPDiscord
             // Abort if client is dead
             if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
-                if(plugin.hasConnectedOnce && plugin.GetConfigBool("discord_verbose"))
+                if(plugin.hasConnectedOnce && Config.settings.verbose)
                 {
                     plugin.Warn("Error sending message '" + message + "' to bot: Not connected.");
                 }
@@ -71,15 +71,9 @@ namespace SCPDiscord
             }
 
             // Add time stamp
-            if (plugin.GetConfigString("discord_formatting_date") != "off")
+            if (Config.settings.timestamp != "off")
             {
-                message = "[" + DateTime.Now.ToString(plugin.GetConfigString("discord_formatting_date")) + "]: " + message;
-            }
-
-            // Change the default keyword to the bot's representation of it
-            if (channelID == "default")
-            {
-                channelID = "000000000000000000";
+                message = "[" + DateTime.Now.ToString(Config.settings.timestamp) + "]: " + message;
             }
 
             // Re-add newlines
@@ -105,7 +99,7 @@ namespace SCPDiscord
             Dictionary<string, string> globalRegex = new Dictionary<string, string>();
             try
             {
-                globalRegex = plugin.language.GetRegexDictionary("global_regex");
+                globalRegex = Language.GetRegexDictionary("global_regex");
             }
             catch (Exception e)
             {
@@ -123,7 +117,7 @@ namespace SCPDiscord
             Dictionary<string, string> localRegex = new Dictionary<string, string>();
             try
             {
-                localRegex = plugin.language.GetRegexDictionary(messagePath + ".regex");
+                localRegex = Language.GetRegexDictionary(messagePath + ".regex");
             }
             catch (Exception e)
             {
@@ -153,7 +147,7 @@ namespace SCPDiscord
                 Dictionary<string, string> finalRegex = new Dictionary<string, string>();
                 try
                 {
-                    finalRegex = plugin.language.GetRegexDictionary("final_regex");
+                    finalRegex = Language.GetRegexDictionary("final_regex");
                 }
                 catch (Exception e)
                 {
@@ -175,7 +169,7 @@ namespace SCPDiscord
                 byte[] outStream = System.Text.Encoding.UTF8.GetBytes(channelID + message + '\0');
                 serverStream.Write(outStream, 0, outStream.Length);
 
-                if (plugin.GetConfigBool("discord_verbose"))
+                if (Config.settings.verbose)
                 {
                     plugin.Info("Sent message '" + message + "' to bot.");
                 }
@@ -217,7 +211,7 @@ namespace SCPDiscord
 
             if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
-                if (plugin.hasConnectedOnce && plugin.GetConfigBool("discord_verbose"))
+                if (plugin.hasConnectedOnce && Config.settings.verbose)
                 {
                     plugin.Warn("Error sending message '" + message + "' to bot: Not connected.");
                 }
@@ -231,7 +225,7 @@ namespace SCPDiscord
                 byte[] outStream = System.Text.Encoding.UTF8.GetBytes("botactivity" + message + '\0');
                 serverStream.Write(outStream, 0, outStream.Length);
 
-                if (plugin.GetConfigBool("discord_verbose"))
+                if (Config.settings.verbose)
                 {
                     plugin.Info("Sent activity '" + message + "' to bot.");
                 }
@@ -366,7 +360,7 @@ namespace SCPDiscord
                 }
 
 
-                var topic = plugin.GetConfigString("discord_server_status");
+                var topic = Language.GetString("topic.message");
 
                 topic = topic.Replace("\n", "");
 
@@ -377,18 +371,12 @@ namespace SCPDiscord
                 }
 
                 // Regex replacements
-                Dictionary<string, string> regex = plugin.GetConfigDict("discord_server_status_regex");
+                Dictionary<string, string> regex = Language.GetRegexDictionary("topic.regex");
 
                 // Run the regex replacements
                 foreach (KeyValuePair<string, string> entry in regex)
                 {
                     topic = topic.Replace(entry.Key, entry.Value);
-                }
-
-                // Change the default keyword to the bot's representation of it
-                if (channelID == "default")
-                {
-                    channelID = "000000000000000000";
                 }
 
                 // Try to send the message to the bot
@@ -398,7 +386,7 @@ namespace SCPDiscord
                     byte[] outStream = System.Text.Encoding.UTF8.GetBytes("channeltopic" + channelID + topic + '\0');
                     serverStream.Write(outStream, 0, outStream.Length);
 
-                    if (plugin.GetConfigBool("discord_verbose"))
+                    if (Config.settings.verbose)
                     {
                         plugin.Info("Sent channel topic '" + topic + "' to bot.");
                     }
@@ -416,7 +404,7 @@ namespace SCPDiscord
             }
             catch(Exception e)
             {
-                if(plugin.GetConfigBool("discord_verbose"))
+                if(Config.settings.verbose)
                 {
                     plugin.Warn(e.ToString());
                 }
@@ -431,21 +419,21 @@ namespace SCPDiscord
             Thread.Sleep(2000);
             while (!plugin.clientSocket.Connected)
             {
-                if (plugin.GetConfigBool("discord_verbose"))
+                if (Config.settings.verbose)
                 {
                     plugin.Info("Attempting Bot Connection...");
                 }
                 try
                 {
-                    if (plugin.GetConfigBool("discord_verbose"))
+                    if (Config.settings.verbose)
                     {
-                        plugin.Info("Your Bot IP: " + plugin.GetConfigString("discord_bot_ip") + ". Your Bot Port: " + plugin.GetConfigInt("discord_bot_port") + ".");
+                        plugin.Info("Your Bot IP: " + Config.bot.ip + ". Your Bot Port: " + Config.bot.port + ".");
                     }
-                    plugin.clientSocket.Connect(plugin.GetConfigString("discord_bot_ip"), plugin.GetConfigInt("discord_bot_port"));
+                    plugin.clientSocket.Connect(Config.bot.ip, Config.bot.port);
                 }
                 catch (SocketException e)
                 {
-                    if (plugin.GetConfigBool("discord_verbose"))
+                    if (Config.settings.verbose)
                     {
                         plugin.Info("Error occured while connecting to discord bot server.");
                         plugin.Debug(e.ToString());
@@ -454,7 +442,7 @@ namespace SCPDiscord
                 }
                 catch (ObjectDisposedException e)
                 {
-                    if (plugin.GetConfigBool("discord_verbose"))
+                    if (Config.settings.verbose)
                     {
                         plugin.Info("TCP client was unexpectedly closed.");
                         plugin.Debug(e.ToString());
@@ -463,7 +451,7 @@ namespace SCPDiscord
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    if (plugin.GetConfigBool("discord_verbose"))
+                    if (Config.settings.verbose)
                     {
                         plugin.Info("Invalid port.");
                         plugin.Debug(e.ToString());
@@ -472,7 +460,7 @@ namespace SCPDiscord
                 }
                 catch (ArgumentNullException e)
                 {
-                    if (plugin.GetConfigBool("discord_verbose"))
+                    if (Config.settings.verbose)
                     {
                         plugin.Info("IP address is null.");
                         plugin.Debug(e.ToString());
@@ -481,7 +469,7 @@ namespace SCPDiscord
                 }
             }
             plugin.Info("Connected to Discord bot.");
-            plugin.SendMessageToBot("default", "botmessages.connectedtobot");
+            plugin.SendMessageToBot(Config.channels.onroundend, "botmessages.connectedtobot");
             plugin.hasConnectedOnce = true;
         }
     }
@@ -497,20 +485,20 @@ namespace SCPDiscord
                 {
                     plugin.clientSocket.Close();
                     plugin.Info("Not connected, trying to reconnect");
-                    if(plugin.GetConfigBool("discord_verbose"))
+                    if(Config.settings.verbose)
                     {
                         plugin.Warn("Discord bot connection issue detected, attempting reconnect...");
                     }
 
                     try
                     {
-                        plugin.clientSocket = new TcpClient(plugin.GetConfigString("discord_bot_ip"), plugin.GetConfigInt("discord_bot_port"));
+                        plugin.clientSocket = new TcpClient(Config.bot.ip, Config.bot.port);
                         plugin.Info("Reconnected to Discord bot.");
-                        plugin.SendMessageToBot("default", "botmessages.reconnectedtobot");
+                        plugin.SendMessageToBot(Config.channels.statusmessages, "botmessages.reconnectedtobot");
                     }
                     catch (SocketException e)
                     {
-                        if (plugin.GetConfigBool("discord_verbose"))
+                        if (Config.settings.verbose)
                         {
                             plugin.Info("Error occured while reconnecting to discord bot server.");
                             plugin.Debug(e.ToString());
@@ -519,7 +507,7 @@ namespace SCPDiscord
                     }
                     catch (ObjectDisposedException e)
                     {
-                        if (plugin.GetConfigBool("discord_verbose"))
+                        if (Config.settings.verbose)
                         {
                             plugin.Info("TCP client was unexpectedly closed.");
                             plugin.Debug(e.ToString());
@@ -528,7 +516,7 @@ namespace SCPDiscord
                     }
                     catch (ArgumentOutOfRangeException e)
                     {
-                        if (plugin.GetConfigBool("discord_verbose"))
+                        if (Config.settings.verbose)
                         {
                             plugin.Info("Invalid port.");
                             plugin.Debug(e.ToString());
@@ -537,7 +525,7 @@ namespace SCPDiscord
                     }
                     catch (ArgumentNullException e)
                     {
-                        if (plugin.GetConfigBool("discord_verbose"))
+                        if (Config.settings.verbose)
                         {
                             plugin.Info("IP address is null.");
                             plugin.Debug(e.ToString());

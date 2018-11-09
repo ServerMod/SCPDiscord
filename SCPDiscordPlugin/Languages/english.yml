@@ -714,3 +714,6 @@ botresponses:
         # feedback
         message: "```fix\n> <var:feedback>```"
         regex: []
+topic:
+    message: "Players online: <var:players>/<var:maxplayers>. Round has lasted <var:roundduration> minutes. Active SCP: <var:scpalive>. Warhead switchdetonation<var:warheaddetonated> been detonated. Uptime: <var:uptime> minutes. IP: <var:ip>:<var:port> TPS: <var:tps>"
+    regex: [ "switchdetonationTrue":"has", "switchdetonationFalse":"has not", " 1 minutes":" 1 minute" ]

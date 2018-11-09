@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="EventListeners\AdminEventListener.cs" />
     <Compile Include="AsyncTask.cs" />
     <Compile Include="BotListener.cs" />
@@ -90,6 +91,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="config.yml" />
     <None Include="Languages\english.yml" />
     <None Include="Languages\englishemote.yml" />
     <None Include="Languages\french.yml" />
@@ -106,7 +108,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>cd $(ProjectDir)
+    <PostBuildEvent>taskkill /F /IM SCPSL.exe /T 2&gt;nul &amp;set errorlevel=0
+cd $(ProjectDir)
 copy /y bin\SCPDiscord.dll ..\..\..\scpserver\sm_plugins\
 mkdir ..\..\..\scpserver\sm_plugins\dependencies
 copy /y bin\Newtonsoft.Json.dll ..\..\..\scpserver\sm_plugins\dependencies\

@@ -11,6 +11,11 @@ using System.Collections.Generic;
 using Smod2.Events;
 using SCPDiscord.Properties;
 using System.Diagnostics;
+using System.Text;
+using YamlDotNet.Serialization;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using YamlDotNet.Core;
 
 namespace SCPDiscord
 {
@@ -31,97 +36,23 @@ namespace SCPDiscord
 
         public bool hasConnectedOnce = false;
 
-        public Language language;
-
         public Stopwatch serverStartTime = new Stopwatch();
+
+        internal static SCPDiscordPlugin instance;
 
         public override void Register()
         {
             // Event handlers
             this.AddEventHandlers(new RoundEventListener(this), Priority.Highest);
-            this.AddEventHandlers(new PlayerEventListener(this), Priority.Highest);
-            this.AddEventHandlers(new AdminEventListener(this), Priority.Highest);
-            this.AddEventHandlers(new EnvironmentEventListener(this), Priority.Highest);
-            this.AddEventHandlers(new TeamEventListener(this), Priority.Highest);
+            //this.AddEventHandlers(new PlayerEventListener(this), Priority.Highest);
+            //this.AddEventHandlers(new AdminEventListener(this), Priority.Highest);
+            //this.AddEventHandlers(new EnvironmentEventListener(this), Priority.Highest);
+            //this.AddEventHandlers(new TeamEventListener(this), Priority.Highest);
             this.AddEventHandlers(new StatusUpdater(this), Priority.Highest);
 
             this.AddConfig(new Smod2.Config.ConfigSetting("max_players", "20", Smod2.Config.SettingType.STRING, true, "Gets the max players without reserved slots."));
 
-            // Connection settings
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_ip", "127.0.0.1", Smod2.Config.SettingType.STRING, true, "IP of the discord bot."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_bot_port", 8888, Smod2.Config.SettingType.NUMERIC, true, "Port to send messages to the bot on."));
-
-            // Round events
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundstart", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onconnect", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_ondisconnect", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_oncheckroundend", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundend", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onwaitingforplayers", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onroundrestart", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetservername", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onscenechanged", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-
-            // Environment events
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onscp914activate", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onstartcountdown", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onstopcountdown", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_ondetonate", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_ondecontaminate", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-
-            // Player events
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerdie", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerhurt", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerpickupitem", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerdropitem", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerjoin", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onnicknameset", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onassignteam", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetrole", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_oncheckescape", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onspawn", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_ondooraccess", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onintercom", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onintercomcooldowncheck", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onpocketdimensionexit", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onpocketdimensionenter", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onpocketdimensiondie", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onthrowgrenade", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayerinfected", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onspawnragdoll", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onlure", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_oncontain106", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onmedkituse", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onshoot", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_on106createportal", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_on106teleport", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onelevatoruse", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onhandcuff", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onplayertriggertesla", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onscp914changeknob", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-
-            // Admin events
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onadminquery", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onauthcheck", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onban", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-
-            // Team events
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_ondecideteamrespawnqueue", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetrolemaxhp", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onteamrespawn", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetscpconfig", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_channel_onsetntfunitname", "off", Smod2.Config.SettingType.STRING, true, "Discord channel to post event messages in."));
-
-            // Message options
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_language", "english", Smod2.Config.SettingType.STRING, true, "Name of the language config to use."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_overwrite_language", true, Smod2.Config.SettingType.BOOL, true, "Sets if the language files should be overwritten or not on startup"));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_formatting_date", "HH:mm:ss", Smod2.Config.SettingType.STRING, true, "Discord time formatting, 'off' to remove."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_verbose", false, Smod2.Config.SettingType.BOOL, true, "Log every message sent to discord in the console."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_activity_playercount", "on", Smod2.Config.SettingType.STRING, true, "Sync player count to bot activity."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status", "Use the config option discord_server_status to change this text.", Smod2.Config.SettingType.STRING, true, "The server status to be pasted as a channel topic."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status_regex", new Dictionary<string, string>(), Smod2.Config.SettingType.DICTIONARY, true, "The regex replacement to be executed on this server's channel topic."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_server_status_channel", "default", Smod2.Config.SettingType.STRING, true, "Channel to put server status in."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("discord_metrics", true, Smod2.Config.SettingType.BOOL, true, "Turn to false if you don't want people to be able to find your server by searching for the plugin in the server list. (Creates an invisible entry in the server name)"));
+            this.AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config", "config.yml", Smod2.Config.SettingType.STRING, true, "Name of the config file to use, by default 'config.yml'"));
         }
 
         class ReconnectCommand : ICommandHandler
@@ -158,12 +89,74 @@ namespace SCPDiscord
 
         public override void OnEnable()
         {
+            instance = this;
             this.Info("SCPDiscord " + this.Details.version + " enabled.");
             serverStartTime.Start();
             this.AddCommand("discord_reconnect", new ReconnectCommand(this));
 
-            Thread messageThread = new Thread(new ThreadStart(() => new StartThreads(this)));
+            SetUpFileSystem();
+            LoadConfig();
+
+            Thread messageThread = new Thread(new ThreadStart(() => new StartThreads()));
             messageThread.Start();
+        }
+
+        public void SetUpFileSystem()
+        {
+            if (!Directory.Exists(FileManager.GetAppFolder() + "SCPDiscord"))
+            {
+                Directory.CreateDirectory(FileManager.GetAppFolder() + "SCPDiscord");
+            }
+
+            if (!File.Exists(FileManager.GetAppFolder() + "SCPDiscord/config.yml"))
+            {
+                this.Info("Default config file config.yml does not exist, creating...");
+                File.WriteAllText(FileManager.GetAppFolder() + "SCPDiscord/config.yml", Encoding.UTF8.GetString(Resources.config));
+            }
+        }
+
+        public void LoadConfig()
+        {
+            try
+            {
+                // TODO: Add config name confinguration here
+                // Reads file contents into FileStream
+                FileStream stream = File.OpenRead(FileManager.GetAppFolder() + "SCPDiscord/config.yml");
+
+                // Converts the FileStream into a YAML Dictionary object
+                var deserializer = new DeserializerBuilder().Build();
+                var yamlObject = deserializer.Deserialize(new StreamReader(stream));
+
+                // Converts the YAML Dictionary into JSON String
+                var serializer = new SerializerBuilder()
+                    .JsonCompatible()
+                    .Build();
+                string jsonString = serializer.Serialize(yamlObject);
+                Config.Deserialise(JObject.Parse(jsonString));
+                this.Info("Successfully loaded config.");
+            }
+            catch (Exception e)
+            {
+                if (e is DirectoryNotFoundException)
+                {
+                    this.Error("Config directory not found.");
+                }
+                else if (e is UnauthorizedAccessException)
+                {
+                    this.Error("Primary language file access denied.");
+                }
+                else if (e is FileNotFoundException)
+                {
+                    this.Error("'config.yml' was not found.");
+                }
+                else if (e is JsonReaderException || e is YamlException)
+                {
+                    this.Error("'config.yml' formatting error.");
+                }
+                this.Error("Error reading config file 'config.yml'. Aborting startup.");
+                e.ToString();
+                Disable();
+            }
         }
 
         public void Disable()
@@ -183,14 +176,23 @@ namespace SCPDiscord
         /// <param name="channelID">The channel ID to post the message in.</param>
         /// <param name="messagePath">The JSON JPath describing the message node location.</param>
         /// <param name="variables">Variables to be parsed into the string.</param>
-        public void SendMessageToBot(string channelID, string messagePath, Dictionary<string, string> variables = null)
+        public void SendMessageToBot(string channel, string messagePath, Dictionary<string, string> variables = null)
         {
-            if (channelID != "off")
+
+        }
+
+        public void SendMessageToBot(string[] channels, string messagePath, Dictionary<string, string> variables = null)
+        {
+            foreach(string channel in channels)
             {
-                Thread messageThread = new Thread(new ThreadStart(() => new SendMessageToBot(this, channelID, messagePath, variables)));
-                messageThread.Start();
+                if(Config.aliases.ContainsKey(channel))
+                {
+                    Thread messageThread = new Thread(new ThreadStart(() => new SendMessageToBot(this, Config.aliases[channel], messagePath, variables)));
+                    messageThread.Start();
+                }
             }
         }
+
 
         public void RefreshBotActivity()
         {
@@ -200,10 +202,13 @@ namespace SCPDiscord
 
         public void RefreshChannelTopic(float tps)
         {
-            if (GetConfigString("discord_server_status_channel") != "off")
+            foreach (string channel in Config.channels.topic)
             {
-                Thread messageThread = new Thread(new ThreadStart(() => new RefreshChannelTopic(this, GetConfigString("discord_server_status_channel"), tps)));
-                messageThread.Start();
+                if (Config.aliases.ContainsKey(channel))
+                {
+                    Thread messageThread = new Thread(new ThreadStart(() => new RefreshChannelTopic(this, Config.aliases[channel], tps)));
+                    messageThread.Start();
+                }
             }
         }
 

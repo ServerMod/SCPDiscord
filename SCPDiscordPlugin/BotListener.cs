@@ -102,7 +102,7 @@ namespace SCPDiscord
                                         {
                                             { "command", messages[0] }
                                         };
-                                        plugin.SendMessageToBot("default", "botresponses.missingarguments", variables);
+                                        plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.missingarguments", variables);
                                     }
                                 }
                                 else if (command == "kick")
@@ -118,7 +118,7 @@ namespace SCPDiscord
                                         {
                                             { "command", messages[0] }
                                         };
-                                        plugin.SendMessageToBot("default", "botresponses.missingarguments", variables);
+                                        plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.missingarguments", variables);
                                     }
                                 }
                                 else if (command == "kickall")
@@ -138,7 +138,7 @@ namespace SCPDiscord
                                         {
                                             { "command", messages[0] }
                                         };
-                                        plugin.SendMessageToBot("default", "botresponses.missingarguments", variables);
+                                        plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.missingarguments", variables);
                                     }
                                 }
                                 else if (command == "list")
@@ -155,7 +155,7 @@ namespace SCPDiscord
 
                                     if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
                                     {
-                                        if (plugin.hasConnectedOnce && plugin.GetConfigBool("discord_verbose"))
+                                        if (plugin.hasConnectedOnce && Config.settings.verbose)
                                         {
                                             plugin.Warn("Error sending message '" + message + "' to bot: Not connected.");
                                         }
@@ -169,7 +169,7 @@ namespace SCPDiscord
                                         byte[] outStream = System.Text.Encoding.UTF8.GetBytes("000000000000000000" + message + '\0');
                                         serverStream.Write(outStream, 0, outStream.Length);
 
-                                        if (plugin.GetConfigBool("discord_verbose"))
+                                        if (Config.settings.verbose)
                                         {
                                             plugin.Info("Sent activity '" + message + "' to bot.");
                                         }
@@ -187,11 +187,11 @@ namespace SCPDiscord
                                 }
                                 else if (command == "exit")
                                 {
-                                    plugin.SendMessageToBot("default", "botresponses.exit");
+                                    plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.exit");
                                 }
                                 else if (command == "help")
                                 {
-                                    plugin.SendMessageToBot("default", "botresponses.help");
+                                    plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.help");
                                 }
                                 else if(command == "hidetag" || command == "showtag")
                                 {
@@ -215,7 +215,7 @@ namespace SCPDiscord
                                             {
                                                 { "feedback", response }
                                             };
-                                            plugin.SendMessageToBot("default", "botresponses.consolecommandfeedback", variables);
+                                            plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.consolecommandfeedback", variables);
                                         }
                                         else
                                         {
@@ -223,12 +223,12 @@ namespace SCPDiscord
                                             {
                                                 { "command", command }
                                             };
-                                            plugin.SendMessageToBot("default", "botresponses.missingarguments", variables);
+                                            plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.missingarguments", variables);
                                         }
                                     }
                                     else
                                     {
-                                        plugin.SendMessageToBot("default", "botresponses.toggletag.notinstalled");
+                                        plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.toggletag.notinstalled");
                                     }
                                 }
                                 else
@@ -248,7 +248,7 @@ namespace SCPDiscord
                                     {
                                         { "feedback", response }
                                     };
-                                    plugin.SendMessageToBot("default", "botresponses.consolecommandfeedback", variables);
+                                    plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.consolecommandfeedback", variables);
                                 }
                             }
                             plugin.Info("From discord: " + messages[0]);
@@ -286,7 +286,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessageToBot("default", "botresponses.invalidsteamid", variables);
+                plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -299,7 +299,7 @@ namespace SCPDiscord
                 {
                     { "duration", duration }
                 };
-                plugin.SendMessageToBot("default", "botresponses.invalidduration", variables);
+                plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.invalidduration", variables);
                 return;
             }
 
@@ -333,7 +333,7 @@ namespace SCPDiscord
                     { "reason",     reason                  },
                     { "duration",   humanReadableDuration   }
                 };
-            plugin.SendMessageToBot("default", "botresponses.playerbanned", banVars);
+            plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.playerbanned", banVars);
         }
 
         /// <summary>
@@ -349,7 +349,7 @@ namespace SCPDiscord
                 {
                     { "steamidorip", steamID }
                 };
-                plugin.SendMessageToBot("default", "botresponses.invalidsteamidorip", variables);
+                plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.invalidsteamidorip", variables);
                 return;
             }
 
@@ -363,7 +363,7 @@ namespace SCPDiscord
             {
                 { "steamidorip", steamID }
             };
-            plugin.SendMessageToBot("default", "botresponses.playerunbanned", unbanVars);
+            plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.playerunbanned", unbanVars);
         }
 
         /// <summary>
@@ -379,7 +379,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessageToBot("default", "botresponses.invalidsteamid", variables);
+                plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -395,7 +395,7 @@ namespace SCPDiscord
                     { "name", playerName },
                     { "steamid", steamID }
                 };
-                plugin.SendMessageToBot("default", "botresponses.playerkicked", variables);
+                plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.playerkicked", variables);
             }
             else
             {
@@ -403,7 +403,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessageToBot("default", "botresponses.playernotfound", variables);
+                plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.playernotfound", variables);
             }
         }
 
@@ -425,7 +425,7 @@ namespace SCPDiscord
             {
                 { "reason", reason }
             };
-            plugin.SendMessageToBot("default", "botresponses.kickall", variables);
+            plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.kickall", variables);
         }
 
         /// <summary>

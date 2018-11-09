@@ -31,7 +31,7 @@ namespace SCPDiscord
                 ticks = 0;
 
                 // Update player count
-                if (plugin.GetConfigString("discord_activity_playercount") == "on")
+                if (Config.settings.playercount)
                 {
                     plugin.RefreshBotActivity();
                 }

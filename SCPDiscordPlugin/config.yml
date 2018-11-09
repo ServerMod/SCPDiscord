@@ -1,0 +1,80 @@
+﻿
+# SCPDiscord configuration file
+
+bot:
+    ip: "127.0.0.1"
+    port: 8888
+
+settings:
+    language: "english"
+    playercount: true
+    timestamp: "HH:mm:ss"
+    verbose: true
+    metrics: true
+
+aliases: ["default":"447577341024010241","staff":"509276080323166208"]
+
+channels:
+    statusmessages: [ "default", "staff" ]
+    topic: [ "default", "staff" ]
+
+    # Round events
+    onroundstart: [ "default", "staff" ]
+    onconnect: [ "default", "staff" ]
+    ondisconnect: [ "default", "staff" ]
+    oncheckroundend: []
+    onroundend: [ "default", "staff" ]
+    onwaitingforplayers: [ "default" ]
+    onroundrestart: [ "default", "staff" ]
+    onsetservername: []
+    onscenechanged: []
+
+    # Environment events
+    onscp914activate: []
+    onstartcountdown: [ "default" ]
+    onstopcountdown: [ "default" ]
+    ondetonate: [ "default" ]
+    ondecontaminate: [ "default" ]
+    
+    # Player events
+    onplayerdie: [ "default", "staff" ]
+    onplayerhurt: []
+    onplayerpickupitem: []
+    onplayerdropitem: []
+    onplayerjoin: [ "default", "staff" ]
+    onnicknameset: [ "default", "staff" ]
+    onassignteam: []
+    onsetrole: []
+    oncheckescape: []
+    onspawn: [ "staff" ]
+    ondooraccess: []
+    onintercom: []
+    onintercomcooldowncheck: []
+    onpocketdimensionexit: [ "default" ]
+    onpocketdimensionenter: [ "default" ]
+    onpocketdimensiondie: []
+    onthrowgrenade: [ "default", "staff" ]
+    onplayerinfected: [ "default" ]
+    onspawnragdoll: []
+    onlure: [ "default" ]
+    oncontain106: [ "default" ]
+    onmedkituse: [ "default" ]
+    onshoot: []
+    on106createportal: []
+    on106teleport: []
+    onelevatoruse: []
+    onhandcuff: [ "default" ]
+    onplayertriggertesla: []
+    onscp914changeknob: []
+    
+    # Admin events
+    onadminquery: [ "staff" ]
+    onauthcheck: [ "staff" ]
+    onban: [ "default", "staff" ]
+
+    # Team events
+    ondecideteamrespawnqueue: []
+    onsetrolemaxhp: []
+    onteamrespawn: [ "default" ]
+    onsetscpconfig: []
+    onsetntfunitname: [ "default" ]
