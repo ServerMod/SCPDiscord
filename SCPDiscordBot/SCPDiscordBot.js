@@ -1,5 +1,8 @@
 console.log("Config loading...");
-const { token, prefix, listeningPort, defaultChannel, verbose, cooldown, requirepermission } = require("./config.json");
+const fs = require("fs");
+const YAML = require("yaml");
+const file = fs.readFileSync('./config.yml', 'utf8');
+const { token, prefix, listeningPort, defaultChannel, verbose, cooldown, requirepermission } = YAML.parse(file);
 console.log("Config loaded.");
 
 var connectedToDiscord = false;
@@ -12,7 +15,6 @@ var sockets = [];
 var tcpServer = require("net").createServer();
 
 // Discord functions
-
 function setChannelTopic(channelID, topic)
 {
     var verifiedChannel = discordClient.channels.get(channelID);
@@ -37,7 +39,7 @@ function setChannelTopic(channelID, topic)
     }
 }
 
-
+// TCP Server
 tcpServer.on('connection', (socket) =>
 {
     sockets.push(socket);
@@ -70,10 +72,6 @@ tcpServer.on('connection', (socket) =>
             if (packet.slice(0, 12) === "channeltopic")
             {
                 var channel = packet.slice(12, 30);
-                if (channel === "000000000000000000")
-                {
-                    channel = defaultChannel;
-                }
                 setChannelTopic(channel, packet.slice(30));
             }
             else if (packet.slice(0, 11) === "botactivity" && discordClient.user != null)
@@ -103,12 +101,6 @@ tcpServer.on('connection', (socket) =>
                 var message = packet.slice(18);
                 if (message !== "")
                 {
-                    //Switch the default channel key for the actual default channel id
-                    if (destinationChannel === "000000000000000000")
-                    {
-                        destinationChannel = defaultChannel;
-                    }
-
                     // If this channel has not been used yet it must be initialized
                     if (messageQueue[destinationChannel] == null)
                     {
@@ -126,7 +118,7 @@ tcpServer.on('connection', (socket) =>
             var verifiedChannel = discordClient.channels.get(channelID);
             if (verifiedChannel != null)
             {
-                //Message is copied to a new variable as it"s deletion later may happen before the send function finishes
+                //Message is copied to a new variable as it's deletion later may happen before the send function finishes
                 var message = messageQueue[channelID].slice(0, -1);
 
                 // If message is too long, split it up

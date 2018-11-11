@@ -330,3 +330,5 @@ ASALocalRun/
 .mfractor/
 
 SCPDiscordBot/config\.json
+
+SCPDiscordBot/config\.yml

@@ -1,0 +1,20 @@
+﻿# The bot token from https://discordapp.com/developers/
+token: "add-your-token-here"
+
+# Prefix for discord commands
+prefix: "+"
+
+# Port to listen on
+listeningPort: 8888
+
+# Channel to post generic plugin messages in. Also the channel to listen for Discord commands in.
+defaultChannel: "add-channel-id-here"
+
+# Log more messages to the console, useful for debugging
+verbose: false
+
+# Message cooldown, number of milliseconds to wait between sending messages. Use this if your server sends too many messages for the bot to keep up. (Bot will get delayed if it hits more than 5 messages per 5 seconds)
+cooldown: 1000
+
+# Only members with the appropriate permissions can use commands, for instance needing the discord ban permission for the ban command. Otherwise everyone with write access to the channel can use all commands.
+requirepermission: true
