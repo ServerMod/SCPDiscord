@@ -44,10 +44,10 @@ namespace SCPDiscord
         {
             // Event handlers
             this.AddEventHandlers(new RoundEventListener(this), Priority.Highest);
-            //this.AddEventHandlers(new PlayerEventListener(this), Priority.Highest);
-            //this.AddEventHandlers(new AdminEventListener(this), Priority.Highest);
-            //this.AddEventHandlers(new EnvironmentEventListener(this), Priority.Highest);
-            //this.AddEventHandlers(new TeamEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new PlayerEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new AdminEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new EnvironmentEventListener(this), Priority.Highest);
+            this.AddEventHandlers(new TeamEventListener(this), Priority.Highest);
             this.AddEventHandlers(new StatusUpdater(this), Priority.Highest);
 
             this.AddConfig(new Smod2.Config.ConfigSetting("max_players", "20", Smod2.Config.SettingType.STRING, true, "Gets the max players without reserved slots."));
@@ -168,17 +168,6 @@ namespace SCPDiscord
         {
             this.Info("SCPDiscord disabled.");
             clientSocket.Close();
-        }
-
-        /// <summary>
-        /// Gets a message from the language file, parses it and sends it.
-        /// </summary>
-        /// <param name="channelID">The channel ID to post the message in.</param>
-        /// <param name="messagePath">The JSON JPath describing the message node location.</param>
-        /// <param name="variables">Variables to be parsed into the string.</param>
-        public void SendMessageToBot(string channel, string messagePath, Dictionary<string, string> variables = null)
-        {
-
         }
 
         public void SendMessageToBot(string[] channels, string messagePath, Dictionary<string, string> variables = null)

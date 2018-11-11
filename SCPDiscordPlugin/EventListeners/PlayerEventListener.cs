@@ -70,7 +70,7 @@ namespace SCPDiscord
                     { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
                     { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
                 };
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt.noattacker", noAttackerVar);
+                plugin.SendMessageToBot(Config.channels.onplayerhurt, "player.onplayerhurt.noattacker", noAttackerVar);
                 return;
             }
 
@@ -94,11 +94,11 @@ namespace SCPDiscord
 
             if (IsTeamDamage((int)ev.Attacker.TeamRole.Team, (int)ev.Player.TeamRole.Team))
             {
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt.friendlyfire", variables);
+                plugin.SendMessageToBot(Config.channels.onplayerhurt, "player.onplayerhurt.friendlyfire", variables);
                 return;
             }
 
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerhurt"), "player.onplayerhurt", variables);
+            plugin.SendMessageToBot(Config.channels.onplayerhurt, "player.onplayerhurt", variables);
         }
 
         public void OnPlayerDie(PlayerDeathEvent ev)
@@ -126,7 +126,7 @@ namespace SCPDiscord
                     { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
                     { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
                 };
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie.nokiller", noKillerVar);
+                plugin.SendMessageToBot(Config.channels.onplayerdie, "player.onplayerdie.nokiller", noKillerVar);
                 return;
             }
 
@@ -150,10 +150,10 @@ namespace SCPDiscord
 
             if (IsTeamDamage((int)ev.Killer.TeamRole.Team, (int)ev.Player.TeamRole.Team))
             {
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie.friendlyfire", variables);
+                plugin.SendMessageToBot(Config.channels.onplayerdie, "player.onplayerdie.friendlyfire", variables);
                 return;
             }
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerdie"), "player.onplayerdie", variables);
+            plugin.SendMessageToBot(Config.channels.onplayerdie, "player.onplayerdie", variables);
         }
 
         public void OnPlayerPickupItem(PlayerPickupItemEvent ev)
@@ -171,7 +171,7 @@ namespace SCPDiscord
                 { "class",        ev.Player.TeamRole.Role.ToString()    },
                 { "team",         ev.Player.TeamRole.Team.ToString()    }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerpickupitem"), "player.onplayerpickupitem", variables);
+            plugin.SendMessageToBot(Config.channels.onplayerpickupitem, "player.onplayerpickupitem", variables);
         }
 
         public void OnPlayerDropItem(PlayerDropItemEvent ev)
@@ -189,7 +189,7 @@ namespace SCPDiscord
                 { "class",        ev.Player.TeamRole.Role.ToString()    },
                 { "team",         ev.Player.TeamRole.Team.ToString()    }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerdropitem"), "player.onplayerdropitem", variables);
+            plugin.SendMessageToBot(Config.channels.onplayerdropitem, "player.onplayerdropitem", variables);
         }
 
         public void OnPlayerJoin(PlayerJoinEvent ev)
@@ -206,7 +206,7 @@ namespace SCPDiscord
                 { "class",        ev.Player.TeamRole.Role.ToString()    },
                 { "team",         ev.Player.TeamRole.Team.ToString()    }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerjoin"), "player.onplayerjoin", variables);
+            plugin.SendMessageToBot(Config.channels.onplayerjoin, "player.onplayerjoin", variables);
         }
 
         public void OnNicknameSet(PlayerNicknameSetEvent ev)
@@ -224,7 +224,7 @@ namespace SCPDiscord
                 { "class",          ev.Player.TeamRole.Role.ToString()  },
                 { "team",           ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onnicknameset"), "player.onnicknameset", variables);
+            plugin.SendMessageToBot(Config.channels.onnicknameset, "player.onnicknameset", variables);
         }
 
         public void OnAssignTeam(PlayerInitialAssignTeamEvent ev)
@@ -246,7 +246,7 @@ namespace SCPDiscord
                 { "class",          ev.Player.TeamRole.Role.ToString()  },
                 { "team",           ev.Team.ToString()                  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onassignteam"), "player.onassignteam", variables);
+            plugin.SendMessageToBot(Config.channels.onassignteam, "player.onassignteam", variables);
         }
 
         public void OnSetRole(PlayerSetRoleEvent ev)
@@ -258,7 +258,7 @@ namespace SCPDiscord
             {
                 return;
             }
-
+            
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "ipaddress",      ev.Player.IpAddress                 },
@@ -268,7 +268,7 @@ namespace SCPDiscord
                 { "class",          ev.Player.TeamRole.Role.ToString()  },
                 { "team",           ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onsetrole"), "player.onsetrole", variables);
+            plugin.SendMessageToBot(Config.channels.onsetrole, "player.onsetrole", variables);
         }
 
         public void OnCheckEscape(PlayerCheckEscapeEvent ev)
@@ -289,11 +289,11 @@ namespace SCPDiscord
 
             if(ev.AllowEscape)
             {
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_oncheckescape"), "player.oncheckescape", variables);
+                plugin.SendMessageToBot(Config.channels.oncheckescape, "player.oncheckescape", variables);
             }
             else
             {
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_oncheckescape"), "player.oncheckescape.denied", variables);
+                plugin.SendMessageToBot(Config.channels.oncheckescape, "player.oncheckescape.denied", variables);
             }
         }
 
@@ -313,7 +313,7 @@ namespace SCPDiscord
                 { "team",           ev.Player.TeamRole.Team.ToString()  }
             };
 
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onspawn"), "player.onspawn", variables);
+            plugin.SendMessageToBot(Config.channels.onspawn, "player.onspawn", variables);
         }
 
         public void OnDoorAccess(PlayerDoorAccessEvent ev)
@@ -337,11 +337,11 @@ namespace SCPDiscord
             };
             if (ev.Allow)
             {
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_ondooraccess"), "player.ondooraccess", variables);
+                plugin.SendMessageToBot(Config.channels.ondooraccess, "player.ondooraccess", variables);
             }
             else
             {
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_ondooraccess"), "player.ondooraccess.notallowed", variables);
+                plugin.SendMessageToBot(Config.channels.ondooraccess, "player.ondooraccess.notallowed", variables);
             }
         }
 
@@ -362,7 +362,7 @@ namespace SCPDiscord
                 { "team",           ev.Player.TeamRole.Team.ToString()  }
             };
 
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onintercom"), "player.onintercom", variables);
+            plugin.SendMessageToBot(Config.channels.onintercom, "player.onintercom", variables);
         }
 
         public void OnIntercomCooldownCheck(PlayerIntercomCooldownCheckEvent ev)
@@ -381,7 +381,7 @@ namespace SCPDiscord
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
 
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onintercomcooldowncheck"), "player.onintercomcooldowncheck", variables);
+            plugin.SendMessageToBot(Config.channels.onintercomcooldowncheck, "player.onintercomcooldowncheck", variables);
         }
 
         public void OnPocketDimensionExit(PlayerPocketDimensionExitEvent ev)
@@ -398,7 +398,7 @@ namespace SCPDiscord
                 { "class",              ev.Player.TeamRole.Role.ToString()  },
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onpocketdimensionexit"), "player.onpocketdimensionexit", variables);
+            plugin.SendMessageToBot(Config.channels.onpocketdimensionexit, "player.onpocketdimensionexit", variables);
         }
 
         public void OnPocketDimensionEnter(PlayerPocketDimensionEnterEvent ev)
@@ -416,7 +416,7 @@ namespace SCPDiscord
                 { "class",              ev.Player.TeamRole.Role.ToString()  },
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onpocketdimensionenter"), "player.onpocketdimensionenter", variables);
+            plugin.SendMessageToBot(Config.channels.onpocketdimensionenter, "player.onpocketdimensionenter", variables);
         }
 
         public void OnPocketDimensionDie(PlayerPocketDimensionDieEvent ev)
@@ -433,7 +433,7 @@ namespace SCPDiscord
                 { "class",              ev.Player.TeamRole.Role.ToString()  },
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onpocketdimensiondie"), "player.onpocketdimensiondie", variables);
+            plugin.SendMessageToBot(Config.channels.onpocketdimensiondie, "player.onpocketdimensiondie", variables);
         }
 
         public void OnThrowGrenade(PlayerThrowGrenadeEvent ev)
@@ -451,7 +451,7 @@ namespace SCPDiscord
                 { "class",              ev.Player.TeamRole.Role.ToString()  },
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onthrowgrenade"), "player.onthrowgrenade", variables);
+            plugin.SendMessageToBot(Config.channels.onthrowgrenade, "player.onthrowgrenade", variables);
         }
 
         public void OnPlayerInfected(PlayerInfectedEvent ev)
@@ -489,7 +489,7 @@ namespace SCPDiscord
                 { "playerclass",            ev.Player.TeamRole.Role.ToString()      },
                 { "playerteam",             ev.Player.TeamRole.Team.ToString()      }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayerinfected"), "player.onplayerinfected", variables);
+            plugin.SendMessageToBot(Config.channels.onplayerinfected, "player.onplayerinfected", variables);
         }
 
         public void OnSpawnRagdoll(PlayerSpawnRagdollEvent ev)
@@ -506,7 +506,7 @@ namespace SCPDiscord
                 { "class",              ev.Role.ToString()                  },
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onspawnragdoll"), "player.onspawnragdoll", variables);
+            plugin.SendMessageToBot(Config.channels.onspawnragdoll, "player.onspawnragdoll", variables);
         }
 
         public void OnLure(PlayerLureEvent ev)
@@ -525,7 +525,7 @@ namespace SCPDiscord
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
 
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onlure"), "player.onlure", variables);
+            plugin.SendMessageToBot(Config.channels.onlure, "player.onlure", variables);
         }
 
         public void OnContain106(PlayerContain106Event ev)
@@ -543,7 +543,7 @@ namespace SCPDiscord
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_oncontain106"), "player.oncontain106", variables);
+            plugin.SendMessageToBot(Config.channels.oncontain106, "player.oncontain106", variables);
         }
 
         public void OnMedkitUse(PlayerMedkitUseEvent ev)
@@ -562,7 +562,7 @@ namespace SCPDiscord
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onmedkituse"), "player.onmedkituse", variables);
+            plugin.SendMessageToBot(Config.channels.onmedkituse, "player.onmedkituse", variables);
         }
 
         public void OnShoot(PlayerShootEvent ev)
@@ -588,7 +588,7 @@ namespace SCPDiscord
                     { "attackerclass",          ev.Player.TeamRole.Role.ToString()  },
                     { "attackerteam",           ev.Player.TeamRole.Team.ToString()  }
                 };
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onshoot"), "player.onshoot.notarget", noTargetVars);
+                plugin.SendMessageToBot(Config.channels.onshoot, "player.onshoot.notarget", noTargetVars);
                 return;
             }
 
@@ -611,10 +611,10 @@ namespace SCPDiscord
 
             if (ev.Player.SteamId != ev.Target.SteamId && IsTeamDamage((int)ev.Player.TeamRole.Team, (int)ev.Target.TeamRole.Team))
             {
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onshoot"), "player.onshoot.friendlyfire", variables);
+                plugin.SendMessageToBot(Config.channels.onshoot, "player.onshoot.friendlyfire", variables);
             }
 
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onshoot"), "player.onshoot", variables);
+            plugin.SendMessageToBot(Config.channels.onshoot, "player.onshoot", variables);
         }
 
         public void On106CreatePortal(Player106CreatePortalEvent ev)
@@ -631,7 +631,7 @@ namespace SCPDiscord
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_on106createportal"), "player.on106createportal", variables);
+            plugin.SendMessageToBot(Config.channels.on106createportal, "player.on106createportal", variables);
         }
 
         public void On106Teleport(Player106TeleportEvent ev)
@@ -649,7 +649,7 @@ namespace SCPDiscord
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_on106teleport"), "player.on106teleport", variables);
+            plugin.SendMessageToBot(Config.channels.on106teleport, "player.on106teleport", variables);
         }
 
         public void OnElevatorUse(PlayerElevatorUseEvent ev)
@@ -667,7 +667,7 @@ namespace SCPDiscord
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onelevatoruse"), "player.onelevatoruse", variables);
+            plugin.SendMessageToBot(Config.channels.onelevatoruse, "player.onelevatoruse", variables);
         }
 
         public void OnHandcuffed(PlayerHandcuffedEvent ev)
@@ -693,7 +693,7 @@ namespace SCPDiscord
                     { "playerclass",        ev.Owner.TeamRole.Role.ToString()       },
                     { "playerteam",         ev.Owner.TeamRole.Team.ToString()       }
                 };
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onhandcuff"), "player.onhandcuff", variables);
+                plugin.SendMessageToBot(Config.channels.onhandcuff, "player.onhandcuff", variables);
             }
             else
             {
@@ -707,7 +707,7 @@ namespace SCPDiscord
                     { "targetclass",        ev.Player.TeamRole.Role.ToString()      },
                     { "targetteam",         ev.Player.TeamRole.Team.ToString()      }
                 };
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onhandcuff"), "player.onhandcuff.nootherplayer", variables);
+                plugin.SendMessageToBot(Config.channels.onhandcuff, "player.onhandcuff.nootherplayer", variables);
             }
         }
 
@@ -728,11 +728,11 @@ namespace SCPDiscord
             
             if(ev.Triggerable)
             {
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayertriggertesla"), "player.onplayertriggertesla", variables);
+                plugin.SendMessageToBot(Config.channels.onplayertriggertesla, "player.onplayertriggertesla", variables);
             }
             else
             {
-                plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onplayertriggertesla"), "player.onplayertriggertesla.ignored", variables);
+                plugin.SendMessageToBot(Config.channels.onplayertriggertesla, "player.onplayertriggertesla.ignored", variables);
             }
         }
 
@@ -751,7 +751,7 @@ namespace SCPDiscord
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
-            plugin.SendMessageToBot(plugin.GetConfigString("discord_channel_onscp914changeknob"), "player.onscp914changeknob", variables);
+            plugin.SendMessageToBot(Config.channels.onscp914changeknob, "player.onscp914changeknob", variables);
         }
     }
 }
