@@ -41,7 +41,7 @@ namespace SCPDiscord
                 currentNode = "settings.verbose";
                 settings.verbose = configTree.SelectToken("settings.verbose").Value<bool>();
                 currentNode = "settings.metrics";
-                settings.metrics = configTree.SelectToken("settings.metrics").Value<bool>();
+                settings.metrics = true; // configTree.SelectToken("settings.metrics").Value<bool>();
             }
             catch(Exception e)
             {

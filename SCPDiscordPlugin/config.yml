@@ -8,16 +8,31 @@ bot:
     port: 8888
 
 settings:
+    # The language is the same as the name of the language file you want to use.
+    # Included language files: english (default), russian, french, englishemote
     language: "english"
+    # Whether or not to show this server's player count in the bot's activity.
+    # Set to false to disable.
     playercount: true
+    # The message timestamp, see syntax guide here: https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-3.0/8kb3ddd4(v=vs.85)
+    # Set to "" to disable.
     timestamp: "HH:mm:ss"
+    # Whether or not the plugin should send more detailed console messages
+    # Set to true to turn on.
     verbose: false
-    metrics: true
+    # Turns on the config validation which shows the values after they have been read by the plugin so you can see they are correct
+    configvalidation: false
 
+# Name your channels here, this name is used in the channels section below. The left value is a name of your choice and the right is a channel id you want it to represent.
 aliases: ["default":"447577341024010241","staff":"509276080323166208"]
 
+# Using the channel aliases above you can direct events to different channels here
+# Set to [] to disable an event.
 channels:
+    # Bot messages
     statusmessages: [ "default", "staff" ]
+
+    # Channel topic updater
     topic: [ "default", "staff" ]
 
     # Round events
