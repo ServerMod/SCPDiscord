@@ -28,12 +28,8 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="config.json">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="default_config.json">
-      <SubType>Code</SubType>
-    </Content>
+    <Content Include="config.yml" />
+    <Content Include="default_config.yml" />
     <Content Include="package.json" />
   </ItemGroup>
   <ItemGroup>
