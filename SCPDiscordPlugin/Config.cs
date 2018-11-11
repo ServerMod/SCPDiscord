@@ -9,15 +9,13 @@ namespace SCPDiscord
 {
     internal static class Config
     {
-        internal static SCPDiscordPlugin plugin;
-        public static Bot bot;
-        public static Settings settings;
-        public static Dictionary<string, string> aliases = new Dictionary<string, string>();
-        public static Channels channels;
+        internal static Bot bot;
+        internal static Settings settings;
+        internal static Dictionary<string, string> aliases = new Dictionary<string, string>();
+        internal static Channels channels;
 
-        public static void Deserialise(JObject configTree)
+        internal static void Deserialise(SCPDiscordPlugin plugin, JObject configTree)
         {
-            plugin = SCPDiscordPlugin.instance;
             string currentNode = "";
             Thread.Sleep(1000);
             try
@@ -179,7 +177,11 @@ namespace SCPDiscord
             {
                 plugin.Error("Failed to read channel config at node '" + currentNode + "'\n" + e);
             }
-            ValidateConfig();
+
+            if(settings.verbose)
+            {
+                ValidateConfig(plugin);
+            }
         }
 
         public static void Serialise()
@@ -187,7 +189,7 @@ namespace SCPDiscord
             // To be implemented in case config saving is needed at any point
         }
 
-        public static void ValidateConfig()
+        public static void ValidateConfig(SCPDiscordPlugin plugin)
         {
             plugin.Info("############################");
             plugin.Info("SCPDiscord CONFIG VALIDATION");
@@ -270,80 +272,80 @@ namespace SCPDiscord
 
     }
 
-    public struct Bot
+    internal struct Bot
     {
-        public string ip;
-        public short port;
+        internal string ip;
+        internal short port;
     }
 
-    public struct Settings
+    internal struct Settings
     {
-        public string language;
-        public bool playercount;
-        public string timestamp;
-        public bool verbose;
-        public bool metrics;
+        internal string language;
+        internal bool playercount;
+        internal string timestamp;
+        internal bool verbose;
+        internal bool metrics;
     }
 
-    public struct Channels
+    internal struct Channels
     {
-        public string[] statusmessages;
-        public string[] topic;
+        internal string[] statusmessages;
+        internal string[] topic;
 
-        public string[] onroundstart;
-        public string[] onconnect;
-        public string[] ondisconnect;
-        public string[] oncheckroundend;
-        public string[] onroundend;
-        public string[] onwaitingforplayers;
-        public string[] onroundrestart;
-        public string[] onsetservername;
-        public string[] onscenechanged;
+        internal string[] onroundstart;
+        internal string[] onconnect;
+        internal string[] ondisconnect;
+        internal string[] oncheckroundend;
+        internal string[] onroundend;
+        internal string[] onwaitingforplayers;
+        internal string[] onroundrestart;
+        internal string[] onsetservername;
+        internal string[] onscenechanged;
 
-        public string[] onscp914activate;
-        public string[] onstartcountdown;
-        public string[] onstopcountdown;
-        public string[] ondetonate;
-        public string[] ondecontaminate;
+        internal string[] onscp914activate;
+        internal string[] onstartcountdown;
+        internal string[] onstopcountdown;
+        internal string[] ondetonate;
+        internal string[] ondecontaminate;
 
-        public string[] onplayerdie;
-        public string[] onplayerhurt;
-        public string[] onplayerpickupitem;
-        public string[] onplayerdropitem;
-        public string[] onplayerjoin;
-        public string[] onnicknameset;
-        public string[] onassignteam;
-        public string[] onsetrole;
-        public string[] oncheckescape;
-        public string[] onspawn;
-        public string[] ondooraccess;
-        public string[] onintercom;
-        public string[] onintercomcooldowncheck;
-        public string[] onpocketdimensionexit;
-        public string[] onpocketdimensionenter;
-        public string[] onpocketdimensiondie;
-        public string[] onthrowgrenade;
-        public string[] onplayerinfected;
-        public string[] onspawnragdoll;
-        public string[] onlure;
-        public string[] oncontain106;
-        public string[] onmedkituse;
-        public string[] onshoot;
-        public string[] on106createportal;
-        public string[] on106teleport;
-        public string[] onelevatoruse;
-        public string[] onhandcuff;
-        public string[] onplayertriggertesla;
-        public string[] onscp914changeknob;
+        internal string[] onplayerdie;
+        internal string[] onplayerhurt;
+        internal string[] onplayerpickupitem;
+        internal string[] onplayerdropitem;
+        internal string[] onplayerjoin;
+        internal string[] onnicknameset;
+        internal string[] onassignteam;
+        internal string[] onsetrole;
+        internal string[] oncheckescape;
+        internal string[] onspawn;
+        internal string[] ondooraccess;
+        internal string[] onintercom;
+        internal string[] onintercomcooldowncheck;
+        internal string[] onpocketdimensionexit;
+        internal string[] onpocketdimensionenter;
+        internal string[] onpocketdimensiondie;
+        internal string[] onthrowgrenade;
+        internal string[] onplayerinfected;
+        internal string[] onspawnragdoll;
+        internal string[] onlure;
+        internal string[] oncontain106;
+        internal string[] onmedkituse;
+        internal string[] onshoot;
+        internal string[] on106createportal;
+        internal string[] on106teleport;
+        internal string[] onelevatoruse;
+        internal string[] onhandcuff;
+        internal string[] onplayertriggertesla;
+        internal string[] onscp914changeknob;
 
-        public string[] onadminquery;
-        public string[] onauthcheck;
-        public string[] onban;
+        internal string[] onadminquery;
+        internal string[] onauthcheck;
+        internal string[] onban;
 
-        public string[] ondecideteamrespawnqueue;
-        public string[] onsetrolemaxhp;
-        public string[] onteamrespawn;
-        public string[] onsetscpconfig;
-        public string[] onsetntfunitname;
+        internal string[] ondecideteamrespawnqueue;
+        internal string[] onsetrolemaxhp;
+        internal string[] onteamrespawn;
+        internal string[] onsetscpconfig;
+        internal string[] onsetntfunitname;
     }
 }

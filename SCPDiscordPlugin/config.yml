@@ -1,6 +1,8 @@
 ﻿
-# SCPDiscord configuration file
+############# SCPDiscord configuration file #############
 
+
+# Connection settings
 bot:
     ip: "127.0.0.1"
     port: 8888
@@ -9,7 +11,7 @@ settings:
     language: "english"
     playercount: true
     timestamp: "HH:mm:ss"
-    verbose: true
+    verbose: false
     metrics: true
 
 aliases: ["default":"447577341024010241","staff":"509276080323166208"]

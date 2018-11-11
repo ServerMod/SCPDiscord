@@ -132,7 +132,7 @@ namespace SCPDiscord
                     .JsonCompatible()
                     .Build();
                 string jsonString = serializer.Serialize(yamlObject);
-                Config.Deserialise(JObject.Parse(jsonString));
+                Config.Deserialise(this, JObject.Parse(jsonString));
                 this.Info("Successfully loaded config.");
             }
             catch (Exception e)
