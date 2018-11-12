@@ -1,4 +1,5 @@
 using Smod2.API;
+using Smod2.Commands;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -145,7 +146,7 @@ namespace SCPDiscord
                                 {
 
                                     var message = "```md\n# Players online:\n";
-                                    foreach(Player player in plugin.Server.GetPlayers())
+                                    foreach (Player player in plugin.Server.GetPlayers())
                                     {
                                         string line = player.Name.PadRight(32);
                                         line += player.SteamId;
@@ -193,23 +194,14 @@ namespace SCPDiscord
                                 {
                                     plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.help");
                                 }
-                                else if(command == "hidetag" || command == "showtag")
+                                else if (command == "hidetag" || command == "showtag")
                                 {
-                                    if(plugin.pluginManager.GetEnabledPlugin("karlofduty.toggletag") != null)
+                                    if (plugin.pluginManager.GetEnabledPlugin("karlofduty.toggletag") != null)
                                     {
-                                        if(arguments.Length > 0)
+                                        if (arguments.Length > 0)
                                         {
                                             command = "console_" + command;
-                                            string[] feedback = plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, command, arguments);
-                                            string response = "";
-
-                                            StringBuilder builder = new StringBuilder();
-                                            foreach (string line in feedback)
-                                            {
-                                                builder.Append(line + "\n");
-                                            }
-                                            response = builder.ToString();
-
+                                            string response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
 
                                             Dictionary<string, string> variables = new Dictionary<string, string>
                                             {
@@ -231,18 +223,26 @@ namespace SCPDiscord
                                         plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.toggletag.notinstalled");
                                     }
                                 }
+                                else if (command == "vs_enable" || command == "vs_disable" || command == "vs_whitelist" || command == "vs_reload")
+                                {
+                                    if (plugin.pluginManager.GetEnabledPlugin("karlofduty.vpnshield") != null)
+                                    {
+                                        string response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+
+                                        Dictionary<string, string> variables = new Dictionary<string, string>
+                                        {
+                                            { "feedback", response }
+                                        };
+                                        plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.consolecommandfeedback", variables);
+                                    }
+                                    else
+                                    {
+                                        plugin.SendMessageToBot(Config.channels.statusmessages, "botresponses.vpnshield.notinstalled");
+                                    }
+                                }
                                 else
                                 {
-                                    string[] feedback = plugin.pluginManager.CommandManager.CallCommand(plugin.pluginManager.Server, command, arguments);
-                                    string response = "";
-
-                                    StringBuilder builder = new StringBuilder();
-                                    foreach (string line in feedback)
-                                    {
-                                        builder.Append(line + "\n");
-                                    }
-                                    response = builder.ToString();
-
+                                    string response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
 
                                     Dictionary<string, string> variables = new Dictionary<string, string>
                                     {
@@ -269,6 +269,18 @@ namespace SCPDiscord
                     Thread.Sleep(2000);
                 }
             }
+        }
+
+        private string ConsoleCommand(ICommandSender user, string command, string[] arguments)
+        {
+            string[] feedback = plugin.pluginManager.CommandManager.CallCommand(user, command, arguments);
+
+            StringBuilder builder = new StringBuilder();
+            foreach (string line in feedback)
+            {
+                builder.Append(line + "\n");
+            }
+            return builder.ToString();
         }
 
         /// <summary>

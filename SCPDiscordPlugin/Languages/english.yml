@@ -703,11 +703,15 @@ botresponses:
         message: "```diff\n- The exit command cannot be used from Discord.```"
         regex: []
     help:
-        message: "```diff\n- The help command will be implemented in the next update of SCPDiscord.```"
+        message: "```diff\n- The help command will be implemented in one of the next few updates of SCPDiscord.```"
         regex: []
     toggletag:
         notinstalled:
             message: "```diff\n- This command requires the ToggleTag plugin.```"
+            regex: []
+    vpnshield:
+        notinstalled:
+            message: "```diff\n- This command requires the VPNShield plugin.```"
             regex: []
     # The feedback from a console command, except the custom ones above. (Is not affected by regex other than final_regex)
     consolecommandfeedback:
