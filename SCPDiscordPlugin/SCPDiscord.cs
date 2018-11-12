@@ -107,11 +107,11 @@ namespace SCPDiscord
             {
                 Directory.CreateDirectory(FileManager.GetAppFolder() + "SCPDiscord");
             }
-
-            if (!File.Exists(FileManager.GetAppFolder() + "SCPDiscord/config.yml"))
+            
+            if (!File.Exists(FileManager.GetAppFolder() + "SCPDiscord/" + GetConfigString("scpdiscord_config")))
             {
-                this.Info("Default config file config.yml does not exist, creating...");
-                File.WriteAllText(FileManager.GetAppFolder() + "SCPDiscord/config.yml", Encoding.UTF8.GetString(Resources.config));
+                this.Info("Config file " + GetConfigString("scpdiscord_config") + " does not exist, creating...");
+                File.WriteAllText(FileManager.GetAppFolder() + "SCPDiscord/" + GetConfigString("scpdiscord_config"), Encoding.UTF8.GetString(Resources.config));
             }
         }
 
@@ -121,7 +121,7 @@ namespace SCPDiscord
             {
                 // TODO: Add config name confinguration here
                 // Reads file contents into FileStream
-                FileStream stream = File.OpenRead(FileManager.GetAppFolder() + "SCPDiscord/config.yml");
+                FileStream stream = File.OpenRead(FileManager.GetAppFolder() + "SCPDiscord/" + GetConfigString("scpdiscord_config"));
 
                 // Converts the FileStream into a YAML Dictionary object
                 var deserializer = new DeserializerBuilder().Build();
@@ -147,13 +147,13 @@ namespace SCPDiscord
                 }
                 else if (e is FileNotFoundException)
                 {
-                    this.Error("'config.yml' was not found.");
+                    this.Error("'" + GetConfigString("scpdiscord_config") + "' was not found.");
                 }
                 else if (e is JsonReaderException || e is YamlException)
                 {
-                    this.Error("'config.yml' formatting error.");
+                    this.Error("'" + GetConfigString("scpdiscord_config") + "' formatting error.");
                 }
-                this.Error("Error reading config file 'config.yml'. Aborting startup.");
+                this.Error("Error reading config file '" + GetConfigString("scpdiscord_config") + "'. Aborting startup.");
                 e.ToString();
                 Disable();
             }
