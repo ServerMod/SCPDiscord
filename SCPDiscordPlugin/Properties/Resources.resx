@@ -130,6 +130,9 @@
   <data name="french" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\french.yml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="frenchemote" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Languages\frenchemote.yml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="russian" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\russian.yml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

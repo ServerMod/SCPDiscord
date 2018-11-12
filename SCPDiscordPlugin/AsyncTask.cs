@@ -176,12 +176,7 @@ namespace SCPDiscord
             }
             catch(Exception e)
             {
-                if (e is InvalidOperationException)
-                {
-                    plugin.Error("Error sending message '" + message + "' to bot.");
-                    plugin.Debug(e.ToString());
-                }
-                else if (e is ArgumentNullException)
+                if (e is InvalidOperationException || e is ArgumentNullException)
                 {
                     plugin.Error("Error sending message '" + message + "' to bot.");
                     plugin.Debug(e.ToString());

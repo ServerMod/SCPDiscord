@@ -1,7 +1,7 @@
 console.log("Config loading...");
 const fs = require("fs");
 const YAML = require("yaml");
-const file = fs.readFileSync('./config.yml', 'utf8');
+const file = fs.readFileSync("./config.yml", "utf8");
 const { token, prefix, listeningPort, defaultChannel, verbose, cooldown, requirepermission } = YAML.parse(file);
 console.log("Config loaded.");
 
@@ -39,8 +39,8 @@ function setChannelTopic(channelID, topic)
     }
 }
 
-// TCP Server
-tcpServer.on('connection', (socket) =>
+// Connection event
+tcpServer.on("connection", (socket) =>
 {
     sockets.push(socket);
 
@@ -174,7 +174,7 @@ tcpServer.on('connection', (socket) =>
         }
     });
 
-    socket.on('close', () =>
+    socket.on("close", () =>
     {
         console.log("Plugin connection lost.");
         var verifiedChannel = discordClient.channels.get(defaultChannel);
@@ -194,7 +194,7 @@ tcpServer.on('connection', (socket) =>
         sockets.splice(sockets.indexOf(socket), 1);
     });
 
-    socket.on('timeout', () =>
+    socket.on("timeout", () =>
     {
         socket.destroy();
     });
@@ -327,9 +327,9 @@ tcpServer.listen(listeningPort, () =>
 });
 
 
-tcpServer.on('error', (e) =>
+tcpServer.on("error", (e) =>
 {
-    if (e.code === 'EADDRINUSE')
+    if (e.code === "EADDRINUSE")
     {
         console.log("Error: Could not bind to port " + listeningPort + ", is it already in use?");
     }
@@ -350,7 +350,7 @@ function shutdown()
 
     tcpServer.close(() =>
     {
-        console.log('TCP server closed.');
+        console.log("TCP server closed.");
         tcpServer.unref();
     });
 
@@ -369,5 +369,5 @@ function shutdown()
 process.on("exit", () => shutdown());
 process.on("SIGINT", () => shutdown());
 process.on("SIGUSR1", () => shutdown());
-process.on("SIGUSR2", () =>shutdown());
+process.on("SIGUSR2", () => shutdown());
 process.on("SIGHUP", () => shutdown());

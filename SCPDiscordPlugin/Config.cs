@@ -9,10 +9,18 @@ namespace SCPDiscord
 {
     internal static class Config
     {
-        internal static Bot bot;
-        internal static Settings settings;
-        internal static Dictionary<string, string> aliases = new Dictionary<string, string>();
-        internal static Channels channels;
+        // I don't know how the best way of doing this is in C# but my code checks wanted me to make other classes unable to edit the variables here because something something static things not thread safe
+        private static Bot _bot;
+        internal static Bot bot { get => _bot; }
+
+        private static Settings _settings;
+        internal static Settings settings { get => _settings; }
+
+        private static Dictionary<string, string> _aliases = new Dictionary<string, string>();
+        internal static Dictionary<string, string> aliases { get => _aliases; }
+
+        private static Channels _channels;
+        internal static Channels channels { get => _channels; }
 
         internal static void Deserialise(SCPDiscordPlugin plugin, JObject configTree)
         {
@@ -21,9 +29,9 @@ namespace SCPDiscord
             try
             {
                 currentNode = "bot.ip";
-                bot.ip = configTree.SelectToken("bot.ip").Value<string>();
+                _bot.ip = configTree.SelectToken("bot.ip").Value<string>();
                 currentNode = "bot.port";
-                bot.port = configTree.SelectToken("bot.port").Value<short>();
+                _bot.port = configTree.SelectToken("bot.port").Value<short>();
             }
             catch(Exception e)
             {
@@ -33,15 +41,17 @@ namespace SCPDiscord
             try
             {
                 currentNode = "settings.language";
-                settings.language = configTree.SelectToken("settings.language").Value<string>();
+                _settings.language = configTree.SelectToken("settings.language").Value<string>();
                 currentNode = "settings.playercount";
-                settings.playercount = configTree.SelectToken("settings.playercount").Value<bool>();
+                _settings.playercount = configTree.SelectToken("settings.playercount").Value<bool>();
                 currentNode = "settings.timestamp";
-                settings.timestamp = configTree.SelectToken("settings.timestamp").Value<string>();
+                _settings.timestamp = configTree.SelectToken("settings.timestamp").Value<string>();
                 currentNode = "settings.verbose";
-                settings.verbose = configTree.SelectToken("settings.verbose").Value<bool>();
+                _settings.verbose = configTree.SelectToken("settings.verbose").Value<bool>();
                 currentNode = "settings.metrics";
-                settings.metrics = true; // configTree.SelectToken("settings.metrics").Value<bool>();
+                _settings.metrics = true;
+                currentNode = "settings.configvalidation";
+                _settings.configvalidation = configTree.SelectToken("settings.configvalidation").Value<bool>();
             }
             catch(Exception e)
             {
@@ -51,7 +61,7 @@ namespace SCPDiscord
             try
             {
                 currentNode = "aliases";
-                aliases = configTree.SelectToken("aliases").Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+                _aliases = configTree.SelectToken("aliases").Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
 
             }
             catch (Exception e)
@@ -62,123 +72,123 @@ namespace SCPDiscord
             try
             {
                 currentNode = "channels.statusmessages";
-                channels.statusmessages = configTree.SelectToken("channels.statusmessages").Value<JArray>().Values<string>().ToArray();
+                _channels.statusmessages = configTree.SelectToken("channels.statusmessages").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.topic";
-                channels.topic = configTree.SelectToken("channels.topic").Value<JArray>().Values<string>().ToArray();
+                _channels.topic = configTree.SelectToken("channels.topic").Value<JArray>().Values<string>().ToArray();
 
                 currentNode = "channels.onroundstart";
-                channels.onroundstart = configTree.SelectToken("channels.onroundstart").Value<JArray>().Values<string>().ToArray();
+                _channels.onroundstart = configTree.SelectToken("channels.onroundstart").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onconnect";
-                channels.onconnect = configTree.SelectToken("channels.onconnect").Value<JArray>().Values<string>().ToArray();
+                _channels.onconnect = configTree.SelectToken("channels.onconnect").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.ondisconnect";
-                channels.ondisconnect = configTree.SelectToken("channels.ondisconnect").Value<JArray>().Values<string>().ToArray();
+                _channels.ondisconnect = configTree.SelectToken("channels.ondisconnect").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.oncheckroundend";
-                channels.oncheckroundend = configTree.SelectToken("channels.oncheckroundend").Value<JArray>().Values<string>().ToArray();
+                _channels.oncheckroundend = configTree.SelectToken("channels.oncheckroundend").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onroundend";
-                channels.onroundend = configTree.SelectToken("channels.onroundend").Value<JArray>().Values<string>().ToArray();
+                _channels.onroundend = configTree.SelectToken("channels.onroundend").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onwaitingforplayers";
-                channels.onwaitingforplayers = configTree.SelectToken("channels.onwaitingforplayers").Value<JArray>().Values<string>().ToArray();
+                _channels.onwaitingforplayers = configTree.SelectToken("channels.onwaitingforplayers").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onroundrestart";
-                channels.onroundrestart = configTree.SelectToken("channels.onroundrestart").Value<JArray>().Values<string>().ToArray();
+                _channels.onroundrestart = configTree.SelectToken("channels.onroundrestart").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onsetservername";
-                channels.onsetservername = configTree.SelectToken("channels.onsetservername").Value<JArray>().Values<string>().ToArray();
+                _channels.onsetservername = configTree.SelectToken("channels.onsetservername").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onscenechanged";
-                channels.onscenechanged = configTree.SelectToken("channels.onscenechanged").Value<JArray>().Values<string>().ToArray();
+                _channels.onscenechanged = configTree.SelectToken("channels.onscenechanged").Value<JArray>().Values<string>().ToArray();
 
                 currentNode = "channels.onscp914activate";
-                channels.onscp914activate = configTree.SelectToken("channels.onscp914activate").Value<JArray>().Values<string>().ToArray();
+                _channels.onscp914activate = configTree.SelectToken("channels.onscp914activate").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onstartcountdown";
-                channels.onstartcountdown = configTree.SelectToken("channels.onstartcountdown").Value<JArray>().Values<string>().ToArray();
+                _channels.onstartcountdown = configTree.SelectToken("channels.onstartcountdown").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onstopcountdown";
-                channels.onstopcountdown = configTree.SelectToken("channels.onstopcountdown").Value<JArray>().Values<string>().ToArray();
+                _channels.onstopcountdown = configTree.SelectToken("channels.onstopcountdown").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.ondetonate";
-                channels.ondetonate = configTree.SelectToken("channels.ondetonate").Value<JArray>().Values<string>().ToArray();
+                _channels.ondetonate = configTree.SelectToken("channels.ondetonate").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.ondecontaminate";
-                channels.ondecontaminate = configTree.SelectToken("channels.ondecontaminate").Value<JArray>().Values<string>().ToArray();
+                _channels.ondecontaminate = configTree.SelectToken("channels.ondecontaminate").Value<JArray>().Values<string>().ToArray();
 
                 currentNode = "channels.onplayerdie";
-                channels.onplayerdie = configTree.SelectToken("channels.onplayerdie").Value<JArray>().Values<string>().ToArray();
+                _channels.onplayerdie = configTree.SelectToken("channels.onplayerdie").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onplayerhurt";
-                channels.onplayerhurt = configTree.SelectToken("channels.onplayerhurt").Value<JArray>().Values<string>().ToArray();
+                _channels.onplayerhurt = configTree.SelectToken("channels.onplayerhurt").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onplayerpickupitem";
-                channels.onplayerpickupitem = configTree.SelectToken("channels.onplayerpickupitem").Value<JArray>().Values<string>().ToArray();
+                _channels.onplayerpickupitem = configTree.SelectToken("channels.onplayerpickupitem").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onplayerdropitem";
-                channels.onplayerdropitem = configTree.SelectToken("channels.onplayerdropitem").Value<JArray>().Values<string>().ToArray();
+                _channels.onplayerdropitem = configTree.SelectToken("channels.onplayerdropitem").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onplayerjoin";
-                channels.onplayerjoin = configTree.SelectToken("channels.onplayerjoin").Value<JArray>().Values<string>().ToArray();
+                _channels.onplayerjoin = configTree.SelectToken("channels.onplayerjoin").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onnicknameset";
-                channels.onnicknameset = configTree.SelectToken("channels.onnicknameset").Value<JArray>().Values<string>().ToArray();
+                _channels.onnicknameset = configTree.SelectToken("channels.onnicknameset").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onassignteam";
-                channels.onassignteam = configTree.SelectToken("channels.onassignteam").Value<JArray>().Values<string>().ToArray();
+                _channels.onassignteam = configTree.SelectToken("channels.onassignteam").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onsetrole";
-                channels.onsetrole = configTree.SelectToken("channels.onsetrole").Value<JArray>().Values<string>().ToArray();
+                _channels.onsetrole = configTree.SelectToken("channels.onsetrole").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.oncheckescape";
-                channels.oncheckescape = configTree.SelectToken("channels.oncheckescape").Value<JArray>().Values<string>().ToArray();
+                _channels.oncheckescape = configTree.SelectToken("channels.oncheckescape").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onspawn";
-                channels.onspawn = configTree.SelectToken("channels.onspawn").Value<JArray>().Values<string>().ToArray();
+                _channels.onspawn = configTree.SelectToken("channels.onspawn").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.ondooraccess";
-                channels.ondooraccess = configTree.SelectToken("channels.ondooraccess").Value<JArray>().Values<string>().ToArray();
+                _channels.ondooraccess = configTree.SelectToken("channels.ondooraccess").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onintercom";
-                channels.onintercom = configTree.SelectToken("channels.onintercom").Value<JArray>().Values<string>().ToArray();
+                _channels.onintercom = configTree.SelectToken("channels.onintercom").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onintercomcooldowncheck";
-                channels.onintercomcooldowncheck = configTree.SelectToken("channels.onintercomcooldowncheck").Value<JArray>().Values<string>().ToArray();
+                _channels.onintercomcooldowncheck = configTree.SelectToken("channels.onintercomcooldowncheck").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onpocketdimensionexit";
-                channels.onpocketdimensionexit = configTree.SelectToken("channels.onpocketdimensionexit").Value<JArray>().Values<string>().ToArray();
+                _channels.onpocketdimensionexit = configTree.SelectToken("channels.onpocketdimensionexit").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onpocketdimensionenter";
-                channels.onpocketdimensionenter = configTree.SelectToken("channels.onpocketdimensionenter").Value<JArray>().Values<string>().ToArray();
+                _channels.onpocketdimensionenter = configTree.SelectToken("channels.onpocketdimensionenter").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onpocketdimensiondie";
-                channels.onpocketdimensiondie = configTree.SelectToken("channels.onpocketdimensiondie").Value<JArray>().Values<string>().ToArray();
+                _channels.onpocketdimensiondie = configTree.SelectToken("channels.onpocketdimensiondie").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onthrowgrenade";
-                channels.onthrowgrenade = configTree.SelectToken("channels.onthrowgrenade").Value<JArray>().Values<string>().ToArray();
+                _channels.onthrowgrenade = configTree.SelectToken("channels.onthrowgrenade").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onplayerinfected";
-                channels.onplayerinfected = configTree.SelectToken("channels.onplayerinfected").Value<JArray>().Values<string>().ToArray();
+                _channels.onplayerinfected = configTree.SelectToken("channels.onplayerinfected").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onspawnragdoll";
-                channels.onspawnragdoll = configTree.SelectToken("channels.onspawnragdoll").Value<JArray>().Values<string>().ToArray();
+                _channels.onspawnragdoll = configTree.SelectToken("channels.onspawnragdoll").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onlure";
-                channels.onlure = configTree.SelectToken("channels.onlure").Value<JArray>().Values<string>().ToArray();
+                _channels.onlure = configTree.SelectToken("channels.onlure").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.oncontain106";
-                channels.oncontain106 = configTree.SelectToken("channels.oncontain106").Value<JArray>().Values<string>().ToArray();
+                _channels.oncontain106 = configTree.SelectToken("channels.oncontain106").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onmedkituse";
-                channels.onmedkituse = configTree.SelectToken("channels.onmedkituse").Value<JArray>().Values<string>().ToArray();
+                _channels.onmedkituse = configTree.SelectToken("channels.onmedkituse").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onshoot";
-                channels.onshoot = configTree.SelectToken("channels.onshoot").Value<JArray>().Values<string>().ToArray();
+                _channels.onshoot = configTree.SelectToken("channels.onshoot").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.on106createportal";
-                channels.on106createportal = configTree.SelectToken("channels.on106createportal").Value<JArray>().Values<string>().ToArray();
+                _channels.on106createportal = configTree.SelectToken("channels.on106createportal").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.on106teleport";
-                channels.on106teleport = configTree.SelectToken("channels.on106teleport").Value<JArray>().Values<string>().ToArray();
+                _channels.on106teleport = configTree.SelectToken("channels.on106teleport").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onelevatoruse";
-                channels.onelevatoruse = configTree.SelectToken("channels.onelevatoruse").Value<JArray>().Values<string>().ToArray();
+                _channels.onelevatoruse = configTree.SelectToken("channels.onelevatoruse").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onhandcuff";
-                channels.onhandcuff = configTree.SelectToken("channels.onhandcuff").Value<JArray>().Values<string>().ToArray();
+                _channels.onhandcuff = configTree.SelectToken("channels.onhandcuff").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onplayertriggertesla";
-                channels.onplayertriggertesla = configTree.SelectToken("channels.onplayertriggertesla").Value<JArray>().Values<string>().ToArray();
+                _channels.onplayertriggertesla = configTree.SelectToken("channels.onplayertriggertesla").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onscp914changeknob";
-                channels.onscp914changeknob = configTree.SelectToken("channels.onscp914changeknob").Value<JArray>().Values<string>().ToArray();
+                _channels.onscp914changeknob = configTree.SelectToken("channels.onscp914changeknob").Value<JArray>().Values<string>().ToArray();
 
                 currentNode = "channels.onadminquery";
-                channels.onadminquery = configTree.SelectToken("channels.onadminquery").Value<JArray>().Values<string>().ToArray();
+                _channels.onadminquery = configTree.SelectToken("channels.onadminquery").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onauthcheck";
-                channels.onauthcheck = configTree.SelectToken("channels.onauthcheck").Value<JArray>().Values<string>().ToArray();
+                _channels.onauthcheck = configTree.SelectToken("channels.onauthcheck").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onban";
-                channels.onban = configTree.SelectToken("channels.onban").Value<JArray>().Values<string>().ToArray();
+                _channels.onban = configTree.SelectToken("channels.onban").Value<JArray>().Values<string>().ToArray();
 
                 currentNode = "channels.ondecideteamrespawnqueue";
-                channels.ondecideteamrespawnqueue = configTree.SelectToken("channels.ondecideteamrespawnqueue").Value<JArray>().Values<string>().ToArray();
+                _channels.ondecideteamrespawnqueue = configTree.SelectToken("channels.ondecideteamrespawnqueue").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onsetrolemaxhp";
-                channels.onsetrolemaxhp = configTree.SelectToken("channels.onsetrolemaxhp").Value<JArray>().Values<string>().ToArray();
+                _channels.onsetrolemaxhp = configTree.SelectToken("channels.onsetrolemaxhp").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onteamrespawn";
-                channels.onteamrespawn = configTree.SelectToken("channels.onteamrespawn").Value<JArray>().Values<string>().ToArray();
+                _channels.onteamrespawn = configTree.SelectToken("channels.onteamrespawn").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onsetscpconfig";
-                channels.onsetscpconfig = configTree.SelectToken("channels.onsetscpconfig").Value<JArray>().Values<string>().ToArray();
+                _channels.onsetscpconfig = configTree.SelectToken("channels.onsetscpconfig").Value<JArray>().Values<string>().ToArray();
                 currentNode = "channels.onsetntfunitname";
-                channels.onsetntfunitname = configTree.SelectToken("channels.onsetntfunitname").Value<JArray>().Values<string>().ToArray();
+                _channels.onsetntfunitname = configTree.SelectToken("channels.onsetntfunitname").Value<JArray>().Values<string>().ToArray();
             }
             catch (Exception e)
             {
                 plugin.Error("Failed to read channel config at node '" + currentNode + "'\n" + e);
             }
 
-            if(settings.verbose)
+            if(_settings.configvalidation)
             {
                 ValidateConfig(plugin);
             }
@@ -285,6 +295,7 @@ namespace SCPDiscord
         internal string timestamp;
         internal bool verbose;
         internal bool metrics;
+        internal bool configvalidation;
     }
 
     internal struct Channels

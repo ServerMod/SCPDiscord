@@ -15,8 +15,8 @@ namespace SCPDiscord
             this.plugin = plugin;
         }
 
-        short ticks = 0;
-        Stopwatch stopWatch = Stopwatch.StartNew();
+        private short ticks = 0;
+        private readonly Stopwatch stopWatch = Stopwatch.StartNew();
         public void OnUpdate(UpdateEvent ev)
         {
             if(!stopWatch.IsRunning)
