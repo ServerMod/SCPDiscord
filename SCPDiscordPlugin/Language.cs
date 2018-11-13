@@ -14,7 +14,7 @@ namespace SCPDiscord
 {
     internal static class Language
     {
-        private static SCPDiscordPlugin plugin;
+        private static SCPDiscord plugin;
 
         private static JObject primary = null;
         private static JObject backup = null;
@@ -122,7 +122,7 @@ namespace SCPDiscord
 
         public static void Initialise()
         {
-            plugin = SCPDiscordPlugin.instance;
+            plugin = SCPDiscord.plugin;
 
             // Save default language files
             SaveDefaultLanguages();

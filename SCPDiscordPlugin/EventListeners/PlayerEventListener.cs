@@ -13,7 +13,7 @@ namespace SCPDiscord
         IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerSpawnRagdoll, IEventHandlerLure, IEventHandlerContain106, IEventHandlerMedkitUse, IEventHandlerShoot,
         IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse, IEventHandlerHandcuffed , IEventHandlerPlayerTriggerTesla, IEventHandlerSCP914ChangeKnob
     {
-        private readonly SCPDiscordPlugin plugin;
+        private readonly SCPDiscord plugin;
         // First dimension is target player second dimension is attacking player
         private static readonly Dictionary<int,int> teamKillingMatrix = new Dictionary<int, int>
         {
@@ -23,7 +23,7 @@ namespace SCPDiscord
             { 4, 2 }
         };
 
-        public PlayerEventListener(SCPDiscordPlugin plugin)
+        public PlayerEventListener(SCPDiscord plugin)
         {
             this.plugin = plugin;
         }

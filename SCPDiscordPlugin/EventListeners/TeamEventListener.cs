@@ -6,9 +6,9 @@ namespace SCPDiscord
 {
     class TeamEventListener : IEventHandlerTeamRespawn, IEventHandlerSetRoleMaxHP, IEventHandlerDecideTeamRespawnQueue, IEventHandlerSetSCPConfig, IEventHandlerSetNTFUnitName
     {
-        private readonly SCPDiscordPlugin plugin;
+        private readonly SCPDiscord plugin;
 
-        public TeamEventListener(SCPDiscordPlugin plugin)
+        public TeamEventListener(SCPDiscord plugin)
         {
             this.plugin = plugin;
         }

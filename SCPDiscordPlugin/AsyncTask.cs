@@ -15,22 +15,22 @@ namespace SCPDiscord
             Language.Initialise();
 
             //Runs until the server has connected once
-            Thread connectionThread = new Thread(new ThreadStart(() => new ConnectToBot(SCPDiscordPlugin.instance)));
+            Thread connectionThread = new Thread(new ThreadStart(() => new ConnectToBot(SCPDiscord.plugin)));
             connectionThread.Start();
 
             //Runs the listener
-            Thread botListenerThread = new Thread(new ThreadStart(() => new BotListener(SCPDiscordPlugin.instance)));
+            Thread botListenerThread = new Thread(new ThreadStart(() => new BotListener(SCPDiscord.plugin)));
             botListenerThread.Start();
 
             //Keeps running to auto-reconnect if needed
-            Thread watchdogThread = new Thread(new ThreadStart(() => new StartConnectionWatchdog(SCPDiscordPlugin.instance)));
+            Thread watchdogThread = new Thread(new ThreadStart(() => new StartConnectionWatchdog(SCPDiscord.plugin)));
             watchdogThread.Start();
         }
     }
 
     class SendMessageToBot
     {
-        public SendMessageToBot(SCPDiscordPlugin plugin, string channelID, string messagePath, Dictionary<string, string> variables = null)
+        public SendMessageToBot(SCPDiscord plugin, string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
             // Get unparsed message from config
             string message = "";
@@ -200,7 +200,7 @@ namespace SCPDiscord
     }
     class RefreshBotActivity
     {
-        public RefreshBotActivity(SCPDiscordPlugin plugin)
+        public RefreshBotActivity(SCPDiscord plugin)
         {
             var message = (plugin.pluginManager.Server.NumPlayers - 1) + " / " + plugin.GetConfigString("max_players");
 
@@ -239,7 +239,7 @@ namespace SCPDiscord
     }
     class RefreshChannelTopic
     {
-        public RefreshChannelTopic(SCPDiscordPlugin plugin, string channelID, float tps)
+        public RefreshChannelTopic(SCPDiscord plugin, string channelID, float tps)
         {
             Dictionary<string, string> variables = new Dictionary<string, string>();
             try
@@ -409,7 +409,7 @@ namespace SCPDiscord
     class ConnectToBot
     {
         //This is ran once on the first time connecting to the bot
-        public ConnectToBot(SCPDiscordPlugin plugin)
+        public ConnectToBot(SCPDiscord plugin)
         {
             Thread.Sleep(2000);
             while (!plugin.clientSocket.Connected)
@@ -471,7 +471,7 @@ namespace SCPDiscord
     class StartConnectionWatchdog
     {
         //This is a loop that keeps running and checks if the bot has been disconnected
-        public StartConnectionWatchdog(SCPDiscordPlugin plugin)
+        public StartConnectionWatchdog(SCPDiscord plugin)
         {
             while (true)
             {

@@ -8,9 +8,9 @@ namespace SCPDiscord
 {
     class StatusUpdater : IEventHandlerUpdate
     {
-        private readonly SCPDiscordPlugin plugin;
+        private readonly SCPDiscord plugin;
 
-        public StatusUpdater(SCPDiscordPlugin plugin)
+        public StatusUpdater(SCPDiscord plugin)
         {
             this.plugin = plugin;
         }

@@ -29,7 +29,7 @@ namespace SCPDiscord
         SmodMinor = 1,
         SmodRevision = 22
     )]
-    internal class SCPDiscordPlugin : Plugin
+    internal class SCPDiscord : Plugin
     {
         //Sends outgoing messages
         public TcpClient clientSocket = new TcpClient();
@@ -38,7 +38,7 @@ namespace SCPDiscord
 
         public Stopwatch serverStartTime = new Stopwatch();
 
-        internal static SCPDiscordPlugin instance;
+        internal static SCPDiscord plugin;
 
         public override void Register()
         {
@@ -57,8 +57,8 @@ namespace SCPDiscord
 
         class ReconnectCommand : ICommandHandler
         {
-            private SCPDiscordPlugin plugin;
-            public ReconnectCommand(SCPDiscordPlugin plugin)
+            private SCPDiscord plugin;
+            public ReconnectCommand(SCPDiscord plugin)
             {
                 this.plugin = plugin;
             }
@@ -89,7 +89,7 @@ namespace SCPDiscord
 
         public override void OnEnable()
         {
-            instance = this;
+            plugin = this;
             this.Info("SCPDiscord " + this.Details.version + " enabled.");
             serverStartTime.Start();
             this.AddCommand("discord_reconnect", new ReconnectCommand(this));
