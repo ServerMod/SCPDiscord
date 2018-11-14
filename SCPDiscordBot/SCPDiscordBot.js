@@ -51,7 +51,7 @@ tcpServer.on("connection", (socket) =>
     console.log("Plugin connected.");
 
     // Messages from the plugin
-    socket.on("data", data =>
+    socket.on("data", (data) =>
     {
         if (discordClient == null)
         {

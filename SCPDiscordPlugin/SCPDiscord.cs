@@ -29,7 +29,7 @@ namespace SCPDiscord
         SmodMinor = 1,
         SmodRevision = 22
     )]
-    internal class SCPDiscord : Plugin
+    public class SCPDiscord : Plugin
     {
         //Sends outgoing messages
         public TcpClient clientSocket = new TcpClient();
@@ -132,7 +132,7 @@ namespace SCPDiscord
                     .JsonCompatible()
                     .Build();
                 string jsonString = serializer.Serialize(yamlObject);
-                Config.Deserialise(this, JObject.Parse(jsonString));
+                Config.DeserialiseJSON(this, JObject.Parse(jsonString));
                 this.Info("Successfully loaded config.");
             }
             catch (Exception e)
@@ -153,8 +153,7 @@ namespace SCPDiscord
                 {
                     this.Error("'" + GetConfigString("scpdiscord_config") + "' formatting error.");
                 }
-                this.Error("Error reading config file '" + GetConfigString("scpdiscord_config") + "'. Aborting startup.");
-                e.ToString();
+                this.Error("Error reading config file '" + GetConfigString("scpdiscord_config") + "'. Aborting startup." + e);
                 Disable();
             }
         }
@@ -174,9 +173,9 @@ namespace SCPDiscord
         {
             foreach(string channel in channels)
             {
-                if(Config.aliases.ContainsKey(channel))
+                if(Config.GetDict("aliases").ContainsKey(channel))
                 {
-                    Thread messageThread = new Thread(new ThreadStart(() => new SendMessageToBot(this, Config.aliases[channel], messagePath, variables)));
+                    Thread messageThread = new Thread(new ThreadStart(() => new SendMessageToBot(this, Config.GetDict("aliases")[channel], messagePath, variables)));
                     messageThread.Start();
                 }
             }
@@ -191,11 +190,11 @@ namespace SCPDiscord
 
         public void RefreshChannelTopic(float tps)
         {
-            foreach (string channel in Config.channels.topic)
+            foreach (string channel in Config.GetArray("channels.topic"))
             {
-                if (Config.aliases.ContainsKey(channel))
+                if (Config.GetDict("aliases").ContainsKey(channel))
                 {
-                    Thread messageThread = new Thread(new ThreadStart(() => new RefreshChannelTopic(this, Config.aliases[channel], tps)));
+                    Thread messageThread = new Thread(new ThreadStart(() => new RefreshChannelTopic(this, Config.GetDict("aliases")[channel], tps)));
                     messageThread.Start();
                 }
             }

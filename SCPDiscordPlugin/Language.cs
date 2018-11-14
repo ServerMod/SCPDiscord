@@ -117,7 +117,10 @@ namespace SCPDiscord
             "botresponses.exit",
             "botresponses.help",
             "botresponses.kickall",
-            "botresponses.toggletag.notinstalled"
+            "botresponses.toggletag.notinstalled",
+            "botresponses.vpnshield.notinstalled",
+
+            "topic"
         };
 
         public static void Initialise()
@@ -131,7 +134,7 @@ namespace SCPDiscord
             plugin.Info("Loading primary language file...");
             try
             {
-                LoadLanguageFile(Config.settings.language, false);
+                LoadLanguageFile(Config.GetString("settings.language"), false);
             }
             catch (Exception e)
             {
@@ -145,18 +148,18 @@ namespace SCPDiscord
                 }
                 else if (e is FileNotFoundException)
                 {
-                    plugin.Error("'" + Config.settings.language + ".yml' was not found.");
+                    plugin.Error("'" + Config.GetString("settings.language") + ".yml' was not found.");
                 }
                 else if (e is JsonReaderException || e is YamlException)
                 {
-                    plugin.Error("'" + Config.settings.language + ".yml' formatting error.");
+                    plugin.Error("'" + Config.GetString("settings.language") + ".yml' formatting error.");
                 }
-                plugin.Error("Error reading language file '" + Config.settings.language + ".yml'. Attempting to initialize backup system...");
+                plugin.Error("Error reading language file '" + Config.GetString("settings.language") + ".yml'. Attempting to initialize backup system...");
                 plugin.Debug(e.ToString());
             }
 
             // Read backup language file if not the same as the primary
-            if (Config.settings.language != "english")
+            if (Config.GetString("settings.language") != "english")
             {
                 plugin.Info("Loading backup language file...");
                 try
@@ -175,11 +178,11 @@ namespace SCPDiscord
                     }
                     else if (e is FileNotFoundException)
                     {
-                        plugin.Error("'" + Config.settings.language + ".yml' was not found.");
+                        plugin.Error("'" + Config.GetString("settings.language") + ".yml' was not found.");
                     }
                     else if (e is JsonReaderException || e is YamlException)
                     {
-                        plugin.Error("'" + Config.settings.language + ".yml' formatting error.");
+                        plugin.Error("'" + Config.GetString("settings.language") + ".yml' formatting error.");
                     }
                     plugin.Error("Error reading backup language file 'english.yml'.");
                     plugin.Debug(e.ToString());
@@ -262,7 +265,7 @@ namespace SCPDiscord
                 }
                 catch (Exception)
                 {
-                    plugin.Warn("Your SCPDiscord language file \"" + Config.settings.language + ".yml\" does not contain the node \"" + node + ".message\".\nEither add it to your language file or turn on the discord_overwrite_language config setting to use the default language.");
+                    plugin.Warn("Your SCPDiscord language file \"" + Config.GetString("settings.language") + ".yml\" does not contain the node \"" + node + ".message\".\nEither add it to your language file or turn on the discord_overwrite_language config setting to use the default language.");
                 }
             }
         }
@@ -276,7 +279,7 @@ namespace SCPDiscord
         {
             if (primary == null && backup == null)
             {
-                if (Config.settings.verbose)
+                if (Config.GetBool("settings.verbose"))
                 {
                     plugin.Warn("Tried to send Discord message before loading languages.");
                 }
@@ -335,7 +338,7 @@ namespace SCPDiscord
         {
             if (primary == null && backup == null)
             {
-                if (Config.settings.verbose)
+                if (Config.GetBool("settings.verbose"))
                 {
                     plugin.Warn("Tried to read regex dictionary before loading languages.");
                 }
@@ -348,7 +351,7 @@ namespace SCPDiscord
             }
             catch (NullReferenceException e)
             {
-                if (Config.settings.verbose)
+                if (Config.GetBool("settings.verbose"))
                 {
                     plugin.Warn("Error: Language regex dictionary '" + path + "' does not exist." + e);
                 }

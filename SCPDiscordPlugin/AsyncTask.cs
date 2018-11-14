@@ -53,7 +53,7 @@ namespace SCPDiscord
             // Abort on empty message
             if (message == "" || message == " " || message == ".")
             {
-                if(Config.settings.verbose)
+                if(Config.GetBool("settings.verbose"))
                 {
                     plugin.Warn("Tried to send empty message " + messagePath + " to discord. Verify your language files.");
                 }
@@ -63,7 +63,7 @@ namespace SCPDiscord
             // Abort if client is dead
             if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
-                if(plugin.hasConnectedOnce && Config.settings.verbose)
+                if(plugin.hasConnectedOnce && Config.GetBool("settings.verbose"))
                 {
                     plugin.Warn("Error sending message '" + message + "' to bot: Not connected.");
                 }
@@ -71,9 +71,9 @@ namespace SCPDiscord
             }
 
             // Add time stamp
-            if (Config.settings.timestamp != "off")
+            if (Config.GetString("settings.timestamp") != "off")
             {
-                message = "[" + DateTime.Now.ToString(Config.settings.timestamp) + "]: " + message;
+                message = "[" + DateTime.Now.ToString(Config.GetString("settings.timestamp")) + "]: " + message;
             }
 
             // Re-add newlines
@@ -169,7 +169,7 @@ namespace SCPDiscord
                 byte[] outStream = System.Text.Encoding.UTF8.GetBytes(channelID + message + '\0');
                 serverStream.Write(outStream, 0, outStream.Length);
 
-                if (Config.settings.verbose)
+                if (Config.GetBool("settings.verbose"))
                 {
                     plugin.Info("Sent message '" + message + "' to bot.");
                 }
@@ -206,7 +206,7 @@ namespace SCPDiscord
 
             if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
             {
-                if (plugin.hasConnectedOnce && Config.settings.verbose)
+                if (plugin.hasConnectedOnce && Config.GetBool("settings.verbose"))
                 {
                     plugin.Warn("Error sending message '" + message + "' to bot: Not connected.");
                 }
@@ -220,7 +220,7 @@ namespace SCPDiscord
                 byte[] outStream = System.Text.Encoding.UTF8.GetBytes("botactivity" + message + '\0');
                 serverStream.Write(outStream, 0, outStream.Length);
 
-                if (Config.settings.verbose)
+                if (Config.GetBool("settings.verbose"))
                 {
                     plugin.Info("Sent activity '" + message + "' to bot.");
                 }
@@ -381,7 +381,7 @@ namespace SCPDiscord
                     byte[] outStream = System.Text.Encoding.UTF8.GetBytes("channeltopic" + channelID + topic + '\0');
                     serverStream.Write(outStream, 0, outStream.Length);
 
-                    if (Config.settings.verbose)
+                    if (Config.GetBool("settings.verbose"))
                     {
                         plugin.Info("Sent channel topic '" + topic + "' to bot.");
                     }
@@ -399,7 +399,7 @@ namespace SCPDiscord
             }
             catch(Exception e)
             {
-                if(Config.settings.verbose)
+                if(Config.GetBool("settings.verbose"))
                 {
                     plugin.Warn(e.ToString());
                 }
@@ -414,21 +414,21 @@ namespace SCPDiscord
             Thread.Sleep(2000);
             while (!plugin.clientSocket.Connected)
             {
-                if (Config.settings.verbose)
+                if (Config.GetBool("settings.verbose"))
                 {
                     plugin.Info("Attempting Bot Connection...");
                 }
                 try
                 {
-                    if (Config.settings.verbose)
+                    if (Config.GetBool("settings.verbose"))
                     {
-                        plugin.Info("Your Bot IP: " + Config.bot.ip + ". Your Bot Port: " + Config.bot.port + ".");
+                        plugin.Info("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
                     }
-                    plugin.clientSocket.Connect(Config.bot.ip, Config.bot.port);
+                    plugin.clientSocket.Connect(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
                 }
                 catch (SocketException e)
                 {
-                    if (Config.settings.verbose)
+                    if (Config.GetBool("settings.verbose"))
                     {
                         plugin.Info("Error occured while connecting to discord bot server.");
                         plugin.Debug(e.ToString());
@@ -437,7 +437,7 @@ namespace SCPDiscord
                 }
                 catch (ObjectDisposedException e)
                 {
-                    if (Config.settings.verbose)
+                    if (Config.GetBool("settings.verbose"))
                     {
                         plugin.Info("TCP client was unexpectedly closed.");
                         plugin.Debug(e.ToString());
@@ -446,7 +446,7 @@ namespace SCPDiscord
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    if (Config.settings.verbose)
+                    if (Config.GetBool("settings.verbose"))
                     {
                         plugin.Info("Invalid port.");
                         plugin.Debug(e.ToString());
@@ -455,7 +455,7 @@ namespace SCPDiscord
                 }
                 catch (ArgumentNullException e)
                 {
-                    if (Config.settings.verbose)
+                    if (Config.GetBool("settings.verbose"))
                     {
                         plugin.Info("IP address is null.");
                         plugin.Debug(e.ToString());
@@ -464,7 +464,7 @@ namespace SCPDiscord
                 }
             }
             plugin.Info("Connected to Discord bot.");
-            plugin.SendMessageToBot(Config.channels.onroundend, "botmessages.connectedtobot");
+            plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botmessages.connectedtobot");
             plugin.hasConnectedOnce = true;
         }
     }
@@ -480,20 +480,20 @@ namespace SCPDiscord
                 {
                     plugin.clientSocket.Close();
                     plugin.Info("Not connected, trying to reconnect");
-                    if(Config.settings.verbose)
+                    if(Config.GetBool("settings.verbose"))
                     {
                         plugin.Warn("Discord bot connection issue detected, attempting reconnect...");
                     }
 
                     try
                     {
-                        plugin.clientSocket = new TcpClient(Config.bot.ip, Config.bot.port);
+                        plugin.clientSocket = new TcpClient(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
                         plugin.Info("Reconnected to Discord bot.");
-                        plugin.SendMessageToBot(Config.channels.statusmessages, "botmessages.reconnectedtobot");
+                        plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botmessages.reconnectedtobot");
                     }
                     catch (SocketException e)
                     {
-                        if (Config.settings.verbose)
+                        if (Config.GetBool("settings.verbose"))
                         {
                             plugin.Info("Error occured while reconnecting to discord bot server.");
                             plugin.Debug(e.ToString());
@@ -502,7 +502,7 @@ namespace SCPDiscord
                     }
                     catch (ObjectDisposedException e)
                     {
-                        if (Config.settings.verbose)
+                        if (Config.GetBool("settings.verbose"))
                         {
                             plugin.Info("TCP client was unexpectedly closed.");
                             plugin.Debug(e.ToString());
@@ -511,7 +511,7 @@ namespace SCPDiscord
                     }
                     catch (ArgumentOutOfRangeException e)
                     {
-                        if (Config.settings.verbose)
+                        if (Config.GetBool("settings.verbose"))
                         {
                             plugin.Info("Invalid port.");
                             plugin.Debug(e.ToString());
@@ -520,7 +520,7 @@ namespace SCPDiscord
                     }
                     catch (ArgumentNullException e)
                     {
-                        if (Config.settings.verbose)
+                        if (Config.GetBool("settings.verbose"))
                         {
                             plugin.Info("IP address is null.");
                             plugin.Debug(e.ToString());
