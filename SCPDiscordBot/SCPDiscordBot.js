@@ -2,7 +2,7 @@ console.log("Config loading...");
 const fs = require("fs");
 const YAML = require("yaml");
 const file = fs.readFileSync("./config.yml", "utf8");
-const { token, prefix, listeningPort, defaultChannel, verbose, cooldown, requirepermission } = YAML.parse(file);
+const { token, prefix, listeningPort, defaultChannel, verbose, cooldown, permissions } = YAML.parse(file);
 console.log("Config loaded.");
 
 var connectedToDiscord = false;
@@ -37,6 +37,28 @@ function setChannelTopic(channelID, topic)
     {
         console.warn("Server status channel was not found.");
     }
+}
+
+function hasPermission(member, command)
+{
+    if (member.hasPermission("ADMINISTRATOR"))
+    {
+        return true;
+    }
+
+    var permissionRoles = Object.keys(permissions);
+    var memberRoles = member.roles;
+    for (var [roleID, role] of memberRoles)
+    {
+        if (permissionRoles.includes(role.name.toLowerCase()))
+        {
+            if (permissions[role.name.toLowerCase()].includes(command))
+            {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 // Connection event
@@ -226,45 +248,14 @@ discordClient.on("message", (message) =>
     //Cut message into base command and arguments
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
-
-    //Add commands here, I only verify permissions and that the command exists here
-    if (command === "setavatar" && (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false))
+    if (hasPermission(message.member, command))
     {
-        var url = args.shift();
-        discordClient.user.setAvatar(url);
-        message.channel.send("```diff\n+ Avatar updated.```");
-    }
-    else if (command === "ban" && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
-    {
-        sockets.forEach((socket) =>
+        //message.channel.send("```diff\n+ You are allowed to use this command```");
+        if (sockets.length < 1)
         {
-            socket.write("command " + message.content.slice(prefix.length) + "\n");
-        });
-
-    }
-    else if (command === "unban" && (message.member.hasPermission("BAN_MEMBERS") || requirepermission === false))
-    {
-        sockets.forEach((socket) =>
-        {
-            socket.write("command " + message.content.slice(prefix.length) + "\n");
-        });
-    }
-    else if (command === "kick" && (message.member.hasPermission("KICK_MEMBERS") || requirepermission === false))
-    {
-        sockets.forEach((socket) =>
-        {
-            socket.write("command " + message.content.slice(prefix.length) + "\n");
-        });
-    }
-    else if (command === "kickall" && (message.member.hasPermission("KICK_MEMBERS") || requirepermission === false))
-    {
-        sockets.forEach((socket) =>
-        {
-            socket.write("command " + message.content.slice(prefix.length) + "\n");
-        });
-    }
-    else if ((command === "hidetag" || command === "showtag") && (message.member.hasPermission("MANAGE_NICKNAMES") || requirepermission === false))
-    {
+            message.channel.send("```diff\n- The SCP:SL server is not currently connected to the bot server, could not deliver command.```");
+            return;
+        }
         sockets.forEach((socket) =>
         {
             socket.write("command " + message.content.slice(prefix.length) + "\n");
@@ -272,17 +263,7 @@ discordClient.on("message", (message) =>
     }
     else
     {
-        if (message.member.hasPermission("ADMINISTRATOR") || requirepermission === false)
-        {
-            sockets.forEach((socket) =>
-            {
-                socket.write("command " + message.content.slice(prefix.length) + "\n");
-            });
-        }
-        else
-        {
-            message.channel.send("```diff\n- You are not allowed to use this command.```");
-        }
+        message.channel.send("```diff\n- You are not allowed to use this command.```");
     }
 });
 

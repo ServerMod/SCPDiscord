@@ -19,7 +19,7 @@ namespace SCPDiscord
         private static Dictionary<string, bool> configBools = new Dictionary<string, bool>
         {
             { "settings.playercount",       true    },
-            { "settings.verbose",           true   },
+            { "settings.verbose",           true    },
             { "settings.metrics",           true    },
             { "settings.configvalidation",  true    }
         };
