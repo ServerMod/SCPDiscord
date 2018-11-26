@@ -61,6 +61,37 @@ function hasPermission(member, command)
     return false;
 }
 
+function syncRoleCommand(message, args)
+{
+    var output = "command " + message.channel.id + " syncrole ";
+    if (args.length < 1)
+    {
+        message.channel.send("```diff\n- Missing arguments.```");
+        return;
+    }
+
+    if (args[0].length !== 17 || isNaN(args[0]))
+    {
+        message.channel.send("```diff\n- Not a valid SteamID64.```");
+        return;
+    }
+    output += args[0];
+    output += " ";
+    output += message.member.id;
+    sockets.forEach((socket) =>
+    {
+        socket.write(output + "\n");
+    });
+}
+
+function unsyncRoleCommand(message)
+{
+    sockets.forEach((socket) =>
+    {
+        socket.write("command " + message.channel.id + " unsyncrole " +  message.member.id + "\n");
+    });
+}
+
 // Connection event
 tcpServer.on("connection", (socket) =>
 {
@@ -120,6 +151,7 @@ tcpServer.on("connection", (socket) =>
             else
             {
                 var destinationChannel = packet.slice(0, 18);
+                //console.log("Message channel: " + destinationChannel + "\n");
                 var message = packet.slice(18);
                 if (message !== "")
                 {
@@ -192,8 +224,8 @@ tcpServer.on("connection", (socket) =>
         if (verbose === true)
         {
             console.log("Socket error <" + data.message + ">");
-            socket.destroy();
         }
+        socket.destroy();
     });
 
     socket.on("close", () =>
@@ -240,7 +272,7 @@ discordClient.on("ready", () =>
 discordClient.on("message", (message) =>
 {
     //Abort if message does not start with the prefix, if the sender is a bot, if the message is not from the right channel or if it does not contain any letters
-    if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel || !/[a-z]/i.test(message.content))
+    if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel || message.content.length <= prefix.length)
     {
         return;
     }
@@ -256,10 +288,23 @@ discordClient.on("message", (message) =>
             message.channel.send("```diff\n- The SCP:SL server is not currently connected to the bot server, could not deliver command.```");
             return;
         }
-        sockets.forEach((socket) =>
+
+        if (command === "syncrole")
         {
-            socket.write("command " + message.content.slice(prefix.length) + "\n");
-        });
+            syncRoleCommand(message, args);
+        }
+        else if (command === "unsyncrole")
+        {
+            unsyncRoleCommand(message, args);
+        }
+        else
+        {
+            sockets.forEach((socket) =>
+            {
+                console.log("RELAYED: command " + message.channel.id + " " + message.content.slice(prefix.length).replace("\\_", "_") + "\n");
+                socket.write("command " + message.channel.id + " " + message.content.slice(prefix.length).replace("\\_", "_") + "\n");
+            });
+        }
     }
     else
     {
