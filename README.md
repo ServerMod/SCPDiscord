@@ -2,10 +2,6 @@
 
 SCPDiscord links features from your SCP:SL server console to Discord channels, such as printing out server events to Discord and using server commands through Discord. It is incredibly customisable as you can read more about below.
 
-I was going to wait with making this plugin until SCP:SL updates to .NET 4.6 from the current .NET 3.5 but apperently that has been delayed (indefinitely?). This means I can't use a C# Discord API directly from the plugin and thus have to seperate it into two different programs.
-
-They send messages along like this: SCPDiscordPlugin -> SCPDiscordBot -> Discord Channel
-
 ## Features:
 
 * Ability to log any ServerMod event to Discord. All are optional and can be toggled individually.
