@@ -66,6 +66,7 @@
     <Compile Include="EventListeners\EnvironmentEventListener.cs" />
     <Compile Include="EventListeners\PlayerEventListener.cs" />
     <Compile Include="Language.cs" />
+    <Compile Include="NetworkSystem.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

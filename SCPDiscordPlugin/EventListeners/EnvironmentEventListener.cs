@@ -22,7 +22,7 @@ namespace SCPDiscord
             {
                 { "knobsetting",    ev.KnobSetting.ToString()   }
             };
-            plugin.SendMessageToBot(Config.GetArray("channels.onscp914activate"), "environment.onscp914activate", variables);
+            plugin.SendMessage(Config.GetArray("channels.onscp914activate"), "environment.onscp914activate", variables);
         }
 
         public void OnStartCountdown(WarheadStartEvent ev)
@@ -44,11 +44,11 @@ namespace SCPDiscord
 
             if(ev.IsResumed)
             {
-                plugin.SendMessageToBot(Config.GetArray("channels.onstartcountdown"), "environment.onstartcountdown.countdownresumed", variables);
+                plugin.SendMessage(Config.GetArray("channels.onstartcountdown"), "environment.onstartcountdown.countdownresumed", variables);
             }
             else
             {
-                plugin.SendMessageToBot(Config.GetArray("channels.onstartcountdown"), "environment.onstartcountdown", variables);
+                plugin.SendMessage(Config.GetArray("channels.onstartcountdown"), "environment.onstartcountdown", variables);
             }
         }
 
@@ -67,7 +67,7 @@ namespace SCPDiscord
                 { "class",          ev.Activator.TeamRole.Role.ToString()   },
                 { "team",           ev.Activator.TeamRole.Team.ToString()   }
             };
-            plugin.SendMessageToBot(Config.GetArray("channels.onstopcountdown"), "environment.onstopcountdown", variables);
+            plugin.SendMessage(Config.GetArray("channels.onstopcountdown"), "environment.onstopcountdown", variables);
         }
 
         public void OnDetonate()
@@ -75,7 +75,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for when the warhead is about to detonate (so before it actually triggers)
             /// </summary> 
-            plugin.SendMessageToBot(Config.GetArray("channels.ondetonate"), "environment.ondetonate");
+            plugin.SendMessage(Config.GetArray("channels.ondetonate"), "environment.ondetonate");
         }
 
         public void OnDecontaminate()
@@ -83,7 +83,7 @@ namespace SCPDiscord
             /// <summary>  
             ///  This is the event handler for when the LCZ is decontaminated
             /// </summary> 
-            plugin.SendMessageToBot(Config.GetArray("channels.ondecontaminate"), "environment.ondecontaminate");
+            plugin.SendMessage(Config.GetArray("channels.ondecontaminate"), "environment.ondecontaminate");
         }
     }
 }

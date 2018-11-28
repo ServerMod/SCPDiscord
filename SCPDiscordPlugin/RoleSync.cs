@@ -16,34 +16,34 @@ namespace SCPDiscord
             this.plugin = plugin;
         }
 
-        public void CheckPlayer(string steamID)
-        {
-            if(!syncedPlayers.ContainsKey(steamID))
-            {
-                return;
-            }
+        //public void CheckPlayer(string steamID)
+        //{
+        //    if(!syncedPlayers.ContainsKey(steamID))
+        //    {
+        //        return;
+        //    }
 
-            try
-            {
-                NetworkStream serverStream = plugin.clientSocket.GetStream();
-                byte[] outStream = Encoding.UTF8.GetBytes("rolequery " + syncedPlayers[steamID] + '\0');
-                serverStream.Write(outStream, 0, outStream.Length);
+        //    try
+        //    {
+        //        NetworkStream serverStream = plugin.clientSocket.GetStream();
+        //        byte[] outStream = Encoding.UTF8.GetBytes("rolequery " + syncedPlayers[steamID] + '\0');
+        //        NetworkSystem.(outStream, 0, outStream.Length);
 
-                if (Config.GetBool("settings.verbose"))
-                {
-                    plugin.Info("Requested role verification from bot.");
-                }
-            }
-            catch (Exception e)
-            {
-                plugin.Error("Error requesting role verification.");
-                plugin.Debug(e.ToString());
-                if (!(e is InvalidOperationException || e is ArgumentNullException))
-                { 
-                    throw e;
-                }
-            }
-        }
+        //        if (Config.GetBool("settings.verbose"))
+        //        {
+        //            plugin.Info("Requested role verification from bot.");
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        plugin.Error("Error requesting role verification.");
+        //        plugin.Debug(e.ToString());
+        //        if (!(e is InvalidOperationException || e is ArgumentNullException))
+        //        { 
+        //            throw e;
+        //        }
+        //    }
+        //}
 
         public string AddPlayer(string steamID, string discordID)
         {

@@ -9,6 +9,7 @@ namespace SCPDiscord
 {
     public static class Config
     {
+        public static bool ready = false;
         private static Dictionary<string, string> configStrings = new Dictionary<string, string>
         {
             { "bot.ip",             "127.0.0.1" },
@@ -193,6 +194,8 @@ namespace SCPDiscord
             {
                 ValidateConfig(plugin);
             }
+
+            ready = true;
         }
 
         public static bool GetBool(string node)

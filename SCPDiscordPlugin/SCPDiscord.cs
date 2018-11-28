@@ -31,14 +31,13 @@ namespace SCPDiscord
     )]
     public class SCPDiscord : Plugin
     {
-        //Sends outgoing messages
-        public TcpClient clientSocket = new TcpClient();
-
-        public bool hasConnectedOnce = false;
-
         public Stopwatch serverStartTime = new Stopwatch();
 
         internal static SCPDiscord plugin;
+
+        public RoleSync roleSync;
+
+        public bool shutdown = false;
 
         public override void Register()
         {
@@ -75,9 +74,9 @@ namespace SCPDiscord
 
             public string[] OnCall(ICommandSender sender, string[] args)
             {
-                if(plugin.clientSocket.Connected)
+                if(NetworkSystem.IsConnected())
                 {
-                    plugin.clientSocket.Close();
+                    NetworkSystem.Disconnect();
                     return new string[] { "Connection closed, reconnecting will begin shortly." };
                 }
                 else
@@ -89,16 +88,20 @@ namespace SCPDiscord
 
         public override void OnEnable()
         {
+            Thread.Sleep(2000);
             plugin = this;
-            this.Info("SCPDiscord " + this.Details.version + " enabled.");
+
             serverStartTime.Start();
             this.AddCommand("discord_reconnect", new ReconnectCommand(this));
 
             SetUpFileSystem();
             LoadConfig();
+            roleSync = new RoleSync(this);
 
-            Thread messageThread = new Thread(new ThreadStart(() => new StartThreads()));
-            messageThread.Start();
+            Language.Initialise();
+            Thread connectionThread = new Thread(new ThreadStart(() => new StartNetworkSystem(plugin)));
+            connectionThread.Start();
+            this.Info("SCPDiscord " + this.Details.version + " enabled.");
         }
 
         public void SetUpFileSystem()
@@ -119,7 +122,6 @@ namespace SCPDiscord
         {
             try
             {
-                // TODO: Add config name confinguration here
                 // Reads file contents into FileStream
                 FileStream stream = File.OpenRead(FileManager.GetAppFolder() + "SCPDiscord/" + GetConfigString("scpdiscord_config"));
 
@@ -165,22 +167,28 @@ namespace SCPDiscord
 
         public override void OnDisable()
         {
+            shutdown = true;
+            NetworkSystem.Disconnect();
             this.Info("SCPDiscord disabled.");
-            clientSocket.Close();
         }
 
-        public void SendMessageToBot(string[] channels, string messagePath, Dictionary<string, string> variables = null)
+        public void SendMessage(string[] channelAliases, string messagePath, Dictionary<string, string> variables = null)
         {
-            foreach(string channel in channels)
+            foreach(string channel in channelAliases)
             {
                 if(Config.GetDict("aliases").ContainsKey(channel))
                 {
-                    Thread messageThread = new Thread(new ThreadStart(() => new SendMessageToBot(this, Config.GetDict("aliases")[channel], messagePath, variables)));
+                    Thread messageThread = new Thread(new ThreadStart(() => new ProcessMessageAsync(Config.GetDict("aliases")[channel], messagePath, variables)));
                     messageThread.Start();
                 }
             }
         }
 
+        public void SendMessage(string channelid, string messagePath, Dictionary<string, string> variables = null)
+        {
+            Thread messageThread = new Thread(new ThreadStart(() => new ProcessMessageAsync(channelid, messagePath, variables)));
+            messageThread.Start();
+        }
 
         public void RefreshBotActivity()
         {

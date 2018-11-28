@@ -15,30 +15,30 @@ namespace SCPDiscord
             this.plugin = plugin;
         }
 
-        private short ticks = 0;
+        //private short ticks = 0;
         private readonly Stopwatch stopWatch = Stopwatch.StartNew();
         public void OnUpdate(UpdateEvent ev)
         {
-            if(!stopWatch.IsRunning)
-            {
-                stopWatch.Start();
-            }
-            ticks++;
-            if (stopWatch.ElapsedMilliseconds >= 10000 && plugin.hasConnectedOnce && plugin.clientSocket.Connected)
-            {
-                stopWatch.Reset();
-                float tps = ticks / 10.0f;
-                ticks = 0;
+            //if(!stopWatch.IsRunning)
+            //{
+            //    stopWatch.Start();
+            //}
+            //ticks++;
+            //if (stopWatch.ElapsedMilliseconds >= 10000 && plugin.hasConnectedOnce && plugin.clientSocket.Connected)
+            //{
+            //    stopWatch.Reset();
+            //    float tps = ticks / 10.0f;
+            //    ticks = 0;
 
-                // Update player count
-                if (Config.GetBool("settings.playercount"))
-                {
-                    plugin.RefreshBotActivity();
-                }
+            //    // Update player count
+            //    if (Config.GetBool("settings.playercount"))
+            //    {
+            //        plugin.RefreshBotActivity();
+            //    }
 
-                // Update channel topic
-                plugin.RefreshChannelTopic(tps);
-            }
+            //    // Update channel topic
+            //    plugin.RefreshChannelTopic(tps);
+            //}
         }
     }
 }

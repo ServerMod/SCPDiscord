@@ -35,7 +35,7 @@ namespace SCPDiscord
                 { "successful",     ev.Successful.ToString()            }
             };
 
-            plugin.SendMessageToBot(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);
+            plugin.SendMessage(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);
         }
 
         public void OnAuthCheck(AuthCheckEvent ev)
@@ -53,7 +53,7 @@ namespace SCPDiscord
                 { "class",          ev.Requester.TeamRole.Role.ToString()   },
                 { "team",           ev.Requester.TeamRole.Team.ToString()   }
             };
-            plugin.SendMessageToBot(Config.GetArray("channels.onauthcheck"), "admin.onauthcheck", variables);
+            plugin.SendMessage(Config.GetArray("channels.onauthcheck"), "admin.onauthcheck", variables);
         }
 
         public void OnBan(BanEvent ev)
@@ -79,7 +79,7 @@ namespace SCPDiscord
                     { "adminclass",             ev.Admin.TeamRole.Role.ToString()   },
                     { "adminteam",              ev.Admin.TeamRole.Team.ToString()   }
                 };
-                plugin.SendMessageToBot(Config.GetArray("channels.onban"), "admin.onban", variables);
+                plugin.SendMessage(Config.GetArray("channels.onban"), "admin.onban", variables);
             }
             else
             {
@@ -96,7 +96,7 @@ namespace SCPDiscord
                     { "playerclass",            ev.Player.TeamRole.Role.ToString()  },
                     { "playerteam",             ev.Player.TeamRole.Team.ToString()  }
                 };
-                plugin.SendMessageToBot(Config.GetArray("channels.onban"), "admin.onban.noadmin", variables);
+                plugin.SendMessage(Config.GetArray("channels.onban"), "admin.onban.noadmin", variables);
             }
         }
     }

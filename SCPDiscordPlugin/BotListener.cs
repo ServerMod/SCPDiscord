@@ -17,258 +17,265 @@ namespace SCPDiscord
         public BotListener(SCPDiscord plugin)
         {
             this.plugin = plugin;
-            while (true)
-            {
-                //Listen for connections
-                if (plugin.clientSocket.Connected && plugin.hasConnectedOnce)
-                {
-                    Thread.Sleep(200);
-                    try
-                    {
-                        //Discord messages can be up to 2000 chars long, UTF8 chars can be up to 4 bytes long.
-                        byte[] data = new byte[8000];
+            //while (true)
+            //{
+            //    //Listen for connections
+            //    if (plugin.clientSocket.Connected && plugin.hasConnectedOnce)
+            //    {
+            //        Thread.Sleep(1000);
+            //        try
+            //        {
+            //            //Discord messages can be up to 2000 chars long, UTF8 chars can be up to 4 bytes long.
+            //            byte[] data = new byte[8000];
 
-                        NetworkStream stream = null;
-                        try
-                        {
-                            stream = plugin.clientSocket.GetStream();
-                        }
-                        catch (Exception ex)
-                        {
-                            if(ex is IOException)
-                            {
-                                plugin.Error("Could not get stream from socket.");
-                            }
-                            else
-                            {
-                                plugin.Error("BotListener Error: " + ex.ToString());
-                            }
-                        }
+            //            NetworkStream stream = null;
+            //            try
+            //            {
+            //                stream = plugin.clientSocket.GetStream();
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                if(ex is IOException)
+            //                {
+            //                    plugin.Error("Could not get stream from socket.");
+            //                }
+            //                else
+            //                {
+            //                    plugin.Error("BotListener Error: " + ex.ToString());
+            //                }
+            //            }
 
-                        if(stream == null)
-                        {
-                            return;
-                        }
+            //            if(stream == null)
+            //            {
+            //                return;
+            //            }
 
-                        string incomingData = "";
-                        try
-                        {
-                            int lengthOfData = stream.Read(data, 0, data.Length);
-                            incomingData = Encoding.UTF8.GetString(data, 0, lengthOfData);
-                        }
-                        catch (Exception ex)
-                        {
-                            if(ex is IOException)
-                            {
-                                plugin.Error("Could not read from socket.");
-                            }
-                            else
-                            {
-                                plugin.Error("BotListener Error: " + ex.ToString());
-                            }
-                        }
-                        List<string> messages = new List<string>(incomingData.Split('\n'));
+            //            string incomingData = "";
+            //            try
+            //            {
+            //                int lengthOfData = stream.Read(data, 0, data.Length);
+            //                incomingData = Encoding.UTF8.GetString(data, 0, lengthOfData);
+            //                stream.Close();
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                if(ex is IOException)
+            //                {
+            //                    plugin.Error("Could not read from socket.");
+            //                }
+            //                else
+            //                {
+            //                    plugin.Error("BotListener Error: " + ex.ToString());
+            //                }
+            //            }
+            //            List<string> messages = new List<string>(incomingData.Split('\n'));
 
-                        //If several messages come in at the same time, process all of them
-                        while (messages.Count > 0)
-                        {
-                            if(messages[0].Length == 0)
-                            {
-                                messages.RemoveAt(0);
-                                continue;
-                            }
-                            string[] words = messages[0].Split(' ');
+            //            //If several messages come in at the same time, process all of them
+            //            while (messages.Count > 0)
+            //            {
+            //                plugin.Info("COMMAND: " + messages[0]);
+            //                if(messages[0].Length == 0)
+            //                {
+            //                    messages.RemoveAt(0);
+            //                    continue;
+            //                }
+            //                string[] words = messages[0].Split(' ');
 
-                            bool isCommand = words[0] == "command";
-                            string command = words[1];
-                            string[] arguments = new string[0];
-                            if(words.Length >= 3)
-                            {
-                                arguments = words.Skip(2).ToArray();
-                            }
+            //                bool isCommand = words[0] == "command";
+            //                string channel = words[1];
+            //                string command = words[2];
+            //                string[] arguments = new string[0];
+            //                if(words.Length >= 4)
+            //                {
+            //                    arguments = words.Skip(3).ToArray();
+            //                }
 
-                            //A verification that message is a command and not some left over string in the socket
-                            if (isCommand)
-                            {
-                                if (command == "ban")
-                                {
-                                    //Check if the command has enough arguments
-                                    if (arguments.Length >= 2)
-                                    {
-                                        BanCommand(arguments[0], arguments[1], MergeReason(arguments.Skip(2).ToArray()));
-                                    }
-                                    else
-                                    {
-                                        Dictionary<string, string> variables = new Dictionary<string, string>
-                                        {
-                                            { "command", messages[0] }
-                                        };
-                                        plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.missingarguments", variables);
-                                    }
-                                }
-                                else if (command == "kick")
-                                {
-                                    //Check if the command has enough arguments
-                                    if (arguments.Length >= 1)
-                                    {
-                                        KickCommand(arguments[0], MergeReason(arguments.Skip(1).ToArray()));
-                                    }
-                                    else
-                                    {
-                                        Dictionary<string, string> variables = new Dictionary<string, string>
-                                        {
-                                            { "command", messages[0] }
-                                        };
-                                        plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.missingarguments", variables);
-                                    }
-                                }
-                                else if (command == "kickall")
-                                {
-                                    KickallCommand(MergeReason(arguments));
-                                }
-                                else if (command == "unban")
-                                {
-                                    //Check if the command has enough arguments
-                                    if (arguments.Length >= 1)
-                                    {
-                                        UnbanCommand(arguments[0]);
-                                    }
-                                    else
-                                    {
-                                        Dictionary<string, string> variables = new Dictionary<string, string>
-                                        {
-                                            { "command", messages[0] }
-                                        };
-                                        plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.missingarguments", variables);
-                                    }
-                                }
-                                else if (command == "list")
-                                {
+            //                //A verification that message is a command and not some left over string in the socket
+            //                if (isCommand)
+            //                {
+            //                    if (command == "ban")
+            //                    {
+            //                        //Check if the command has enough arguments
+            //                        if (arguments.Length >= 2)
+            //                        {
+            //                            BanCommand(arguments[0], arguments[1], MergeReason(arguments.Skip(2).ToArray()));
+            //                        }
+            //                        else
+            //                        {
+            //                            Dictionary<string, string> variables = new Dictionary<string, string>
+            //                            {
+            //                                { "command", messages[0] }
+            //                            };
+            //                            plugin.SendMessageToBot(channel, "botresponses.missingarguments", variables);
+            //                        }
+            //                    }
+            //                    else if (command == "kick")
+            //                    {
+            //                        //Check if the command has enough arguments
+            //                        if (arguments.Length >= 1)
+            //                        {
+            //                            KickCommand(arguments[0], MergeReason(arguments.Skip(1).ToArray()));
+            //                        }
+            //                        else
+            //                        {
+            //                            Dictionary<string, string> variables = new Dictionary<string, string>
+            //                            {
+            //                                { "command", messages[0] }
+            //                            };
+            //                            plugin.SendMessageToBot(channel, "botresponses.missingarguments", variables);
+            //                        }
+            //                    }
+            //                    else if (command == "kickall")
+            //                    {
+            //                        KickallCommand(MergeReason(arguments));
+            //                    }
+            //                    else if (command == "unban")
+            //                    {
+            //                        //Check if the command has enough arguments
+            //                        if (arguments.Length >= 1)
+            //                        {
+            //                            UnbanCommand(arguments[0]);
+            //                        }
+            //                        else
+            //                        {
+            //                            Dictionary<string, string> variables = new Dictionary<string, string>
+            //                            {
+            //                                { "command", messages[0] }
+            //                            };
+            //                            plugin.SendMessageToBot(channel, "botresponses.missingarguments", variables);
+            //                        }
+            //                    }
+            //                    else if (command == "list")
+            //                    {
 
-                                    var message = "```md\n# Players online:\n";
-                                    foreach (Player player in plugin.Server.GetPlayers())
-                                    {
-                                        string line = player.Name.PadRight(32);
-                                        line += player.SteamId;
-                                        line += "\n";
-                                    }
-                                    message += "```";
+            //                        var message = "```md\n# Players online:\n";
+            //                        foreach (Player player in plugin.Server.GetPlayers())
+            //                        {
+            //                            string line = player.Name.PadRight(32);
+            //                            line += player.SteamId;
+            //                            line += "\n";
+            //                        }
+            //                        message += "```";
 
-                                    if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
-                                    {
-                                        if (plugin.hasConnectedOnce && Config.GetBool("settings.verbose"))
-                                        {
-                                            plugin.Warn("Error sending message '" + message + "' to bot: Not connected.");
-                                        }
-                                        return;
-                                    }
+            //                        if (plugin.clientSocket == null || !plugin.clientSocket.Connected)
+            //                        {
+            //                            if (plugin.hasConnectedOnce && Config.GetBool("settings.verbose"))
+            //                            {
+            //                                plugin.Warn("Error sending message '" + message + "' to bot: Not connected.");
+            //                            }
+            //                            return;
+            //                        }
 
-                                    // Try to send the message to the bot
-                                    try
-                                    {
-                                        NetworkStream serverStream = plugin.clientSocket.GetStream();
-                                        byte[] outStream = System.Text.Encoding.UTF8.GetBytes("000000000000000000" + message + '\0');
-                                        serverStream.Write(outStream, 0, outStream.Length);
+            //                        // Try to send the message to the bot
+            //                        try
+            //                        {
+            //                            NetworkStream serverStream = plugin.clientSocket.GetStream();
+            //                            byte[] outStream = System.Text.Encoding.UTF8.GetBytes("000000000000000000" + message + '\0');
+            //                            serverStream.Write(outStream, 0, outStream.Length);
 
-                                        if (Config.GetBool("settings.verbose"))
-                                        {
-                                            plugin.Info("Sent activity '" + message + "' to bot.");
-                                        }
-                                    }
-                                    catch (InvalidOperationException e)
-                                    {
-                                        plugin.Error("Error sending activity '" + message + "' to bot.");
-                                        plugin.Debug(e.ToString());
-                                    }
-                                    catch (ArgumentNullException e)
-                                    {
-                                        plugin.Error("Error sending activity '" + message + "' to bot.");
-                                        plugin.Debug(e.ToString());
-                                    }
-                                }
-                                else if (command == "exit")
-                                {
-                                    plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.exit");
-                                }
-                                else if (command == "help")
-                                {
-                                    plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.help");
-                                }
-                                else if (command == "hidetag" || command == "showtag")
-                                {
-                                    if (plugin.pluginManager.GetEnabledPlugin("karlofduty.toggletag") != null)
-                                    {
-                                        if (arguments.Length > 0)
-                                        {
-                                            command = "console_" + command;
-                                            string response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+            //                            if (Config.GetBool("settings.verbose"))
+            //                            {
+            //                                plugin.Info("Sent activity '" + message + "' to bot.");
+            //                            }
+            //                        }
+            //                        catch (InvalidOperationException e)
+            //                        {
+            //                            plugin.Error("Error sending activity '" + message + "' to bot.");
+            //                            plugin.Debug(e.ToString());
+            //                        }
+            //                        catch (ArgumentNullException e)
+            //                        {
+            //                            plugin.Error("Error sending activity '" + message + "' to bot.");
+            //                            plugin.Debug(e.ToString());
+            //                        }
+            //                    }
+            //                    else if (command == "exit")
+            //                    {
+            //                        plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.exit");
+            //                    }
+            //                    else if (command == "help")
+            //                    {
+            //                        plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.help");
+            //                    }
+            //                    else if (command == "hidetag" || command == "showtag")
+            //                    {
+            //                        if (plugin.pluginManager.GetEnabledPlugin("karlofduty.toggletag") != null)
+            //                        {
+            //                            if (arguments.Length > 0)
+            //                            {
+            //                                command = "console_" + command;
+            //                                string response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
 
-                                            Dictionary<string, string> variables = new Dictionary<string, string>
-                                            {
-                                                { "feedback", response }
-                                            };
-                                            plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.consolecommandfeedback", variables);
-                                        }
-                                        else
-                                        {
-                                            Dictionary<string, string> variables = new Dictionary<string, string>
-                                            {
-                                                { "command", command }
-                                            };
-                                            plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.missingarguments", variables);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.toggletag.notinstalled");
-                                    }
-                                }
-                                else if (command == "vs_enable" || command == "vs_disable" || command == "vs_whitelist" || command == "vs_reload")
-                                {
-                                    if (plugin.pluginManager.GetEnabledPlugin("karlofduty.vpnshield") != null)
-                                    {
-                                        string response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+            //                                Dictionary<string, string> variables = new Dictionary<string, string>
+            //                                {
+            //                                    { "feedback", response }
+            //                                };
+            //                                plugin.SendMessageToBot(channel, "botresponses.consolecommandfeedback", variables);
+            //                            }
+            //                            else
+            //                            {
+            //                                Dictionary<string, string> variables = new Dictionary<string, string>
+            //                                {
+            //                                    { "command", command }
+            //                                };
+            //                                plugin.SendMessageToBot(channel, "botresponses.missingarguments", variables);
+            //                            }
+            //                        }
+            //                        else
+            //                        {
+            //                            plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.toggletag.notinstalled");
+            //                        }
+            //                    }
+            //                    else if (command == "vs_enable" || command == "vs_disable" || command == "vs_whitelist" || command == "vs_reload")
+            //                    {
+            //                        if (plugin.pluginManager.GetEnabledPlugin("karlofduty.vpnshield") != null)
+            //                        {
+            //                            string response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
 
-                                        Dictionary<string, string> variables = new Dictionary<string, string>
-                                        {
-                                            { "feedback", response }
-                                        };
-                                        plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.consolecommandfeedback", variables);
-                                    }
-                                    else
-                                    {
-                                        plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.vpnshield.notinstalled");
-                                    }
-                                }
-                                else
-                                {
-                                    string response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+            //                            Dictionary<string, string> variables = new Dictionary<string, string>
+            //                            {
+            //                                { "feedback", response }
+            //                            };
+            //                            plugin.SendMessageToBot(channel, "botresponses.consolecommandfeedback", variables);
+            //                        }
+            //                        else
+            //                        {
+            //                            plugin.SendMessageToBot(channel, "botresponses.vpnshield.notinstalled");
+            //                        }
+            //                    }
+            //                    else if(command == "syncrole")
+            //                    {
+            //                        plugin.roleSync.AddPlayer(arguments[0], arguments[1]);
+            //                    }
+            //                    else
+            //                    {
+            //                        string response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
 
-                                    Dictionary<string, string> variables = new Dictionary<string, string>
-                                    {
-                                        { "feedback", response }
-                                    };
-                                    plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.consolecommandfeedback", variables);
-                                }
-                            }
-                            plugin.Info("From discord: " + messages[0]);
-                            messages.RemoveAt(0);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        if(ex is IOException)
-                        {
-                            plugin.Error("BotListener Error: " + ex.ToString());
-                        }
-                        plugin.Error("BotListener Error: " + ex.ToString());
-                    }
-                }
-                else
-                {
-                    Thread.Sleep(2000);
-                }
-            }
+            //                        Dictionary<string, string> variables = new Dictionary<string, string>
+            //                        {
+            //                            { "feedback", response }
+            //                        };
+            //                        plugin.SendMessageToBot(channel, "botresponses.consolecommandfeedback", variables);
+            //                    }
+            //                }
+            //                plugin.Info("From discord: " + messages[0]);
+            //                messages.RemoveAt(0);
+            //            }
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            if(ex is IOException)
+            //            {
+            //                plugin.Error("BotListener Error: " + ex.ToString());
+            //            }
+            //            plugin.Error("BotListener Error: " + ex.ToString());
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Thread.Sleep(2000);
+            //    }
+            //}
         }
 
         private string ConsoleCommand(ICommandSender user, string command, string[] arguments)
@@ -298,7 +305,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.invalidsteamid", variables);
+                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -311,7 +318,7 @@ namespace SCPDiscord
                 {
                     { "duration", duration }
                 };
-                plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.invalidduration", variables);
+                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.invalidduration", variables);
                 return;
             }
 
@@ -345,7 +352,7 @@ namespace SCPDiscord
                     { "reason",     reason                  },
                     { "duration",   humanReadableDuration   }
                 };
-            plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.playerbanned", banVars);
+            plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerbanned", banVars);
         }
 
         /// <summary>
@@ -361,7 +368,7 @@ namespace SCPDiscord
                 {
                     { "steamidorip", steamID }
                 };
-                plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.invalidsteamidorip", variables);
+                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.invalidsteamidorip", variables);
                 return;
             }
 
@@ -375,7 +382,7 @@ namespace SCPDiscord
             {
                 { "steamidorip", steamID }
             };
-            plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.playerunbanned", unbanVars);
+            plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerunbanned", unbanVars);
         }
 
         /// <summary>
@@ -391,7 +398,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.invalidsteamid", variables);
+                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -407,7 +414,7 @@ namespace SCPDiscord
                     { "name", playerName },
                     { "steamid", steamID }
                 };
-                plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.playerkicked", variables);
+                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerkicked", variables);
             }
             else
             {
@@ -415,7 +422,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.playernotfound", variables);
+                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playernotfound", variables);
             }
         }
 
@@ -437,7 +444,7 @@ namespace SCPDiscord
             {
                 { "reason", reason }
             };
-            plugin.SendMessageToBot(Config.GetArray("channels.statusmessages"), "botresponses.kickall", variables);
+            plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.kickall", variables);
         }
 
         /// <summary>

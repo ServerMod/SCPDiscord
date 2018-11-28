@@ -22,7 +22,7 @@ namespace SCPDiscord
             {
                 { "teams", ev.Teams.ToString() },
             };
-            plugin.SendMessageToBot(Config.GetArray("channels.ondecideteamrespawnqueue"), "team.ondecideteamrespawnqueue", variables);
+            plugin.SendMessage(Config.GetArray("channels.ondecideteamrespawnqueue"), "team.ondecideteamrespawnqueue", variables);
         }
 
         public void OnTeamRespawn(TeamRespawnEvent ev)
@@ -38,11 +38,11 @@ namespace SCPDiscord
 
             if(ev.SpawnChaos)
             {
-                plugin.SendMessageToBot(Config.GetArray("channels.onteamrespawn"), "team.onteamrespawn.cispawn", variables);
+                plugin.SendMessage(Config.GetArray("channels.onteamrespawn"), "team.onteamrespawn.cispawn", variables);
             }
             else
             {
-                plugin.SendMessageToBot(Config.GetArray("channels.onteamrespawn"), "team.onteamrespawn", variables);
+                plugin.SendMessage(Config.GetArray("channels.onteamrespawn"), "team.onteamrespawn", variables);
             }
 
         }
@@ -57,7 +57,7 @@ namespace SCPDiscord
                 { "maxhp",  ev.MaxHP.ToString() },
                 { "role",   ev.Role.ToString()  }
             };
-            plugin.SendMessageToBot(Config.GetArray("channels.onsetrolemaxhp"), "team.onsetrolemaxhp", variables);
+            plugin.SendMessage(Config.GetArray("channels.onsetrolemaxhp"), "team.onsetrolemaxhp", variables);
         }
 
         public void OnSetSCPConfig(SetSCPConfigEvent ev)
@@ -82,7 +82,7 @@ namespace SCPDiscord
                 { "939_53amount",   ev.SCP939_53amount.ToString()   },
                 { "939_89amount",   ev.SCP939_89amount.ToString()   }
             };
-            plugin.SendMessageToBot(Config.GetArray("channels.onsetscpconfig"), "team.onsetscpconfig", variables);
+            plugin.SendMessage(Config.GetArray("channels.onsetscpconfig"), "team.onsetscpconfig", variables);
         }
 
         public void OnSetNTFUnitName(SetNTFUnitNameEvent ev)
@@ -94,7 +94,7 @@ namespace SCPDiscord
             {
                 { "name", ev.Unit }
             };
-            plugin.SendMessageToBot(Config.GetArray("channels.onsetntfunitname"), "team.onsetntfunitname", variables);
+            plugin.SendMessage(Config.GetArray("channels.onsetntfunitname"), "team.onsetntfunitname", variables);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace SCPDiscord
     internal static class Language
     {
         private static SCPDiscord plugin;
+        public static bool ready = false;
 
         private static JObject primary = null;
         private static JObject backup = null;
@@ -195,6 +196,8 @@ namespace SCPDiscord
             }
 
             ValidateLanguageStrings();
+
+            ready = true;
         }
 
         /// <summary>
