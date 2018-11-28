@@ -382,15 +382,13 @@ function shutdown()
 
     if (connectedToDiscord)
     {
-        discordClient.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```");
+        // Look, I have no idea how js works, its fine
         console.log("Signing out of Discord...");
-        discordClient.user.setStatus("dnd");
-        discordClient.user.setActivity("for server startup.",
-        {
-            type: "WATCHING"
-        });
+        discordClient.user.setStatus("dnd")
+            .then(() => discordClient.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```")
+            .then(() => discordClient.user.setActivity("for server startup.", { type: "WATCHING" })
+            .then(() => discordClient.destroy())));
     }
-    discordClient.destroy();
 }
 process.on("exit", () => shutdown());
 process.on("SIGINT", () => shutdown());
