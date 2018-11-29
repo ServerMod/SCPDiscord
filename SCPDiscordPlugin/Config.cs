@@ -21,6 +21,7 @@ namespace SCPDiscord
         {
             { "settings.playercount",       true    },
             { "settings.verbose",           true    },
+            { "settings.debug",             false   },
             { "settings.metrics",           true    },
             { "settings.configvalidation",  true    }
         };

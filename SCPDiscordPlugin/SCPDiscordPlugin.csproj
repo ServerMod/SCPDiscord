@@ -61,7 +61,6 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="EventListeners\AdminEventListener.cs" />
-    <Compile Include="AsyncTask.cs" />
     <Compile Include="BotListener.cs" />
     <Compile Include="EventListeners\EnvironmentEventListener.cs" />
     <Compile Include="EventListeners\PlayerEventListener.cs" />
@@ -81,7 +80,7 @@
     <Compile Include="RoleSync.cs" />
     <Compile Include="SCPDiscord.cs" />
     <Compile Include="EventListeners\TeamEventListener.cs" />
-    <Compile Include="StatusUpdater.cs" />
+    <Compile Include="EventListeners\TickCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

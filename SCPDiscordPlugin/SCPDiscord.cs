@@ -47,7 +47,7 @@ namespace SCPDiscord
             this.AddEventHandlers(new AdminEventListener(this), Priority.Highest);
             this.AddEventHandlers(new EnvironmentEventListener(this), Priority.Highest);
             this.AddEventHandlers(new TeamEventListener(this), Priority.Highest);
-            this.AddEventHandlers(new StatusUpdater(this), Priority.Highest);
+            this.AddEventHandlers(new TickCounter(), Priority.Highest);
 
             this.AddConfig(new Smod2.Config.ConfigSetting("max_players", "20", Smod2.Config.SettingType.STRING, true, "Gets the max players without reserved slots."));
 
@@ -69,7 +69,7 @@ namespace SCPDiscord
 
             public string GetUsage()
             {
-                return "discord_reconnect";
+                return "scpd_rc/scpd_reconnect";
             }
 
             public string[] OnCall(ICommandSender sender, string[] args)
@@ -92,7 +92,8 @@ namespace SCPDiscord
             plugin = this;
 
             serverStartTime.Start();
-            this.AddCommand("discord_reconnect", new ReconnectCommand(this));
+            this.AddCommand("scpd_rc", new ReconnectCommand(this));
+            this.AddCommand("scpd_reconnect", new ReconnectCommand(this));
 
             SetUpFileSystem();
             LoadConfig();
@@ -172,6 +173,17 @@ namespace SCPDiscord
             this.Info("SCPDiscord disabled.");
         }
 
+        public void QueueMessage(string[] channelAliases, string message)
+        {
+            foreach (string channel in channelAliases)
+            {
+                if (Config.GetDict("aliases").ContainsKey(channel))
+                {
+                    NetworkSystem.QueueMessage(channel + message);
+                }
+            }
+        }
+
         public void SendMessage(string[] channelAliases, string messagePath, Dictionary<string, string> variables = null)
         {
             foreach(string channel in channelAliases)
@@ -190,24 +202,6 @@ namespace SCPDiscord
             messageThread.Start();
         }
 
-        public void RefreshBotActivity()
-        {
-            Thread messageThread = new Thread(new ThreadStart(() => new RefreshBotActivity(this)));
-            messageThread.Start();
-        }
-
-        public void RefreshChannelTopic(float tps)
-        {
-            foreach (string channel in Config.GetArray("channels.topic"))
-            {
-                if (Config.GetDict("aliases").ContainsKey(channel))
-                {
-                    Thread messageThread = new Thread(new ThreadStart(() => new RefreshChannelTopic(this, Config.GetDict("aliases")[channel], tps)));
-                    messageThread.Start();
-                }
-            }
-        }
-
         /// <summary>
         /// Kicks a player by SteamID.
         /// </summary>
@@ -216,7 +210,7 @@ namespace SCPDiscord
         /// <returns>True if player was found, false if not.</returns>
         public bool KickPlayer(string steamID, string message = "Kicked from server")
         {
-            foreach (Smod2.API.Player player in this.pluginManager.Server.GetPlayers())
+            foreach (Smod2.API.Player player in pluginManager.Server.GetPlayers())
             {
                 if (player.SteamId == steamID)
                 {
@@ -235,7 +229,7 @@ namespace SCPDiscord
         /// <returns>True if player was found, false if not.</returns>
         public bool GetPlayerName(string steamID, ref string name)
         {
-            foreach (Smod2.API.Player player in this.pluginManager.Server.GetPlayers())
+            foreach (Smod2.API.Player player in pluginManager.Server.GetPlayers())
             {
                 if (player.SteamId == steamID)
                 {

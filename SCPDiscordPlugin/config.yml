@@ -20,6 +20,9 @@ settings:
     # Whether or not the plugin should send more detailed console messages
     # Set to true to turn on.
     verbose: false
+    # Whether or not the plugin should send debug information in the console
+    # Set to true to turn on.
+    debug: false
     # Turns on the config validation which shows the values after they have been read by the plugin so you can see they are correct
     configvalidation: false
 

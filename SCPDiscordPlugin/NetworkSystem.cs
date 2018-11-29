@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Smod2.API;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace SCPDiscord
@@ -23,35 +26,81 @@ namespace SCPDiscord
         }
     }
 
+    public class QueueMessageAsync
+    {
+        public QueueMessageAsync(string channelID, string messagePath, Dictionary<string, string> variables)
+        {
+            NetworkSystem.ProcessMessage(channelID, messagePath, variables);
+        }
+    }
+
     public static class NetworkSystem
     {
         private static Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private static List<string> messageQueue = new List<string>();
         private static SCPDiscord plugin;
+        private static Stopwatch topicUpdateTimer;
         public static void Run(SCPDiscord plugin)
         {
+            topicUpdateTimer = Stopwatch.StartNew();
+            topicUpdateTimer.Start();
             NetworkSystem.plugin = plugin;
             while(!Config.ready || !Language.ready)
             {
                 Thread.Sleep(1000);
             }
-            while(!plugin.shutdown)
+
+            Thread messageThread = new Thread(new ThreadStart(() => new BotListener(plugin)));
+            messageThread.Start();
+
+            while (!plugin.shutdown)
             {
-                if(IsConnected())
+                try
                 {
-                    Update(plugin);
+                    if(IsConnected())
+                    {
+                        Update(plugin);
+                    }
+                    else
+                    {
+                        Connect(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
+                    }
+                    Thread.Sleep(1000);
                 }
-                else
+                catch(Exception)
                 {
-                    Connect(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
+                    plugin.Warn("Network error caught, if this happens a lot try using the 'scpd_rc' command.");
                 }
-                Thread.Sleep(2000);
             }
         }
 
         private static void Update(SCPDiscord plugin)
         {
-            for(int i = 0; i < messageQueue.Count; i++)
+            if (topicUpdateTimer.ElapsedMilliseconds >= 10000)
+            {
+                topicUpdateTimer.Reset();
+                topicUpdateTimer.Start();
+                float tps = TickCounter.Reset() / 10.0f;
+                
+                // Update player count
+                if (Config.GetBool("settings.playercount"))
+                {
+                    string activity = "botactivity" + (plugin.pluginManager.Server.NumPlayers - 1) + " / " + plugin.GetConfigString("max_players");
+                    QueueMessage(activity);
+                }
+
+                // Update channel topic
+                foreach (string channel in Config.GetArray("channels.topic"))
+                {
+                    if (Config.GetDict("aliases").ContainsKey(channel))
+                    {
+                        RefreshChannelTopic(plugin, Config.GetDict("aliases")[channel], tps);
+                    }
+                }
+            }
+
+            // Send all messages
+            for (int i = 0; i < messageQueue.Count; i++)
             {
                 if(SendMessage(messageQueue[i]))
                 {
@@ -60,15 +109,20 @@ namespace SCPDiscord
                 }
             }
 
-            if(messageQueue.Count != 0 && Config.GetBool("verbose"))
+            if(messageQueue.Count != 0 && Config.GetBool("settings.verbose"))
             {
                 plugin.Warn("Warn could not send all messages.");
             }
         }
 
+        /// Connection functions //////////////////////////
         public static bool IsConnected()
         {
-            return socket.Connected;
+            if(socket == null)
+            {
+                return false;
+            }
+            return !((socket.Poll(1000, SelectMode.SelectRead) && (socket.Available == 0)) || !socket.Connected);
         }
 
         private static void Connect(string address, int port)
@@ -79,6 +133,15 @@ namespace SCPDiscord
             }
             try
             {
+                if(socket != null && socket.IsBound)
+                {
+                    socket.Shutdown(SocketShutdown.Both);
+                    socket.Close();
+                }
+                else
+                {
+                    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                }
                 if (Config.GetBool("settings.verbose"))
                 {
                     plugin.Info("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
@@ -91,8 +154,8 @@ namespace SCPDiscord
             {
                 if (Config.GetBool("settings.verbose"))
                 {
-                    plugin.Info("Error occured while connecting to discord bot server.");
-                    plugin.Debug(e.ToString());
+                    plugin.Error("Error occured while connecting to discord bot server.");
+                    plugin.Error(e.ToString());
                 }
                 Thread.Sleep(5000);
             }
@@ -100,8 +163,8 @@ namespace SCPDiscord
             {
                 if (Config.GetBool("settings.verbose"))
                 {
-                    plugin.Info("TCP client was unexpectedly closed.");
-                    plugin.Debug(e.ToString());
+                    plugin.Error("TCP client was unexpectedly closed.");
+                    plugin.Error(e.ToString());
                 }
                 Thread.Sleep(5000);
             }
@@ -109,8 +172,8 @@ namespace SCPDiscord
             {
                 if (Config.GetBool("settings.verbose"))
                 {
-                    plugin.Info("Invalid port.");
-                    plugin.Debug(e.ToString());
+                    plugin.Error("Invalid port.");
+                    plugin.Error(e.ToString());
                 }
                 Thread.Sleep(5000);
             }
@@ -118,8 +181,8 @@ namespace SCPDiscord
             {
                 if (Config.GetBool("settings.verbose"))
                 {
-                    plugin.Info("IP address is null.");
-                    plugin.Debug(e.ToString());
+                    plugin.Error("IP address is null.");
+                    plugin.Error(e.ToString());
                 }
                 Thread.Sleep(5000);
             }
@@ -129,7 +192,9 @@ namespace SCPDiscord
         {
             socket.Disconnect(false);
         }
+        /// ///////////////////////////////////////////////
 
+        /// Message functions /////////////////////////////
         private static bool SendMessage(string message)
         {
             // Abort if client is dead
@@ -152,18 +217,14 @@ namespace SCPDiscord
                 {
                     plugin.Info("Sent message '" + message + "' to bot.");
                 }
+                return true;
             }
             catch (Exception e)
             {
-                if (e is InvalidOperationException || e is ArgumentNullException)
+                plugin.Error("Error sending message '" + message + "' to bot.");
+                plugin.Error(e.ToString());
+                if (!(e is InvalidOperationException || e is ArgumentNullException || e is SocketException))
                 {
-                    plugin.Error("Error sending message '" + message + "' to bot.");
-                    plugin.Debug(e.ToString());
-                }
-                else
-                {
-                    plugin.Error("Error sending message '" + message + "' to bot. Exception: " + e);
-                    plugin.Debug(e.ToString());
                     throw e;
                 }
             }
@@ -296,6 +357,11 @@ namespace SCPDiscord
             return true;
         }
 
+        public static void QueueMessage(string message)
+        {
+            messageQueue.Add(message);
+        }
+
         private static string EscapeDiscordFormatting(string input)
         {
             input = input.Replace("`", "\\`");
@@ -303,6 +369,185 @@ namespace SCPDiscord
             input = input.Replace("_", "\\_");
             input = input.Replace("~", "\\~");
             return input;
+        }
+        
+        public static int Receive(out byte[] data)
+        {
+            data = new byte[1000];
+            return socket.Receive(data);
+        }
+        /// ///////////////////////////////////////////////
+
+        /// Channel topic refreshing
+        private static void RefreshChannelTopic(SCPDiscord plugin, string channelID, float tps)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>();
+            try
+            {
+                Server server = plugin.pluginManager.Server;
+                Dictionary<string, string> serverVariables;
+                if (server != null)
+                {
+                    serverVariables = new Dictionary<string, string>
+                    {
+                        { "players",           (server.NumPlayers - 1) + ""                                     },
+                        { "maxplayers",         plugin.GetConfigString("max_players")                           },
+                        { "ip",                 server.IpAddress                                                },
+                        { "port",               server.Port + ""                                                },
+                        { "isvisible",          server.Visible + ""                                             },
+                        { "isverified",         server.Verified + ""                                            },
+                        { "uptime",            (plugin.serverStartTime.ElapsedMilliseconds / 1000 / 60) + ""    },
+                        { "tps",                tps.ToString ("0.00")                                           }
+                    };
+                }
+                else
+                {
+                    serverVariables = new Dictionary<string, string>
+                    {
+                        { "players",        "0"                 },
+                        { "maxplayers",     "0"                 },
+                        { "ip",             "---.---.---.---"   },
+                        { "port",           "----"              },
+                        { "isvisible",      "False"             },
+                        { "isverified",     "False"             },
+                        { "uptime",         "0"                 },
+                        { "tps",            tps.ToString("0.00")}
+                    };
+                }
+
+                Dictionary<string, string> mapVariables;
+                if (server != null && server.Map != null)
+                {
+                    mapVariables = new Dictionary<string, string>
+                    {
+                        //{ "warheaddetonated",   server.Map.WarheadDetonated + ""    },
+                        { "decontaminated",     server.Map.LCZDecontaminated + ""   }
+                    };
+                }
+                else
+                {
+                    mapVariables = new Dictionary<string, string>
+                    {
+                        //{ "warheaddetonated",   "False" },
+                        { "decontaminated",     "False" }
+                    };
+                }
+
+                Dictionary<string, string> roundVariables;
+                if (server != null && server.Round != null)
+                {
+                    roundVariables = new Dictionary<string, string>
+                    {
+                        { "roundduration",     (server.Round.Duration / 60) + ""              },
+                        { "dclassalive",        server.Round.Stats.ClassDAlive + ""           },
+                        { "dclassdead",         server.Round.Stats.ClassDDead + ""            },
+                        { "dclassescaped",      server.Round.Stats.ClassDEscaped + ""         },
+                        { "dclassstart",        server.Round.Stats.ClassDStart + ""           },
+                        { "mtfalive",           server.Round.Stats.NTFAlive + ""              },
+                        { "scientistsalive",    server.Round.Stats.ScientistsAlive + ""       },
+                        { "scientistsdead",     server.Round.Stats.ScientistsDead + ""        },
+                        { "scientistsescaped",  server.Round.Stats.ScientistsEscaped + ""     },
+                        { "scientistsstart",    server.Round.Stats.ScientistsStart + ""       },
+                        { "scpalive",           server.Round.Stats.SCPAlive + ""              },
+                        { "scpdead",            server.Round.Stats.SCPDead + ""               },
+                        { "scpkills",           server.Round.Stats.SCPKills + ""              },
+                        { "scpstart",           server.Round.Stats.SCPStart + ""              },
+                        { "warheaddetonated",   server.Round.Stats.WarheadDetonated + ""      },
+                        { "zombies",            server.Round.Stats.Zombies + ""               }
+                    };
+                }
+                else
+                {
+                    roundVariables = new Dictionary<string, string>
+                    {
+                        { "roundduration",      "0"     },
+                        { "dclassalive",        "0"     },
+                        { "dclassdead",         "0"     },
+                        { "dclassescaped",      "0"     },
+                        { "dclassstart",        "0"     },
+                        { "mtfalive",           "0"     },
+                        { "scientistsalive",    "0"     },
+                        { "scientistsdead",     "0"     },
+                        { "scientistsescaped",  "0"     },
+                        { "scientistsstart",    "0"     },
+                        { "scpalive",           "0"     },
+                        { "scpdead",            "0"     },
+                        { "scpkills",           "0"     },
+                        { "scpstart",           "0"     },
+                        { "warheaddetonated",   "0"     },
+                        { "zombies",            "0"     }
+                    };
+                }
+
+                foreach (var entry in serverVariables)
+                {
+                    variables.Add(entry.Key, entry.Value);
+                }
+
+                foreach (var entry in mapVariables)
+                {
+                    variables.Add(entry.Key, entry.Value);
+                }
+
+                foreach (var entry in roundVariables)
+                {
+                    variables.Add(entry.Key, entry.Value);
+                }
+
+
+                var topic = Language.GetString("topic.message");
+
+                topic = topic.Replace("\n", "");
+
+                // Variable insertion
+                foreach (KeyValuePair<string, string> variable in variables)
+                {
+                    topic = topic.Replace("<var:" + variable.Key + ">", variable.Value);
+                }
+
+                // Regex replacements
+                Dictionary<string, string> regex = Language.GetRegexDictionary("topic.regex");
+
+                // Run the regex replacements
+                foreach (KeyValuePair<string, string> entry in regex)
+                {
+                    topic = topic.Replace(entry.Key, entry.Value);
+                }
+
+                // Try to send the message to the bot
+                try
+                {
+                    QueueMessage("channeltopic" + channelID + topic);
+
+                    if (Config.GetBool("settings.verbose"))
+                    {
+                        plugin.Info("Sent channel topic '" + topic + "' to bot.");
+                    }
+                }
+                catch (InvalidOperationException e)
+                {
+                    if (Config.GetBool("settings.verbose"))
+                    {
+                        plugin.Error("Error sending channel topic '" + topic + "' to bot.");
+                        plugin.Error(e.ToString());
+                    }
+                }
+                catch (ArgumentNullException e)
+                {
+                    if (Config.GetBool("settings.verbose"))
+                    {
+                        plugin.Error("Error sending channel topic '" + topic + "' to bot.");
+                        plugin.Error(e.ToString());
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                if (Config.GetBool("settings.verbose"))
+                {
+                    plugin.Error(e.ToString());
+                }
+            }
         }
     }
 }
