@@ -371,9 +371,8 @@ namespace SCPDiscord
             return input;
         }
         
-        public static int Receive(out byte[] data)
+        public static int Receive(byte[] data)
         {
-            data = new byte[1000];
             return socket.Receive(data);
         }
         /// ///////////////////////////////////////////////

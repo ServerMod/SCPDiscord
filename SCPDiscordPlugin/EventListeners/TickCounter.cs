@@ -13,10 +13,10 @@ namespace SCPDiscord
         {
             short value = ticks;
             ticks = 0;
-            return ticks;
+            return value;
         }
 
-        public void OnUpdate(UpdateEvent ev)
+        void IEventHandlerUpdate.OnUpdate(UpdateEvent ev)
         {
             ticks++;
         }

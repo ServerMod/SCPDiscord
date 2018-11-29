@@ -25,7 +25,8 @@ namespace SCPDiscord
                     try
                     {
                         //Discord messages can be up to 2000 chars long, UTF8 chars can be up to 4 bytes long.
-                        int dataLength = NetworkSystem.Receive(out byte[] data);
+                        byte[] data = new byte[1000];
+                        int dataLength = NetworkSystem.Receive(data);
 
                         string incomingData = "";
                         incomingData = Encoding.UTF8.GetString(data, 0, dataLength);
@@ -225,9 +226,9 @@ namespace SCPDiscord
                     {
                         if(ex is IOException)
                         {
-                            plugin.Error("BotListener Error: " + ex.ToString());
+                            plugin.Error("BotListener Error: " + ex);
                         }
-                        plugin.Error("BotListener Error: " + ex.ToString());
+                        plugin.Error("BotListener Error: " + ex);
                     }
                 }
                 Thread.Sleep(1000);
