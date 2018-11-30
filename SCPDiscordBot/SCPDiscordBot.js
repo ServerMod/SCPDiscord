@@ -2,7 +2,7 @@ console.log("Config loading...");
 const fs = require("fs");
 const YAML = require("yaml");
 const file = fs.readFileSync("./config.yml", "utf8");
-const { token, prefix, listeningPort, defaultChannel, verbose, cooldown, permissions } = YAML.parse(file);
+const { token, serverid, prefix, listeningPort, defaultChannel, verbose, cooldown, permissions, rolesync } = YAML.parse(file);
 console.log("Config loaded.");
 
 var connectedToDiscord = false;
@@ -334,17 +334,33 @@ discordClient.on("warn", (e) =>
 });
 
 console.log("Connecting to Discord...");
-discordClient.login(token).then().catch((e) =>
-{
-    if (e.code === "ENOTFOUND")
+discordClient.login(token)
+    .then(() =>
     {
-        console.error("ERROR: Connection to Discord could not be established. Are HTTP or HTTPS ports blocked (80 & 443)?");
-    }
-    else
+        if (serverid != null && serverid !== "")
+        {
+            var roles = discordClient.guilds.get(serverid).roles;
+            roles = roles.sort((a, b) => b.position - a.position || b.id - a.id);
+            console.log("##################### Discord roles #####################");
+            for (var [roleID, role] of roles)
+            {
+                console.log("# " + role.name.padEnd(35, ".") + roleID + " #");
+            }
+            console.log("#########################################################");
+        }
+
+    })
+    .catch((e) =>
     {
-        console.error(e);
-    }
-});
+        if (e.code === "ENOTFOUND")
+        {
+            console.error("ERROR: Connection to Discord could not be established. Are HTTP or HTTPS ports blocked (80 & 443)?");
+        }
+        else
+        {
+            console.error(e);
+        }
+    });
 
 console.log("Binding TCP port...");
 tcpServer.listen(listeningPort, () =>
