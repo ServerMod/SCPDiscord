@@ -157,13 +157,20 @@ tcpServer.on("connection", (socket) =>
                 var server = discordClient.guilds.get(serverid);
                 var member = server.members.get(discordID);
 
-                for (var key in rolesync)
+                if (member != null && server != null)
                 {
-                    if (member.roles.find(x => x.id === key) != null)
+                    for (var key in rolesync)
                     {
-                        socket.write("roleresponse " + steamID + " " + rolesync[key]);
-                        break;
+                        if (member.roles.find(x => x.id === key) != null)
+                        {
+                            socket.write("roleresponse " + steamID + " " + rolesync[key]);
+                            break;
+                        }
                     }
+                }
+                else
+                {
+                    console.log("Tried to sync the role of " + words[1] + " but they were not found on the discord server.");
                 }
             }
             else
