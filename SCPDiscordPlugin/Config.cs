@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -218,6 +218,31 @@ namespace SCPDiscord
         public static Dictionary<string, string> GetDict(string node)
         {
             return configDicts[node];
+        }
+
+        public static void SetBool(string key, bool value)
+        {
+            configBools[key] = value;
+        }
+
+        public static void SetString(string key, string value)
+        {
+            configStrings[key] = value;
+        }
+
+        public static void SetInt(string key, int value)
+        {
+            configInts[key] = value;
+        }
+
+        public static void SetArray(string key, string[] value)
+        {
+            configArrays[key] = value;
+        }
+
+        public static void SetDict(string key, Dictionary<string, string> value)
+        {
+            configDicts[key] = value;
         }
 
         public static void ValidateConfig(SCPDiscord plugin)
