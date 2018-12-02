@@ -57,109 +57,142 @@ namespace SCPDiscord
                                 {
                                     arguments = words.Skip(3).ToArray();
                                 }
-                                if (command == "ban")
-                                {
-                                    //Check if the command has enough arguments
-                                    if (arguments.Length >= 2)
-                                    {
-                                        BanCommand(arguments[0], arguments[1], MergeString(arguments.Skip(2).ToArray()));
-                                    }
-                                    else
-                                    {
-                                        Dictionary<string, string> variables = new Dictionary<string, string>
-                                        {
-                                            { "command", messages[0] }
-                                        };
-                                        plugin.SendMessage(channel, "botresponses.missingarguments", variables);
-                                    }
-                                }
-                                else if (command == "kick")
-                                {
-                                    //Check if the command has enough arguments
-                                    if (arguments.Length >= 1)
-                                    {
-                                        KickCommand(arguments[0], MergeString(arguments.Skip(1).ToArray()));
-                                    }
-                                    else
-                                    {
-                                        Dictionary<string, string> variables = new Dictionary<string, string>
-                                        {
-                                            { "command", messages[0] }
-                                        };
-                                        plugin.SendMessage(channel, "botresponses.missingarguments", variables);
-                                    }
-                                }
-                                else if (command == "kickall")
-                                {
-                                    KickallCommand(MergeString(arguments));
-                                }
-                                else if (command == "unban")
-                                {
-                                    //Check if the command has enough arguments
-                                    if (arguments.Length >= 1)
-                                    {
-                                        UnbanCommand(arguments[0]);
-                                    }
-                                    else
-                                    {
-                                        Dictionary<string, string> variables = new Dictionary<string, string>
-                                        {
-                                            { "command", messages[0] }
-                                        };
-                                        plugin.SendMessage(channel, "botresponses.missingarguments", variables);
-                                    }
-                                }
-                                else if (command == "list")
-                                {
+                                string response = "";
+                                Dictionary<string, string> variables = new Dictionary<string, string>();
 
-                                    var message = "```md\n# Players online:\n";
-                                    foreach (Player player in plugin.Server.GetPlayers())
-                                    {
-                                        string line = player.Name.PadRight(32);
-                                        line += player.SteamId;
-                                        line += "\n";
-                                    }
-                                    message += "```";
-
-                                    // Try to send the message to the bot
-                                    try
-                                    {
-                                        NetworkSystem.QueueMessage(channel + message);
-
-                                        if (Config.GetBool("settings.verbose"))
+                                switch (command)
+                                {
+                                    case "ban":
+                                        //Check if the command has enough arguments
+                                        if (arguments.Length >= 2)
                                         {
-                                            plugin.Info("Sent activity '" + message + "' to bot.");
+                                            BanCommand(arguments[0], arguments[1], MergeString(arguments.Skip(2).ToArray()));
                                         }
-                                    }
-                                    catch (InvalidOperationException e)
-                                    {
-                                        plugin.Error("Error sending activity '" + message + "' to bot.");
-                                        plugin.Debug(e.ToString());
-                                    }
-                                    catch (ArgumentNullException e)
-                                    {
-                                        plugin.Error("Error sending activity '" + message + "' to bot.");
-                                        plugin.Debug(e.ToString());
-                                    }
-                                }
-                                else if (command == "exit")
-                                {
-                                    plugin.SendMessage(channel, "botresponses.exit");
-                                }
-                                else if (command == "help")
-                                {
-                                    plugin.SendMessage(channel, "botresponses.help");
-                                }
-                                else if (command == "hidetag" || command == "showtag")
-                                {
-                                    if (plugin.pluginManager.GetEnabledPlugin("karlofduty.toggletag") != null)
-                                    {
-                                        if (arguments.Length > 0)
+                                        else
                                         {
-                                            command = "console_" + command;
-                                            string response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+                                            variables = new Dictionary<string, string>
+                                            {
+                                                { "command", messages[0] }
+                                            };
+                                            plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                        }
+                                        break;
 
-                                            Dictionary<string, string> variables = new Dictionary<string, string>
+                                    case "kick":
+                                        //Check if the command has enough arguments
+                                        if (arguments.Length >= 1)
+                                        {
+                                            KickCommand(arguments[0], MergeString(arguments.Skip(1).ToArray()));
+                                        }
+                                        else
+                                        {
+                                            variables = new Dictionary<string, string>
+                                            {
+                                                { "command", messages[0] }
+                                            };
+                                            plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                        }
+                                        break;
+
+                                    case "kickall":
+                                        KickallCommand(MergeString(arguments));
+                                        break;
+
+                                    case "unban":
+                                       //Check if the command has enough arguments
+                                        if (arguments.Length >= 1)
+                                        {
+                                            UnbanCommand(arguments[0]);
+                                        }
+                                        else
+                                        {
+                                            variables = new Dictionary<string, string>
+                                            {
+                                                { "command", messages[0] }
+                                            };
+                                            plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                        }
+                                        break;
+
+                                    case "list":
+                                        var message = "```md\n# Players online:\n";
+                                        foreach (Player player in plugin.Server.GetPlayers())
+                                        {
+                                            string line = player.Name.PadRight(32);
+                                            line += player.SteamId;
+                                            line += "\n";
+                                        }
+                                        message += "```";
+
+                                        // Try to send the message to the bot
+                                        try
+                                        {
+                                            NetworkSystem.QueueMessage(channel + message);
+
+                                            if (Config.GetBool("settings.verbose"))
+                                            {
+                                                plugin.Info("Sent activity '" + message + "' to bot.");
+                                            }
+                                        }
+                                        catch (InvalidOperationException e)
+                                        {
+                                            plugin.Error("Error sending activity '" + message + "' to bot.");
+                                            plugin.Debug(e.ToString());
+                                        }
+                                        catch (ArgumentNullException e)
+                                        {
+                                            plugin.Error("Error sending activity '" + message + "' to bot.");
+                                            plugin.Debug(e.ToString());
+                                        }
+                                        break;
+
+                                    case "exit":
+                                        plugin.SendMessage(channel, "botresponses.exit");
+                                        break;
+
+                                    case "help":
+                                        plugin.SendMessage(channel, "botresponses.help");
+                                        break;
+
+                                    case "hidetag":
+                                    case "showtag":
+                                        if (plugin.pluginManager.GetEnabledPlugin("karlofduty.toggletag") != null)
+                                        {
+                                            if (arguments.Length > 0)
+                                            {
+                                                command = "console_" + command;
+                                                response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+
+                                                variables = new Dictionary<string, string>
+                                                {
+                                                    { "feedback", response }
+                                                };
+                                                plugin.SendMessage(channel, "botresponses.consolecommandfeedback", variables);
+                                            }
+                                            else
+                                            {
+                                                variables = new Dictionary<string, string>
+                                                {
+                                                    { "command", command }
+                                                };
+                                                plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            plugin.SendMessage(channel, "botresponses.toggletag.notinstalled");
+                                        }
+                                        break;
+
+                                    case "vs_enable":
+                                    case "vs_disable":
+                                    case "vs_whitelist":
+                                    case "vs_reload":
+                                        if (plugin.pluginManager.GetEnabledPlugin("karlofduty.vpnshield") != null)
+                                        {
+                                            response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+
+                                            variables = new Dictionary<string, string>
                                             {
                                                 { "feedback", response }
                                             };
@@ -167,56 +200,25 @@ namespace SCPDiscord
                                         }
                                         else
                                         {
-                                            Dictionary<string, string> variables = new Dictionary<string, string>
-                                            {
-                                                { "command", command }
-                                            };
-                                            plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                            plugin.SendMessage(channel, "botresponses.vpnshield.notinstalled");
                                         }
-                                    }
-                                    else
-                                    {
-                                        plugin.SendMessage(channel, "botresponses.toggletag.notinstalled");
-                                    }
-                                }
-                                else if (command == "vs_enable" || command == "vs_disable" || command == "vs_whitelist" || command == "vs_reload")
-                                {
-                                    if (plugin.pluginManager.GetEnabledPlugin("karlofduty.vpnshield") != null)
-                                    {
-                                        string response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+                                        break;
 
-                                        Dictionary<string, string> variables = new Dictionary<string, string>
+                                    case "syncrole":
+                                        NetworkSystem.QueueMessage(channel + plugin.roleSync.AddPlayer(arguments[0], arguments[1]));
+                                        break;
+
+                                    case "unsyncrole":
+                                        NetworkSystem.QueueMessage(channel + plugin.roleSync.RemovePlayer(arguments[0]));
+                                        break;
+                                    default:
+                                        response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+                                        variables = new Dictionary<string, string>
                                         {
                                             { "feedback", response }
                                         };
                                         plugin.SendMessage(channel, "botresponses.consolecommandfeedback", variables);
-                                    }
-                                    else
-                                    {
-                                        plugin.SendMessage(channel, "botresponses.vpnshield.notinstalled");
-                                    }
-                                }
-                                else if (command == "syncrole")
-                                {
-                                    NetworkSystem.QueueMessage(channel + plugin.roleSync.AddPlayer(arguments[0], arguments[1]));
-                                }
-                                else if (command == "unsyncrole")
-                                {
-                                    NetworkSystem.QueueMessage(channel + plugin.roleSync.RemovePlayer(arguments[0]));
-                                }
-                                else if (command == "testrole")
-                                {
-                                    SCPDiscord.plugin.roleSync.SendRoleQuery("76561198022373616");
-                                }
-                                else
-                                {
-                                    string response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
-
-                                    Dictionary<string, string> variables = new Dictionary<string, string>
-                                    {
-                                        { "feedback", response }
-                                    };
-                                    plugin.SendMessage(channel, "botresponses.consolecommandfeedback", variables);
+                                        break;
                                 }
                             }
                             else if (words[0] == "roleresponse")
