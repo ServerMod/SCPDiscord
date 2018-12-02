@@ -1,9 +1,11 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using YamlDotNet.Serialization;
 
 namespace SCPDiscord
 {
@@ -96,8 +98,26 @@ namespace SCPDiscord
             { "aliases", new Dictionary<string, string>() }
         };
 
-        internal static void DeserialiseJSON(SCPDiscord plugin, JObject json)
+        internal static void Reload(SCPDiscord plugin)
         {
+            ready = false;
+            plugin.SetUpFileSystem();
+
+            // Reads file contents into FileStream
+            FileStream stream = File.OpenRead(FileManager.GetAppFolder() + "SCPDiscord/" + plugin.GetConfigString("scpdiscord_config"));
+
+            // Converts the FileStream into a YAML Dictionary object
+            var deserializer = new DeserializerBuilder().Build();
+            var yamlObject = deserializer.Deserialize(new StreamReader(stream));
+
+            // Converts the YAML Dictionary into JSON String
+            var serializer = new SerializerBuilder()
+                .JsonCompatible()
+                .Build();
+            string jsonString = serializer.Serialize(yamlObject);
+
+            JObject json = JObject.Parse(jsonString);
+
             // Reads the configvalidation node first as it is used for reading the others
             try
             {

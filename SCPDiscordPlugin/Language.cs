@@ -124,8 +124,9 @@ namespace SCPDiscord
             "topic"
         };
 
-        public static void Initialise()
+        public static void Reload()
         {
+            ready = false;
             plugin = SCPDiscord.plugin;
 
             // Save default language files

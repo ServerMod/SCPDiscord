@@ -36,36 +36,33 @@ namespace SCPDiscord
                         //If several messages come in at the same time, process all of them
                         while (messages.Count > 0)
                         {
+                            if (messages[0].Length == 0)
+                            {
+                                messages.RemoveAt(0);
+                                continue;
+                            }
+
                             if(Config.GetBool("settings.debug"))
                             {
                                 plugin.Info("COMMAND: " + messages[0]);
                             }
 
-                            if(messages[0].Length == 0)
-                            {
-                                messages.RemoveAt(0);
-                                continue;
-                            }
                             string[] words = messages[0].Split(' ');
-
-                            bool isCommand = words[0] == "command";
-                            string channel = words[1];
-                            string command = words[2];
-                            string[] arguments = new string[0];
-                            if(words.Length >= 4)
+                            if (words[0] == "command")
                             {
-                                arguments = words.Skip(3).ToArray();
-                            }
-
-                            //A verification that message is a command and not some left over string in the socket
-                            if (isCommand)
-                            {
+                                string channel = words[1];
+                                string command = words[2];
+                                string[] arguments = new string[0];
+                                if(words.Length >= 4)
+                                {
+                                    arguments = words.Skip(3).ToArray();
+                                }
                                 if (command == "ban")
                                 {
                                     //Check if the command has enough arguments
                                     if (arguments.Length >= 2)
                                     {
-                                        BanCommand(arguments[0], arguments[1], MergeReason(arguments.Skip(2).ToArray()));
+                                        BanCommand(arguments[0], arguments[1], MergeString(arguments.Skip(2).ToArray()));
                                     }
                                     else
                                     {
@@ -81,7 +78,7 @@ namespace SCPDiscord
                                     //Check if the command has enough arguments
                                     if (arguments.Length >= 1)
                                     {
-                                        KickCommand(arguments[0], MergeReason(arguments.Skip(1).ToArray()));
+                                        KickCommand(arguments[0], MergeString(arguments.Skip(1).ToArray()));
                                     }
                                     else
                                     {
@@ -94,7 +91,7 @@ namespace SCPDiscord
                                 }
                                 else if (command == "kickall")
                                 {
-                                    KickallCommand(MergeReason(arguments));
+                                    KickallCommand(MergeString(arguments));
                                 }
                                 else if (command == "unban")
                                 {
@@ -199,9 +196,17 @@ namespace SCPDiscord
                                         plugin.SendMessage(channel, "botresponses.vpnshield.notinstalled");
                                     }
                                 }
-                                else if(command == "syncrole")
+                                else if (command == "syncrole")
                                 {
-                                    plugin.roleSync.AddPlayer(arguments[0], arguments[1]);
+                                    NetworkSystem.QueueMessage(channel + plugin.roleSync.AddPlayer(arguments[0], arguments[1]));
+                                }
+                                else if (command == "unsyncrole")
+                                {
+                                    NetworkSystem.QueueMessage(channel + plugin.roleSync.RemovePlayer(arguments[0]));
+                                }
+                                else if (command == "testrole")
+                                {
+                                    SCPDiscord.plugin.roleSync.SendRoleQuery("76561198022373616");
                                 }
                                 else
                                 {
@@ -214,7 +219,11 @@ namespace SCPDiscord
                                     plugin.SendMessage(channel, "botresponses.consolecommandfeedback", variables);
                                 }
                             }
-                            if(Config.GetBool("settings.verbose"))
+                            else if (words[0] == "roleresponse")
+                            {
+                                plugin.roleSync.ReceiveQueryResponse(words[1], MergeString(words.Skip(2).ToArray()));
+                            }
+                            if (Config.GetBool("settings.verbose"))
                             {
                                 plugin.Info("From discord: " + messages[0]);
                             }
@@ -404,12 +413,7 @@ namespace SCPDiscord
             plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.kickall", variables);
         }
 
-        /// <summary>
-        /// Merges the words of the ban reason to one string.
-        /// </summary>
-        /// <param name="args">The reason split into words.</param>
-        /// <returns>The resulting string, empty string if no reason was given.</returns>
-        private static string MergeReason(string[] reason)
+        private static string MergeString(string[] reason)
         {
             StringBuilder output = new StringBuilder();
             foreach(string word in reason)

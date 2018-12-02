@@ -213,7 +213,7 @@ namespace SCPDiscord
                 byte[] data = System.Text.Encoding.UTF8.GetBytes(message + '\0');
                 socket.Send(data);
 
-                if (Config.GetBool("settings.verbose"))
+                if (Config.GetBool("settings.debug"))
                 {
                     plugin.Info("Sent message '" + message + "' to bot.");
                 }
@@ -377,7 +377,7 @@ namespace SCPDiscord
         }
         /// ///////////////////////////////////////////////
 
-        /// Channel topic refreshing
+        /// Channel topic refreshing //////////////////////
         private static void RefreshChannelTopic(SCPDiscord plugin, string channelID, float tps)
         {
             Dictionary<string, string> variables = new Dictionary<string, string>();
@@ -518,7 +518,7 @@ namespace SCPDiscord
                 {
                     QueueMessage("channeltopic" + channelID + topic);
 
-                    if (Config.GetBool("settings.verbose"))
+                    if (Config.GetBool("settings.debug"))
                     {
                         plugin.Info("Sent channel topic '" + topic + "' to bot.");
                     }

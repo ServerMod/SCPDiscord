@@ -1,4 +1,4 @@
-using Smod2;
+﻿using Smod2;
 using Smod2.Attributes;
 using Smod2.Commands;
 
@@ -24,7 +24,7 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "0.4.0",
+        version = "1.0.0",
         SmodMajor = 3,
         SmodMinor = 1,
         SmodRevision = 22
@@ -48,6 +48,7 @@ namespace SCPDiscord
             this.AddEventHandlers(new EnvironmentEventListener(this), Priority.Highest);
             this.AddEventHandlers(new TeamEventListener(this), Priority.Highest);
             this.AddEventHandlers(new TickCounter(), Priority.Highest);
+            this.AddEventHandlers(new SyncPlayerRole(), Priority.Highest);
 
             this.AddConfig(new Smod2.Config.ConfigSetting("max_players", "20", Smod2.Config.SettingType.STRING, true, "Gets the max players without reserved slots."));
 
@@ -204,12 +205,16 @@ namespace SCPDiscord
             serverStartTime.Start();
             this.AddCommand("scpd_rc", new ReconnectCommand(this));
             this.AddCommand("scpd_reconnect", new ReconnectCommand(this));
+            this.AddCommand("scpd_reload", new ReloadCommand(this));
+            this.AddCommand("scpd_unsync", new UnsyncCommand(this));
+            this.AddCommand("scpd_verbose", new VerboseCommand(this));
+            this.AddCommand("scpd_debug", new DebugCommand(this));
 
             SetUpFileSystem();
             LoadConfig();
             roleSync = new RoleSync(this);
 
-            Language.Initialise();
+            Language.Reload();
             Thread connectionThread = new Thread(new ThreadStart(() => new StartNetworkSystem(plugin)));
             connectionThread.Start();
             this.Info("SCPDiscord " + this.Details.version + " enabled.");
@@ -227,25 +232,19 @@ namespace SCPDiscord
                 this.Info("Config file " + GetConfigString("scpdiscord_config") + " does not exist, creating...");
                 File.WriteAllText(FileManager.GetAppFolder() + "SCPDiscord/" + GetConfigString("scpdiscord_config"), Encoding.UTF8.GetString(Resources.config));
             }
+
+            if (!File.Exists(FileManager.GetAppFolder() + "SCPDiscord/rolesync.json"))
+            {
+                plugin.Info("Config file rolesync.json does not exist, creating...");
+                File.WriteAllText(FileManager.GetAppFolder() + "SCPDiscord/rolesync.json", "[]");
+            }
         }
 
         public void LoadConfig()
         {
             try
             {
-                // Reads file contents into FileStream
-                FileStream stream = File.OpenRead(FileManager.GetAppFolder() + "SCPDiscord/" + GetConfigString("scpdiscord_config"));
-
-                // Converts the FileStream into a YAML Dictionary object
-                var deserializer = new DeserializerBuilder().Build();
-                var yamlObject = deserializer.Deserialize(new StreamReader(stream));
-
-                // Converts the YAML Dictionary into JSON String
-                var serializer = new SerializerBuilder()
-                    .JsonCompatible()
-                    .Build();
-                string jsonString = serializer.Serialize(yamlObject);
-                Config.DeserialiseJSON(this, JObject.Parse(jsonString));
+                Config.Reload(this);
                 this.Info("Successfully loaded config.");
             }
             catch (Exception e)

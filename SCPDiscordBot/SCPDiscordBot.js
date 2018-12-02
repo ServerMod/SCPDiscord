@@ -52,7 +52,7 @@ function hasPermission(member, command)
     {
         if (permissionRoles.includes(role.name.toLowerCase()))
         {
-            if (permissions[role.name.toLowerCase()].includes(command))
+            if (permissions[roleID].includes(command))
             {
                 return true;
             }
@@ -122,6 +122,7 @@ tcpServer.on("connection", (socket) =>
 
         messages.forEach(function (packet)
         {
+            console.log(packet);
             if (packet.slice(0, 12) === "channeltopic")
             {
                 var channel = packet.slice(12, 30);
@@ -148,10 +149,26 @@ tcpServer.on("connection", (socket) =>
                     console.warn("Set activity to " + packet.slice(11));
                 }
             }
+            else if (packet.slice(0, 9) === "rolequery" && discordClient.user != null)
+            {
+                var words = packet.split(" ");
+                var steamID = words[1];
+                var discordID = words[2];
+                var server = discordClient.guilds.get(serverid);
+                var member = server.members.get(discordID);
+
+                for (var key in rolesync)
+                {
+                    if (member.roles.find(x => x.id === key) != null)
+                    {
+                        socket.write("roleresponse " + steamID + " " + rolesync[key]);
+                        break;
+                    }
+                }
+            }
             else
             {
                 var destinationChannel = packet.slice(0, 18);
-                //console.log("Message channel: " + destinationChannel + "\n");
                 var message = packet.slice(18);
                 if (message !== "")
                 {
@@ -207,7 +224,7 @@ tcpServer.on("connection", (socket) =>
             {
                 if (verbose)
                 {
-                    console.warn("Channel not found for message: " + messageQueue);
+                    console.warn("Channel not found for message: " + messageQueue[channelID]);
                 }
             }
             messageQueue[channelID] = "";
