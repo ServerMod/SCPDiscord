@@ -1,4 +1,4 @@
-﻿using Smod2;
+using Smod2;
 using Smod2.Attributes;
 using Smod2.Commands;
 
@@ -83,6 +83,116 @@ namespace SCPDiscord
                 {
                     return new string[] { "Connection was already closed, reconnecting is in progress." };
                 }
+            }
+        }
+
+        class ReloadCommand : ICommandHandler
+        {
+            private SCPDiscord plugin;
+            public ReloadCommand(SCPDiscord plugin)
+            {
+                this.plugin = plugin;
+            }
+
+            public string GetCommandDescription()
+            {
+                return "Reloads all plugin configs and data files and then reconnects.";
+            }
+
+            public string GetUsage()
+            {
+                return "scpd_reload";
+            }
+
+            public string[] OnCall(ICommandSender sender, string[] args)
+            {
+                plugin.Info("Reloading plugin...");
+                Config.Reload(plugin);
+                Language.Reload();
+                plugin.roleSync.Reload();
+                NetworkSystem.Disconnect();
+                return new string[] { "Reload complete." };
+            }
+        }
+
+        class UnsyncCommand : ICommandHandler
+        {
+            private SCPDiscord plugin;
+            public UnsyncCommand(SCPDiscord plugin)
+            {
+                this.plugin = plugin;
+            }
+
+            public string GetCommandDescription()
+            {
+                return "Removes a user from having their discord role synced to the server.";
+            }
+
+            public string GetUsage()
+            {
+                return "scpd_unsync <discordid>";
+            }
+
+            public string[] OnCall(ICommandSender sender, string[] args)
+            {
+                if(args.Length > 0)
+                {
+                    return new string[] { plugin.roleSync.RemovePlayer(args[0]) };
+                }
+                else
+                {
+                    return new string[] { "Not enough arguments." };
+                }
+            }
+        }
+
+        class VerboseCommand : ICommandHandler
+        {
+            private SCPDiscord plugin;
+            public VerboseCommand(SCPDiscord plugin)
+            {
+                this.plugin = plugin;
+            }
+
+            public string GetCommandDescription()
+            {
+                return "Toggles verbose messages.";
+            }
+
+            public string GetUsage()
+            {
+                return "scpd_verbose";
+            }
+
+            public string[] OnCall(ICommandSender sender, string[] args)
+            {
+                Config.SetBool("settings.verbose", !Config.GetBool("settings.verbose"));
+                return new string[] { "Verbose messages: " + Config.GetBool("settings.verbose") };
+            }
+        }
+
+        class DebugCommand : ICommandHandler
+        {
+            private SCPDiscord plugin;
+            public DebugCommand(SCPDiscord plugin)
+            {
+                this.plugin = plugin;
+            }
+
+            public string GetCommandDescription()
+            {
+                return "Toggles debug messages.";
+            }
+
+            public string GetUsage()
+            {
+                return "scpd_debug";
+            }
+
+            public string[] OnCall(ICommandSender sender, string[] args)
+            {
+                Config.SetBool("settings.debug", !Config.GetBool("settings.debug"));
+                return new string[] { "Debug messages: " + Config.GetBool("settings.debug") };
             }
         }
 
