@@ -51,23 +51,35 @@ channels:
 
     # Environment events
     onscp914activate: []
-    onstartcountdown: [ "default" ]
+    onstartcountdown: 
+        initiated: [ "default" ]
+        resumed: [ "default" ]
     onstopcountdown: [ "default" ]
     ondetonate: [ "default" ]
     ondecontaminate: [ "default" ]
     
     # Player events
-    onplayerdie: [ "default", "staff" ]
-    onplayerhurt: []
+    onplayerhurt:
+        default: []
+        friendlyfire: []
+        noattacker: []
+    onplayerdie: 
+        default: [ "default" ]
+        friendlyfire: [ "default", "staff" ]
+        noattacker: [ "default" ]
     onplayerpickupitem: []
     onplayerdropitem: []
     onplayerjoin: [ "default", "staff" ]
     onnicknameset: [ "default", "staff" ]
     onassignteam: []
     onsetrole: []
-    oncheckescape: []
+    oncheckescape:
+        allowed: [ "default" ]
+        denied: []
     onspawn: [ "staff" ]
-    ondooraccess: []
+    ondooraccess:
+        allowed: []
+        denied: []
     onintercom: []
     onintercomcooldowncheck: []
     onpocketdimensionexit: [ "default" ]
@@ -79,22 +91,33 @@ channels:
     onlure: [ "default" ]
     oncontain106: [ "default" ]
     onmedkituse: [ "default" ]
-    onshoot: []
+    onshoot:
+        default: []
+        friendlyfire: []
+        notarget: []
     on106createportal: []
     on106teleport: []
     onelevatoruse: []
-    onhandcuff: [ "default" ]
-    onplayertriggertesla: []
+    onhandcuff:
+        default: [ "default" ]
+        nootherplayer: [ "default" ]
+    onplayertriggertesla:
+        default: []
+        ignore: []
     onscp914changeknob: []
     
     # Admin events
     onadminquery: [ "staff" ]
     onauthcheck: [ "staff" ]
-    onban: [ "default", "staff" ]
+    onban: 
+        admin: [ "default", "staff" ]
+        console: [ "default", "staff" ]
 
     # Team events
     ondecideteamrespawnqueue: []
     onsetrolemaxhp: []
-    onteamrespawn: [ "default" ]
+    onteamrespawn:
+        mtf: []
+        ci: [ "default" ]
     onsetscpconfig: []
     onsetntfunitname: [ "default" ]

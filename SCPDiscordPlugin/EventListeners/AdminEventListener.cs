@@ -79,7 +79,7 @@ namespace SCPDiscord
                     { "adminclass",             ev.Admin.TeamRole.Role.ToString()   },
                     { "adminteam",              ev.Admin.TeamRole.Team.ToString()   }
                 };
-                plugin.SendMessage(Config.GetArray("channels.onban"), "admin.onban", variables);
+                plugin.SendMessage(Config.GetArray("channels.onban.admin"), "admin.onban.admin", variables);
             }
             else
             {
@@ -96,7 +96,7 @@ namespace SCPDiscord
                     { "playerclass",            ev.Player.TeamRole.Role.ToString()  },
                     { "playerteam",             ev.Player.TeamRole.Team.ToString()  }
                 };
-                plugin.SendMessage(Config.GetArray("channels.onban"), "admin.onban.noadmin", variables);
+                plugin.SendMessage(Config.GetArray("channels.onban.console"), "admin.onban.console", variables);
             }
         }
     }

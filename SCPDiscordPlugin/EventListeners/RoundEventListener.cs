@@ -34,7 +34,7 @@ namespace SCPDiscord
             /// </summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "ipaddress", ev.Connection.IpAddress.ToString() }
+                { "ipaddress", ev.Connection.IpAddress }
             };
             plugin.SendMessage(Config.GetArray("channels.onconnect"), "round.onconnect", variables);
         }
@@ -46,7 +46,7 @@ namespace SCPDiscord
             /// </summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "ipaddress", ev.Connection.IpAddress.ToString() }
+                { "ipaddress", ev.Connection.IpAddress }
             };
             plugin.SendMessage(Config.GetArray("channels.ondisconnect"), "round.ondisconnect", variables);
         }

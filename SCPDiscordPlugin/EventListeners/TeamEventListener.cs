@@ -38,11 +38,11 @@ namespace SCPDiscord
 
             if(ev.SpawnChaos)
             {
-                plugin.SendMessage(Config.GetArray("channels.onteamrespawn"), "team.onteamrespawn.cispawn", variables);
+                plugin.SendMessage(Config.GetArray("channels.onteamrespawn.ci"), "team.onteamrespawn.ci", variables);
             }
             else
             {
-                plugin.SendMessage(Config.GetArray("channels.onteamrespawn"), "team.onteamrespawn", variables);
+                plugin.SendMessage(Config.GetArray("channels.onteamrespawn.mtf"), "team.onteamrespawn.mtf", variables);
             }
 
         }

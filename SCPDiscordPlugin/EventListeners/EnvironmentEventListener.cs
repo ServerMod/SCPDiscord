@@ -44,11 +44,11 @@ namespace SCPDiscord
 
             if(ev.IsResumed)
             {
-                plugin.SendMessage(Config.GetArray("channels.onstartcountdown"), "environment.onstartcountdown.countdownresumed", variables);
+                plugin.SendMessage(Config.GetArray("channels.onstartcountdown.resumed"), "environment.onstartcountdown.resumed", variables);
             }
             else
             {
-                plugin.SendMessage(Config.GetArray("channels.onstartcountdown"), "environment.onstartcountdown", variables);
+                plugin.SendMessage(Config.GetArray("channels.onstartcountdown.initiated"), "environment.onstartcountdown.initiated", variables);
             }
         }
 

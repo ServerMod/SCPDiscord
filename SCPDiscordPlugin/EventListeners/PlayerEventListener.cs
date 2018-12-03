@@ -70,7 +70,7 @@ namespace SCPDiscord
                     { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
                     { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
                 };
-                plugin.SendMessage(Config.GetArray("channels.onplayerhurt"), "player.onplayerhurt.noattacker", noAttackerVar);
+                plugin.SendMessage(Config.GetArray("channels.onplayerhurt.noattacker"), "player.onplayerhurt.noattacker", noAttackerVar);
                 return;
             }
 
@@ -94,11 +94,11 @@ namespace SCPDiscord
 
             if (IsTeamDamage((int)ev.Attacker.TeamRole.Team, (int)ev.Player.TeamRole.Team))
             {
-                plugin.SendMessage(Config.GetArray("channels.onplayerhurt"), "player.onplayerhurt.friendlyfire", variables);
+                plugin.SendMessage(Config.GetArray("channels.onplayerhurt.friendlyfire"), "player.onplayerhurt.friendlyfire", variables);
                 return;
             }
 
-            plugin.SendMessage(Config.GetArray("channels.onplayerhurt"), "player.onplayerhurt", variables);
+            plugin.SendMessage(Config.GetArray("channels.onplayerhurt.default"), "player.onplayerhurt.default", variables);
         }
 
         public void OnPlayerDie(PlayerDeathEvent ev)
@@ -126,7 +126,7 @@ namespace SCPDiscord
                     { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
                     { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
                 };
-                plugin.SendMessage(Config.GetArray("channels.onplayerdie"), "player.onplayerdie.nokiller", noKillerVar);
+                plugin.SendMessage(Config.GetArray("channels.onplayerdie.nokiller"), "player.onplayerdie.nokiller", noKillerVar);
                 return;
             }
 
@@ -150,10 +150,10 @@ namespace SCPDiscord
 
             if (IsTeamDamage((int)ev.Killer.TeamRole.Team, (int)ev.Player.TeamRole.Team))
             {
-                plugin.SendMessage(Config.GetArray("channels.onplayerdie"), "player.onplayerdie.friendlyfire", variables);
+                plugin.SendMessage(Config.GetArray("channels.onplayerdie.friendlyfire"), "player.onplayerdie.friendlyfire", variables);
                 return;
             }
-            plugin.SendMessage(Config.GetArray("channels.onplayerdie"), "player.onplayerdie", variables);
+            plugin.SendMessage(Config.GetArray("channels.onplayerdie.default"), "player.onplayerdie.default", variables);
         }
 
         public void OnPlayerPickupItem(PlayerPickupItemEvent ev)
@@ -289,11 +289,11 @@ namespace SCPDiscord
 
             if(ev.AllowEscape)
             {
-                plugin.SendMessage(Config.GetArray("channels.oncheckescape"), "player.oncheckescape", variables);
+                plugin.SendMessage(Config.GetArray("channels.oncheckescape.allowed"), "player.oncheckescape.allowed", variables);
             }
             else
             {
-                plugin.SendMessage(Config.GetArray("channels.oncheckescape"), "player.oncheckescape.denied", variables);
+                plugin.SendMessage(Config.GetArray("channels.oncheckescape.denied"), "player.oncheckescape.denied", variables);
             }
         }
 
@@ -337,11 +337,11 @@ namespace SCPDiscord
             };
             if (ev.Allow)
             {
-                plugin.SendMessage(Config.GetArray("channels.ondooraccess"), "player.ondooraccess", variables);
+                plugin.SendMessage(Config.GetArray("channels.ondooraccess.allowed"), "player.ondooraccess.allowed", variables);
             }
             else
             {
-                plugin.SendMessage(Config.GetArray("channels.ondooraccess"), "player.ondooraccess.notallowed", variables);
+                plugin.SendMessage(Config.GetArray("channels.ondooraccess.denied"), "player.ondooraccess.denied", variables);
             }
         }
 
@@ -460,18 +460,6 @@ namespace SCPDiscord
             /// Called when a player is cured by SCP-049
             /// <summary> 
             
-            //if(ev.Player == null)
-            //{
-            //    NetworkStream serverStream = plugin.clientSocket.GetStream();
-            //    byte[] outStream = System.Text.Encoding.UTF8.GetBytes("000000000000000000DEBUG: PLAYER WAS NULL\0");
-            //    serverStream.Write(outStream, 0, outStream.Length);
-            //}
-            //if (ev.Attacker == null)
-            //{
-            //    NetworkStream serverStream = plugin.clientSocket.GetStream();
-            //    byte[] outStream = System.Text.Encoding.UTF8.GetBytes("000000000000000000DEBUG: ATTACKER WAS NULL\0");
-            //    serverStream.Write(outStream, 0, outStream.Length);
-            //}
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "damage",                 ev.Damage.ToString()                    },
@@ -588,7 +576,7 @@ namespace SCPDiscord
                     { "attackerclass",          ev.Player.TeamRole.Role.ToString()  },
                     { "attackerteam",           ev.Player.TeamRole.Team.ToString()  }
                 };
-                plugin.SendMessage(Config.GetArray("channels.onshoot"), "player.onshoot.notarget", noTargetVars);
+                plugin.SendMessage(Config.GetArray("channels.onshoot.notarget"), "player.onshoot.notarget", noTargetVars);
                 return;
             }
 
@@ -611,10 +599,10 @@ namespace SCPDiscord
 
             if (ev.Player.SteamId != ev.Target.SteamId && IsTeamDamage((int)ev.Player.TeamRole.Team, (int)ev.Target.TeamRole.Team))
             {
-                plugin.SendMessage(Config.GetArray("channels.onshoot"), "player.onshoot.friendlyfire", variables);
+                plugin.SendMessage(Config.GetArray("channels.onshoot.friendlyfire"), "player.onshoot.friendlyfire", variables);
             }
 
-            plugin.SendMessage(Config.GetArray("channels.onshoot"), "player.onshoot", variables);
+            plugin.SendMessage(Config.GetArray("channels.onshoot.default"), "player.onshoot.default", variables);
         }
 
         public void On106CreatePortal(Player106CreatePortalEvent ev)
@@ -693,7 +681,7 @@ namespace SCPDiscord
                     { "playerclass",        ev.Owner.TeamRole.Role.ToString()       },
                     { "playerteam",         ev.Owner.TeamRole.Team.ToString()       }
                 };
-                plugin.SendMessage(Config.GetArray("channels.onhandcuff"), "player.onhandcuff", variables);
+                plugin.SendMessage(Config.GetArray("channels.onhandcuff.default"), "player.onhandcuff.default", variables);
             }
             else
             {
@@ -707,7 +695,7 @@ namespace SCPDiscord
                     { "targetclass",        ev.Player.TeamRole.Role.ToString()      },
                     { "targetteam",         ev.Player.TeamRole.Team.ToString()      }
                 };
-                plugin.SendMessage(Config.GetArray("channels.onhandcuff"), "player.onhandcuff.nootherplayer", variables);
+                plugin.SendMessage(Config.GetArray("channels.onhandcuff.nootherplayer"), "player.onhandcuff.nootherplayer", variables);
             }
         }
 
