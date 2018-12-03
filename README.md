@@ -28,4 +28,4 @@ Check out the [Wiki tab](https://github.com/KarlOfDuty/SCPDiscord/wiki) for all 
 
 ## Usage
 
-[Commands]()
+[Commands](https://github.com/KarlOfDuty/SCPDiscord/wiki/Commands)
