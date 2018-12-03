@@ -18,7 +18,7 @@ cooldown: 1000
 
 # Set permissions for discord roles here, the list names are the names of the discord roles and the list items are the first word of a command. Discord admins have access to all commands.
 permissions:
-    439020448710262784: # An everyone role example
+    430468637183442945: # An everyone role example
         - list
     444899493620744212: # A donator role example
         - vs_whitelist
