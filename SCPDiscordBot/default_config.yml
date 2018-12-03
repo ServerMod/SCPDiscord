@@ -7,8 +7,11 @@ prefix: "+"
 # Port to listen on
 listeningPort: 8888
 
-# Channel to post generic plugin messages in. Also the channel to listen for Discord commands in.
-defaultChannel: "add-channel-id-here"
+# Channel to post the bot status messages in
+statusChannels: [ "add-channel-id-here", "add-channel-id-here" ]
+
+# The channels where bot commands can be used
+commandChannels: [ "add-channel-id-here", "add-channel-id-here" ]
 
 # Log more messages to the console, useful for debugging
 verbose: false
@@ -18,13 +21,13 @@ cooldown: 1000
 
 # Set permissions for discord roles here, the list names are the names of the discord roles and the list items are the first word of a command. Discord admins have access to all commands.
 permissions:
-    430468637183442945: # An everyone role example
+    add-role-id-here: # An everyone role example
         - list
-    444899493620744212: # A donator role example
+    add-role-id-here: # A donator role example
         - vs_whitelist
         - syncrole
         - unsyncrole
-    439020448710262784: # A moderator example
+    add-role-id-here: # A moderator example
         - syncrole
         - ban
         - unban
@@ -39,12 +42,11 @@ permissions:
         - scpd_unsync
 
 # You need to enter your server id here to use role syncing, this will also show your server's roleIDs on startup
-serverid: "430468637183442945"
+serverID: "add-server-id-here"
 
 # Dictionary of discord roles to be synced to the game, value on the left is the discord role id and the right is the name of the game role they should be granted. (Not the role title but the role designation in the RA config)
 # The bot will give players the first role in the list that they have access to so make sure to put the highest ranks in the top of the list.
 rolesync: 
-    430474354875432960: "owner"
-    439020448710262784: "moderator"
-    444899558653427723: "donator1"
-    444899493620744212: "donator2"
+    add-role-id-here: "owner"
+    add-role-id-here: "moderator"
+    add-role-id-here: "donator"

@@ -2,7 +2,7 @@ console.log("Config loading...");
 const fs = require("fs");
 const YAML = require("yaml");
 const file = fs.readFileSync("./config.yml", "utf8");
-const { token, serverid, prefix, listeningPort, defaultChannel, verbose, cooldown, permissions, rolesync } = YAML.parse(file);
+const { token, prefix, listeningPort, statusChannels, commandChannels, verbose, cooldown, permissions, serverID, roleSync } = YAML.parse(file);
 console.log("Config loaded.");
 
 var connectedToDiscord = false;
@@ -154,16 +154,16 @@ tcpServer.on("connection", (socket) =>
                 var words = packet.split(" ");
                 var steamID = words[1];
                 var discordID = words[2];
-                var server = discordClient.guilds.get(serverid);
+                var server = discordClient.guilds.get(serverID);
                 var member = server.members.get(discordID);
 
                 if (member != null && server != null)
                 {
-                    for (var key in rolesync)
+                    for (var key in roleSync)
                     {
                         if (member.roles.find(x => x.id === key) != null)
                         {
-                            socket.write("roleresponse " + steamID + " " + rolesync[key]);
+                            socket.write("roleresponse " + steamID + " " + roleSync[key]);
                             break;
                         }
                     }
@@ -255,40 +255,48 @@ tcpServer.on("connection", (socket) =>
     socket.on("close", () =>
     {
         console.log("Plugin connection lost.");
-        var verifiedChannel = discordClient.channels.get(defaultChannel);
-        if (verifiedChannel != null)
-        {
-            verifiedChannel.send("```diff\n- SCP:SL server connection lost.```");
-            discordClient.user.setStatus("dnd");
-            discordClient.user.setActivity("for server startup.",
-            {
-                type: "WATCHING"
-            });
-        }
-        else if (verbose)
-        {
-            console.warn("Error sending status to Discord.");
-        }
         sockets.splice(sockets.indexOf(socket), 1);
+        for (var i = 0; i < statusChannels.length; i++)
+        {
+            var verifiedChannel = discordClient.channels.get(statusChannels[i]);
+            if (verifiedChannel != null)
+            {
+                verifiedChannel.send("```diff\n- SCP:SL server connection lost.```");
+            }
+            else if (verbose)
+            {
+                console.warn("Error sending status to Discord.");
+            }
+        }
+        discordClient.user.setStatus("dnd");
+        discordClient.user.setActivity("for server startup.",
+        {
+            type: "WATCHING"
+        });
     });
-
-    socket.on("timeout", () =>
-    {
-        socket.destroy();
-    });
-
 });
 
 
 discordClient.on("ready", () =>
 {
     console.log("Discord connection established.");
-    discordClient.channels.get(defaultChannel).send("```diff\n+ Bot Online.```");
+    for (var i = 0; i < statusChannels.length; i++)
+    {
+        var verifiedChannel = discordClient.channels.get(statusChannels[i]);
+        if (verifiedChannel != null)
+        {
+            verifiedChannel.send("```diff\n+ Bot Online.```");
+        }
+        else if (verbose)
+        {
+            console.warn("Error sending status to Discord.");
+        }
+    }
     discordClient.user.setStatus("dnd");
     discordClient.user.setActivity("for server startup.",
-    {
-        type: "WATCHING"
-    });
+        {
+            type: "WATCHING"
+        });
     connectedToDiscord = true;
 });
 
@@ -296,7 +304,7 @@ discordClient.on("ready", () =>
 discordClient.on("message", (message) =>
 {
     //Abort if message does not start with the prefix, if the sender is a bot, if the message is not from the right channel or if it does not contain any letters
-    if (!message.content.startsWith(prefix) || message.author.bot || message.channel.id !== defaultChannel || message.content.length <= prefix.length)
+    if (!message.content.startsWith(prefix) || message.author.bot || !commandChannels.includes(message.channel.id) || message.content.length <= prefix.length)
     {
         return;
     }
@@ -361,9 +369,9 @@ console.log("Connecting to Discord...");
 discordClient.login(token)
     .then(() =>
     {
-        if (serverid != null && serverid !== "")
+        if (serverID != null && serverID !== "")
         {
-            var roles = discordClient.guilds.get(serverid).roles;
+            var roles = discordClient.guilds.get(serverID).roles;
             roles = roles.sort((a, b) => b.position - a.position || b.id - a.id);
             console.log("##################### Discord roles #####################");
             for (var [roleID, role] of roles)
@@ -425,9 +433,23 @@ function shutdown()
         // Look, I have no idea how js works, its fine
         console.log("Signing out of Discord...");
         discordClient.user.setStatus("dnd")
-            .then(() => discordClient.channels.get(defaultChannel).send("```diff\n- Bot shutting down...```")
-            .then(() => discordClient.user.setActivity("for server startup.", { type: "WATCHING" })
-            .then(() => discordClient.destroy())));
+        .then(() =>
+        {
+            for (var i = 0; i < statusChannels.length; i++)
+            {
+                var verifiedChannel = discordClient.channels.get(statusChannels[i]);
+                if (verifiedChannel != null)
+                {
+                    verifiedChannel.send("```diff\n- Bot shutting down...```");
+                }
+                else if (verbose)
+                {
+                    console.warn("Error sending status to Discord.");
+                }
+            }
+        })
+        .then(() => discordClient.user.setActivity("for server startup.", { type: "WATCHING" })
+        .then(() => discordClient.destroy()));
     }
 }
 process.on("exit", () => shutdown());
