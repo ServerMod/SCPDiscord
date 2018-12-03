@@ -45,8 +45,8 @@ namespace SCPDiscord
             "round.onscenechanged",
 
             "environment.onscp914activate",
-            "environment.onstartcountdown.countdownresumed",
-            "environment.onstartcountdown",
+            "environment.onstartcountdown.resumed",
+            "environment.onstartcountdown.initiated",
             "environment.onstopcountdown",
             "environment.ondetonate",
             "environment.ondecontaminate",
@@ -99,7 +99,6 @@ namespace SCPDiscord
             "team.ondecideteamrespawnqueue",
             "team.onteamrespawn.mtf",
             "team.onteamrespawn.ci",
-            "team.onteamrespawn",
             "team.onsetrolemaxhp",
             "team.onsetscpconfig",
             "team.onsetntfunitname",
