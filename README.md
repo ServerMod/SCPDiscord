@@ -28,4 +28,6 @@ Check out the [Wiki tab](https://github.com/KarlOfDuty/SCPDiscord/wiki) for all 
 
 ## Usage
 
+[Languages](https://github.com/KarlOfDuty/SCPDiscord/wiki/Languages)
+
 [Commands](https://github.com/KarlOfDuty/SCPDiscord/wiki/Commands)
