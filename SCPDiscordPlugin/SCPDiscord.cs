@@ -245,7 +245,7 @@ namespace SCPDiscord
             try
             {
                 Config.Reload(this);
-                this.Info("Successfully loaded config.");
+                this.Info("Successfully loaded config '" + GetConfigString("scpdiscord_config") + "'.");
             }
             catch (Exception e)
             {

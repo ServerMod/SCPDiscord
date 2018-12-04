@@ -256,7 +256,7 @@ namespace SCPDiscord
                 identifier = "primary";
                 primary = JObject.Parse(jsonString);
             }
-            plugin.Info("Successfully loaded " + identifier + " language file '" + language + "'.");
+            plugin.Info("Successfully loaded " + identifier + " language file '" + language + ".yml'.");
         }
 
         public static void ValidateLanguageStrings()

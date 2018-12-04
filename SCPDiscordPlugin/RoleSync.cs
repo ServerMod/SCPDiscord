@@ -24,6 +24,7 @@ namespace SCPDiscord
         {
             this.plugin = plugin;
             Reload();
+            plugin.Info("RoleSync system loaded.");
         }
 
         public void Reload()
