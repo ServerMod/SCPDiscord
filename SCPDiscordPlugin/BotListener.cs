@@ -115,35 +115,13 @@ namespace SCPDiscord
                                         break;
 
                                     case "list":
-                                        var message = "```md\n# Players online:\n";
+                                        var message = "```md\n# Players online (" + (plugin.Server.NumPlayers - 1) + "):\n";
                                         foreach (Player player in plugin.Server.GetPlayers())
                                         {
-                                            string line = player.Name.PadRight(32);
-                                            line += player.SteamId;
-                                            line += "\n";
+                                            message += player.Name.PadRight(35) + "<" + player.SteamId + ">" + "\n";
                                         }
                                         message += "```";
-
-                                        // Try to send the message to the bot
-                                        try
-                                        {
-                                            NetworkSystem.QueueMessage(channel + message);
-
-                                            if (Config.GetBool("settings.verbose"))
-                                            {
-                                                plugin.Info("Sent activity '" + message + "' to bot.");
-                                            }
-                                        }
-                                        catch (InvalidOperationException e)
-                                        {
-                                            plugin.Error("Error sending activity '" + message + "' to bot.");
-                                            plugin.Debug(e.ToString());
-                                        }
-                                        catch (ArgumentNullException e)
-                                        {
-                                            plugin.Error("Error sending activity '" + message + "' to bot.");
-                                            plugin.Debug(e.ToString());
-                                        }
+                                        NetworkSystem.QueueMessage(channel + message);
                                         break;
 
                                     case "exit":
