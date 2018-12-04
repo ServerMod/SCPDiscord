@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using YamlDotNet.Serialization;
 
@@ -304,14 +305,28 @@ namespace SCPDiscord
             foreach (KeyValuePair<string, string[]> node in configArrays)
             {
                 sb.Append(node.Key + ": [ " + string.Join(", ", node.Value) + " ]\n");
+                if (node.Key.StartsWith("channels."))
+                {
+                    foreach(string s in node.Value)
+                    {
+                        if(!GetDict("aliases").ContainsKey(s))
+                        {
+                            sb.Append("WARNING: Channel alias '" + s + "' does not exist!\n");
+                        }
+                    }
+                }
             }
 
             sb.Append("------------ Config dictionaries ------------\n");
             foreach (KeyValuePair<string, Dictionary<string, string>> node in configDicts)
             {
-                sb.Append(node.Key + ":");
+                sb.Append(node.Key + ":\n");
                 foreach (KeyValuePair<string, string> subNode in node.Value)
                 {
+                    if(!Regex.IsMatch(subNode.Value, @"^\d+$"))
+                    {
+                        sb.Append("WARNING: Invalid channel ID: " + subNode.Value + "!\n");
+                    }
                     sb.Append("    " + subNode.Key + ": " + subNode.Value + "\n");
                 }
             }
