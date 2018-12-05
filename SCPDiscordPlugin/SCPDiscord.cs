@@ -111,7 +111,11 @@ namespace SCPDiscord
                 Config.Reload(plugin);
                 Language.Reload();
                 plugin.roleSync.Reload();
-                NetworkSystem.Disconnect();
+                if(NetworkSystem.IsConnected())
+                {
+                    NetworkSystem.Disconnect();
+                }
+                
                 return new string[] { "Reload complete." };
             }
         }

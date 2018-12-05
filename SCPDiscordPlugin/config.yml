@@ -2,7 +2,7 @@
 ############# SCPDiscord configuration file #############
 
 
-# Connection settings
+# Connection settings, the port cannot be the same as the SCPSL server port.
 bot:
     ip: "127.0.0.1"
     port: 8888
@@ -27,7 +27,7 @@ settings:
     configvalidation: false
 
 # Name your channels here, this name is used in the channels section below. The left value is a name of your choice and the right is a channel id you want it to represent.
-aliases: ["default":"add-role-id-here","staff":"add-role-id-here"]
+aliases: ["default":"add-channel-id-here","staff":"add-channel-id-here"]
 
 # Using the channel aliases above you can direct events to different channels here
 # Set to [] to disable an event.
