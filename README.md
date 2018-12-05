@@ -14,7 +14,7 @@ SCPDiscord links features from your SCP:SL server console to Discord channels, s
 
 * Ability to use different commands through Discord, currently kick, ban and unban. To my knowledge this is the only plugin that currently offers banning offline players, so hackers leaving as soon as they see an admin coming on is no longer an issue. It is also the only plugin I'm aware of that lets you unban players.
 
-* The ability to completely customise every single message from the plugin and use different languages. More info [here](https://github.com/KarlOfDuty/SCPDiscord/wiki/Adding-a-language-or-switching-language).
+* The ability to completely customise every single message from the plugin and use different languages. More info [here](https://github.com/KarlOfDuty/SCPDiscord/wiki/Languages).
 
 * Player count is displayed in the bot activity field. The bot's status changes from dnd when the scp server is on but the bot server is on, away when there are no players on a server and online when a server has players.
 
