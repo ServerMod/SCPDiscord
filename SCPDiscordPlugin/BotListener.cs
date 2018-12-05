@@ -257,7 +257,16 @@ namespace SCPDiscord
 
             // Create duration timestamp.
             string humanReadableDuration = "";
-            DateTime endTime = ParseBanDuration(duration, ref humanReadableDuration);
+            DateTime endTime = new DateTime();
+            try
+            {
+                endTime = ParseBanDuration(duration, ref humanReadableDuration);
+            }
+            catch(IndexOutOfRangeException)
+            {
+                endTime = DateTime.MinValue;
+            }
+
             if (endTime == DateTime.MinValue)
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
