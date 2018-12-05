@@ -47,10 +47,11 @@ function hasPermission(member, command)
     }
 
     var permissionRoles = Object.keys(permissions);
+
     var memberRoles = member.roles;
     for (var [roleID, role] of memberRoles)
     {
-        if (permissionRoles.includes(role.name.toLowerCase()))
+        if (permissionRoles.includes(roleID))
         {
             if (permissions[roleID].includes(command))
             {

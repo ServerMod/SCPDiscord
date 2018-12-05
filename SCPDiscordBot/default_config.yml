@@ -21,13 +21,13 @@ cooldown: 1000
 
 # Set permissions for discord roles here, the list names are the names of the discord roles and the list items are the first word of a command. Discord admins have access to all commands.
 permissions:
-    add-role-id-1-here: # An everyone role example
+    "add-role-id-1-here": # An everyone role example
         - list
-    add-role-id-2-here: # A donator role example
+    "add-role-id-2-here": # A donator role example
         - vs_whitelist
         - syncrole
         - unsyncrole
-    add-role-id-3-here: # A moderator example
+    "add-role-id-3-here": # A moderator example
         - syncrole
         - ban
         - unban
@@ -47,6 +47,6 @@ serverID: "add-server-id-here"
 # Dictionary of discord roles to be synced to the game, value on the left is the discord role id and the right is the name of the game role they should be granted. (Not the role title but the role designation in the RA config)
 # The bot will give players the first role in the list that they have access to so make sure to put the highest ranks in the top of the list.
 roleSync: 
-    add-role-id-1-here: "owner"
-    add-role-id-2-here: "moderator"
-    add-role-id-3-here: "donator"
+    "add-role-id-1-here": "owner"
+    "add-role-id-2-here": "moderator"
+    "add-role-id-3-here": "donator"
