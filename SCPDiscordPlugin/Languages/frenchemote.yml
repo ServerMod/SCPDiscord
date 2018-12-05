@@ -482,7 +482,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        default
+        default:
             message: ":gun:<var:attackername> (<var:attackersteamid>) a tiré sur <var:playername> (<var:playersteamid>) avec <var:weapon>."
             regex: []
         notarget:
