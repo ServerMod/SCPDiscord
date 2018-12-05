@@ -123,7 +123,6 @@ tcpServer.on("connection", (socket) =>
 
         messages.forEach(function (packet)
         {
-            console.log(packet);
             if (packet.slice(0, 12) === "channeltopic")
             {
                 var channel = packet.slice(12, 30);
