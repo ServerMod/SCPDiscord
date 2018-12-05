@@ -466,7 +466,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team 
-        message: "<var:name> (<var:steamid>) utilisé un kit médical et guéri <var:recoveredhealth>."
+        message: "<var:name> (<var:steamid>) a utilisé un kit de soin et s'est guéri de <var:recoveredhealth>PV."
         regex: []
     onshoot:
         # weapon - DamageType
