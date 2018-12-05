@@ -716,11 +716,11 @@ namespace SCPDiscord
             
             if(ev.Triggerable)
             {
-                plugin.SendMessage(Config.GetArray("channels.onplayertriggertesla"), "player.onplayertriggertesla", variables);
+                plugin.SendMessage(Config.GetArray("channels.onplayertriggertesla.default"), "player.onplayertriggertesla.default", variables);
             }
             else
             {
-                plugin.SendMessage(Config.GetArray("channels.onplayertriggertesla"), "player.onplayertriggertesla.ignored", variables);
+                plugin.SendMessage(Config.GetArray("channels.onplayertriggertesla.ignored"), "player.onplayertriggertesla.ignored", variables);
             }
         }
 
