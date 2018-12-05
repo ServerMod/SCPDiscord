@@ -26,14 +26,6 @@ namespace SCPDiscord
         }
     }
 
-    public class QueueMessageAsync
-    {
-        public QueueMessageAsync(string channelID, string messagePath, Dictionary<string, string> variables)
-        {
-            NetworkSystem.ProcessMessage(channelID, messagePath, variables);
-        }
-    }
-
     public static class NetworkSystem
     {
         private static Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -262,7 +254,7 @@ namespace SCPDiscord
             }
             
             // Add time stamp
-            if (Config.GetString("settings.timestamp") != "off")
+            if (Config.GetString("settings.timestamp") != "off" && Config.GetString("settings.timestamp") != "")
             {
                 message = "[" + DateTime.Now.ToString(Config.GetString("settings.timestamp")) + "]: " + message;
             }
