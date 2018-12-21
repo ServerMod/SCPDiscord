@@ -183,6 +183,7 @@ namespace SCPDiscord
         public static void Disconnect()
         {
             socket.Disconnect(false);
+            socket = null;
         }
         /// ///////////////////////////////////////////////
 

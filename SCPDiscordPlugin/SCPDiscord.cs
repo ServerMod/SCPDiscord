@@ -16,6 +16,7 @@ using YamlDotNet.Serialization;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using YamlDotNet.Core;
+using System.Threading.Tasks;
 
 namespace SCPDiscord
 {
@@ -24,7 +25,7 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "1.0.0-B",
+        version = "1.0.0-C",
         SmodMajor = 3,
         SmodMinor = 2,
         SmodRevision = 0
@@ -53,6 +54,33 @@ namespace SCPDiscord
             this.AddConfig(new Smod2.Config.ConfigSetting("max_players", "20", Smod2.Config.SettingType.STRING, true, "Gets the max players without reserved slots."));
 
             this.AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config", "config.yml", Smod2.Config.SettingType.STRING, true, "Name of the config file to use, by default 'config.yml'"));
+        }
+
+        public override void OnEnable()
+        {
+            plugin = this;
+
+            serverStartTime.Start();
+            this.AddCommand("scpd_rc", new ReconnectCommand(this));
+            this.AddCommand("scpd_reconnect", new ReconnectCommand(this));
+            this.AddCommand("scpd_reload", new ReloadCommand(this));
+            this.AddCommand("scpd_unsync", new UnsyncCommand(this));
+            this.AddCommand("scpd_verbose", new VerboseCommand(this));
+            this.AddCommand("scpd_debug", new DebugCommand(this));
+
+
+            Task.Run(() =>
+            {
+                Thread.Sleep(2000);
+                SetUpFileSystem();
+                LoadConfig();
+                roleSync = new RoleSync(this);
+
+                Language.Reload();
+                Thread connectionThread = new Thread(new ThreadStart(() => new StartNetworkSystem(plugin)));
+                connectionThread.Start();
+                this.Info("SCPDiscord " + this.Details.version + " enabled.");
+            });
         }
 
         class ReconnectCommand : ICommandHandler
@@ -109,6 +137,7 @@ namespace SCPDiscord
             {
                 plugin.Info("Reloading plugin...");
                 Config.Reload(plugin);
+                plugin.Info("Successfully loaded config '" + plugin.GetConfigString("scpdiscord_config") + "'.");
                 Language.Reload();
                 plugin.roleSync.Reload();
                 if(NetworkSystem.IsConnected())
@@ -201,29 +230,6 @@ namespace SCPDiscord
             }
         }
 
-        public override void OnEnable()
-        {
-            Thread.Sleep(2000);
-            plugin = this;
-
-            serverStartTime.Start();
-            this.AddCommand("scpd_rc", new ReconnectCommand(this));
-            this.AddCommand("scpd_reconnect", new ReconnectCommand(this));
-            this.AddCommand("scpd_reload", new ReloadCommand(this));
-            this.AddCommand("scpd_unsync", new UnsyncCommand(this));
-            this.AddCommand("scpd_verbose", new VerboseCommand(this));
-            this.AddCommand("scpd_debug", new DebugCommand(this));
-
-            SetUpFileSystem();
-            LoadConfig();
-            roleSync = new RoleSync(this);
-
-            Language.Reload();
-            Thread connectionThread = new Thread(new ThreadStart(() => new StartNetworkSystem(plugin)));
-            connectionThread.Start();
-            this.Info("SCPDiscord " + this.Details.version + " enabled.");
-        }
-
         public void SetUpFileSystem()
         {
             if (!Directory.Exists(FileManager.GetAppFolder() + "SCPDiscord"))
@@ -248,7 +254,7 @@ namespace SCPDiscord
         {
             try
             {
-                Config.Reload(this);
+                Config.Reload(plugin);
                 this.Info("Successfully loaded config '" + GetConfigString("scpdiscord_config") + "'.");
             }
             catch (Exception e)
