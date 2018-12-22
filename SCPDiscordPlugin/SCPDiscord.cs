@@ -25,7 +25,7 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "1.0.0-C",
+        version = "1.0.0-D",
         SmodMajor = 3,
         SmodMinor = 2,
         SmodRevision = 0
@@ -69,9 +69,9 @@ namespace SCPDiscord
             this.AddCommand("scpd_debug", new DebugCommand(this));
 
 
-            Task.Run(() =>
+            Task.Run(async () =>
             {
-                Thread.Sleep(2000);
+                await Task.Delay(4000);
                 SetUpFileSystem();
                 LoadConfig();
                 roleSync = new RoleSync(this);

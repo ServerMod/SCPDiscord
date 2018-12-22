@@ -59,9 +59,9 @@ namespace SCPDiscord
                     }
                     Thread.Sleep(1000);
                 }
-                catch(Exception)
+                catch(Exception e)
                 {
-                    plugin.Warn("Network error caught, if this happens a lot try using the 'scpd_rc' command.");
+                    plugin.Error("Network error caught, if this happens a lot try using the 'scpd_rc' command." + e);
                 }
             }
         }
@@ -114,42 +114,10 @@ namespace SCPDiscord
             {
                 return false;
             }
-            return !((socket.Poll(1000, SelectMode.SelectRead) && (socket.Available == 0)) || !socket.Connected);
-        }
 
-        private static void Connect(string address, int port)
-        {
-            if (Config.GetBool("settings.verbose"))
-            {
-                plugin.Info("Attempting Bot Connection...");
-            }
             try
             {
-                if(socket != null && socket.IsBound)
-                {
-                    socket.Shutdown(SocketShutdown.Both);
-                    socket.Close();
-                }
-                else
-                {
-                    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                }
-                if (Config.GetBool("settings.verbose"))
-                {
-                    plugin.Info("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
-                }
-                socket.Connect(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
-                plugin.Info("Connected to Discord bot.");
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botmessages.connectedtobot");
-            }
-            catch (SocketException e)
-            {
-                if (Config.GetBool("settings.verbose"))
-                {
-                    plugin.Error("Error occured while connecting to discord bot server.");
-                    plugin.Error(e.ToString());
-                }
-                Thread.Sleep(5000);
+                return !((socket.Poll(1000, SelectMode.SelectRead) && (socket.Available == 0)) || !socket.Connected);
             }
             catch (ObjectDisposedException e)
             {
@@ -158,32 +126,82 @@ namespace SCPDiscord
                     plugin.Error("TCP client was unexpectedly closed.");
                     plugin.Error(e.ToString());
                 }
-                Thread.Sleep(5000);
+                return false;
             }
-            catch (ArgumentOutOfRangeException e)
+        }
+
+        private static void Connect(string address, int port)
+        {
+            if (Config.GetBool("settings.verbose"))
             {
-                if (Config.GetBool("settings.verbose"))
-                {
-                    plugin.Error("Invalid port.");
-                    plugin.Error(e.ToString());
-                }
-                Thread.Sleep(5000);
+                plugin.Info("Attempting Bot Connection...");
             }
-            catch (ArgumentNullException e)
+
+            while(!IsConnected())
             {
-                if (Config.GetBool("settings.verbose"))
+                try
                 {
-                    plugin.Error("IP address is null.");
-                    plugin.Error(e.ToString());
+                    if(socket != null && socket.IsBound)
+                    {
+                        socket.Shutdown(SocketShutdown.Both);
+                        socket.Close();
+                    }
+                    if (Config.GetBool("settings.verbose"))
+                    {
+                        plugin.Info("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
+                    }
+                    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    socket.Connect(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
+                    plugin.Info("Connected to Discord bot.");
+                    plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botmessages.connectedtobot");
                 }
-                Thread.Sleep(5000);
+                catch (SocketException e)
+                {
+                    if (Config.GetBool("settings.verbose"))
+                    {
+                        plugin.Error("Error occured while connecting to discord bot server: " + e.Message);
+                        if(Config.GetBool("settings.verbose"))
+                        {
+                            plugin.Error(e.ToString());
+                        }
+                        
+                    }
+                    Thread.Sleep(5000);
+                }
+                catch (ObjectDisposedException e)
+                {
+                    if (Config.GetBool("settings.verbose"))
+                    {
+                        plugin.Error("TCP client was unexpectedly closed.");
+                        plugin.Error(e.ToString());
+                    }
+                    Thread.Sleep(5000);
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    if (Config.GetBool("settings.verbose"))
+                    {
+                        plugin.Error("Invalid port.");
+                        plugin.Error(e.ToString());
+                    }
+                    Thread.Sleep(5000);
+                }
+                catch (ArgumentNullException e)
+                {
+                    if (Config.GetBool("settings.verbose"))
+                    {
+                        plugin.Error("IP address is null.");
+                        plugin.Error(e.ToString());
+                    }
+                    Thread.Sleep(5000);
+                }
             }
         }
 
         public static void Disconnect()
         {
             socket.Disconnect(false);
-            socket = null;
+            //socket = null;
         }
         /// ///////////////////////////////////////////////
 
