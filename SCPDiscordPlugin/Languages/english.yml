@@ -562,7 +562,20 @@ player:
         # team - Team
         message: "<var:name> (<var:steamid>) set the SCP-914 knob to \"<var:setting>\"."
         regex: []
-
+    onplayerradioswitch:
+        # setting - RadioStatus
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) switched their radio to the <var:setting> status."
+        regex: []
+    onmakenoise: sdfdsfds
+        -fdsfds sdfdsfds
+        dsfdsf
+        # Continue here
 admin:
     onadminquery:
         # ipaddress - string

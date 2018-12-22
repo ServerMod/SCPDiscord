@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using YamlDotNet.Serialization;
 
 namespace SCPDiscord
@@ -94,6 +93,9 @@ namespace SCPDiscord
             { "channels.onplayertriggertesla.default",  new string[]{ } },
             { "channels.onplayertriggertesla.ignored",  new string[]{ } },
             { "channels.onscp914changeknob",        new string[]{ } },
+            { "channels.onplayerradioswitch",       new string[]{ } },
+            { "channels.onmakenoise",               new string[]{ } },
+            { "channels.onrecallzombie",            new string[]{ } },
             // Admin events
             { "channels.onadminquery",              new string[]{ } },
             { "channels.onauthcheck",               new string[]{ } },

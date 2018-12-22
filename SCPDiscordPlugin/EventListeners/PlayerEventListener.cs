@@ -1,9 +1,6 @@
 ﻿using Smod2.EventHandlers;
 using Smod2.Events;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
 
 namespace SCPDiscord
 {
@@ -11,7 +8,8 @@ namespace SCPDiscord
         IEventHandlerPlayerDropItem, IEventHandlerNicknameSet, IEventHandlerInitialAssignTeam, IEventHandlerSetRole, IEventHandlerCheckEscape, IEventHandlerDoorAccess,
         IEventHandlerIntercom, IEventHandlerIntercomCooldownCheck, IEventHandlerPocketDimensionExit, IEventHandlerPocketDimensionEnter, IEventHandlerPocketDimensionDie, 
         IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerSpawnRagdoll, IEventHandlerLure, IEventHandlerContain106, IEventHandlerMedkitUse, IEventHandlerShoot,
-        IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse, IEventHandlerHandcuffed , IEventHandlerPlayerTriggerTesla, IEventHandlerSCP914ChangeKnob
+        IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse, IEventHandlerHandcuffed , IEventHandlerPlayerTriggerTesla, IEventHandlerSCP914ChangeKnob,
+        IEventHandlerRadioSwitch, IEventHandlerMakeNoise, IEventHandlerRecallZombie
     {
         private readonly SCPDiscord plugin;
         // First dimension is target player second dimension is attacking player
@@ -740,6 +738,56 @@ namespace SCPDiscord
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
             plugin.SendMessage(Config.GetArray("channels.onscp914changeknob"), "player.onscp914changeknob", variables);
+        }
+
+        public void OnPlayerRadioSwitch(PlayerRadioSwitchEvent ev)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "setting",                ev.ChangeTo.ToString()              },
+                { "ipaddress",              ev.Player.IpAddress                 },
+                { "name",                   ev.Player.Name                      },
+                { "playerid",               ev.Player.PlayerId.ToString()       },
+                { "steamid",                ev.Player.SteamId                   },
+                { "class",                  ev.Player.TeamRole.Role.ToString()  },
+                { "team",                   ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendMessage(Config.GetArray("channels.onplayerradioswitch"), "player.onplayerradioswitch", variables);
+        }
+
+        public void OnMakeNoise(PlayerMakeNoiseEvent ev)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress",              ev.Player.IpAddress                 },
+                { "name",                   ev.Player.Name                      },
+                { "playerid",               ev.Player.PlayerId.ToString()       },
+                { "steamid",                ev.Player.SteamId                   },
+                { "class",                  ev.Player.TeamRole.Role.ToString()  },
+                { "team",                   ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendMessage(Config.GetArray("channels.onmakenoise"), "player.onmakenoise", variables);
+        }
+
+        public void OnRecallZombie(PlayerRecallZombieEvent ev)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "allowrecall",        ev.AllowRecall.ToString()               },
+                { "playeripaddress",    ev.Player.IpAddress                     },
+                { "playername",         ev.Player.Name                          },
+                { "playerplayerid",     ev.Player.PlayerId.ToString()           },
+                { "playersteamid",      ev.Player.SteamId                       },
+                { "playerclass",        ev.Player.TeamRole.Role.ToString()      },
+                { "playerteam",         ev.Player.TeamRole.Team.ToString()      },
+                { "targetipaddress",    ev.Target.IpAddress                     },
+                { "targetname",         ev.Target.Name                          },
+                { "targetplayerid",     ev.Target.PlayerId.ToString()           },
+                { "targetsteamid",      ev.Target.SteamId                       },
+                { "targetclass",        ev.Target.TeamRole.Role.ToString()      },
+                { "targetteam",         ev.Target.TeamRole.Team.ToString()      },
+            };
+            plugin.SendMessage(Config.GetArray("channels.onrecallzombie"), "player.onrecallzombie", variables);
         }
     }
 }

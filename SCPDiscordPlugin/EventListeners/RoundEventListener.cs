@@ -1,9 +1,7 @@
-﻿using SCPDiscord.Properties;
-using Smod2;
+﻿using Smod2;
 using Smod2.EventHandlers;
 using Smod2.Events;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SCPDiscord
 {

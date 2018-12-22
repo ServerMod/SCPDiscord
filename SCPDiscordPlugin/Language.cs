@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
-using System.Threading;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 
@@ -90,6 +89,9 @@ namespace SCPDiscord
             "player.onplayertriggertesla.default",
             "player.onplayertriggertesla.ignored",
             "player.onscp914changeknob",
+            "player.onplayerradioswitch",
+            "player.onmakenoise",
+            "player.onrecallzombie",
 
             "admin.onadminquery",
             "admin.onauthcheck",
