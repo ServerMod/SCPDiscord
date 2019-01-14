@@ -35,7 +35,8 @@ namespace SCPDiscord
         {
             "round.onroundstart",
             "round.onconnect",
-            "round.ondisconnect",
+            "round.ondisconnect.default",
+            "round.ondisconnect.banned",
             "round.oncheckroundend",
             "round.onroundend",
             "round.onwaitingforplayers",
@@ -103,8 +104,10 @@ namespace SCPDiscord
 
             "admin.onadminquery",
             "admin.onauthcheck",
-            "admin.onban.admin",
-            "admin.onban.console",
+            "admin.onban.admin.kick",
+            "admin.onban.console.kick",
+            "admin.onban.admin.ban",
+            "admin.onban.console.ban",
 
             "team.ondecideteamrespawnqueue",
             "team.onteamrespawn.mtf",

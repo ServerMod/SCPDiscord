@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace SCPDiscord
 {
     //Comments here are my own as there were none in the Smod2 api
-    class AdminEventListener : IEventHandlerAdminQuery, IEventHandlerAuthCheck, IEventHandlerBan
+    internal class AdminEventListener : IEventHandlerAdminQuery, IEventHandlerAuthCheck, IEventHandlerBan
     {
         private readonly SCPDiscord plugin;
 
@@ -17,7 +17,7 @@ namespace SCPDiscord
         public void OnAdminQuery(AdminQueryEvent ev)
         {
             ///Triggered whenever an adming uses an admin command, both gui and commandline RA
-            if(ev.Query == "REQUEST_DATA PLAYER_LIST SILENT")
+            if (ev.Query == "REQUEST_DATA PLAYER_LIST SILENT")
             {
                 return;
             }
@@ -58,7 +58,7 @@ namespace SCPDiscord
 
         public void OnBan(BanEvent ev)
         {
-            if(ev.Admin != null)
+            if (ev.Admin != null)
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
@@ -79,7 +79,14 @@ namespace SCPDiscord
                     { "adminclass",             ev.Admin.TeamRole.Role.ToString()   },
                     { "adminteam",              ev.Admin.TeamRole.Team.ToString()   }
                 };
-                plugin.SendMessage(Config.GetArray("channels.onban.admin"), "admin.onban.admin", variables);
+                if (ev.Duration == 0)
+                {
+                    plugin.SendMessage(Config.GetArray("channels.onban.admin.kick"), "admin.onban.admin.kick", variables);
+                }
+                else
+                {
+                    plugin.SendMessage(Config.GetArray("channels.onban.admin.ban"), "admin.onban.admin.ban", variables);
+                }
             }
             else
             {
@@ -96,7 +103,14 @@ namespace SCPDiscord
                     { "playerclass",            ev.Player.TeamRole.Role.ToString()  },
                     { "playerteam",             ev.Player.TeamRole.Team.ToString()  }
                 };
-                plugin.SendMessage(Config.GetArray("channels.onban.console"), "admin.onban.console", variables);
+                if (ev.Duration == 0)
+                {
+                    plugin.SendMessage(Config.GetArray("channels.onban.console.kick"), "admin.onban.console.kick", variables);
+                }
+                else
+                {
+                    plugin.SendMessage(Config.GetArray("channels.onban.console.ban"), "admin.onban.console.ban", variables);
+                }
             }
         }
     }
