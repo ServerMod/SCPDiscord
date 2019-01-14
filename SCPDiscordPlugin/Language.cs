@@ -4,8 +4,8 @@ using SCPDiscord.Properties;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Linq;
+using System.Text;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 
@@ -19,10 +19,10 @@ namespace SCPDiscord
         private static JObject primary = null;
         private static JObject backup = null;
 
-        private readonly static string languagesPath = FileManager.GetAppFolder() + "SCPDiscord/Languages/";
+        private static readonly string languagesPath = FileManager.GetAppFolder() + "SCPDiscord/Languages/";
 
         // All default languages included in the .dll
-        private readonly static Dictionary<string, string> defaultLanguages = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> defaultLanguages = new Dictionary<string, string>
         {
             { "english",        Encoding.UTF8.GetString(Resources.english)      },
             { "russian",        Encoding.UTF8.GetString(Resources.russian)      },
@@ -31,7 +31,7 @@ namespace SCPDiscord
             { "frenchemote",    Encoding.UTF8.GetString(Resources.frenchemote)  }
         };
 
-        private readonly static List<string> messageNodes = new List<string>
+        private static readonly List<string> messageNodes = new List<string>
         {
             "round.onroundstart",
             "round.onconnect",
@@ -44,11 +44,15 @@ namespace SCPDiscord
             "round.onscenechanged",
 
             "environment.onscp914activate",
+            "environment.onstartcountdown.noplayer",
             "environment.onstartcountdown.resumed",
             "environment.onstartcountdown.initiated",
-            "environment.onstopcountdown",
+            "environment.onstopcountdown.default",
+            "environment.onstopcountdown.noplayer",
             "environment.ondetonate",
             "environment.ondecontaminate",
+            "environment.onsummonvehicle.chaos",
+            "environment.onsummonvehicle.mtf",
 
             "player.onplayerhurt.noattacker",
             "player.onplayerhurt.friendlyfire",
@@ -192,7 +196,7 @@ namespace SCPDiscord
                     plugin.Debug(e.ToString());
                 }
             }
-            if(primary == null && backup == null)
+            if (primary == null && backup == null)
             {
                 plugin.Error("NO LANGUAGE FILE LOADED! DEACTIVATING SCPDISCORD.");
                 plugin.Disable();
@@ -210,7 +214,7 @@ namespace SCPDiscord
         {
             foreach (KeyValuePair<string, string> language in defaultLanguages)
             {
-                if(!File.Exists(languagesPath + language.Key + ".yml"))
+                if (!File.Exists(languagesPath + language.Key + ".yml"))
                 {
                     plugin.Info("Creating language file " + language.Key + ".yml...");
                     try
@@ -238,17 +242,17 @@ namespace SCPDiscord
             FileStream stream = File.OpenRead(languagesPath + language + ".yml");
 
             // Converts the FileStream into a YAML Dictionary object
-            var deserializer = new DeserializerBuilder().Build();
-            var yamlObject = deserializer.Deserialize(new StreamReader(stream));
+            IDeserializer deserializer = new DeserializerBuilder().Build();
+            object yamlObject = deserializer.Deserialize(new StreamReader(stream));
 
             // Converts the YAML Dictionary into JSON String
-            var serializer = new SerializerBuilder()
+            ISerializer serializer = new SerializerBuilder()
                 .JsonCompatible()
                 .Build();
             string jsonString = serializer.Serialize(yamlObject);
 
             string identifier = "";
-            if(isBackup)
+            if (isBackup)
             {
                 identifier = "backup";
                 backup = JObject.Parse(jsonString);
@@ -298,7 +302,7 @@ namespace SCPDiscord
             catch (Exception primaryException)
             {
                 // This exception means the node does not exist in the language file, the plugin attempts to find it in the backup file
-                if(primaryException is NullReferenceException || primaryException is ArgumentNullException || primaryException is InvalidCastException || primaryException is JsonException)
+                if (primaryException is NullReferenceException || primaryException is ArgumentNullException || primaryException is InvalidCastException || primaryException is JsonException)
                 {
                     plugin.Warn("Error reading string '" + path + "' from primary language file, switching to backup...");
                     try
@@ -340,7 +344,7 @@ namespace SCPDiscord
         /// </summary>
         /// <param name="path">The path to the node</param>
         /// <returns></returns>
-        public static Dictionary<string,string> GetRegexDictionary(string path)
+        public static Dictionary<string, string> GetRegexDictionary(string path)
         {
             if (primary == null && backup == null)
             {
