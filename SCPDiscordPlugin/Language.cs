@@ -96,6 +96,10 @@ namespace SCPDiscord
             "player.onplayerradioswitch",
             "player.onmakenoise",
             "player.onrecallzombie",
+            "player.oncallcommand",
+            "player.onreload",
+            "player.ongrenadeexplosion",
+            "player.ongrenadehitplayer",
 
             "admin.onadminquery",
             "admin.onauthcheck",

@@ -104,6 +104,10 @@ namespace SCPDiscord
             { "channels.onplayerradioswitch",       new string[]{ } },
             { "channels.onmakenoise",               new string[]{ } },
             { "channels.onrecallzombie",            new string[]{ } },
+            { "channels.oncallcommand",             new string[]{ } },
+            { "channels.onreload",                  new string[]{ } },
+            { "channels.ongrenadeexplosion",        new string[]{ } },
+            { "channels.ongrenadehitplayer",        new string[]{ } },
             // Admin events
             { "channels.onadminquery",              new string[]{ } },
             { "channels.onauthcheck",               new string[]{ } },

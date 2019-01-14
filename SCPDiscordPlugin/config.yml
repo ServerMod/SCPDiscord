@@ -115,7 +115,11 @@ channels:
     onplayerradioswitch: []
     onmakenoise: []
     onrecallzombie: []
-    
+    oncallcommand: []
+    onreload: []
+    ongrenadeexplosion: []
+    ongrenadehitplayer: []
+
     # Admin events
     onadminquery: [ "staff" ]
     onauthcheck: [ "staff" ]
