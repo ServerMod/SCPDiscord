@@ -1,2 +1,0 @@
-node SCPDiscordBot.js
-PAUSE
