@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using YamlDotNet.Serialization;
 
 namespace SCPDiscord
@@ -13,6 +12,7 @@ namespace SCPDiscord
     public static class Config
     {
         public static bool ready = false;
+
         private static Dictionary<string, string> configStrings = new Dictionary<string, string>
         {
             { "bot.ip",             "127.0.0.1" },
@@ -20,6 +20,7 @@ namespace SCPDiscord
             { "settings.language",  "english"   },
             { "settings.timestamp", ""          }
         };
+
         private static Dictionary<string, bool> configBools = new Dictionary<string, bool>
         {
             { "settings.playercount",       true    },
@@ -28,10 +29,12 @@ namespace SCPDiscord
             { "settings.metrics",           true    },
             { "settings.configvalidation",  true    }
         };
+
         private static Dictionary<string, int> configInts = new Dictionary<string, int>
         {
             { "bot.port", 8888 }
         };
+
         private static Dictionary<string, string[]> configArrays = new Dictionary<string, string[]>
         {
             // Bot messages
@@ -49,11 +52,15 @@ namespace SCPDiscord
             { "channels.onscenechanged",            new string[]{ } },
             // Environment events
             { "channels.onscp914activate",          new string[]{ } },
+            { "channels.onstartcountdown.noplayer", new string[]{ } },
             { "channels.onstartcountdown.initiated",new string[]{ } },
             { "channels.onstartcountdown.resumed",  new string[]{ } },
-            { "channels.onstopcountdown",           new string[]{ } },
+            { "channels.onstopcountdown.default",   new string[]{ } },
+            { "channels.onstopcountdown.noplayer",  new string[]{ } },
             { "channels.ondetonate",                new string[]{ } },
             { "channels.ondecontaminate",           new string[]{ } },
+            { "channels.onsummonvehicle.chaos",     new string[]{ } },
+            { "channels.onsummonvehicle.mtf",       new string[]{ } },
             // Player events
             { "channels.onplayerhurt.default",      new string[]{ } },
             { "channels.onplayerhurt.friendlyfire", new string[]{ } },
@@ -94,6 +101,13 @@ namespace SCPDiscord
             { "channels.onplayertriggertesla.default",  new string[]{ } },
             { "channels.onplayertriggertesla.ignored",  new string[]{ } },
             { "channels.onscp914changeknob",        new string[]{ } },
+            { "channels.onplayerradioswitch",       new string[]{ } },
+            { "channels.onmakenoise",               new string[]{ } },
+            { "channels.onrecallzombie",            new string[]{ } },
+            { "channels.oncallcommand",             new string[]{ } },
+            { "channels.onreload",                  new string[]{ } },
+            { "channels.ongrenadeexplosion",        new string[]{ } },
+            { "channels.ongrenadehitplayer",        new string[]{ } },
             // Admin events
             { "channels.onadminquery",              new string[]{ } },
             { "channels.onauthcheck",               new string[]{ } },
@@ -107,6 +121,7 @@ namespace SCPDiscord
             { "channels.onsetscpconfig",            new string[]{ } },
             { "channels.onsetntfunitname",          new string[]{ } },
         };
+
         private static Dictionary<string, Dictionary<string, string>> configDicts = new Dictionary<string, Dictionary<string, string>>
         {
             { "aliases", new Dictionary<string, string>() }
@@ -121,11 +136,11 @@ namespace SCPDiscord
             FileStream stream = File.OpenRead(FileManager.GetAppFolder() + "SCPDiscord/" + plugin.GetConfigString("scpdiscord_config"));
 
             // Converts the FileStream into a YAML Dictionary object
-            var deserializer = new DeserializerBuilder().Build();
-            var yamlObject = deserializer.Deserialize(new StreamReader(stream));
+            IDeserializer deserializer = new DeserializerBuilder().Build();
+            object yamlObject = deserializer.Deserialize(new StreamReader(stream));
 
             // Converts the YAML Dictionary into JSON String
-            var serializer = new SerializerBuilder()
+            ISerializer serializer = new SerializerBuilder()
                 .JsonCompatible()
                 .Build();
             string jsonString = serializer.Serialize(yamlObject);
@@ -141,7 +156,7 @@ namespace SCPDiscord
             {
                 if (GetBool("settings.configvalidation"))
                 {
-                    plugin.Warn("Config bool 'settings.configvalidation' not found, using default value: true"); 
+                    plugin.Warn("Config bool 'settings.configvalidation' not found, using default value: true");
                 }
             }
 
@@ -237,18 +252,22 @@ namespace SCPDiscord
         {
             return configBools[node];
         }
+
         public static string GetString(string node)
         {
             return configStrings[node];
         }
+
         public static int GetInt(string node)
         {
             return configInts[node];
         }
+
         public static string[] GetArray(string node)
         {
             return configArrays[node];
         }
+
         public static Dictionary<string, string> GetDict(string node)
         {
             return configDicts[node];
@@ -307,9 +326,9 @@ namespace SCPDiscord
                 sb.Append(node.Key + ": [ " + string.Join(", ", node.Value) + " ]\n");
                 if (node.Key.StartsWith("channels."))
                 {
-                    foreach(string s in node.Value)
+                    foreach (string s in node.Value)
                     {
-                        if(!GetDict("aliases").ContainsKey(s))
+                        if (!GetDict("aliases").ContainsKey(s))
                         {
                             sb.Append("WARNING: Channel alias '" + s + "' does not exist!\n");
                         }
@@ -323,7 +342,7 @@ namespace SCPDiscord
                 sb.Append(node.Key + ":\n");
                 foreach (KeyValuePair<string, string> subNode in node.Value)
                 {
-                    if(!Regex.IsMatch(subNode.Value, @"^\d+$"))
+                    if (!Regex.IsMatch(subNode.Value, @"^\d+$"))
                     {
                         sb.Append("WARNING: Invalid channel ID: " + subNode.Value + "!\n");
                     }
@@ -332,7 +351,6 @@ namespace SCPDiscord
             }
             sb.Append("|||||||||||||||||||||||||||||||||||||||||||||||||||||||");
             plugin.Info(sb.ToString());
-            
         }
     }
 }

@@ -1,21 +1,20 @@
 ﻿using Smod2.EventHandlers;
 using Smod2.Events;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
 
 namespace SCPDiscord
 {
-    class PlayerEventListener : IEventHandlerPlayerJoin, IEventHandlerPlayerDie, IEventHandlerSpawn, IEventHandlerPlayerHurt, IEventHandlerPlayerPickupItem, 
+    internal class PlayerEventListener : IEventHandlerPlayerJoin, IEventHandlerPlayerDie, IEventHandlerSpawn, IEventHandlerPlayerHurt, IEventHandlerPlayerPickupItem,
         IEventHandlerPlayerDropItem, IEventHandlerNicknameSet, IEventHandlerInitialAssignTeam, IEventHandlerSetRole, IEventHandlerCheckEscape, IEventHandlerDoorAccess,
-        IEventHandlerIntercom, IEventHandlerIntercomCooldownCheck, IEventHandlerPocketDimensionExit, IEventHandlerPocketDimensionEnter, IEventHandlerPocketDimensionDie, 
+        IEventHandlerIntercom, IEventHandlerIntercomCooldownCheck, IEventHandlerPocketDimensionExit, IEventHandlerPocketDimensionEnter, IEventHandlerPocketDimensionDie,
         IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerSpawnRagdoll, IEventHandlerLure, IEventHandlerContain106, IEventHandlerMedkitUse, IEventHandlerShoot,
-        IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse, IEventHandlerHandcuffed , IEventHandlerPlayerTriggerTesla, IEventHandlerSCP914ChangeKnob
+        IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse, IEventHandlerHandcuffed, IEventHandlerPlayerTriggerTesla, IEventHandlerSCP914ChangeKnob,
+        IEventHandlerRadioSwitch, IEventHandlerMakeNoise, IEventHandlerRecallZombie, IEventHandlerCallCommand, IEventHandlerReload, IEventHandlerGrenadeExplosion, IEventHandlerGrenadeHitPlayer
     {
         private readonly SCPDiscord plugin;
+
         // First dimension is target player second dimension is attacking player
-        private static readonly Dictionary<int,int> teamKillingMatrix = new Dictionary<int, int>
+        private static readonly Dictionary<int, int> teamKillingMatrix = new Dictionary<int, int>
         {
             { 1, 3 },
             { 2, 4 },
@@ -30,7 +29,7 @@ namespace SCPDiscord
 
         private static bool IsTeamDamage(int attackerTeam, int targetTeam)
         {
-            if(attackerTeam == targetTeam)
+            if (attackerTeam == targetTeam)
             {
                 return true;
             }
@@ -46,11 +45,11 @@ namespace SCPDiscord
 
         public void OnPlayerHurt(PlayerHurtEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// This is called before the player is going to take damage.
             /// In case the attacker can't be passed, attacker will be null (fall damage etc)
             /// This may be broken into two events in the future
-            /// </summary> 
+            /// </summary>
 
             if (ev.Player == null || ev.Player.TeamRole.Role == Smod2.API.Role.UNASSIGNED)
             {
@@ -103,10 +102,10 @@ namespace SCPDiscord
 
         public void OnPlayerDie(PlayerDeathEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// This is called before the player is about to die. Be sure to check if player is SCP106 (classID 3) and if so, set spawnRagdoll to false.
             /// In case the killer can't be passed, attacker will be null, so check for that before doing something.
-            /// </summary> 
+            /// </summary>
 
             if (ev.Player == null || ev.Player.TeamRole.Role == Smod2.API.Role.UNASSIGNED)
             {
@@ -158,9 +157,9 @@ namespace SCPDiscord
 
         public void OnPlayerPickupItem(PlayerPickupItemEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// This is called when a player picks up an item.
-            /// </summary> 
+            /// </summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "item",         ev.Item.ToString()                    },
@@ -176,9 +175,9 @@ namespace SCPDiscord
 
         public void OnPlayerDropItem(PlayerDropItemEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// This is called when a player drops up an item.
-            /// </summary> 
+            /// </summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "item",         ev.Item.ToString()                    },
@@ -194,9 +193,9 @@ namespace SCPDiscord
 
         public void OnPlayerJoin(PlayerJoinEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// This is called when a player joins and is initialised.
-            /// </summary> 
+            /// </summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "ipaddress",    ev.Player.IpAddress                   },
@@ -211,9 +210,9 @@ namespace SCPDiscord
 
         public void OnNicknameSet(PlayerNicknameSetEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// This is called when a player attempts to set their nickname after joining. This will only be called once per game join.
-            /// </summary> 
+            /// </summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "nickname",       ev.Nickname                         },
@@ -229,10 +228,10 @@ namespace SCPDiscord
 
         public void OnAssignTeam(PlayerInitialAssignTeamEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a team is picked for a player. Nothing is assigned to the player, but you can change what team the player will spawn as.
             /// <summary>
-            if(ev.Team == Smod2.API.Team.NONE)
+            if (ev.Team == Smod2.API.Team.NONE)
             {
                 return;
             }
@@ -251,14 +250,14 @@ namespace SCPDiscord
 
         public void OnSetRole(PlayerSetRoleEvent ev)
         {
-            /// <summary>  
-            /// Called after the player is set a class, at any point in the game. 
-            /// <summary>  
-            if(ev.Role == Smod2.API.Role.UNASSIGNED)
+            /// <summary>
+            /// Called after the player is set a class, at any point in the game.
+            /// <summary>
+            if (ev.Role == Smod2.API.Role.UNASSIGNED)
             {
                 return;
             }
-            
+
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "ipaddress",      ev.Player.IpAddress                 },
@@ -273,9 +272,9 @@ namespace SCPDiscord
 
         public void OnCheckEscape(PlayerCheckEscapeEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player is checking if they should escape (this is regardless of class)
-            /// <summary>  
+            /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "allowescape",    ev.AllowEscape.ToString()           },
@@ -287,7 +286,7 @@ namespace SCPDiscord
                 { "team",           ev.Player.TeamRole.Team.ToString()  }
             };
 
-            if(ev.AllowEscape)
+            if (ev.AllowEscape)
             {
                 plugin.SendMessage(Config.GetArray("channels.oncheckescape.allowed"), "player.oncheckescape.allowed", variables);
             }
@@ -299,9 +298,9 @@ namespace SCPDiscord
 
         public void OnSpawn(PlayerSpawnEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player spawns into the world
-            /// <summary>  
+            /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "spawnpos",       ev.SpawnPos.ToString()              },
@@ -318,9 +317,9 @@ namespace SCPDiscord
 
         public void OnDoorAccess(PlayerDoorAccessEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player attempts to access a door that requires perms
-            /// <summary> 
+            /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "doorname",       ev.Door.Name                        },
@@ -347,9 +346,9 @@ namespace SCPDiscord
 
         public void OnIntercom(PlayerIntercomEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player attempts to use intercom.
-            /// <summary>  
+            /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "cooldowntime",   ev.CooldownTime.ToString()          },
@@ -367,9 +366,9 @@ namespace SCPDiscord
 
         public void OnIntercomCooldownCheck(PlayerIntercomCooldownCheckEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player attempts to use intercom. This happens before the cooldown check.
-            /// <summary>  
+            /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "currentcooldown",    ev.CurrentCooldown.ToString()       },
@@ -386,9 +385,9 @@ namespace SCPDiscord
 
         public void OnPocketDimensionExit(PlayerPocketDimensionExitEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player escapes from Pocket Demension
-            /// <summary>  
+            /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "ipaddress",          ev.Player.IpAddress                 },
@@ -403,9 +402,9 @@ namespace SCPDiscord
 
         public void OnPocketDimensionEnter(PlayerPocketDimensionEnterEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player enters Pocket Demension
-            /// <summary>  
+            /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "damage",             ev.Damage.ToString()                },
@@ -421,9 +420,9 @@ namespace SCPDiscord
 
         public void OnPocketDimensionDie(PlayerPocketDimensionDieEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player enters the wrong way of Pocket Demension. This happens before the player is killed.
-            /// <summary>  
+            /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "ipaddress",          ev.Player.IpAddress                 },
@@ -438,9 +437,9 @@ namespace SCPDiscord
 
         public void OnThrowGrenade(PlayerThrowGrenadeEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called after a player throws a grenade
-            /// <summary>  
+            /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "type",               ev.GrenadeType.ToString()           },
@@ -456,10 +455,10 @@ namespace SCPDiscord
 
         public void OnPlayerInfected(PlayerInfectedEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player is cured by SCP-049
-            /// <summary> 
-            
+            /// <summary>
+
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "damage",                 ev.Damage.ToString()                    },
@@ -482,9 +481,9 @@ namespace SCPDiscord
 
         public void OnSpawnRagdoll(PlayerSpawnRagdollEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a ragdoll is spawned
-            /// <summary>  
+            /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "ipaddress",          ev.Player.IpAddress                 },
@@ -499,9 +498,9 @@ namespace SCPDiscord
 
         public void OnLure(PlayerLureEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player enters FemurBreaker
-            /// <summary> 
+            /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "allowcontain",       ev.AllowContain.ToString()          },
@@ -518,7 +517,7 @@ namespace SCPDiscord
 
         public void OnContain106(PlayerContain106Event ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player presses the button to contain SCP-106
             /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
@@ -536,7 +535,7 @@ namespace SCPDiscord
 
         public void OnMedkitUse(PlayerMedkitUseEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player uses Medkit
             /// <summary>
 
@@ -555,7 +554,7 @@ namespace SCPDiscord
 
         public void OnShoot(PlayerShootEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player shoots
             /// <summary>
 
@@ -564,7 +563,7 @@ namespace SCPDiscord
                 return;
             }
 
-            if(ev.Target == null)
+            if (ev.Target == null)
             {
                 Dictionary<string, string> noTargetVars = new Dictionary<string, string>
                 {
@@ -607,7 +606,7 @@ namespace SCPDiscord
 
         public void On106CreatePortal(Player106CreatePortalEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when SCP-106 creates a portal
             /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
@@ -624,7 +623,7 @@ namespace SCPDiscord
 
         public void On106Teleport(Player106TeleportEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when SCP-106 teleports through portals
             /// <summary>
 
@@ -642,7 +641,7 @@ namespace SCPDiscord
 
         public void OnElevatorUse(PlayerElevatorUseEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player uses an elevator
             /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
@@ -660,7 +659,7 @@ namespace SCPDiscord
 
         public void OnHandcuffed(PlayerHandcuffedEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player handcuffs/releases another player
             /// <summary>
             if (ev.Owner != null)
@@ -701,7 +700,7 @@ namespace SCPDiscord
 
         public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player triggers a tesla gate
             /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
@@ -713,8 +712,8 @@ namespace SCPDiscord
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
-            
-            if(ev.Triggerable)
+
+            if (ev.Triggerable)
             {
                 plugin.SendMessage(Config.GetArray("channels.onplayertriggertesla.default"), "player.onplayertriggertesla.default", variables);
             }
@@ -726,7 +725,7 @@ namespace SCPDiscord
 
         public void OnSCP914ChangeKnob(PlayerSCP914ChangeKnobEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             /// Called when a player changes the knob of SCP-914
             /// <summary>
             Dictionary<string, string> variables = new Dictionary<string, string>
@@ -740,6 +739,126 @@ namespace SCPDiscord
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
             plugin.SendMessage(Config.GetArray("channels.onscp914changeknob"), "player.onscp914changeknob", variables);
+        }
+
+        public void OnPlayerRadioSwitch(PlayerRadioSwitchEvent ev)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "setting",                ev.ChangeTo.ToString()              },
+                { "ipaddress",              ev.Player.IpAddress                 },
+                { "name",                   ev.Player.Name                      },
+                { "playerid",               ev.Player.PlayerId.ToString()       },
+                { "steamid",                ev.Player.SteamId                   },
+                { "class",                  ev.Player.TeamRole.Role.ToString()  },
+                { "team",                   ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendMessage(Config.GetArray("channels.onplayerradioswitch"), "player.onplayerradioswitch", variables);
+        }
+
+        public void OnMakeNoise(PlayerMakeNoiseEvent ev)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress",              ev.Player.IpAddress                 },
+                { "name",                   ev.Player.Name                      },
+                { "playerid",               ev.Player.PlayerId.ToString()       },
+                { "steamid",                ev.Player.SteamId                   },
+                { "class",                  ev.Player.TeamRole.Role.ToString()  },
+                { "team",                   ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendMessage(Config.GetArray("channels.onmakenoise"), "player.onmakenoise", variables);
+        }
+
+        public void OnRecallZombie(PlayerRecallZombieEvent ev)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "allowrecall",        ev.AllowRecall.ToString()               },
+                { "playeripaddress",    ev.Player.IpAddress                     },
+                { "playername",         ev.Player.Name                          },
+                { "playerplayerid",     ev.Player.PlayerId.ToString()           },
+                { "playersteamid",      ev.Player.SteamId                       },
+                { "playerclass",        ev.Player.TeamRole.Role.ToString()      },
+                { "playerteam",         ev.Player.TeamRole.Team.ToString()      },
+                { "targetipaddress",    ev.Target.IpAddress                     },
+                { "targetname",         ev.Target.Name                          },
+                { "targetplayerid",     ev.Target.PlayerId.ToString()           },
+                { "targetsteamid",      ev.Target.SteamId                       },
+                { "targetclass",        ev.Target.TeamRole.Role.ToString()      },
+                { "targetteam",         ev.Target.TeamRole.Team.ToString()      },
+            };
+            plugin.SendMessage(Config.GetArray("channels.onrecallzombie"), "player.onrecallzombie", variables);
+        }
+
+        public void OnCallCommand(PlayerCallCommandEvent ev)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "command",                ev.Command                          },
+                { "returnmessage",          ev.ReturnMessage                    },
+                { "ipaddress",              ev.Player.IpAddress                 },
+                { "name",                   ev.Player.Name                      },
+                { "playerid",               ev.Player.PlayerId.ToString()       },
+                { "steamid",                ev.Player.SteamId                   },
+                { "class",                  ev.Player.TeamRole.Role.ToString()  },
+                { "team",                   ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendMessage(Config.GetArray("channels.oncallcommand"), "player.oncallcommand", variables);
+        }
+
+        public void OnReload(PlayerReloadEvent ev)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "weapon",                     ev.Weapon.ToString()                    },
+                { "normalmaxclipsize",          ev.NormalMaxClipSize.ToString()         },
+                { "ammoremoved",                ev.AmmoRemoved.ToString()               },
+                { "clipammocountafterreload",   ev.ClipAmmoCountAfterReload.ToString()  },
+                { "currentammototal",           ev.CurrentAmmoTotal.ToString()          },
+                { "currentclipammocount",       ev.CurrentClipAmmoCount.ToString()      },
+                { "ipaddress",                  ev.Player.IpAddress                     },
+                { "name",                       ev.Player.Name                          },
+                { "playerid",                   ev.Player.PlayerId.ToString()           },
+                { "steamid",                    ev.Player.SteamId                       },
+                { "class",                      ev.Player.TeamRole.Role.ToString()      },
+                { "team",                       ev.Player.TeamRole.Team.ToString()      }
+            };
+            plugin.SendMessage(Config.GetArray("channels.onreload"), "player.onreload", variables);
+        }
+
+        public void OnGrenadeExplosion(PlayerGrenadeExplosion ev)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress",                  ev.Player.IpAddress                     },
+                { "name",                       ev.Player.Name                          },
+                { "playerid",                   ev.Player.PlayerId.ToString()           },
+                { "steamid",                    ev.Player.SteamId                       },
+                { "class",                      ev.Player.TeamRole.Role.ToString()      },
+                { "team",                       ev.Player.TeamRole.Team.ToString()      }
+            };
+            plugin.SendMessage(Config.GetArray("channels.ongrenadeexplosion"), "player.ongrenadeexplosion", variables);
+        }
+
+        public void OnGrenadeHitPlayer(PlayerGrenadeHitPlayer ev)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "playeripaddress",    ev.Player.IpAddress                     },
+                { "playername",         ev.Player.Name                          },
+                { "playerplayerid",     ev.Player.PlayerId.ToString()           },
+                { "playersteamid",      ev.Player.SteamId                       },
+                { "playerclass",        ev.Player.TeamRole.Role.ToString()      },
+                { "playerteam",         ev.Player.TeamRole.Team.ToString()      },
+                { "targetipaddress",    ev.Victim.IpAddress                     },
+                { "targetname",         ev.Victim.Name                          },
+                { "targetplayerid",     ev.Victim.PlayerId.ToString()           },
+                { "targetsteamid",      ev.Victim.SteamId                       },
+                { "targetclass",        ev.Victim.TeamRole.Role.ToString()      },
+                { "targetteam",         ev.Victim.TeamRole.Team.ToString()      },
+            };
+            plugin.SendMessage(Config.GetArray("channels.ongrenadehitplayer"), "player.ongrenadehitplayer", variables);
         }
     }
 }

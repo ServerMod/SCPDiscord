@@ -1,8 +1,6 @@
 ﻿using Smod2;
 using Smod2.Attributes;
 using Smod2.Commands;
-
-using System.Net.Sockets;
 using System;
 
 using System.Threading;
@@ -12,8 +10,6 @@ using Smod2.Events;
 using SCPDiscord.Properties;
 using System.Diagnostics;
 using System.Text;
-using YamlDotNet.Serialization;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using YamlDotNet.Core;
 using System.Threading.Tasks;
@@ -25,7 +21,7 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "1.0.0-D",
+        version = "1.0.1",
         SmodMajor = 3,
         SmodMinor = 2,
         SmodRevision = 0

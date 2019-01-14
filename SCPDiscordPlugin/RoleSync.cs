@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using SCPDiscord.Properties;
 using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
@@ -9,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Security;
-using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 

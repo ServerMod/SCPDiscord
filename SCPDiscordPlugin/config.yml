@@ -51,12 +51,19 @@ channels:
 
     # Environment events
     onscp914activate: []
-    onstartcountdown: 
+    onstartcountdown:
+        noplayer: [ "default" ]
         initiated: [ "default" ]
         resumed: [ "default" ]
-    onstopcountdown: [ "default" ]
+    onstopcountdown:
+        default: [ "default" ]
+        noplayer: [ "default" ]
     ondetonate: [ "default" ]
     ondecontaminate: [ "default" ]
+    onsummonvehicle: 
+        chaos: [ "default" ]
+        mtf: [ "default" ]
+
     
     # Player events
     onplayerhurt:
@@ -105,7 +112,14 @@ channels:
         default: []
         ignore: []
     onscp914changeknob: []
-    
+    onplayerradioswitch: []
+    onmakenoise: []
+    onrecallzombie: []
+    oncallcommand: []
+    onreload: []
+    ongrenadeexplosion: []
+    ongrenadehitplayer: []
+
     # Admin events
     onadminquery: [ "staff" ]
     onauthcheck: [ "staff" ]
