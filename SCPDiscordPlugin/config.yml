@@ -41,7 +41,9 @@ channels:
     # Round events
     onroundstart: [ "default", "staff" ]
     onconnect: [ "default", "staff" ]
-    ondisconnect: [ "default", "staff" ]
+    ondisconnect: 
+        default: [ "default", "staff" ]
+        banned: [ "default", "staff" ]
     oncheckroundend: []
     onroundend: [ "default", "staff" ]
     onwaitingforplayers: [ "default" ]
@@ -124,8 +126,13 @@ channels:
     onadminquery: [ "staff" ]
     onauthcheck: [ "staff" ]
     onban: 
-        admin: [ "default", "staff" ]
-        console: [ "default", "staff" ]
+        admin: 
+            kick: [ "default", "staff" ]
+            ban: [ "default", "staff" ]
+        console: 
+            kick: [ "default", "staff" ]
+            ban: [ "default", "staff" ]
+
 
     # Team events
     ondecideteamrespawnqueue: []

@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace SCPDiscord
 {
-    class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerWaitingForPlayers, 
+    internal class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerWaitingForPlayers,
         IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName, IEventHandlerSceneChanged
     {
         private readonly SCPDiscord plugin;
-        bool roundHasStarted = false;
+        private bool roundHasStarted = false;
 
         public RoundEventListener(SCPDiscord plugin)
         {
@@ -20,7 +20,7 @@ namespace SCPDiscord
         {
             /// <summary>
             ///  This is the event handler for Round start events (before people are spawned in)
-            /// </summary> 
+            /// </summary>
             plugin.SendMessage(Config.GetArray("channels.onroundstart"), "round.onroundstart");
             roundHasStarted = true;
         }
@@ -46,14 +46,21 @@ namespace SCPDiscord
             {
                 { "ipaddress", ev.Connection.IpAddress }
             };
-            plugin.SendMessage(Config.GetArray("channels.ondisconnect"), "round.ondisconnect", variables);
+            if (ev.Connection.IsBanned)
+            {
+                plugin.SendMessage(Config.GetArray("channels.ondisconnect.banned"), "round.ondisconnect.banned", variables);
+            }
+            else
+            {
+                plugin.SendMessage(Config.GetArray("channels.ondisconnect.default"), "round.ondisconnect.default", variables);
+            }
         }
 
         public void OnCheckRoundEnd(CheckRoundEndEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             ///  This event handler will call everytime the game checks for a round end
-            /// </summary> 
+            /// </summary>
 
             //Protip, don't turn this on.
             plugin.SendMessage(Config.GetArray("channels.oncheckroundend"), "round.oncheckroundend");
@@ -61,10 +68,10 @@ namespace SCPDiscord
 
         public void OnRoundEnd(RoundEndEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             ///  This is the event handler for Round end events (when the stats appear on screen)
             /// </summary>
-            if(roundHasStarted && ev.Round.Duration > 60)
+            if (roundHasStarted && ev.Round.Duration > 60)
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
@@ -92,26 +99,26 @@ namespace SCPDiscord
 
         public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             ///  This event handler will call when the server is waiting for players
-            /// </summary> 
+            /// </summary>
             plugin.SendMessage(Config.GetArray("channels.onwaitingforplayers"), "round.onwaitingforplayers");
         }
 
         public void OnRoundRestart(RoundRestartEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             ///  This event handler will call when the server is about to restart
-            /// </summary> 
+            /// </summary>
             plugin.SendMessage(Config.GetArray("channels.onroundrestart"), "round.onroundrestart");
         }
 
         public void OnSetServerName(SetServerNameEvent ev)
         {
-            /// <summary>  
+            /// <summary>
             ///  This event handler will call when the server name is set
             /// </summary>
-            ev.ServerName = (ConfigManager.Manager.Config.GetBoolValue("discord_metrics", true)) ? ev.ServerName += "<color=#ffffff00><size=1>SCPD:" + plugin.Details.version + "</size></color>" : ev.ServerName; 
+            ev.ServerName = (ConfigManager.Manager.Config.GetBoolValue("discord_metrics", true)) ? ev.ServerName += "<color=#ffffff00><size=1>SCPD:" + plugin.Details.version + "</size></color>" : ev.ServerName;
 
             Dictionary<string, string> variables = new Dictionary<string, string>
             {

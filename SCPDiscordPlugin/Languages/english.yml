@@ -111,9 +111,14 @@ round:
         message: "Player attempting connection..."
         regex: []
     ondisconnect:
-        # ipaddress - string
-        message: "A player has disconnected."
-        regex: []
+        default:
+            # ipaddress - string
+            message: "A player has disconnected."
+            regex: []
+        banned:
+            # ipaddress - string
+            message: "A player has disconnected because they are banned."
+            regex: []
     oncheckroundend:
         message: "Checking if round has ended..."
         regex: []
@@ -209,6 +214,7 @@ environment:
         mtf:
             message: "**MTF helicopter is in visual range of the site, preparing to land.**"
             regex: []
+
 player:
     onplayerhurt:
         # damage - float
@@ -705,11 +711,19 @@ admin:
         # adminclass - Role
         # adminteam - Team
         admin:
-            message: "Player <var:playername> (<var:playersteamid>) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes. Reason: <var:reason>"
-            regex: []
+            ban:
+                message: "Player <var:playername> (<var:playersteamid>) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes. Reason: <var:reason>"
+                regex: []
+            kick:
+                message: "Player <var:playername> (<var:playersteamid>) was kicked by <var:adminname> (<var:adminsteamid>). Reason: <var:reason>"
+                regex: []
         console:
-            message: "<var:playername> (<var:playersteamid>) was banned by Skynet for <var:duration> minutes. Reason: <var:reason>"
-            regex: []
+            ban:
+                message: "Player <var:playername> (<var:playersteamid>) was banned by Skynet for <var:duration> minutes. Reason: <var:reason>"
+                regex: []
+            kick:
+                message: "Player <var:playername> (<var:playersteamid>) was kicked by Skynet. Reason: <var:reason>"
+                regex: []
     
 team:
     ondecideteamrespawnqueue:

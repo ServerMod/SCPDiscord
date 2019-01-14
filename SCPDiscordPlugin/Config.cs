@@ -43,7 +43,8 @@ namespace SCPDiscord
             // Round events
             { "channels.onroundstart",              new string[]{ } },
             { "channels.onconnect",                 new string[]{ } },
-            { "channels.ondisconnect",              new string[]{ } },
+            { "channels.ondisconnect.default",      new string[]{ } },
+            { "channels.ondisconnect.banned",       new string[]{ } },
             { "channels.oncheckroundend",           new string[]{ } },
             { "channels.onroundend",                new string[]{ } },
             { "channels.onwaitingforplayers",       new string[]{ } },
@@ -111,8 +112,10 @@ namespace SCPDiscord
             // Admin events
             { "channels.onadminquery",              new string[]{ } },
             { "channels.onauthcheck",               new string[]{ } },
-            { "channels.onban.admin",               new string[]{ } },
-            { "channels.onban.console",             new string[]{ } },
+            { "channels.onban.admin.kick",          new string[]{ } },
+            { "channels.onban.console.kick",        new string[]{ } },
+            { "channels.onban.admin.ban",           new string[]{ } },
+            { "channels.onban.console.ban",         new string[]{ } },
             // Team events
             { "channels.ondecideteamrespawnqueue",  new string[]{ } },
             { "channels.onsetrolemaxhp",            new string[]{ } },
