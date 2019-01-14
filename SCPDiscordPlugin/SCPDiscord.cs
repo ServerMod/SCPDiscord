@@ -1,18 +1,17 @@
-﻿using Smod2;
+﻿using Newtonsoft.Json;
+using SCPDiscord.Properties;
+using Smod2;
 using Smod2.Attributes;
 using Smod2.Commands;
-using System;
-
-using System.Threading;
-using System.IO;
-using System.Collections.Generic;
 using Smod2.Events;
-using SCPDiscord.Properties;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
-using Newtonsoft.Json;
-using YamlDotNet.Core;
+using System.Threading;
 using System.Threading.Tasks;
+using YamlDotNet.Core;
 
 namespace SCPDiscord
 {
@@ -21,10 +20,10 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "1.0.1",
+        version = "1.0.1-B",
         SmodMajor = 3,
         SmodMinor = 2,
-        SmodRevision = 0
+        SmodRevision = 2
     )]
     public class SCPDiscord : Plugin
     {
@@ -64,7 +63,6 @@ namespace SCPDiscord
             this.AddCommand("scpd_verbose", new VerboseCommand(this));
             this.AddCommand("scpd_debug", new DebugCommand(this));
 
-
             Task.Run(async () =>
             {
                 await Task.Delay(4000);
@@ -79,9 +77,10 @@ namespace SCPDiscord
             });
         }
 
-        class ReconnectCommand : ICommandHandler
+        private class ReconnectCommand : ICommandHandler
         {
             private SCPDiscord plugin;
+
             public ReconnectCommand(SCPDiscord plugin)
             {
                 this.plugin = plugin;
@@ -99,7 +98,7 @@ namespace SCPDiscord
 
             public string[] OnCall(ICommandSender sender, string[] args)
             {
-                if(NetworkSystem.IsConnected())
+                if (NetworkSystem.IsConnected())
                 {
                     NetworkSystem.Disconnect();
                     return new string[] { "Connection closed, reconnecting will begin shortly." };
@@ -111,9 +110,10 @@ namespace SCPDiscord
             }
         }
 
-        class ReloadCommand : ICommandHandler
+        private class ReloadCommand : ICommandHandler
         {
             private SCPDiscord plugin;
+
             public ReloadCommand(SCPDiscord plugin)
             {
                 this.plugin = plugin;
@@ -136,18 +136,19 @@ namespace SCPDiscord
                 plugin.Info("Successfully loaded config '" + plugin.GetConfigString("scpdiscord_config") + "'.");
                 Language.Reload();
                 plugin.roleSync.Reload();
-                if(NetworkSystem.IsConnected())
+                if (NetworkSystem.IsConnected())
                 {
                     NetworkSystem.Disconnect();
                 }
-                
+
                 return new string[] { "Reload complete." };
             }
         }
 
-        class UnsyncCommand : ICommandHandler
+        private class UnsyncCommand : ICommandHandler
         {
             private SCPDiscord plugin;
+
             public UnsyncCommand(SCPDiscord plugin)
             {
                 this.plugin = plugin;
@@ -165,7 +166,7 @@ namespace SCPDiscord
 
             public string[] OnCall(ICommandSender sender, string[] args)
             {
-                if(args.Length > 0)
+                if (args.Length > 0)
                 {
                     return new string[] { plugin.roleSync.RemovePlayer(args[0]) };
                 }
@@ -176,9 +177,10 @@ namespace SCPDiscord
             }
         }
 
-        class VerboseCommand : ICommandHandler
+        private class VerboseCommand : ICommandHandler
         {
             private SCPDiscord plugin;
+
             public VerboseCommand(SCPDiscord plugin)
             {
                 this.plugin = plugin;
@@ -201,9 +203,10 @@ namespace SCPDiscord
             }
         }
 
-        class DebugCommand : ICommandHandler
+        private class DebugCommand : ICommandHandler
         {
             private SCPDiscord plugin;
+
             public DebugCommand(SCPDiscord plugin)
             {
                 this.plugin = plugin;
@@ -232,7 +235,7 @@ namespace SCPDiscord
             {
                 Directory.CreateDirectory(FileManager.GetAppFolder() + "SCPDiscord");
             }
-            
+
             if (!File.Exists(FileManager.GetAppFolder() + "SCPDiscord/" + GetConfigString("scpdiscord_config")))
             {
                 this.Info("Config file " + GetConfigString("scpdiscord_config") + " does not exist, creating...");
@@ -301,9 +304,9 @@ namespace SCPDiscord
 
         public void SendMessage(string[] channelAliases, string messagePath, Dictionary<string, string> variables = null)
         {
-            foreach(string channel in channelAliases)
+            foreach (string channel in channelAliases)
             {
-                if(Config.GetDict("aliases").ContainsKey(channel))
+                if (Config.GetDict("aliases").ContainsKey(channel))
                 {
                     Thread messageThread = new Thread(new ThreadStart(() => new ProcessMessageAsync(Config.GetDict("aliases")[channel], messagePath, variables)));
                     messageThread.Start();

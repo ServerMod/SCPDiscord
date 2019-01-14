@@ -111,9 +111,14 @@ round:
         message: ":arrow_right:Player attempting connection..."
         regex: []
     ondisconnect:
-        # ipaddress - string
-        message: ":arrow_left:A player has disconnected."
-        regex: []
+        default:
+            # ipaddress - string
+            message: ":arrow_left:A player has disconnected."
+            regex: []
+        banned:
+            # ipaddress - string
+            message: ":arrow_left:A player has disconnected because they are banned."
+            regex: []
     oncheckroundend:
         message: "Checking if round has ended..."
         regex: []
@@ -173,6 +178,9 @@ environment:
         # steamid - string
         # class - Role
         # team - Team
+        noplayer:
+            message: ":radioactive:**The on-site nuclear warhead has been remotely activated by order of the O5 Council. All personnel must evacuate immediately.**"
+            regex: []
         initiated:
             message: ":radioactive:**The on-site nuclear warhead has been activated by <var:name> (<var:steamid>), <var:timeleft> seconds until detonation. All personnel must evacuate immediately.**"
             regex: []
@@ -187,14 +195,25 @@ environment:
         # steamid
         # class
         # team
-        message: ":radioactive:**The on-site nuclear warhead detonation has been canceled by <var:name> (<var:steamid>).**"
-        regex: []
+        default:
+            message: ":radioactive:**The on-site nuclear warhead detonation has been canceled by <var:name> (<var:steamid>).**"
+            regex: []
+        noplayer:
+            message: ":radioactive:**The on-site nuclear warhead detonation has been canceled remotely by order of the Ethics Committee**"
+            regex: []
     ondetonate:
         message: ":radioactive:**Detonation of the on-site nuclear warhead has been detected. Dispatching Foundation operatives to investigate.**"
         regex: []
     ondecontaminate:
         message: ":biohazard:**Light Containment Zone de-contamination has been initiated, all biological material will be destroyed.**"
         regex: []
+    onsummonvehicle:
+        chaos:
+            message: ":blue_car:**Warning: Unauthorized vehicle has breached the site perimeter.**"
+            regex: []
+        mtf:
+            message: ":helicopter:**MTF helicopter is in visual range of the site, preparing to land.**"
+            regex: []
     
 player:
     onplayerhurt:
@@ -562,7 +581,91 @@ player:
         # team - Team
         message: ":control_knobs:<var:name> (<var:steamid>) set the SCP-914 knob to \"<var:setting>\"."
         regex: []
-
+    onplayerradioswitch:
+        # setting - RadioStatus
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":radio:<var:name> (<var:steamid>) switched their radio to the <var:setting> status."
+        regex: []
+    onmakenoise: 
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":sound:<var:name> (<var:steamid>) made noise!"
+        regex: []
+    onrecallzombie:
+        # allowrecall - bool
+        # targetipaddress - string
+        # targetname - string
+        # targetplayerid - int
+        # targetsteamid - string
+        # targetclass - Role
+        # targetteam - Team
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: ":arrows_counterclockwise:<var:targetname> (<var:targetsteamid>) was revived as an SCP-049-2 instance by <var:playername> (<var:playersteamid>)"
+        regex: []
+    oncallcommand:
+        # command
+        # returnmessage
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: "<var:name> (<var:steamid>) used the command '<var:command>'. Result: '<var:returnmessage>'"
+        regex: []
+    onreload:
+        # weapon
+        # normalmaxclipsize
+        # ammoremoved
+        # clipammocountafterreload
+        # currentammototal
+        # currentclipammocount
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: ":arrows_counterclockwise:<var:name> (<var:steamid>) reloaded their <var:weapon>."
+        regex: []
+    ongrenadeexplosion:
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: ":boom:<var:name> (<var:steamid>)'s grenade exploded."
+        regex: []
+    ongrenadehitplayer:
+        # targetipaddress - string
+        # targetname - string
+        # targetplayerid - int
+        # targetsteamid - string
+        # targetclass - Role
+        # targetteam - Team
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: ":boom:<var:playername> (<var:playersteamid>)'s grenade hit <var:targetname> (<var:targetsteamid>)"
+        regex: []
 admin:
     onadminquery:
         # ipaddress - string
@@ -607,11 +710,19 @@ admin:
         # adminclass - Role
         # adminteam - Team
         admin:
-            message: ":no_entry:Player <var:playername> (<var:playersteamid>) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes. Reason: <var:reason>"
-            regex: []
+            ban:
+                message: ":no_entry:Player <var:playername> (<var:playersteamid>) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes. Reason: <var:reason>"
+                regex: []
+            kick:
+                message: ":no_entry:Player <var:playername> (<var:playersteamid>) was kicked by <var:adminname> (<var:adminsteamid>). Reason: <var:reason>"
+                regex: []
         console:
-            message: ":no_entry:<var:playername> (<var:playersteamid>) was banned by Skynet for <var:duration> minutes. Reason: <var:reason>"
-            regex: []
+            ban:
+                message: ":no_entry:Player <var:playername> (<var:playersteamid>) was banned by Skynet for <var:duration> minutes. Reason: <var:reason>"
+                regex: []
+            kick:
+                message: ":no_entry:Player <var:playername> (<var:playersteamid>) was kicked by Skynet. Reason: <var:reason>"
+                regex: []
     
 team:
     ondecideteamrespawnqueue:
@@ -725,7 +836,7 @@ botresponses:
         notinstalled:
             message: "```diff\n- This command requires the VPNShield plugin.```"
             regex: []
-    # The feedback from a console command, except the custom ones above. (Is not affected by regex other than final_regex)
+    # The feedback from a console command, except the custom ones above. (Is not affected by global regex other than final_regex)
     consolecommandfeedback:
         # feedback - string
         message: "```fix\n> <var:feedback>```"
