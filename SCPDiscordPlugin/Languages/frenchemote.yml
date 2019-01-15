@@ -455,7 +455,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "Le corps de <var:name> (<var:steamid>) <var:class> a réapparut."
+        message: "Le corps de <var:name> (<var:steamid>) <var:class> a apparût."
         regex: []
     onlure:
         # allowcontain - bool
