@@ -35,7 +35,7 @@ global_regex: [
 
     # Teams
     "CHAOS_INSURGENCY":"Insurrection du Chaos",
-    "NINETAILFOX":"MTF",
+    "NINETAILFOX":"FIM",
     "SCIENTISTS":"Scientifique",
 
     # Elevators
@@ -112,8 +112,13 @@ round:
         regex: []
     ondisconnect:
         # ipaddress - string
-        message: "un joueur vient de se déconnecter."
-        regex: []
+        default:
+            message: "Un joueur vient de se déconnecter."
+            regex: []
+        banned:
+            # ipaddress - string
+            message: "Un joueur s'est déconnecté parce qu'il est banni."
+            regex: []
     oncheckroundend:
         message: "Entrain de regarder si la partie est terminée..."
         regex: []
@@ -173,11 +178,14 @@ environment:
         # steamid - string
         # class - Role
         # team - Team
+        noplayer:
+            message: "**L'ogive alpha a été activée à distance par le conseil des O5. tout le personnel doit évacuer immédiatement.**"
+            regex: []
         initiated:
-            message: "**L'ogive alpha a été activée par <var:name> (<var:steamid>), <var:timeleft> secondes avant la détonation, tout le personnel doit évacuer.**"
+            message: "**L'ogive alpha a été activée par <var:name> (<var:steamid>), <var:timeleft> secondes avant la détonation, tout le personnel doit évacuer immédiatement.**"
             regex: []
         resumed:
-            message: "**L'ogive alpha a été réactivée par <var:name> (<var:steamid>), <var:timeleft> secondes avant la détonation, tout le personnel doit évacuer.**"
+            message: "**L'ogive alpha a été réactivée par <var:name> (<var:steamid>), <var:timeleft> secondes avant la détonation, tout le personnel doit évacuer immédiatement.**"
             regex: []
     onstopcountdown:
         # timeleft
@@ -187,15 +195,26 @@ environment:
         # steamid
         # class
         # team
-        message: "**L'ogive alpha a été désactivée par <var:name> (<var:steamid>).**"
-        regex: []
+        default:
+            message: "**L'ogive alpha a été désactivée par <var:name> (<var:steamid>).**"
+            regex: []
+        noplayer:
+            message: "**L'ogive alpha a été désactivée à distance par le Comité d'Éthique.**"
+            regex: []
     ondetonate:
         message: "**l'ogive alpha a explosé, les agents de la fondation enquêtent.**"
         regex: []
     ondecontaminate:
         message: "**La décontamination de la zone de confinement légère a été initiée, tous les matériaux biologiques vont être détruits.**"
         regex: []
-    
+    onsummonvehicle:
+        chaos:
+            message: "**Attention: Un véhicule non autorisé a franchi le périmètre du site.**"
+            regex: []
+        mtf:
+            message: "**L'hélicoptère FIM est à portée du site et se prépare à atterrir.**"
+            regex: []
+
 player:
     onplayerhurt:
         # damage - float
@@ -436,7 +455,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>)'s <var:class> corps réapparut."
+        message: "Le corps de <var:name> (<var:steamid>)'s <var:class> a apparût."
         regex: []
     onlure:
         # allowcontain - bool
@@ -562,7 +581,91 @@ player:
         # team - Team
         message: "<var:name> (<var:steamid>) met le bouton de SCP-914 sur \"<var:setting>\"."
         regex: []
-
+    onplayerradioswitch:
+        # setting - RadioStatus
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) a basculé la radio sur le status <var:setting>."
+        regex: []
+    onmakenoise:
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) a fait du bruit !"
+        regex: []
+    onrecallzombie:
+        # allowrecall - bool
+        # targetipaddress - string
+        # targetname - string
+        # targetplayerid - int
+        # targetsteamid - string
+        # targetclass - Role
+        # targetteam - Team
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: "<var:targetname> (<var:targetsteamid>) a été ressuscité en tant que SCP-049-2 par <var:playername> (<var:playersteamid>)"
+        regex: []
+    oncallcommand:
+        # command
+        # returnmessage
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: "<var:name> (<var:steamid>) a utilisé la commande '<var:command>'. Résultat: '<var:returnmessage>'"
+        regex: []
+    onreload:
+        # weapon
+        # normalmaxclipsize
+        # ammoremoved
+        # clipammocountafterreload
+        # currentammototal
+        # currentclipammocount
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: "<var:name> (<var:steamid>) a rechargé <var:weapon>."
+        regex: []
+    ongrenadeexplosion:
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: "La grenade de <var:name> (<var:steamid>) a explosé."
+        regex: []
+    ongrenadehitplayer:
+        # targetipaddress - string
+        # targetname - string
+        # targetplayerid - int
+        # targetsteamid - string
+        # targetclass - Role
+        # targetteam - Team
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: "La grenade de <var:playername> (<var:playersteamid>) a touché <var:targetname> (<var:targetsteamid>)"
+        regex: []
 admin:
     onadminquery:
         # ipaddress - string
@@ -607,11 +710,19 @@ admin:
         # adminclass - Role
         # adminteam - Team
         admin:
-            message: "Le joueur <var:playername> (<var:playersteamid>) a été banni par <var:adminname> (<var:adminsteamid>) pendant <var:duration> minutes. Raison: <var:reason>"
-            regex: []
+            ban:
+                message: "Le joueur <var:playername> (<var:playersteamid>) a été banni par <var:adminname> (<var:adminsteamid>) pendant <var:duration> minutes. Raison: <var:reason>"
+                regex: []
+            kick:
+                message: "Le joueur <var:playername> (<var:playersteamid>) a été kick par <var:adminname> (<var:adminsteamid>). Raison: <var:reason>"
+                regex: []
         console:
-            message: "<var:playername> (<var:playersteamid>) a été banni par Skynet pendant <var:duration> minutes. Raison: <var:reason>"
-            regex: []
+            ban:
+                message: "Le joueur <var:playername> (<var:playersteamid>) a été banni par Skynet pendant <var:duration> minutes. Raison: <var:reason>"
+                regex: []
+            kick:
+                message: "Le joueur <var:playername> (<var:playersteamid>) a été kick par Skynet. Raison: <var:reason>"
+                regex: []
 
 team:
     ondecideteamrespawnqueue:
@@ -651,7 +762,7 @@ team:
         regex: []
     onsetntfunitname:
         # name - string
-        message: "**Unité MTF désigné <var:name> arrive dans la fondation.**"
+        message: "**L'unité FIM désigné <var:name> arrive dans la fondation.**"
         regex: []
 #####################################################################################################################
 #                                                                                                                   #
@@ -689,7 +800,7 @@ botresponses:
         regex: []
     playernotfound:
         # steamid - string
-        message: "```diff\n- Joueur avec le SteamID '<var:steamid>' n'a pas été trouvé.```"
+        message: "```diff\n- Le joueur avec le SteamID '<var:steamid>' n'a pas été trouvé.```"
         regex: []
     playerkicked:
         # name - string
@@ -725,7 +836,7 @@ botresponses:
         notinstalled:
             message: "```diff\n- Cette commande a besoin du plugin VPNShield.```"
             regex: []
-    # The feedback from a console command, except the custom ones above. (Is not affected by regex other than final_regex)
+    # The feedback from a console command, except the custom ones above. (Is not affected by global regex other than final_regex)
     consolecommandfeedback:
         # feedback
         message: "```fix\n> <var:feedback>```"
