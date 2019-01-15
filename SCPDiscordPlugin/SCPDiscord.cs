@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using SCPDiscord.Properties;
 using Smod2;
 using Smod2.Attributes;
