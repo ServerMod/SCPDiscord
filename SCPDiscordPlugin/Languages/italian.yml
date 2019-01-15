@@ -23,7 +23,6 @@ global_regex: [
     "SCP-939_":"SCP-939-",
     "SCP-939-89":"SCP-939-89",
     "CLASSD":"D-Boy",
-    "CHAOS_INSUGENCY":"Chaos Insurgency",
     "SPECTATOR":"Spettatore",
     "SCIENTIST":"Scienziato",
     "FACILITY_GUARD":"Guardia",
@@ -36,7 +35,6 @@ global_regex: [
     # Teams
     "CHAOS_INSURGENCY":"Chaos Insurgency",
     "NINETAILFOX":"MTF",
-    "SCIENTISTS":"Scienziati",
 
     # Elevators
     "GateA":"Gate A",
@@ -612,10 +610,10 @@ admin:
         # adminteam - Team
         admin:
             message: "Il Player `<var:playername>` (<var:playersteamid>) è stato bannato da <var:adminname> (<var:adminsteamid>) per <var:duration> minuti. Causa: <var:reason>"
-            regex: ["1 minuti":"1 minuto"]
+            regex: [" 1 minuti":" 1 minuto"]
         console:
             message: "`<var:playername>` (<var:playersteamid>) è stato bannato da Skynet per <var:duration> minuti. Causa: <var:reason>"
-            regex: ["1 minuti":"1 minuto"]
+            regex: [" 1 minuti":" 1 minuto"]
     
 team:
     ondecideteamrespawnqueue:
