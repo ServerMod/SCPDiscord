@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using SCPDiscord.Properties;
 using Smod2;
 using Smod2.Attributes;
@@ -20,7 +20,7 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "1.0.1-B",
+        version = "1.0.1-C",
         SmodMajor = 3,
         SmodMinor = 2,
         SmodRevision = 2
