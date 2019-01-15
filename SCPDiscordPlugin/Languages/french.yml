@@ -113,12 +113,12 @@ round:
     ondisconnect:
         # ipaddress - string
         default:
-            message: "un joueur vient de se déconnecter."
+            message: "Un joueur vient de se déconnecter."
             regex: []
-    banned:
-        # ipaddress - string
-        message: "Un joueur s'est déconnecté parce qu'il est banni."
-        regex: []
+        banned:
+            # ipaddress - string
+            message: "Un joueur s'est déconnecté parce qu'il est banni."
+            regex: []
     oncheckroundend:
         message: "Entrain de regarder si la partie est terminée..."
         regex: []
@@ -455,7 +455,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>)'s <var:class> corps réapparut."
+        message: "Le corps de <var:name> (<var:steamid>)'s <var:class> a réapparut."
         regex: []
     onlure:
         # allowcontain - bool
@@ -800,7 +800,7 @@ botresponses:
         regex: []
     playernotfound:
         # steamid - string
-        message: "```diff\n- le joueur avec le SteamID '<var:steamid>' n'a pas été trouvé.```"
+        message: "```diff\n- Le joueur avec le SteamID '<var:steamid>' n'a pas été trouvé.```"
         regex: []
     playerkicked:
         # name - string
