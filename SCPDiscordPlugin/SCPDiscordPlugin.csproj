@@ -99,6 +99,7 @@
     <None Include="Languages\englishemote.yml" />
     <None Include="Languages\french.yml" />
     <None Include="Languages\frenchemote.yml" />
+    <None Include="Languages\italian.yml" />
     <None Include="Languages\polish.yml" />
     <None Include="Languages\russian.yml" />
     <None Include="packages.config" />

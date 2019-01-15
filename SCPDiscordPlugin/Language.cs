@@ -28,6 +28,7 @@ namespace SCPDiscord
             { "russian",        Encoding.UTF8.GetString(Resources.russian)      },
             { "french",         Encoding.UTF8.GetString(Resources.french)       },
             { "polish",         Encoding.UTF8.GetString(Resources.polish)       },
+            { "italian",        Encoding.UTF8.GetString(Resources.italian)      },
             { "englishemote",   Encoding.UTF8.GetString(Resources.englishemote) },
             { "frenchemote",    Encoding.UTF8.GetString(Resources.frenchemote)  }
         };
