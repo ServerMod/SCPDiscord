@@ -762,7 +762,7 @@ team:
         regex: []
     onsetntfunitname:
         # name - string
-        message: "**Unité FIM désigné <var:name> arrive dans la fondation.**"
+        message: "**L'unité FIM désigné <var:name> arrive dans la fondation.**"
         regex: []
 #####################################################################################################################
 #                                                                                                                   #
