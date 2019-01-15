@@ -612,10 +612,10 @@ admin:
         # adminteam - Team
         admin:
             message: "Il Player `<var:playername>` (<var:playersteamid>) è stato bannato da <var:adminname> (<var:adminsteamid>) per <var:duration> minuti. Causa: <var:reason>"
-            regex: ["1 minuti":"1 minuti"]
+            regex: ["1 minuti":"1 minuto"]
         console:
             message: "`<var:playername>` (<var:playersteamid>) è stato bannato da Skynet per <var:duration> minuti. Causa: <var:reason>"
-            regex: ["1 minuti":"1 minuti"]
+            regex: ["1 minuti":"1 minuto"]
     
 team:
     ondecideteamrespawnqueue:
