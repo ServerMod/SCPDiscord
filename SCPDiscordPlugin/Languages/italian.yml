@@ -574,10 +574,7 @@ admin:
         # output - string
         # query - string
         # successful - bool
-        message: "L' Admin `<var:name>` (<var:class>) ha eseguito un comando: 
-                  ```
-                  <var:query>
-                  ```"
+        message: "L' Admin `<var:name>` (<var:class>) ha eseguito un comando:\n```\n<var:query>\n```"
         regex: [ "(UNASSIGNED)":"" ]
     onauthcheck:
         # allow - bool
