@@ -106,7 +106,7 @@ global_regex: [
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
-final_regex: ["discord.gg":"","http":"","www.":""]
+final_regex: ["discord.gg":"","http":"","www.":""," `` ":" unnamed "]
 
 round:
     onroundstart:
@@ -317,7 +317,7 @@ player:
         # class - Role
         # team - Team
         message: "Il Giocatore `<var:name>` usa il nickname `<var:nickname>`."
-        regex: [ "``":"unnamed" ]
+        regex: []
     onassignteam:
         # ipaddress - string
         # name - string
