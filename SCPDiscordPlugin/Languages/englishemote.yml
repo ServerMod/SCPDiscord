@@ -232,17 +232,17 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: ":red_circle:<var:playername> (<var:playersteamid>) was hurt by <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp)."
+            message: ":red_circle: <var:playername> (<var:playersteamid>) was hurt by <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp)."
             regex: []
         friendlyfire:
-            message: ":red_circle:**<var:playerteam> <var:playername> (<var:playersteamid>) was attacked by teammate <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp).**"
+            message: ":red_circle: **<var:playerteam> <var:playername> (<var:playersteamid>) was attacked by teammate <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp).**"
             regex: []
         # Not currently used
         #self:
         #    message: "<var:playername> (<var:playersteamid>) hurt themselves with <var:damagetype> (<var:damage> hp)."
         #    regex: []
         noattacker: 
-            message: ":red_circle:<var:playername> (<var:playersteamid>) took <var:damage> damage by <var:damagetype>."
+            message: ":red_circle: <var:playername> (<var:playersteamid>) took <var:damage> damage by <var:damagetype>."
             regex: []
     onplayerdie:
         # spawnragdoll - bool
@@ -260,17 +260,17 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: ":skull:<var:playername> (<var:playersteamid>) was killed by <var:attackername> (<var:attackersteamid>) using <var:damagetype>."
+            message: ":skull: <var:playername> (<var:playersteamid>) was killed by <var:attackername> (<var:attackersteamid>) using <var:damagetype>."
             regex: []
         friendlyfire:
-            message: ":skull:**<var:playerteam> <var:playername> (<var:playersteamid>) was teamkilled by <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype>.**"
+            message: ":skull: **<var:playerteam> <var:playername> (<var:playersteamid>) was teamkilled by <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype>.**"
             regex: []
         # Not currently used
         #self:
         #    message: "<var:playername> (<var:playersteamid>) killed themselves using <var:damagetype>."
         #    regex: []
         nokiller:
-            message: ":skull:<var:playername> (<var:playersteamid>) died by <var:damagetype>."
+            message: ":skull: <var:playername> (<var:playersteamid>) died by <var:damagetype>."
             regex: []
     onplayerpickupitem:
         # item - Item
@@ -280,7 +280,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":inbox_tray:<var:name> (<var:steamid>) picked up <var:item>."
+        message: ":inbox_tray: <var:name> (<var:steamid>) picked up <var:item>."
         regex: []
     onplayerdropitem:
         # item - Item
@@ -290,7 +290,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":outbox_tray:<var:name> (<var:steamid>) dropped <var:item>."
+        message: ":outbox_tray: <var:name> (<var:steamid>) dropped <var:item>."
         regex: []
     onplayerjoin:
         # ipaddress - string
@@ -299,7 +299,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":arrow_forward:**<var:name> (<var:steamid>) joined the game.**"
+        message: ":arrow_forward: **<var:name> (<var:steamid>) joined the game.**"
         regex: []
     onnicknameset:
         # nickname - string
@@ -309,7 +309,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":regional_indicator_n:Player '<var:name> (<var:steamid>)' set their nickname to <var:nickname>."
+        message: ":regional_indicator_n: Player '<var:name> (<var:steamid>)' set their nickname to <var:nickname>."
         regex: []
     onassignteam:
         # ipaddress - string
@@ -318,7 +318,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":mens:<var:name> (<var:steamid>) has joined the <var:team> team."
+        message: ":mens: <var:name> (<var:steamid>) has joined the <var:team> team."
         regex: []
     onsetrole:
         # ipaddress - string
@@ -327,7 +327,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":mens:<var:name> (<var:steamid>) has become a <var:class>."
+        message: ":mens: <var:name> (<var:steamid>) has become a <var:class>."
         regex: []
     oncheckescape:
         # allowescape - bool
@@ -350,7 +350,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":mens:<var:name> (<var:steamid>) spawned as <var:class>."
+        message: ":mens: <var:name> (<var:steamid>) spawned as <var:class>."
         regex: []
     ondooraccess:
         # doorname - string
@@ -365,10 +365,10 @@ player:
         # class - Role
         # team - Team
         allowed:
-            message: ":ballot_box_with_check:<var:name> (<var:steamid>) isopen:<var:open> a door (<var:doorname>) requiring the permission <var:permission>."
+            message: ":ballot_box_with_check: <var:name> (<var:steamid>) isopen:<var:open> a door (<var:doorname>) requiring the permission <var:permission>."
             regex: ["isopen:True":"closed", "isopen:False":"opened", " requiring the permission .":""]
         denied:
-            message: ":octagonal_sign:<var:name> (<var:steamid>) tried to isopen:<var:open> a locked door (<var:doorname>) requiring the permission <var:permission>."
+            message: ":octagonal_sign: <var:name> (<var:steamid>) tried to isopen:<var:open> a locked door (<var:doorname>) requiring the permission <var:permission>."
             regex: ["isopen:True":"close", "isopen:False":"open"," requiring the permission .":"."]
     onintercom:
         # This is not recommended to use outside of debugging
@@ -400,7 +400,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":door:<var:name> (<var:steamid>) escaped the SCP-106 pocket dimension."
+        message: ":door: <var:name> (<var:steamid>) escaped the SCP-106 pocket dimension."
         regex: []
     onpocketdimensionenter:
         # damage - int
@@ -410,7 +410,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":door:<var:name> (<var:steamid>) was taken into the SCP-106 pocket dimension."
+        message: ":door: <var:name> (<var:steamid>) was taken into the SCP-106 pocket dimension."
         regex: []
     onpocketdimensiondie:
         # ipaddress - string
@@ -419,7 +419,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":skull:<var:name> (<var:steamid>) was lost in the SCP-106 pocket dimension."
+        message: ":skull: <var:name> (<var:steamid>) was lost in the SCP-106 pocket dimension."
         regex: []
     onthrowgrenade:
         # type - GrenadeType
@@ -429,7 +429,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":bomb:<var:name> (<var:steamid>) threw a <var:type>."
+        message: ":bomb: <var:name> (<var:steamid>) threw a <var:type>."
         regex: []
     onplayerinfected:
         # damage - int
@@ -446,7 +446,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: ":skull:<var:playername> (<var:playersteamid>) was cured by SCP-049."
+        message: ":skull: <var:playername> (<var:playersteamid>) was cured by SCP-049."
         regex: []
     onspawnragdoll:
         # ipaddress - string
@@ -465,7 +465,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":skull:<var:name> (<var:steamid>) was sacrificed to contain SCP-106."
+        message: ":skull: <var:name> (<var:steamid>) was sacrificed to contain SCP-106."
         regex: []
     oncontain106:
         # activatecontainment - bool
@@ -475,7 +475,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":rotating_light:<var:name> (<var:steamid>) has initiated SCP-106 recall protocol."
+        message: ":rotating_light: <var:name> (<var:steamid>) has initiated SCP-106 recall protocol."
         regex: []
     onmedkituse:
         # recoveredamount - int
@@ -485,7 +485,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":pill:<var:name> (<var:steamid>) used a medkit and healed <var:recoveredhealth>."
+        message: ":pill: <var:name> (<var:steamid>) used a medkit and healed <var:recoveredhealth>."
         regex: []
     onshoot:
         # weapon - DamageType
@@ -502,13 +502,13 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: ":gun:<var:attackername> (<var:attackersteamid>) shot <var:playername> (<var:playersteamid>) with <var:weapon>."
+            message: ":gun: <var:attackername> (<var:attackersteamid>) shot <var:playername> (<var:playersteamid>) with <var:weapon>."
             regex: []
         notarget:
-            message: ":gun:<var:attackername> (<var:attackersteamid>) shot at nothing in particular with <var:weapon>."
+            message: ":gun: <var:attackername> (<var:attackersteamid>) shot at nothing in particular with <var:weapon>."
             regex: []
         friendlyfire:
-            message: ":gun:**<var:playerteam> <var:playername> (<var:playersteamid>) shot ally <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:weapon>.**"
+            message: ":gun: **<var:playerteam> <var:playername> (<var:playersteamid>) shot ally <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:weapon>.**"
             regex: []
     on106createportal:
         # ipaddress - string
@@ -517,7 +517,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":eight_pointed_black_star:<var:name> (<var:steamid>) has opened a dimensional portal."
+        message: ":eight_pointed_black_star: <var:name> (<var:steamid>) has opened a dimensional portal."
         regex: []
     on106teleport:
         # ipaddress - string
@@ -526,7 +526,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":eight_pointed_black_star:<var:name> (<var:steamid>) travelled through their pocket dimension."
+        message: ":eight_pointed_black_star: <var:name> (<var:steamid>) travelled through their pocket dimension."
         regex: []
     onelevatoruse:
         # elevatorname - ElevatorType
@@ -536,7 +536,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":door:<var:name> (<var:steamid>) called the <var:elevatorname> elevator."
+        message: ":door: <var:name> (<var:steamid>) called the <var:elevatorname> elevator."
         regex: []
     onhandcuff:
         # cuffed - bool
@@ -553,10 +553,10 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: ":link:<var:targetclass> <var:targetname> (<var:targetsteamid>) was switchcuffed<var:cuffed> by <var:playerclass> <var:playername> (<var:playersteamid>)."
+            message: ":link: <var:targetclass> <var:targetname> (<var:targetsteamid>) was switchcuffed<var:cuffed> by <var:playerclass> <var:playername> (<var:playersteamid>)."
             regex: ["switchcuffedTrue":"cuffed","switchcuffedFalse":"released"]
         nootherplayer:
-            message: ":link:<var:targetclass> <var:targetname> (<var:targetsteamid>) was switchcuffed<var:cuffed>."
+            message: ":link: <var:targetclass> <var:targetname> (<var:targetsteamid>) was switchcuffed<var:cuffed>."
             regex: ["switchcuffedTrue":"cuffed","switchcuffedFalse":"released"]
     onplayertriggertesla:
         # ipaddress - string
@@ -566,10 +566,10 @@ player:
         # class - Role
         # team - Team
         default:
-            message: ":zap:<var:team> <var:name> (<var:steamid>) activated a tesla gate."
+            message: ":zap: <var:team> <var:name> (<var:steamid>) activated a tesla gate."
             regex: []
         ignored:
-            message: ":zap:<var:team> <var:name> (<var:steamid>) went through a tesla gate without activating it."
+            message: ":zap: <var:team> <var:name> (<var:steamid>) went through a tesla gate without activating it."
             regex: []
     onscp914changeknob:
         # setting - KnobSetting
@@ -579,7 +579,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":control_knobs:<var:name> (<var:steamid>) set the SCP-914 knob to \"<var:setting>\"."
+        message: ":control_knobs: <var:name> (<var:steamid>) set the SCP-914 knob to \"<var:setting>\"."
         regex: []
     onplayerradioswitch:
         # setting - RadioStatus
@@ -589,7 +589,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":radio:<var:name> (<var:steamid>) switched their radio to the <var:setting> status."
+        message: ":radio: <var:name> (<var:steamid>) switched their radio to the <var:setting> status."
         regex: []
     onmakenoise: 
         # ipaddress - string
@@ -598,7 +598,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":sound:<var:name> (<var:steamid>) made noise!"
+        message: ":sound: <var:name> (<var:steamid>) made noise!"
         regex: []
     onrecallzombie:
         # allowrecall - bool
@@ -614,7 +614,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: ":arrows_counterclockwise:<var:targetname> (<var:targetsteamid>) was revived as an SCP-049-2 instance by <var:playername> (<var:playersteamid>)"
+        message: ":arrows_counterclockwise: <var:targetname> (<var:targetsteamid>) was revived as an SCP-049-2 instance by <var:playername> (<var:playersteamid>)"
         regex: []
     oncallcommand:
         # command
@@ -640,7 +640,7 @@ player:
         # steamid
         # class
         # team
-        message: ":arrows_counterclockwise:<var:name> (<var:steamid>) reloaded their <var:weapon>."
+        message: ":arrows_counterclockwise: <var:name> (<var:steamid>) reloaded their <var:weapon>."
         regex: []
     ongrenadeexplosion:
         # ipaddress
@@ -649,7 +649,7 @@ player:
         # steamid
         # class
         # team
-        message: ":boom:<var:name> (<var:steamid>)'s grenade exploded."
+        message: ":boom: <var:name> (<var:steamid>)'s grenade exploded."
         regex: []
     ongrenadehitplayer:
         # targetipaddress - string
@@ -664,7 +664,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: ":boom:<var:playername> (<var:playersteamid>)'s grenade hit <var:targetname> (<var:targetsteamid>)"
+        message: ":boom: <var:playername> (<var:playersteamid>)'s grenade hit <var:targetname> (<var:targetsteamid>)"
         regex: []
 admin:
     onadminquery:
@@ -678,7 +678,7 @@ admin:
         # output - string
         # query - string
         # successful - bool
-        message: ":keyboard:Admin <var:name> (<var:steamid>) executed command '<var:query>'"
+        message: ":keyboard: Admin <var:name> (<var:steamid>) executed command '<var:query>'"
         regex: []
     onauthcheck:
         # allow - bool
@@ -690,7 +690,7 @@ admin:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":closed_lock_with_key:<var:name> (<var:steamid>) checkaccess<var:allowed>."
+        message: ":closed_lock_with_key: <var:name> (<var:steamid>) checkaccess<var:allowed>."
         regex: ["checkaccesstrue":"was allowed access to the admin panel", "checkaccessfalse":"tried to get access to the admin panel but was denied"]
     onban:
         # allowban - bool
@@ -711,14 +711,14 @@ admin:
         # adminteam - Team
         admin:
             ban:
-                message: ":no_entry:Player <var:playername> (<var:playersteamid>) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes. Reason: <var:reason>"
+                message: ":no_entry: Player <var:playername> (<var:playersteamid>) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes. Reason: <var:reason>"
                 regex: []
             kick:
-                message: ":no_entry:Player <var:playername> (<var:playersteamid>) was kicked by <var:adminname> (<var:adminsteamid>). Reason: <var:reason>"
+                message: ":no_entry: Player <var:playername> (<var:playersteamid>) was kicked by <var:adminname> (<var:adminsteamid>). Reason: <var:reason>"
                 regex: []
         console:
             ban:
-                message: ":no_entry:Player <var:playername> (<var:playersteamid>) was banned by Skynet for <var:duration> minutes. Reason: <var:reason>"
+                message: ":no_entry: Player <var:playername> (<var:playersteamid>) was banned by Skynet for <var:duration> minutes. Reason: <var:reason>"
                 regex: []
             kick:
                 message: ":no_entry:Player <var:playername> (<var:playersteamid>) was kicked by Skynet. Reason: <var:reason>"
@@ -733,10 +733,10 @@ team:
         # players - List<Player>
         # spawnchaos - bool
         mtf:
-            message: ":cop:**Mobile TaskForce Epsilon-11 designated Nine-Tailed Fox has entered the facility.**"
+            message: ":cop: **Mobile TaskForce Epsilon-11 designated Nine-Tailed Fox has entered the facility.**"
             regex: []
         ci:
-            message: ":spy:**Facility incursion detected, intruders identified as members of hostile GOI \"Chaos Insurgency\".**"
+            message: ":spy: **Facility incursion detected, intruders identified as members of hostile GOI \"Chaos Insurgency\".**"
             regex: []
     onsetrolemaxhp:
         # maxhp - int
@@ -762,7 +762,7 @@ team:
         regex: []
     onsetntfunitname:
         # name - string
-        message: ":cop:**MTF unit designated <var:name> has entered the facility.**"
+        message: ":cop: **MTF unit designated <var:name> has entered the facility.**"
         regex: []
 #####################################################################################################################
 #                                                                                                                   #
