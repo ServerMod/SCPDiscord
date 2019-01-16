@@ -101,7 +101,7 @@ global_regex: [
     # UNASSIGNED FIX
     
     "(UNASSIGNED)":"",
-    "1 minuti":"1 minuto"
+    " 1 minuti":" 1 minuto"
     
     ]
 
