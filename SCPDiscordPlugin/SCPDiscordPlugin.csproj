@@ -102,6 +102,7 @@
     <None Include="Languages\italian.yml" />
     <None Include="Languages\polish.yml" />
     <None Include="Languages\russian.yml" />
+    <None Include="Languages\russianemote.yml" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

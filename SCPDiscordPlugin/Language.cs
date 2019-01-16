@@ -30,6 +30,7 @@ namespace SCPDiscord
             { "polish",         Encoding.UTF8.GetString(Resources.polish)       },
             { "italian",        Encoding.UTF8.GetString(Resources.italian)      },
             { "englishemote",   Encoding.UTF8.GetString(Resources.englishemote) },
+            { "russianemote",   Encoding.UTF8.GetString(Resources.russianemote) },
             { "frenchemote",    Encoding.UTF8.GetString(Resources.frenchemote)  }
         };
 

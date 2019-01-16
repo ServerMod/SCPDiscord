@@ -9,7 +9,7 @@ bot:
 
 settings:
     # The language is the same as the name of the language file you want to use.
-    # Included language files: english (default), russian, french, polish, englishemote, frenchemote
+    # Included language files: english (default), russian, french, polish, italian, englishemote, russianemote, frenchemote
     language: "english"
     # Whether or not to show this server's player count in the bot's activity.
     # Set to false to disable.
