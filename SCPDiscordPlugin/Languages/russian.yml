@@ -1,4 +1,5 @@
-# Note: If you want to edit this file you need to either rename it or set discord_overwrite_language to false or it will be reset on server start.
+# Note: If you want to edit this file you need to either rename it or set discord_overwrite_language to false or it will be reset on server start. 
+# Russian translation by TeMbI4.
 
 #####################################################################################################################
 #                                                                                                                   #
@@ -44,19 +45,19 @@ global_regex: [
     "LiftA":"Лифт A",
     "LiftB":"Лифт B",
     "SCP049Chamber":"Камера содержания SCP-049",
-    "WarheadRoom":"бункер с боеголовкой",
+    "WarheadRoom":"Бункер с боеголовкой «Альфа»",
 
     # Non-weapon damage types
     "NUKE":"Боеголовка «Альфа»",
-    "FALLDOWN":"урон от падения с высоты",
-    "CONTAIN":"восстановлениие условий содержания",
+    "FALLDOWN":"Урон от падения с высоты",
+    "CONTAIN":"Восстановлениие условий содержания",
     "DECONT":"Обеззараживание Лёгкой Зоны Содержания",
-    "LURE":"перелом бедренной кости",
-    "POCKET":"карманное измерение",
-    "TESLA":"ворота Тесла",
-    "WALL":"раздавлен",
-    "FLYING":"античит",
-    "RAGDOLLLESS":"рэгдолл",
+    "LURE":"Перелом бедренной кости",
+    "POCKET":"Карманное измерение",
+    "TESLA":"Ворота Тесла",
+    "WALL":"Раздавлен",
+    "FLYING":"Античит",
+    "RAGDOLLLESS":"Рэгдолл",
 
     # Items
     "JANITOR_KEYCARD":"Ключ-карта Уборщика",
@@ -167,7 +168,7 @@ round:
 environment:
     onscp914activate:
         # knobsetting - KnobSetting
-        message: "SCP-914 была активирована на настройке <var:knobsetting>."
+        message: "SCP-914 была активирована на настройке `<var:knobsetting>`."
         regex: []
     onstartcountdown:
         # isresumed - bool
@@ -179,7 +180,7 @@ environment:
         # class - Role
         # team - Team
         noplayer:
-            message: "**Запуск боеголовки «Альфа» был удалённо активирован приказом Совета О5. Всему персоналу - немедленно пройти в зону эвакуации.**"
+            message: "**Запуск боеголовки «Альфа» был удалённо активирован по приказу Совета О5, <var:timeleft> секунд осталось до детонации. Всему персоналу - немедленно пройти в зону эвакуации.**"
             regex: []
         initiated:
             message: "**Был произведён запуск боеголовки «Альфа» игроком <var:name> (<var:steamid>), <var:timeleft> секунд осталось до детонации. Всему персоналу - немедленно пройти в зону эвакуации.**"
@@ -199,10 +200,10 @@ environment:
             message: "**Детонация боеголовки «Альфа» была отключена игроком <var:name> (<var:steamid>).**"
             regex: []
         noplayer:
-            message: "**Детонация боеголовки «Альфа» была отключена удалённо по приказу Совета О5**"
+            message: "**Детонация боеголовки «Альфа» была отключена удалённо по приказу Совета О5.**"
             regex: []
     ondetonate:
-        message: "**Обнаружена детонация боеголовки «Альфа». Высланы оперативники Фонда для нейтрализации всех оставшихся живых существ.**"
+        message: "**Обнаружена детонация боеголовки «Альфа». Высланы оперативники Фонда для расследования ситуации.**"
         regex: []
     ondecontaminate:
         message: "**Инициировано обеззараживание Лёгкой Зоны Содержания, все биологические субстанции будут уничтожены.**"
@@ -232,17 +233,17 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "<var:playername> (<var:playersteamid>) был ранен игроком <var:attackername> (<var:attackersteamid>) используя <var:damagetype> (<var:damage> hp)."
+            message: "<var:playername> (<var:playersteamid>) был ранен игроком <var:attackername> (<var:attackersteamid>) используя <var:damagetype> (<var:damage> HP)."
             regex: []
         friendlyfire:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) был атакован союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>) используя <var:damagetype> (<var:damage> hp).**"
+            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) был атакован союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>) используя <var:damagetype> (<var:damage> HP).**"
             regex: []
         # Not currently used
         #self:
-        #    message: "<var:playername> (<var:playersteamid>) нанёс себе урон с помощью <var:damagetype> (<var:damage> hp)."
+        #    message: "<var:playername> (<var:playersteamid>) нанёс себе урон с помощью <var:damagetype> (<var:damage> HP)."
         #    regex: []
         noattacker: 
-            message: "<var:playername> (<var:playersteamid>) получил урон <var:damage> с помощью <var:damagetype>."
+            message: "<var:playername> (<var:playersteamid>) получил <var:damage> HP урона с помощью <var:damagetype>."
             regex: []
     onplayerdie:
         # spawnragdoll - bool
@@ -309,7 +310,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "Игрок '<var:name> (<var:steamid>)' изменил свой никнейм на <var:nickname>."
+        message: "Игрок '<var:name>' (<var:steamid>) изменил свой никнейм на `<var:nickname>`."
         regex: []
     onassignteam:
         # ipaddress - string
@@ -338,10 +339,10 @@ player:
         # class - Role
         # team - Team
         allowed:
-            message: "Игрок <var:name> (<var:steamid>) сбежад из комплекса за <var:class>."
+            message: "**Игрок <var:name> (<var:steamid>) сбежал из комплекса за <var:class>.**"
             regex: []
         denied:
-            message: ""
+            message: "**Игрок <var:name> (<var:steamid>) попытался сбежать за <var:class>, но нечего не вышло. =(**"
             regex: []
     onspawn:
         # ipaddress - string
@@ -365,11 +366,11 @@ player:
         # class - Role
         # team - Team
         allowed:
-            message: "<var:name> (<var:steamid>) isopen:<var:open> дверь (<var:doorname>) requiring the permission <var:permission>."
-            regex: ["isopen:True":"закрытую", "isopen:False":"открытую", "требующую уровень допуска.":""]
+            message: "<var:name> (<var:steamid>) isopen:<var:open> дверь (<var:doorname>) requiring the permission (<var:permission>)."
+            regex: ["isopen:True":"закрыл", "isopen:False":"открыл", "requiring the permission":"требующую уровень допуска"]
         denied:
-            message: "<var:name> (<var:steamid>) попробовал isopen:<var:open> закрытую дверь (<var:doorname>) requiring the permission <var:permission>."
-            regex: ["isopen:True":"закрытую", "isopen:False":"открытую","требующую уровень допуска.":"."]
+            message: "<var:name> (<var:steamid>) попробовал isopen:<var:open> дверь (<var:doorname>) requiring the permission (<var:permission>)."
+            regex: ["isopen:True":"закрыть", "isopen:False":"открыть","requiring the permission":"требующую уровень допуска"]
     onintercom:
         # This is not recommended to use outside of debugging
         # cooldowntime - float
@@ -598,7 +599,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) нашумел!"
+        message: "<var:name> (<var:steamid>) шумит!"
         regex: []
     onrecallzombie:
         # allowrecall - bool
@@ -614,7 +615,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "<var:targetname> (<var:targetsteamid>) был вылечен от чумы и стал SCP-049-2 благодаря <var:playername> (<var:playersteamid>)"
+        message: "<var:targetname> (<var:targetsteamid>) был вылечен от чумы и стал SCP-049-2 благодаря доктору <var:playername> (<var:playersteamid>)"
         regex: []
     oncallcommand:
         # command
@@ -625,7 +626,7 @@ player:
         # steamid
         # class
         # team
-        message: "**Игрок <var:name> (<var:steamid>) использовал команду '<var:command>'. Результат: '<var:returnmessage>'**"
+        message: "Игрок <var:name> (<var:steamid>) использовал команду `<var:command>`. Результат: <var:returnmessage>"
         regex: []
     onreload:
         # weapon
@@ -806,14 +807,14 @@ botresponses:
     playerkicked:
         # name - string
         # steamid - string
-        message: "```diff\n+ Игрок '<var:name>' (<var:steamid>) был кикнут с сервера.```"
+        message: "```diff\n+ Игрок <var:name> (<var:steamid>) был кикнут с сервера.```"
         regex: []
     playerbanned:
         # name - string
         # steamid - string
         # reason - string
         # duration - string
-        message: "```diff\n+ Игрок '<var:name>' (<var:steamid>) был забанен по причине '<var:reason>' (<var:duration>).```"
+        message: "```diff\n+ Игрок <var:name> (<var:steamid>) был забанен по причине '<var:reason>' (<var:duration>).```"
         regex: []
     playerunbanned:
         # steamidorip - string
