@@ -101,6 +101,7 @@
     <None Include="Languages\frenchemote.yml" />
     <None Include="Languages\italian.yml" />
     <None Include="Languages\polish.yml" />
+    <None Include="Languages\polishemote.yml" />
     <None Include="Languages\russian.yml" />
     <None Include="Languages\russianemote.yml" />
     <None Include="packages.config" />

@@ -31,7 +31,8 @@ namespace SCPDiscord
             { "italian",        Encoding.UTF8.GetString(Resources.italian)      },
             { "englishemote",   Encoding.UTF8.GetString(Resources.englishemote) },
             { "russianemote",   Encoding.UTF8.GetString(Resources.russianemote) },
-            { "frenchemote",    Encoding.UTF8.GetString(Resources.frenchemote)  }
+            { "frenchemote",    Encoding.UTF8.GetString(Resources.frenchemote)  },
+            { "polishemote",    Encoding.UTF8.GetString(Resources.polishemote)  }
         };
 
         private static readonly List<string> messageNodes = new List<string>
