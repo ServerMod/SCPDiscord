@@ -408,12 +408,18 @@ namespace SCPDiscord
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "damage",             ev.Damage.ToString()                },
-                { "ipaddress",          ev.Player.IpAddress                 },
-                { "name",               ev.Player.Name                      },
-                { "playerid",           ev.Player.PlayerId.ToString()       },
-                { "steamid",            ev.Player.SteamId                   },
-                { "class",              ev.Player.TeamRole.Role.ToString()  },
-                { "team",               ev.Player.TeamRole.Team.ToString()  }
+                { "attackeripaddress",  ev.Attacker.IpAddress               },
+                { "attackername",       ev.Attacker.Name                    },
+                { "attackerplayerid",   ev.Attacker.PlayerId.ToString()     },
+                { "attackersteamid",    ev.Attacker.SteamId                 },
+                { "attackerclass",      ev.Attacker.TeamRole.Role.ToString()},
+                { "attackerteam",       ev.Attacker.TeamRole.Team.ToString()},
+                { "playeripaddress",    ev.Player.IpAddress                 },
+                { "playername",         ev.Player.Name                      },
+                { "playerplayerid",     ev.Player.PlayerId.ToString()       },
+                { "playersteamid",      ev.Player.SteamId                   },
+                { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
+                { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
             };
             plugin.SendMessage(Config.GetArray("channels.onpocketdimensionenter"), "player.onpocketdimensionenter", variables);
         }
