@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SCPDiscord
 {
-    internal class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerWaitingForPlayers,
+    internal class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerLateDisconnect, IEventHandlerWaitingForPlayers,
         IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName, IEventHandlerSceneChanged
     {
         private readonly SCPDiscord plugin;
@@ -54,6 +54,18 @@ namespace SCPDiscord
             {
                 plugin.SendMessage(Config.GetArray("channels.ondisconnect.default"), "round.ondisconnect.default", variables);
             }
+        }
+
+        public void OnLateDisconnect(LateDisconnectEvent ev)
+        {
+            /// <summary>  
+            ///  This is the event handler for disconnection events after the player has disconnected.
+            /// </summary> 
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress", ev.Connection.IpAddress }
+            };
+            plugin.SendMessage(Config.GetArray("channels.onlatedisconnect"), "round.onlatedisconnect", variables);
         }
 
         public void OnCheckRoundEnd(CheckRoundEndEvent ev)

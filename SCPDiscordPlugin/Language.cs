@@ -41,6 +41,7 @@ namespace SCPDiscord
             "round.onconnect",
             "round.ondisconnect.default",
             "round.ondisconnect.banned",
+            "round.onlatedisconnect",
             "round.oncheckroundend",
             "round.onroundend",
             "round.onwaitingforplayers",

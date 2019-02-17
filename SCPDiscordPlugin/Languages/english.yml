@@ -115,6 +115,10 @@ round:
             # ipaddress - string
             message: "A player has disconnected because they are banned."
             regex: []
+    onlatedisconnect:
+        # ipaddress - string
+        message: "A player has disconnected."
+        regex: []
     oncheckroundend:
         message: "Checking if round has ended..."
         regex: []

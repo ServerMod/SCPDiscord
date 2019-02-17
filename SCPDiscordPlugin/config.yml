@@ -44,6 +44,7 @@ channels:
     ondisconnect: 
         default: [ "default", "staff" ]
         banned: [ "default", "staff" ]
+    onlatedisconnect: []
     oncheckroundend: []
     onroundend: [ "default", "staff" ]
     onwaitingforplayers: [ "default" ]
