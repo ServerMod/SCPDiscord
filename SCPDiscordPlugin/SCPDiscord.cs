@@ -31,6 +31,8 @@ namespace SCPDiscord
 
         internal static SCPDiscord plugin;
 
+        public bool roundStarted = false;
+
         public RoleSync roleSync;
 
         public bool shutdown = false;

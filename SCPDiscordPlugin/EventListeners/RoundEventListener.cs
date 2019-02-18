@@ -9,7 +9,6 @@ namespace SCPDiscord
         IEventHandlerRoundRestart, IEventHandlerSetServerName
     {
         private readonly SCPDiscord plugin;
-        private bool roundHasStarted = false;
 
         public RoundEventListener(SCPDiscord plugin)
         {
@@ -22,7 +21,7 @@ namespace SCPDiscord
             ///  This is the event handler for Round start events (before people are spawned in)
             /// </summary>
             plugin.SendMessage(Config.GetArray("channels.onroundstart"), "round.onroundstart");
-            roundHasStarted = true;
+            plugin.roundStarted = true;
         }
 
         public void OnConnect(ConnectEvent ev)
@@ -61,7 +60,7 @@ namespace SCPDiscord
             /// <summary>
             ///  This is the event handler for Round end events (when the stats appear on screen)
             /// </summary>
-            if (roundHasStarted && ev.Round.Duration > 60)
+            if (plugin.roundStarted && ev.Round.Duration > 60)
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
@@ -83,7 +82,7 @@ namespace SCPDiscord
                     { "zombies",            ev.Round.Stats.Zombies.ToString()           }
                 };
                 plugin.SendMessage(Config.GetArray("channels.onroundend"), "round.onroundend", variables);
-                roundHasStarted = false;
+                plugin.roundStarted = false;
             }
         }
 
