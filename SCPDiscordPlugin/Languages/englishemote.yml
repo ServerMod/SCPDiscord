@@ -775,7 +775,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":iphone: <var:name> (<var:steamid>) inserted a tablet into the generator in <var:room>."
+        message: ":iphone: <var:name> (<var:steamid>) activated the generator in <var:room>."
         regex: [
             "Micro-HID":"the Micro-HID room",
             "nuke":"the nuke silo",
@@ -866,6 +866,26 @@ player:
         # class - Role
         # team - Team
         message: ":zap: <var:name> (<var:steamid>) activated a tesla gate."
+        regex: []
+    on079addexp:
+        # xptype - ExperienceType
+        # amount - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":heavy_plus_sign: <var:name> (<var:steamid>) got <var:amount> xp."
+        regex: []
+    on079levelup:
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":arrow_up: <var:name> (<var:steamid>) leveled up as SCP-079."
         regex: []
     on079unlockdoors:
         # apdrain - float
