@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Sockets;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace SCPDiscord
@@ -309,7 +310,7 @@ namespace SCPDiscord
             // Run the global regex replacements
             foreach (KeyValuePair<string, string> entry in globalRegex)
             {
-                message = message.Replace(entry.Key, entry.Value);
+                Regex.Replace(message, entry.Key, entry.Value);
             }
             ///////////////////////////////////////////////
 
@@ -327,7 +328,7 @@ namespace SCPDiscord
             // Run the local regex replacements
             foreach (KeyValuePair<string, string> entry in localRegex)
             {
-                message = message.Replace(entry.Key, entry.Value);
+                Regex.Replace(message, entry.Key, entry.Value);
             }
             ///////////////////////////////////////////////
 
@@ -357,7 +358,7 @@ namespace SCPDiscord
                 // Run the final regex replacements
                 foreach (KeyValuePair<string, string> entry in finalRegex)
                 {
-                    message = message.Replace(entry.Key, entry.Value);
+                    Regex.Replace(message, entry.Key, entry.Value);
                 }
                 ///////////////////////////////////////////////
             }
