@@ -20,8 +20,8 @@ global_regex: [
     "SCP-049_2":"SCP-049-2",
     "SCP-939_":"SCP-939-",
     "SCP-939-89":"SCP-939-109",
+    "SCP_079":"SCP-079",
     "CLASSD":"D-Class",
-    "CHAOS_INSUGENCY":"Chaos Insurgency",
     "SPECTATOR":"Spectator",
     "SCIENTIST":"Scientist",
     "FACILITY_GUARD":"Facility Guard",
@@ -34,7 +34,6 @@ global_regex: [
     # Teams
     "CHAOS_INSURGENCY":"Chaos Insurgency",
     "NINETAILFOX":"MTF",
-    "SCIENTISTS":"Scientist",
 
     # Elevators
     "GateA":"Gate A",
@@ -94,7 +93,35 @@ global_regex: [
     "COARSE":"coarse",
     "ONE_TO_ONE":"1:1",
     "VERY_FINE":"very fine",
-    "FINE":"fine"
+    "FINE":"fine",
+
+    # Room names
+    "WC00":"the restrooms",
+    "SCP_914":"SCP-914 containment",
+    "AIRLOCK_00":"an airlock",
+    "AIRLOCK_01":"an airlock",
+    "CHECKPOINT_A":"LCZ checkpoint A",
+    "CHECKPOINT_B":"LCZ checkpoint B",
+    "HCZ_ARMORY":"the HCZ armory",
+    "SERVER_ROOM":"the server room",
+    "SCP_012":"SCP-012 containment",
+    "SCP_372":"SCP-372 containment",
+    "ENTRANCE_CHECKPOINT":"the entrance zone checkpoint",
+    "TESLA_GATE":"a tesla gate",
+    "PC_SMALL":"the small office",
+    "PC_LARGE":"the large office",
+    "GATE_A":"gate A",
+    "GATE_B":"gate B",
+    "CAFE":"the classroom",
+    "INTERCOM":"the intercom room",
+    "DR_L":"an entrance zone corridor",
+    "STRAIGHT":"a corridor",
+    "CURVE":"a corridor",
+    "T_INTERSECTION":"a T-intersection",
+    "X_INTERSECTION":"a cross intersection",
+    "LCZ_ARMORY":"the LHZ armory",
+    "CLASS_D_CELLS":"D-class cells",
+    "CUBICLES":"an office"
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
