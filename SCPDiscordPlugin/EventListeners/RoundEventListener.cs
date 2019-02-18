@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 namespace SCPDiscord
 {
-    internal class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerLateDisconnect, IEventHandlerWaitingForPlayers,
-        IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName, IEventHandlerSceneChanged
+    internal class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerWaitingForPlayers,
+        IEventHandlerRoundRestart, IEventHandlerSetServerName
     {
         private readonly SCPDiscord plugin;
         private bool roundHasStarted = false;
@@ -54,28 +54,6 @@ namespace SCPDiscord
             {
                 plugin.SendMessage(Config.GetArray("channels.ondisconnect.default"), "round.ondisconnect.default", variables);
             }
-        }
-
-        public void OnLateDisconnect(LateDisconnectEvent ev)
-        {
-            /// <summary>  
-            ///  This is the event handler for disconnection events after the player has disconnected.
-            /// </summary> 
-            Dictionary<string, string> variables = new Dictionary<string, string>
-            {
-                { "ipaddress", ev.Connection.IpAddress }
-            };
-            plugin.SendMessage(Config.GetArray("channels.onlatedisconnect"), "round.onlatedisconnect", variables);
-        }
-
-        public void OnCheckRoundEnd(CheckRoundEndEvent ev)
-        {
-            /// <summary>
-            ///  This event handler will call everytime the game checks for a round end
-            /// </summary>
-
-            //Protip, don't turn this on.
-            plugin.SendMessage(Config.GetArray("channels.oncheckroundend"), "round.oncheckroundend");
         }
 
         public void OnRoundEnd(RoundEndEvent ev)
@@ -137,15 +115,6 @@ namespace SCPDiscord
                 { "servername", ev.ServerName }
             };
             plugin.SendMessage(Config.GetArray("channels.onsetservername"), "round.onsetservername", variables);
-        }
-
-        public void OnSceneChanged(SceneChangedEvent ev)
-        {
-            Dictionary<string, string> variables = new Dictionary<string, string>
-            {
-                { "scenename", ev.SceneName }
-            };
-            plugin.SendMessage(Config.GetArray("channels.onscenechanged"), "round.onscenechanged", variables);
         }
     }
 }

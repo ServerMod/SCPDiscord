@@ -44,16 +44,12 @@ channels:
     ondisconnect: 
         default: [ "default", "staff" ]
         banned: [ "default", "staff" ]
-    onlatedisconnect: []
-    oncheckroundend: []
     onroundend: [ "default", "staff" ]
     onwaitingforplayers: [ "default" ]
     onroundrestart: [ "default", "staff" ]
     onsetservername: []
-    onscenechanged: []
 
     # Environment events
-    onscp914activate: []
     onstartcountdown:
         noplayer: [ "default" ]
         initiated: [ "default" ]
@@ -67,12 +63,7 @@ channels:
         chaos: [ "default" ]
         mtf: [ "default" ]
 
-    
     # Player events
-    onplayerhurt:
-        default: []
-        friendlyfire: []
-        noattacker: []
     onplayerdie: 
         default: [ "default" ]
         friendlyfire: [ "default", "staff" ]
@@ -83,69 +74,30 @@ channels:
     onnicknameset: [ "default", "staff" ]
     onassignteam: []
     onsetrole: []
-    oncheckescape:
-        allowed: [ "default" ]
-        denied: []
     onspawn: [ "staff" ]
-    ondooraccess:
-        allowed: []
-        denied: []
-    onintercom: []
-    onintercomcooldowncheck: []
     onpocketdimensionexit: [ "default" ]
     onpocketdimensionenter: [ "default" ]
     onpocketdimensiondie: []
     onthrowgrenade: [ "default", "staff" ]
     onplayerinfected: [ "default" ]
-    onspawnragdoll: []
     onlure: [ "default" ]
     oncontain106: [ "default" ]
     onmedkituse: [ "default" ]
-    onshoot:
-        default: []
-        friendlyfire: []
-        notarget: []
     on106createportal: []
     on106teleport: []
-    onelevatoruse: []
     onhandcuff:
         default: [ "default" ]
         nootherplayer: [ "default" ]
-    onplayertriggertesla:
-        default: []
-        ignore: []
-    onscp914changeknob: []
-    onplayerradioswitch: []
-    onmakenoise: []
     onrecallzombie: []
     oncallcommand: []
     onreload: []
-    ongrenadeexplosion: []
-    ongrenadehitplayer: []
     ongeneratorunlock: [ "default" ]
     ongeneratoraccess:
         closed: []
         opened: []
-    ongeneratorinserttablet: []
-    ongeneratorejecttablet: []
-    on079door:
-        closed: []
-        opened: []
-    on079lock:
-        unlocked: []
-        locked: []
-    on079elevator:
-        up: []
-        down: []
-    on079teslagate: []
-    on079addexp: []
+    ongeneratorinserttablet: [ "default" ]
+    ongeneratorejecttablet: [ "default" ]
     on079levelup: [ "default" ]
-    on079unlockdoors: []
-    on079camerateleport: []
-    on079startspeaker: []
-    on079stopspeaker: []
-    on079lockdown: []
-    on079elevatorteleport: []
 
     # Admin events
     onadminquery: [ "staff" ]
@@ -158,12 +110,8 @@ channels:
             kick: [ "default", "staff" ]
             ban: [ "default", "staff" ]
 
-
     # Team events
-    ondecideteamrespawnqueue: []
-    onsetrolemaxhp: []
     onteamrespawn:
         mtf: []
         ci: [ "default" ]
-    onsetscpconfig: []
     onsetntfunitname: [ "default" ]

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SCPDiscord
 {
-    internal class EnvironmentEventListener : IEventHandlerSCP914Activate, IEventHandlerWarheadStartCountdown, IEventHandlerWarheadStopCountdown,
+    internal class EnvironmentEventListener : IEventHandlerWarheadStartCountdown, IEventHandlerWarheadStopCountdown,
         IEventHandlerWarheadDetonate, IEventHandlerLCZDecontaminate, IEventHandlerSummonVehicle
     {
         private readonly SCPDiscord plugin;
@@ -12,18 +12,6 @@ namespace SCPDiscord
         public EnvironmentEventListener(SCPDiscord plugin)
         {
             this.plugin = plugin;
-        }
-
-        public void OnSCP914Activate(SCP914ActivateEvent ev)
-        {
-            /// <summary>
-            ///  This is the event handler for when a SCP914 is activated
-            /// </summary>
-            Dictionary<string, string> variables = new Dictionary<string, string>
-            {
-                { "knobsetting",    ev.KnobSetting.ToString()   }
-            };
-            plugin.SendMessage(Config.GetArray("channels.onscp914activate"), "environment.onscp914activate", variables);
         }
 
         public void OnStartCountdown(WarheadStartEvent ev)
