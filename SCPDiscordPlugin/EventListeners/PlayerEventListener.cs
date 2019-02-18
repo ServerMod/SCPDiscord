@@ -31,8 +31,12 @@ namespace SCPDiscord
             this.plugin = plugin;
         }
 
-        private static bool IsTeamDamage(int attackerTeam, int targetTeam)
+        private bool IsTeamDamage(int attackerTeam, int targetTeam)
         {
+            if(plugin.roundStarted)
+            {
+                return false;
+            }
             if (attackerTeam == targetTeam)
             {
                 return true;
