@@ -40,6 +40,7 @@ namespace SCPDiscord
             // Bot messages
             { "channels.statusmessages",            new string[]{ } },
             { "channels.topic",                     new string[]{ } },
+
             // Round events
             { "channels.onroundstart",              new string[]{ } },
             { "channels.onconnect",                 new string[]{ } },
@@ -52,6 +53,7 @@ namespace SCPDiscord
             { "channels.onroundrestart",            new string[]{ } },
             { "channels.onsetservername",           new string[]{ } },
             { "channels.onscenechanged",            new string[]{ } },
+
             // Environment events
             { "channels.onscp914activate",          new string[]{ } },
             { "channels.onstartcountdown.noplayer", new string[]{ } },
@@ -63,6 +65,7 @@ namespace SCPDiscord
             { "channels.ondecontaminate",           new string[]{ } },
             { "channels.onsummonvehicle.chaos",     new string[]{ } },
             { "channels.onsummonvehicle.mtf",       new string[]{ } },
+
             // Player events
             { "channels.onplayerhurt.default",      new string[]{ } },
             { "channels.onplayerhurt.friendlyfire", new string[]{ } },
@@ -110,6 +113,27 @@ namespace SCPDiscord
             { "channels.onreload",                  new string[]{ } },
             { "channels.ongrenadeexplosion",        new string[]{ } },
             { "channels.ongrenadehitplayer",        new string[]{ } },
+            { "channels.ongeneratorunlock",         new string[]{ } },
+            { "channels.ongeneratoraccess.closed",  new string[]{ } },
+            { "channels.ongeneratoraccess.opened",  new string[]{ } },
+            { "channels.ongeneratorinserttablet",   new string[]{ } },
+            { "channels.ongeneratorejecttablet",    new string[]{ } },
+            { "channels.on079door.closed",          new string[]{ } },
+            { "channels.on079door.opened",          new string[]{ } },
+            { "channels.on079lock.unlocked",        new string[]{ } },
+            { "channels.on079lock.locked",          new string[]{ } },
+            { "channels.on079elevator.up",          new string[]{ } },
+            { "channels.on079elevator.down",        new string[]{ } },
+            { "channels.on079teslagate",            new string[]{ } },
+            { "channels.on079addexp",               new string[]{ } },
+            { "channels.on079levelup",              new string[]{ } },
+            { "channels.on079unlockdoors",          new string[]{ } },
+            { "channels.on079camerateleport",       new string[]{ } },
+            { "channels.on079startspeaker",         new string[]{ } },
+            { "channels.on079stopspeaker",          new string[]{ } },
+            { "channels.on079lockdown",             new string[]{ } },
+            { "channels.on079elevatorteleport",     new string[]{ } },
+
             // Admin events
             { "channels.onadminquery",              new string[]{ } },
             { "channels.onauthcheck",               new string[]{ } },
@@ -117,6 +141,7 @@ namespace SCPDiscord
             { "channels.onban.console.kick",        new string[]{ } },
             { "channels.onban.admin.ban",           new string[]{ } },
             { "channels.onban.console.ban",         new string[]{ } },
+
             // Team events
             { "channels.ondecideteamrespawnqueue",  new string[]{ } },
             { "channels.onsetrolemaxhp",            new string[]{ } },

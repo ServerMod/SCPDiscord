@@ -122,6 +122,30 @@ channels:
     onreload: []
     ongrenadeexplosion: []
     ongrenadehitplayer: []
+    ongeneratorunlock: [ "default" ]
+    ongeneratoraccess:
+        closed: []
+        opened: []
+    ongeneratorinserttablet: []
+    ongeneratorejecttablet: []
+    on079door:
+        closed: []
+        opened: []
+    on079lock:
+        unlocked: []
+        locked: []
+    on079elevator:
+        up: []
+        down: []
+    on079teslagate: []
+    on079addexp: []
+    on079levelup: [ "default" ]
+    on079unlockdoors: []
+    on079camerateleport: []
+    on079startspeaker: []
+    on079stopspeaker: []
+    on079lockdown: []
+    on079elevatorteleport: []
 
     # Admin events
     onadminquery: [ "staff" ]

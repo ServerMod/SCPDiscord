@@ -1,4 +1,5 @@
-﻿using Smod2.EventHandlers;
+using Smod2.API;
+using Smod2.EventHandlers;
 using Smod2.Events;
 using System.Collections.Generic;
 
@@ -9,7 +10,10 @@ namespace SCPDiscord
         IEventHandlerIntercom, IEventHandlerIntercomCooldownCheck, IEventHandlerPocketDimensionExit, IEventHandlerPocketDimensionEnter, IEventHandlerPocketDimensionDie,
         IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerSpawnRagdoll, IEventHandlerLure, IEventHandlerContain106, IEventHandlerMedkitUse, IEventHandlerShoot,
         IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse, IEventHandlerHandcuffed, IEventHandlerPlayerTriggerTesla, IEventHandlerSCP914ChangeKnob,
-        IEventHandlerRadioSwitch, IEventHandlerMakeNoise, IEventHandlerRecallZombie, IEventHandlerCallCommand, IEventHandlerReload, IEventHandlerGrenadeExplosion, IEventHandlerGrenadeHitPlayer
+        IEventHandlerRadioSwitch, IEventHandlerMakeNoise, IEventHandlerRecallZombie, IEventHandlerCallCommand, IEventHandlerReload, IEventHandlerGrenadeExplosion, IEventHandlerGrenadeHitPlayer,
+        IEventHandlerGeneratorUnlock, IEventHandlerGeneratorAccess, IEventHandlerGeneratorInsertTablet, IEventHandlerGeneratorEjectTablet, IEventHandler079Door, IEventHandler079Lock,
+        IEventHandler079Elevator, IEventHandler079TeslaGate, IEventHandler079AddExp, IEventHandler079LevelUp, IEventHandler079UnlockDoors, IEventHandler079CameraTeleport, IEventHandler079StartSpeaker,
+        IEventHandler079StopSpeaker, IEventHandler079Lockdown, IEventHandler079ElevatorTeleport
     {
         private readonly SCPDiscord plugin;
 
@@ -865,6 +869,396 @@ namespace SCPDiscord
                 { "targetteam",         ev.Victim.TeamRole.Team.ToString()      },
             };
             plugin.SendMessage(Config.GetArray("channels.ongrenadehitplayer"), "player.ongrenadehitplayer", variables);
+        }
+
+        public void OnGeneratorUnlock(PlayerGeneratorUnlockEvent ev)
+        {
+            /// <summary>
+            /// Called when a player attempts to unlock a generator.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "engaged",                    ev.Generator.Engaged.ToString()         },
+                    { "hastablet",                  ev.Generator.HasTablet.ToString()       },
+                    { "locked",                     ev.Generator.Locked.ToString()          },
+                    { "open",                       ev.Generator.Open.ToString()            },
+                    { "room",                       ev.Generator.Room.RoomType.ToString()   },
+                    { "starttime",                  ev.Generator.StartTime.ToString()       },
+                    { "timeleft",                   ev.Generator.TimeLeft.ToString()        },
+                    { "ipaddress",                  ev.Player.IpAddress                     },
+                    { "name",                       ev.Player.Name                          },
+                    { "playerid",                   ev.Player.PlayerId.ToString()           },
+                    { "steamid",                    ev.Player.SteamId                       },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()      },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()      }
+                };
+                plugin.SendMessage(Config.GetArray("channels.ongeneratorunlock"), "player.ongeneratorunlock", variables);
+            }
+        }
+
+        public void OnGeneratorAccess(PlayerGeneratorAccessEvent ev)
+        {
+            /// <summary>
+            /// Called when a player attempts to open/close a generator.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "engaged",                    ev.Generator.Engaged.ToString()         },
+                    { "hastablet",                  ev.Generator.HasTablet.ToString()       },
+                    { "locked",                     ev.Generator.Locked.ToString()          },
+                    { "open",                       ev.Generator.Open.ToString()            },
+                    { "room",                       ev.Generator.Room.RoomType.ToString()   },
+                    { "starttime",                  ev.Generator.StartTime.ToString()       },
+                    { "timeleft",                   ev.Generator.TimeLeft.ToString()        },
+                    { "ipaddress",                  ev.Player.IpAddress                     },
+                    { "name",                       ev.Player.Name                          },
+                    { "playerid",                   ev.Player.PlayerId.ToString()           },
+                    { "steamid",                    ev.Player.SteamId                       },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()      },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()      }
+                };
+                if (ev.Generator.Open)
+                {
+                    plugin.SendMessage(Config.GetArray("channels.ongeneratoraccess.closed"), "player.ongeneratoraccess.closed", variables);
+                }
+                else
+                {
+                    plugin.SendMessage(Config.GetArray("channels.ongeneratoraccess.opened"), "player.ongeneratoraccess.opened", variables);
+                }
+            }
+        }
+
+        public void OnGeneratorInsertTablet(PlayerGeneratorInsertTabletEvent ev)
+        {
+            /// <summary>
+            /// Called when a player puts a tablet in.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "engaged",                    ev.Generator.Engaged.ToString()         },
+                    { "hastablet",                  ev.Generator.HasTablet.ToString()       },
+                    { "locked",                     ev.Generator.Locked.ToString()          },
+                    { "open",                       ev.Generator.Open.ToString()            },
+                    { "room",                       ev.Generator.Room.RoomType.ToString()   },
+                    { "starttime",                  ev.Generator.StartTime.ToString()       },
+                    { "timeleft",                   ev.Generator.TimeLeft.ToString()        },
+                    { "ipaddress",                  ev.Player.IpAddress                     },
+                    { "name",                       ev.Player.Name                          },
+                    { "playerid",                   ev.Player.PlayerId.ToString()           },
+                    { "steamid",                    ev.Player.SteamId                       },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()      },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()      }
+                };
+                plugin.SendMessage(Config.GetArray("channels.ongeneratorinserttablet"), "player.ongeneratorinserttablet", variables);
+            }
+        }
+
+        public void OnGeneratorEjectTablet(PlayerGeneratorEjectTabletEvent ev)
+        {
+            /// <summary>
+            /// Called when a player ejects the tablet.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "engaged",                    ev.Generator.Engaged.ToString()         },
+                    { "hastablet",                  ev.Generator.HasTablet.ToString()       },
+                    { "locked",                     ev.Generator.Locked.ToString()          },
+                    { "open",                       ev.Generator.Open.ToString()            },
+                    { "room",                       ev.Generator.Room.RoomType.ToString()   },
+                    { "starttime",                  ev.Generator.StartTime.ToString()       },
+                    { "timeleft",                   ev.Generator.TimeLeft.ToString()        },
+                    { "ipaddress",                  ev.Player.IpAddress                     },
+                    { "name",                       ev.Player.Name                          },
+                    { "playerid",                   ev.Player.PlayerId.ToString()           },
+                    { "steamid",                    ev.Player.SteamId                       },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()      },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()      }
+                };
+                plugin.SendMessage(Config.GetArray("channels.ongeneratorejecttablet"), "player.ongeneratorejecttablet", variables);
+            }
+        }
+
+        public void On079Door(Player079DoorEvent ev)
+        {
+            /// <summary>
+            /// Called when SCP-079 opens/closes doors.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "apdrain",                    ev.APDrain.ToString()               },
+                    { "door",                       ev.Door.Name                        },
+                    { "open",                       ev.Door.Open.ToString()             },
+                    { "ipaddress",                  ev.Player.IpAddress                 },
+                    { "name",                       ev.Player.Name                      },
+                    { "playerid",                   ev.Player.PlayerId.ToString()       },
+                    { "steamid",                    ev.Player.SteamId                   },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()  },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()  }
+                };
+                if (ev.Door.Open)
+                {
+                    plugin.SendMessage(Config.GetArray("channels.on079door.closed"), "player.on079door.closed", variables);
+                }
+                else
+                {
+                    plugin.SendMessage(Config.GetArray("channels.on079door.opened"), "player.on079door.opened", variables);
+                }
+            }
+        }
+
+        public void On079Lock(Player079LockEvent ev)
+        {
+            /// <summary>
+            /// Called when SCP-079 locks/unlocks doors.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "apdrain",                    ev.APDrain.ToString()               },
+                    { "door",                       ev.Door.Name                        },
+                    { "open",                       ev.Door.Open.ToString()             },
+                    { "ipaddress",                  ev.Player.IpAddress                 },
+                    { "name",                       ev.Player.Name                      },
+                    { "playerid",                   ev.Player.PlayerId.ToString()       },
+                    { "steamid",                    ev.Player.SteamId                   },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()  },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()  }
+                };
+                if (ev.Door.Locked)
+                {
+                    plugin.SendMessage(Config.GetArray("channels.on079lock.unlocked"), "player.on079lock.unlocked", variables);
+                }
+                else
+                {
+                    plugin.SendMessage(Config.GetArray("channels.on079lock.locked"), "player.on079lock.locked", variables);
+                }
+            }
+        }
+
+        public void On079Elevator(Player079ElevatorEvent ev)
+        {
+            /// <summary>
+            /// Called when SCP-079 sends an elevator up/down.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "apdrain",                    ev.APDrain.ToString()               },
+                    { "elevator",                   ev.Elevator.ElevatorType.ToString() },
+                    { "status",                     ev.Elevator.ElevatorStatus.ToString()},
+                    { "ipaddress",                  ev.Player.IpAddress                 },
+                    { "name",                       ev.Player.Name                      },
+                    { "playerid",                   ev.Player.PlayerId.ToString()       },
+                    { "steamid",                    ev.Player.SteamId                   },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()  },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()  }
+                };
+                if (ev.Elevator.ElevatorStatus == ElevatorStatus.Down)
+                {
+                    plugin.SendMessage(Config.GetArray("channels.on079elevator.up"), "player.on079elevator.up", variables);
+                }
+                else if (ev.Elevator.ElevatorStatus == ElevatorStatus.Up)
+                {
+                    plugin.SendMessage(Config.GetArray("channels.on079elevator.down"), "player.on079elevator.down", variables);
+                }
+            }
+        }
+
+        public void On079TeslaGate(Player079TeslaGateEvent ev)
+        {
+            /// <summary>
+            /// Called when SCP-079 triggers a tesla gate.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "apdrain",                    ev.APDrain.ToString()               },
+                    { "ipaddress",                  ev.Player.IpAddress                 },
+                    { "name",                       ev.Player.Name                      },
+                    { "playerid",                   ev.Player.PlayerId.ToString()       },
+                    { "steamid",                    ev.Player.SteamId                   },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()  },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()  }
+                };
+                plugin.SendMessage(Config.GetArray("channels.on079teslagate"), "player.on079teslagate", variables);
+            }
+        }
+
+        public void On079AddExp(Player079AddExpEvent ev)
+        {
+            /// <summary>
+            /// Called when a player's SCP-079 experience is added to.
+            /// </summary>
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "xptype",                     ev.ExperienceType.ToString()        },
+                { "amount",                     ev.ExpToAdd.ToString()              },
+                { "ipaddress",                  ev.Player.IpAddress                 },
+                { "name",                       ev.Player.Name                      },
+                { "playerid",                   ev.Player.PlayerId.ToString()       },
+                { "steamid",                    ev.Player.SteamId                   },
+                { "class",                      ev.Player.TeamRole.Role.ToString()  },
+                { "team",                       ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendMessage(Config.GetArray("channels.on079addexp"), "player.on079addexp", variables);
+        }
+
+        public void On079LevelUp(Player079LevelUpEvent ev)
+        {
+            /// <summary>
+            /// Called when a player's SCP-079 level is incremented.
+            /// </summary>
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress",                  ev.Player.IpAddress                 },
+                { "name",                       ev.Player.Name                      },
+                { "playerid",                   ev.Player.PlayerId.ToString()       },
+                { "steamid",                    ev.Player.SteamId                   },
+                { "class",                      ev.Player.TeamRole.Role.ToString()  },
+                { "team",                       ev.Player.TeamRole.Team.ToString()  }
+            };
+            plugin.SendMessage(Config.GetArray("channels.on079levelup"), "player.on079levelup", variables);
+        }
+
+        public void On079UnlockDoors(Player079UnlockDoorsEvent ev)
+        {
+            /// <summary>
+            /// Called when SCP-079 unlocks all doors.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "ipaddress",                  ev.Player.IpAddress                 },
+                    { "name",                       ev.Player.Name                      },
+                    { "playerid",                   ev.Player.PlayerId.ToString()       },
+                    { "steamid",                    ev.Player.SteamId                   },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()  },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()  }
+                };
+                plugin.SendMessage(Config.GetArray("channels.on079unlockdoors"), "player.on079unlockdoors", variables);
+            }
+        }
+
+        public void On079CameraTeleport(Player079CameraTeleportEvent ev)
+        {
+            /// <summary>
+            /// Called when SCP-079 teleports to a new camera.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "apdrain",                    ev.APDrain.ToString()               },
+                    { "ipaddress",                  ev.Player.IpAddress                 },
+                    { "name",                       ev.Player.Name                      },
+                    { "playerid",                   ev.Player.PlayerId.ToString()       },
+                    { "steamid",                    ev.Player.SteamId                   },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()  },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()  }
+                };
+                plugin.SendMessage(Config.GetArray("channels.on079camerateleport"), "player.on079camerateleport", variables);
+            }
+        }
+
+        public void On079StartSpeaker(Player079StartSpeakerEvent ev)
+        {
+            /// <summary>
+            /// Called when SCP-079 starts using a speaker.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "apdrain",                    ev.APDrain.ToString()               },
+                    { "room",                       ev.Room.RoomType.ToString()         },
+                    { "ipaddress",                  ev.Player.IpAddress                 },
+                    { "name",                       ev.Player.Name                      },
+                    { "playerid",                   ev.Player.PlayerId.ToString()       },
+                    { "steamid",                    ev.Player.SteamId                   },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()  },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()  }
+                };
+                plugin.SendMessage(Config.GetArray("channels.on079startspeaker"), "player.on079startspeaker", variables);
+            }
+        }
+
+        public void On079StopSpeaker(Player079StopSpeakerEvent ev)
+        {
+            /// <summary>
+            /// Called when SCP-079 stops using a speaker.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "room",                       ev.Room.RoomType.ToString()         },
+                    { "ipaddress",                  ev.Player.IpAddress                 },
+                    { "name",                       ev.Player.Name                      },
+                    { "playerid",                   ev.Player.PlayerId.ToString()       },
+                    { "steamid",                    ev.Player.SteamId                   },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()  },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()  }
+                };
+                plugin.SendMessage(Config.GetArray("channels.on079stopspeaker"), "player.on079stopspeaker", variables);
+            }
+        }
+
+        public void On079Lockdown(Player079LockdownEvent ev)
+        {
+            /// <summary>
+            /// Called when SCP-079 uses the lockdown (warning sign) ability.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "apdrain",                    ev.APDrain.ToString()               },
+                    { "room",                       ev.Room.RoomType.ToString()         },
+                    { "ipaddress",                  ev.Player.IpAddress                 },
+                    { "name",                       ev.Player.Name                      },
+                    { "playerid",                   ev.Player.PlayerId.ToString()       },
+                    { "steamid",                    ev.Player.SteamId                   },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()  },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()  }
+                };
+                plugin.SendMessage(Config.GetArray("channels.on079lockdown"), "player.on079lockdown", variables);
+            }
+        }
+
+        public void On079ElevatorTeleport(Player079ElevatorTeleportEvent ev)
+        {
+            /// <summary>
+            /// Called when SCP-079 uses an elevator to teleport to a new floor.
+            /// </summary>
+            if (ev.Allow)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>
+                {
+                    { "apdrain",                    ev.APDrain.ToString()               },
+                    { "elevator",                   ev.Elevator.ElevatorType.ToString() },
+                    { "ipaddress",                  ev.Player.IpAddress                 },
+                    { "name",                       ev.Player.Name                      },
+                    { "playerid",                   ev.Player.PlayerId.ToString()       },
+                    { "steamid",                    ev.Player.SteamId                   },
+                    { "class",                      ev.Player.TeamRole.Role.ToString()  },
+                    { "team",                       ev.Player.TeamRole.Team.ToString()  }
+                };
+                plugin.SendMessage(Config.GetArray("channels.on079elevatorteleport"), "player.on079elevatorteleport", variables);
+            }
         }
     }
 }
