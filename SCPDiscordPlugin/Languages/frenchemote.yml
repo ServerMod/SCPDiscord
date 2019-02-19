@@ -93,7 +93,7 @@ global_regex: [
     "COARSE":"grossier",
     "ONE_TO_ONE":"1:1",
     "VERY_FINE":"très Fin",
-    "FINE":"fin"
+    "FINE":"fin",
     
     # Room names
     "WC00":"les toilettes",
