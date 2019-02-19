@@ -20,8 +20,8 @@ global_regex: [
     "SCP-049_2":"SCP-049-2",
     "SCP-939_":"SCP-939-",
     "SCP-939-89":"SCP-939-109",
+    "SCP_079":"SCP-079",
     "CLASSD":"Classe-D",
-    "CHAOS_INSUGENCY":"Insurrection du Chaos",
     "SPECTATOR":"Spectateur",
     "SCIENTIST":"Scientifique",
     "FACILITY_GUARD":"Garde du site",
@@ -34,7 +34,6 @@ global_regex: [
     # Teams
     "CHAOS_INSURGENCY":"Insurrection du Chaos",
     "NINETAILFOX":"FIM",
-    "SCIENTISTS":"Scientifique",
 
     # Elevators
     "GateA":"Gate A",
@@ -95,10 +94,38 @@ global_regex: [
     "ONE_TO_ONE":"1:1",
     "VERY_FINE":"très Fin",
     "FINE":"fin"
+    
+    # Room names
+    "WC00":"les toilettes",
+    "SCP_914":"Confinement de SCP-914",
+    "AIRLOCK_00":"un sas",
+    "AIRLOCK_01":"un sas",
+    "CHECKPOINT_A":"LCZ point de contrôle A",
+    "CHECKPOINT_B":"LCZ point de contrôle B",
+    "HCZ_ARMORY":"HCZ armurerie",
+    "SERVER_ROOM":"la salle des serveurs",
+    "SCP_012":"Confinement de SCP-012",
+    "SCP_372":"Confinement de SCP-372",
+    "ENTRANCE_CHECKPOINT":"le point de contrôle d'entrée",
+    "TESLA_GATE":"une tesla",
+    "PC_SMALL":"le petit bureau",
+    "PC_LARGE":"le grand bureau",
+    "GATE_A":"gate A",
+    "GATE_B":"gate B",
+    "CAFE":"la salle de classe",
+    "INTERCOM":"la salle d'intercom",
+    "DR_L":"un couloir dans l'entrée",
+    "STRAIGHT":"un couloir",
+    "CURVE":"un couloir",
+    "T_INTERSECTION":"une intersection en T",
+    "X_INTERSECTION":"une intersection",
+    "LCZ_ARMORY":"l'armurerie LHZ",
+    "CLASS_D_CELLS":"Cellules classe D",
+    "CUBICLES":"un bureau"
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
-final_regex: ["discord.gg":"","http":"","www.":"","`` ":""]
+final_regex: ["discord.gg":"","http":"","www.":""]
 
 round:
     onroundstart:
@@ -117,6 +144,10 @@ round:
             # ipaddress - string
             message: "Un joueur s'est déconnecté parce qu'il est banni."
             regex: []
+    onlatedisconnect:
+        # ipaddress - string
+        message: "Un joueur s'est déconnecté."
+        regex: []
     oncheckroundend:
         message: "Entrain de regarder si la partie est terminée..."
         regex: []
@@ -402,13 +433,19 @@ player:
         regex: []
     onpocketdimensionenter:
         # damage - int
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: "<var:name> (<var:steamid>) a été pris dans la dimension de poche SCP-106."
+        # attackeripaddress - string
+        # attackername - string
+        # attackerplayerid - int
+        # attackersteamid - string
+        # attackerclass - Role
+        # attackerteam - Team
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: "<var:name> (<var:steamid>) a été pris dans la dimension de poche SCP-106 par <var:attackername> (<var:attackersteamid>).."
         regex: []
     onpocketdimensiondie:
         # ipaddress - string
@@ -664,6 +701,282 @@ player:
         # playerteam - Team
         message: "La grenade de <var:playername> (<var:playersteamid>) a touché <var:targetname> (<var:targetsteamid>)"
         regex: []
+    ongeneratorunlock:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) a déverrouillé un générateur dans <var:room>."
+        regex: [
+            "Micro-HID":"la salle Micro-HID",
+            "nuke":"le silo nucléaire",
+            "SCP-049":"le confinement de SCP-049",
+            "SCP-079":"le confinement de SCP-079",
+            "SCP-096":"le confinement de SCP-096",
+            "SCP-106":"le confinement de SCP-106",
+            "SCP-173":"le confinement de SCP-173",
+            "SCP-939":"le confinement de SCP-939" ]
+    ongeneratoraccess:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        closed:
+            message: "<var:name> (<var:steamid>) a fermé un générateur dans <var:room>."
+            regex: [
+                "Micro-HID":"la salle Micro-HID",
+                "nuke":"le silo nucléaire",
+                "SCP-049":"le confinement de SCP-049",
+                "SCP-079":"le confinement de SCP-079",
+                "SCP-096":"le confinement de SCP-096",
+                "SCP-106":"le confinement de SCP-106",
+                "SCP-173":"le confinement de SCP-173",
+                "SCP-939":"le confinement de SCP-939" ]
+        opened:
+            message: "<var:name> (<var:steamid>) a ouvert un générateur dans <var:room>."
+            regex: [
+                "Micro-HID":"la salle Micro-HID",
+                "nuke":"le silo nucléaire",
+                "SCP-049":"le confinement de SCP-049",
+                "SCP-079":"le confinement de SCP-079",
+                "SCP-096":"le confinement de SCP-096",
+                "SCP-106":"le confinement de SCP-106",
+                "SCP-173":"le confinement de SCP-173",
+                "SCP-939":"le confinement de SCP-939" ]
+    ongeneratorinserttablet:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) a inséré une tablette dans le générateur <var:room>."
+        regex: [
+            "Micro-HID":"de la salle Micro-HID",
+            "nuke":"du silo nucléaire",
+            "SCP-049":"de SCP-049",
+            "SCP-079":"de SCP-079",
+            "SCP-096":"de SCP-096",
+            "SCP-106":"de SCP-106",
+            "SCP-173":"de SCP-173",
+            "SCP-939":"de SCP-939" ]
+    ongeneratorejecttablet:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) a inséré une tablette dans le générateur <var:room>."
+        regex: [
+            "Micro-HID":"de la salle Micro-HID",
+            "nuke":"du silo nucléaire",
+            "SCP-049":"de SCP-049",
+            "SCP-079":"de SCP-079",
+            "SCP-096":"de SCP-096",
+            "SCP-106":"de SCP-106",
+            "SCP-173":"de SCP-173",
+            "SCP-939":"de SCP-939" ]
+    on079door:
+        # open - bool
+        # door - string
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        closed:
+            message: "<var:name> (<var:steamid>) a fermé une porte avec SCP-079."
+            regex: []
+        opened:
+            message: "<var:name> (<var:steamid>) a ouvert une porte avec SCP-079."
+            regex: []
+    on079lock:
+        # open - bool
+        # door - string
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        unlocked:
+            message: "<var:name> (<var:steamid>) a déverrouillé une porte avec SCP-079."
+            regex: []
+        locked:
+            message: "<var:name> (<var:steamid>) a verrouillé une porte avec SCP-079."
+            regex: []
+    on079elevator:
+        # elevator - ElevatorType
+        # status - ElevatorStatus
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        up:
+            message: "<var:name> (<var:steamid>) a envoyé le <var:elevator> ascenseur vers le haut."
+            regex: []
+        down:
+            message: "<var:name> (<var:steamid>) a envoyé le <var:elevator> ascenseur vers le bas."
+            regex: []
+    on079teslagate:
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) a activé une porte tesla."
+        regex: []
+    on079addexp:
+        # xptype - ExperienceType
+        # amount - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) a obtenu <var:amount> xp."
+        regex: []
+    on079levelup:
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) a monté de niveau avec SCP-079."
+        regex: []
+    on079unlockdoors:
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) a perdu le contrôle de la porte verrouillée."
+        regex: []
+    on079camerateleport:
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) a changé de caméra."
+        regex: []
+    on079startspeaker:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) commencé à parler dans <var:room>."
+        regex: [
+            "Micro-HID":"la salle Micro-HID",
+            "nuke":"le silo nucléaire",
+            "SCP-049":"le confinement de SCP-049",
+            "SCP-079":"le confinement de SCP-079",
+            "SCP-096":"le confinement de SCP-096",
+            "SCP-106":"le confinement de SCP-106",
+            "SCP-173":"le confinement de SCP-173",
+            "SCP-939":"le confinement de SCP-939" ]
+    on079stopspeaker:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) cessé de parler dans <var:room>."
+        regex: [
+            "Micro-HID":"la salle Micro-HID",
+            "nuke":"le silo nucléaire",
+            "SCP-049":"le confinement de SCP-049",
+            "SCP-079":"le confinement de SCP-079",
+            "SCP-096":"le confinement de SCP-096",
+            "SCP-106":"le confinement de SCP-106",
+            "SCP-173":"le confinement de SCP-173",
+            "SCP-939":"le confinement de SCP-939" ]
+    on079lockdown:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) a verrouillé <var:room>."
+        regex: [
+            "Micro-HID":"la salle Micro-HID",
+            "nuke":"le silo nucléaire",
+            "SCP-049":"le confinement de SCP-049",
+            "SCP-079":"le confinement de SCP-079",
+            "SCP-096":"le confinement de SCP-096",
+            "SCP-106":"le confinement de SCP-106",
+            "SCP-173":"le confinement de SCP-173",
+            "SCP-939":"le confinement de SCP-939" ]
+    on079elevatorteleport:
+        # elevator - ElevatorType
+        # status - ElevatorStatus
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) a changé d'étage avec SCP-079."
+        regex: []
+
 admin:
     onadminquery:
         # ipaddress - string
