@@ -93,7 +93,7 @@ global_regex: [
     "COARSE":"grossier",
     "ONE_TO_ONE":"1:1",
     "VERY_FINE":"très Fin",
-    "FINE":"fin"
+    "FINE":"fin",
     
     # Room names
     "WC00":"les toilettes",
@@ -445,7 +445,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "<var:name> (<var:steamid>) a été pris dans la dimension de poche SCP-106 par <var:attackername> (<var:attackersteamid>).."
+        message: "<var:name> (<var:steamid>) a été pris dans la dimension de poche SCP-106 par <var:attackername> (<var:attackersteamid>)."
         regex: []
     onpocketdimensiondie:
         # ipaddress - string
