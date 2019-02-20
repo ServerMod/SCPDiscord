@@ -33,7 +33,7 @@ namespace SCPDiscord
 
         private bool IsTeamDamage(int attackerTeam, int targetTeam)
         {
-            if(plugin.roundStarted)
+            if(!plugin.roundStarted)
             {
                 return false;
             }
