@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using SCPDiscord.Properties;
 using Smod2;
 using Smod2.Attributes;
@@ -20,16 +20,18 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "1.0.1-B",
+        version = "1.1.0-C",
         SmodMajor = 3,
-        SmodMinor = 2,
-        SmodRevision = 2
+        SmodMinor = 3,
+        SmodRevision = 0
     )]
     public class SCPDiscord : Plugin
     {
         public Stopwatch serverStartTime = new Stopwatch();
 
         internal static SCPDiscord plugin;
+
+        public bool roundStarted = false;
 
         public RoleSync roleSync;
 

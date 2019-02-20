@@ -5,11 +5,10 @@ using System.Collections.Generic;
 
 namespace SCPDiscord
 {
-    internal class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerWaitingForPlayers,
+    internal class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerLateDisconnect, IEventHandlerWaitingForPlayers,
         IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName, IEventHandlerSceneChanged
     {
         private readonly SCPDiscord plugin;
-        private bool roundHasStarted = false;
 
         public RoundEventListener(SCPDiscord plugin)
         {
@@ -22,7 +21,7 @@ namespace SCPDiscord
             ///  This is the event handler for Round start events (before people are spawned in)
             /// </summary>
             plugin.SendMessage(Config.GetArray("channels.onroundstart"), "round.onroundstart");
-            roundHasStarted = true;
+            plugin.roundStarted = true;
         }
 
         public void OnConnect(ConnectEvent ev)
@@ -56,6 +55,18 @@ namespace SCPDiscord
             }
         }
 
+        public void OnLateDisconnect(LateDisconnectEvent ev)
+        {
+            /// <summary>  
+            ///  This is the event handler for disconnection events after the player has disconnected.
+            /// </summary> 
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress", ev.Connection.IpAddress }
+            };
+            plugin.SendMessage(Config.GetArray("channels.onlatedisconnect"), "round.onlatedisconnect", variables);
+        }
+
         public void OnCheckRoundEnd(CheckRoundEndEvent ev)
         {
             /// <summary>
@@ -71,7 +82,7 @@ namespace SCPDiscord
             /// <summary>
             ///  This is the event handler for Round end events (when the stats appear on screen)
             /// </summary>
-            if (roundHasStarted && ev.Round.Duration > 60)
+            if (plugin.roundStarted && ev.Round.Duration > 60)
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
@@ -93,7 +104,7 @@ namespace SCPDiscord
                     { "zombies",            ev.Round.Stats.Zombies.ToString()           }
                 };
                 plugin.SendMessage(Config.GetArray("channels.onroundend"), "round.onroundend", variables);
-                roundHasStarted = false;
+                plugin.roundStarted = false;
             }
         }
 

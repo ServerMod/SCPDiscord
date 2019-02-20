@@ -99,8 +99,11 @@
     <None Include="Languages\englishemote.yml" />
     <None Include="Languages\french.yml" />
     <None Include="Languages\frenchemote.yml" />
+    <None Include="Languages\italian.yml" />
     <None Include="Languages\polish.yml" />
+    <None Include="Languages\polishemote.yml" />
     <None Include="Languages\russian.yml" />
+    <None Include="Languages\russianemote.yml" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -117,6 +120,7 @@
 cd $(ProjectDir)
 copy /y bin\SCPDiscord.dll ..\..\..\scpserver\sm_plugins\
 mkdir ..\..\..\scpserver\sm_plugins\dependencies
-copy /y bin\YamlDotNet.dll ..\..\..\scpserver\sm_plugins\dependencies\</PostBuildEvent>
+copy /y bin\YamlDotNet.dll ..\..\..\scpserver\sm_plugins\dependencies\
+del ..\..\..\scpserver\sm_plugins\SCPDiscord-lite.dll</PostBuildEvent>
   </PropertyGroup>
 </Project>

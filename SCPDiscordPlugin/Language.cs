@@ -28,8 +28,11 @@ namespace SCPDiscord
             { "russian",        Encoding.UTF8.GetString(Resources.russian)      },
             { "french",         Encoding.UTF8.GetString(Resources.french)       },
             { "polish",         Encoding.UTF8.GetString(Resources.polish)       },
+            { "italian",        Encoding.UTF8.GetString(Resources.italian)      },
             { "englishemote",   Encoding.UTF8.GetString(Resources.englishemote) },
-            { "frenchemote",    Encoding.UTF8.GetString(Resources.frenchemote)  }
+            { "russianemote",   Encoding.UTF8.GetString(Resources.russianemote) },
+            { "frenchemote",    Encoding.UTF8.GetString(Resources.frenchemote)  },
+            { "polishemote",    Encoding.UTF8.GetString(Resources.polishemote)  }
         };
 
         private static readonly List<string> messageNodes = new List<string>
@@ -38,6 +41,7 @@ namespace SCPDiscord
             "round.onconnect",
             "round.ondisconnect.default",
             "round.ondisconnect.banned",
+            "round.onlatedisconnect",
             "round.oncheckroundend",
             "round.onroundend",
             "round.onwaitingforplayers",
@@ -102,6 +106,26 @@ namespace SCPDiscord
             "player.onreload",
             "player.ongrenadeexplosion",
             "player.ongrenadehitplayer",
+            "player.ongeneratorunlock",
+            "player.ongeneratoraccess.closed",
+            "player.ongeneratoraccess.opened",
+            "player.ongeneratorinserttablet",
+            "player.ongeneratorejecttablet",
+            "player.on079door.closed",
+            "player.on079door.opened",
+            "player.on079lock.unlocked",
+            "player.on079lock.locked",
+            "player.on079elevator.up",
+            "player.on079elevator.down",
+            "player.on079teslagate",
+            "player.on079addexp",
+            "player.on079levelup",
+            "player.on079unlockdoors",
+            "player.on079camerateleport",
+            "player.on079startspeaker",
+            "player.on079stopspeaker",
+            "player.on079lockdown",
+            "player.on079elevatorteleport",
 
             "admin.onadminquery",
             "admin.onauthcheck",
