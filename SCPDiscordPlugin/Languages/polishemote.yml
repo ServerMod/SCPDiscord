@@ -117,6 +117,10 @@ round:
             # ipaddress - string
             message: ":arrow_left:Gracz rozłączył się z powodu bana"
             regex: []
+    onlatedisconnect:
+        # ipaddress - string
+        message: ":arrow_left:Gracz rozłączył się."
+        regex: []
     oncheckroundend:
         message: "Sprawdzanie, czy runda zakończyła się..."
         regex: []
@@ -663,6 +667,281 @@ player:
         # playerclass - Role
         # playerteam - Team
         message: ":bomb:Granat gracza <var:playername> (<var:playersteamid>) zranił gracza <var:targetname> (<var:targetsteamid>)"
+        regex: []
+    ongeneratorunlock:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":unlock: <var:name> (<var:steamid>) odblokował generator w <var:room>."
+        regex: [
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
+    ongeneratoraccess:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        closed:
+        message: ":lock: <var:name> (<var:steamid>) zamkął generaotr w <var:room>."
+        regex: [
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
+            opened:
+            message: ":unlock: <var:name> (<var:steamid>) otowrzył generator w <var:room>."
+        regex: [
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
+        ongeneratorinserttablet:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) aktywował generaotr w <var:room>."
+        regex: [
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
+        ongeneratorejecttablet:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":eject: <var:name> (<var:steamid>) wyjoł tablet z generatora obok <var:room>."
+        regex: [
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
+        on079door:
+        # open - bool
+        # door - string
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        closed:
+            message: "<var:name> (<var:steamid>) zamkął drzwi jako SCP-079."
+            regex: []
+        opened:
+            message: "<var:name> (<var:steamid>) otworzył drzwi jako SCP-079."
+            regex: []
+    on079lock:
+        # open - bool
+        # door - string
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        unlocked:
+            message: ":unlock: <var:name> (<var:steamid>) odblokował drzwi jako SCP-079."
+            regex: []
+        locked:
+            message: ":lock: <var:name> (<var:steamid>) zablokował drzwi jako SCP-079."
+            regex: []
+    on079elevator:
+        # elevator - ElevatorType
+        # status - ElevatorStatus
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        up:
+            message: ":arrow_up: <var:name> (<var:steamid>) wysłał winde <var:elevator> na góre."
+            regex: []
+        down:
+            message: ":arrow_down: <var:name> (<var:steamid>) wysłał winde <var:elevator> na dół."
+            regex: []
+    on079teslagate:
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) aktywował tesle jako SCP-079."
+        regex: []
+    on079addexp:
+        # xptype - ExperienceType
+        # amount - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) zdobył <var:amount> xp."
+        regex: []
+    on079levelup:
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) zdobył kolejny level jako SCP-079."
+        regex: []
+    on079unlockdoors:
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":unlock: <var:name> (<var:steamid>) stracił kontrole nad drzwiami."
+        regex: []
+    on079camerateleport:
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) zmienił kamere."
+        regex: []
+    on079startspeaker:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":speaker: <var:name> (<var:steamid>) zaczoł mówić w <var:room>."
+        regex: [
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
+    on079stopspeaker:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":speaker: <var:name> (<var:steamid>) przestał mówić w <var:room>."
+        regex: [
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
+    on079lockdown:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":lock: <var:name> (<var:steamid>) zablokował <var:room>."
+        regex: [
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
+    on079elevatorteleport:
+        # elevator - ElevatorType
+        # status - ElevatorStatus
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":arrow_up_down: <var:name> (<var:steamid>) zmienił piętro jako SCP-079."
         regex: []
 
 admin:
