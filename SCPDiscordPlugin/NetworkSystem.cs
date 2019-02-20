@@ -310,7 +310,7 @@ namespace SCPDiscord
             // Run the global regex replacements
             foreach (KeyValuePair<string, string> entry in globalRegex)
             {
-                Regex.Replace(message, entry.Key, entry.Value);
+                message = Regex.Replace(message, entry.Key, entry.Value);
             }
             ///////////////////////////////////////////////
 
@@ -328,7 +328,7 @@ namespace SCPDiscord
             // Run the local regex replacements
             foreach (KeyValuePair<string, string> entry in localRegex)
             {
-                Regex.Replace(message, entry.Key, entry.Value);
+                message = Regex.Replace(message, entry.Key, entry.Value);
             }
             ///////////////////////////////////////////////
 
@@ -358,7 +358,7 @@ namespace SCPDiscord
                 // Run the final regex replacements
                 foreach (KeyValuePair<string, string> entry in finalRegex)
                 {
-                    Regex.Replace(message, entry.Key, entry.Value);
+                    message = Regex.Replace(message, entry.Key, entry.Value);
                 }
                 ///////////////////////////////////////////////
             }
@@ -520,7 +520,7 @@ namespace SCPDiscord
                 // Run the regex replacements
                 foreach (KeyValuePair<string, string> entry in regex)
                 {
-                    topic = topic.Replace(entry.Key, entry.Value);
+                    topic = Regex.Replace(topic, entry.Key, entry.Value);
                 }
 
                 // Try to send the message to the bot

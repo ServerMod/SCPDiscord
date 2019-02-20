@@ -120,6 +120,7 @@
 cd $(ProjectDir)
 copy /y bin\SCPDiscord-lite.dll ..\..\..\scpserver\sm_plugins\
 mkdir ..\..\..\scpserver\sm_plugins\dependencies
-copy /y bin\YamlDotNet.dll ..\..\..\scpserver\sm_plugins\dependencies\</PostBuildEvent>
+copy /y bin\YamlDotNet.dll ..\..\..\scpserver\sm_plugins\dependencies\
+del ..\..\..\scpserver\sm_plugins\SCPDiscord-lite.dll</PostBuildEvent>
   </PropertyGroup>
 </Project>
