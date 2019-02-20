@@ -1,3 +1,5 @@
+# Note: If you want to edit this file you need to either rename it or set discord_overwrite_language to false or it will be reset on server start.
+
 #####################################################################################################################
 #                                                                                                                   #
 #                                                     EVENTS                                                        #
@@ -18,6 +20,7 @@ global_regex: [
     # Classes
     "SCP_":"SCP-",
     "SCP-049_2":"Zombie",
+    "SCP-049-2":"Zombie",
     "SCP-939_":"SCP-939-",
     "SCP-939-89":"SCP-939-89",
     "CLASSD":"D-Boy",
@@ -96,15 +99,44 @@ global_regex: [
     "VERY_FINE":"very fine",
     "FINE":"fine",
     
+    
+    # Room names
+    "WC00":"i cessi",
+    "SCP_914":"SCP-914",
+    "AIRLOCK_00":"un airlock",
+    "AIRLOCK_01":"un airlock",
+    "CHECKPOINT_A":"LCZ checkpoint A",
+    "CHECKPOINT_B":"LCZ checkpoint B",
+    "HCZ_ARMORY":"L' armeria della HCZ",
+    "SERVER_ROOM":"la stanza dei server",
+    "SCP_012":"SCP-012",
+    "SCP_372":"SCP-372",
+    "ENTRANCE_CHECKPOINT":"il checkpint dell'entrata checkpoint",
+    "TESLA_GATE":"un tesla",
+    "PC_SMALL":"il piccolo ufficio",
+    "PC_LARGE":"il grande ufficio",
+    "GATE_A":"gate A",
+    "GATE_B":"gate B",
+    "CAFE":"CAFFE",
+    "INTERCOM":"l' intercom",
+    "DR_L":"un corridoio nell entrace",
+    "STRAIGHT":"un corridioio",
+    "CURVE":"un corridoio",
+    "T_INTERSECTION":"un intersezione a T",
+    "X_INTERSECTION":"un intersezione a croce",
+    "LCZ_ARMORY":"L' armeria della LHZ",
+    "CLASS_D_CELLS":"le celle dei classe-D",
+    "CUBICLES":"un ufficio",
+    
     # UNASSIGNED FIX
     
-    "(UNASSIGNED)":"",
-    " 1 minuti":" 1 minuto"
+    "\\(UNASSIGNED\\)":"",
+    "1 minuti":"1 minuto"
     
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
-final_regex: ["discord\\.gg":"","http":"","www\\.":""," `` ":" unnamed "]
+final_regex: ["discord\\.gg":"","http":"","www\\.":"","` `":"unamed"]
 
 round:
     onroundstart:
@@ -123,6 +155,10 @@ round:
             # ipaddress - string
             message: "Un giocatore si è disconnesso perchè bannato"
             regex: []
+    onlatedisconnect:
+        # ipaddress - string
+        message: "A player has disconnected."
+        regex: []
     oncheckroundend:
         message: "Controllo fine round..."
         regex: []
@@ -314,8 +350,8 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "Il Giocatore `<var:name>` usa il nickname `<var:nickname>`."
-        regex: []
+        message: "Il Giocatore ` <var:name>` usa il nickname `<var:nickname>`."
+        regex: [ ]
     onassignteam:
         # ipaddress - string
         # name - string
@@ -409,13 +445,19 @@ player:
         regex: []
     onpocketdimensionenter:
         # damage - int
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: "`<var:name>` (<var:class>) è stato catturato dall SCP-106."
+        # attackeripaddress - string
+        # attackername - string
+        # attackerplayerid - int
+        # attackersteamid - string
+        # attackerclass - Role
+        # attackerteam - Team
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: "`<var:playername>` (<var:playerclass>) è stato catturato dall SCP-106."
         regex: []
     onpocketdimensiondie:
         # ipaddress - string
@@ -671,7 +713,217 @@ player:
         # playerteam - Team
         message: "La granata di `<var:playername>` (<var:playerclass>) ha colpito `<var:targetname>` (<var:targetclass>)"
         regex: []
-
+    ongeneratorunlock:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "'<var:name>' (<var:class>) ha aperto un generatore nella stanza <var:room>."
+        regex: []
+    ongeneratoraccess:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        closed:
+            message: "'<var:name>' (<var:class>) ha chiuso un generatore nella stanza <var:room>."
+            regex: [ ]
+        opened:
+            message: "'<var:name>' (<var:class>) ha aperto un generatore nella stanza <var:room>."
+            regex: [ ]
+    ongeneratorinserttablet:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "'<var:name>' (<var:class>) ha attivato un generatore nella stanza <var:room>."
+        regex: [ ]
+    ongeneratorejecttablet:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "'<var:name>' (<var:class>) ha disattivato un generatore nella stanza <var:room>."
+        regex: []
+    on079door:
+        # open - bool
+        # door - string
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        closed:
+            message: "'<var:name>' ha chiuso una porta come SCP-079."
+            regex: []
+        opened:
+            message: "'<var:name>' ha aperto una porta come SCP-079."
+            regex: []
+    on079lock:
+        # open - bool
+        # door - string
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        unlocked:
+            message: "'<var:name>' ha sbloccato una porta come SCP-079."
+            regex: []
+        locked:
+            message: "'<var:name>' bloccato una porta come SCP-079."
+            regex: []
+    on079elevator:
+        # elevator - ElevatorType
+        # status - ElevatorStatus
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        up:
+            message: "'<var:name>' (<var:class>) ha mandato l'ascensore <var:elevator> su."
+            regex: []
+        down:
+            message: "'<var:name>' (<var:class>) ha mandato l'ascensore <var:elevator> giu."
+            regex: []
+    on079teslagate:
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "'<var:name>' (<var:class>) ha attivato un tesla gate."
+        regex: []
+    on079addexp:
+        # xptype - ExperienceType
+        # amount - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "'<var:name>' (<var:class>) ha guadagnato <var:amount> xp."
+        regex: []
+    on079levelup:
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "'<var:name>' è salito di livello come SCP-079."
+        regex: []
+    on079unlockdoors:
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "'<var:name>' (<var:class>) ha perso il controllo sulle porte bloccate."
+        regex: []
+    on079camerateleport:
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "'<var:name>' (<var:class>) ha cambiato telecamera."
+        regex: []
+    on079startspeaker:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "'<var:name>' (<var:class>) sta parlando in <var:room>."
+        regex: [ ]
+    on079stopspeaker:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "'<var:name>' (<var:class>) ha smesso di parlare da <var:room>."
+        regex: []
+    on079lockdown:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "'<var:name>' (<var:class>) ha bloccato tutta la stanza <var:room>."
+        regex: [ ]
+    on079elevatorteleport:
+        # elevator - ElevatorType
+        # status - ElevatorStatus
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "'<var:name>' (<var:class>) ha cambiato piano."
+        regex: []
 admin:
     onadminquery:
         # ipaddress - string
