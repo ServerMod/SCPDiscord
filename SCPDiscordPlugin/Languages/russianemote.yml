@@ -1,8 +1,6 @@
-# Russian translation by TeMbI4.
-
 #####################################################################################################################
 #                                                                                                                   #
-#                                                     EVENTS                                                        #
+#                                                     EVENTS       # Russian translation by TeMbI4.                 #
 #                                                                                                                   #
 #   message: The message to be displayed. Variables are inserted in the format <var:name>, such as <var:ipaddress>. #
 #   regex: A regular expression paired with a replacement string to find and replace parts of a message.            #
@@ -22,8 +20,8 @@ global_regex: [
     "SCP-049_2":"SCP-049-2",
     "SCP-939_":"SCP-939-",
     "SCP-939-89":"SCP-939-109",
+    "SCP_079":"SCP-079",
     "CLASSD":"Сотрудник Класса-D",
-    "CHAOS_INSUGENCY":"Повстнанец Хаоса",
     "SPECTATOR":"Наблюдатель",
     "SCIENTIST":"Научный сотрудник",
     "FACILITY_GUARD":"Охранник комплекса",
@@ -34,9 +32,8 @@ global_regex: [
     "ZOMBIE":"Зомби",
 
     # Teams
-    "CHAOS_INSURGENCY":"Повстнанецы Хаоса",
+    "CHAOS_INSURGENCY":"Повстанцы Хаоса",
     "NINETAILFOX":"Мобильная Оперативная Группа",
-    "SCIENTISTS":"Научные сотрудники",
 
     # Elevators
     "GateA":"Ворота A",
@@ -48,7 +45,7 @@ global_regex: [
 
     # Non-weapon damage types
     "NUKE":"Боеголовка «Альфа»",
-    "FALLDOWN":"Урон от падения с высоты",
+    "FALLDOWN":"Падения с высоты",
     "CONTAIN":"Восстановлениие условий содержания",
     "DECONT":"Обеззараживание Лёгкой Зоны Содержания",
     "LURE":"Перелом бедренной кости",
@@ -56,7 +53,7 @@ global_regex: [
     "TESLA":"Ворота Тесла",
     "WALL":"Раздавлен",
     "FLYING":"Античит",
-    "RAGDOLLLESS":"Рэгдолл",
+    "RAGDOLLLESS":"Неизвестность",
 
     # Items
     "JANITOR_KEYCARD":"Ключ-карта Уборщика",
@@ -86,7 +83,7 @@ global_regex: [
     "LOGICER":"Пулемёт",
     "FRAG_GRENADE":"Осколочная Граната",
     "FLASHBANG":"Светошумовая Граната",
-    "DISARMER":"Разоружатель",
+    "DISARMER":"Обезоруживатель",
     "DROPPED_7":"Патроны 7.62мм",
     "FRAG":"Осколочная Граната",
     "DROPPED_9":"Патроны 9мм",
@@ -95,12 +92,40 @@ global_regex: [
     "ROUGH":"очень грубо",
     "COARSE":"грубо",
     "ONE_TO_ONE":"1:1",
-    "FINE":"хорошо",
-    "VERY_FINE":"очень хорошо"
+    "FINE":"тонко",
+    "VERY_FINE":"очень тонко",
+    
+    # Room names
+    "WC00":"туалет",
+    "SCP_914":"комната содержания SCP-914",
+    "AIRLOCK_00":"шлюз",
+    "AIRLOCK_01":"шлюз",
+    "CHECKPOINT_A":"чекпоинт A, ЛЗС",
+    "CHECKPOINT_B":"чекпоинт B, ЛЗС",
+    "HCZ_ARMORY":"оружейная, ТЗС",
+    "SERVER_ROOM":"серверная комната",
+    "SCP_012":"комната содержания SCP-012",
+    "SCP_372":"комната содержания SCP-372",
+    "ENTRANCE_CHECKPOINT":"чекпоинт входа в ТЗС",
+    "TESLA_GATE":"ворота Тесла",
+    "PC_SMALL":"малый офис с компьютерами",
+    "PC_LARGE":"большой офис с компьютерами",
+    "GATE_A":"ворота A",
+    "GATE_B":"ворота B",
+    "CAFE":"клас с компьютерами в ЛЗС",
+    "INTERCOM":"интерком",
+    "DR_L":"коридор перед конференц комнатой",
+    "STRAIGHT":"прямой коридор",
+    "CURVE":"дуговой коридор",
+    "T_INTERSECTION":"Т-образный коридор",
+    "X_INTERSECTION":"перекрёсток",
+    "LCZ_ARMORY":"оружейная, ЛЗС",
+    "CLASS_D_CELLS":"тюремные камеры Сотрудников Класса-D",
+    "CUBICLES":"офис"
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
-final_regex: ["discord.gg":"","http":"","www.":"","`` ":""]
+final_regex: ["discord.gg":"","http":"","www.":""]
 
 round:
     onroundstart:
@@ -108,17 +133,21 @@ round:
         regex: []
     onconnect:
         # ipaddress - string
-        message: ":arrow_right:Игрок пытается подключится..."
+        message: ":arrow_right:Игрок пытается подключиться..."
         regex: []
     ondisconnect:
         default:
-            # ipaddress - string
+        # ipaddress - string
             message: ":arrow_left:Игрок отключился."
             regex: []
         banned:
-            # ipaddress - string
-            message: ":arrow_left:Игрок отключился так как он был забанен."
+        # ipaddress - string
+            message: ":arrow_left:Игрок отключился, так как он был забанен."
             regex: []
+    onlatedisconnect:
+        # ipaddress - string
+        message: ":arrow_left:Игрок отключился."
+        regex: []
     oncheckroundend:
         message: ":question:Проверяем, закончился ли раунд..."
         regex: []
@@ -199,7 +228,7 @@ environment:
             message: ":radioactive:**Детонация боеголовки «Альфа» была отключена игроком <var:name> (<var:steamid>).**"
             regex: []
         noplayer:
-            message: ":radioactive:**Детонация боеголовки «Альфа» была отключена удалённо по приказу Совета О5.**"
+            message: ":radioactive:**Детонация боеголовки «Альфа» была отключена удалённо Комитетом Этики.**"
             regex: []
     ondetonate:
         message: ":radioactive:**Обнаружена детонация боеголовки «Альфа». Высланы оперативники Фонда для расследования ситуации.**"
@@ -404,13 +433,19 @@ player:
         regex: []
     onpocketdimensionenter:
         # damage - int
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: ":door: <var:name> (<var:steamid>) попал в карманное измерение SCP-106."
+        # attackeripaddress - string
+        # attackername - string
+        # attackerplayerid - int
+        # attackersteamid - string
+        # attackerclass - Role
+        # attackerteam - Team
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: ":door: <var:playername> (<var:playersteamid>) попал в карманное измерение, ему помог SCP-106 <var:attackername> (<var:attackersteamid>)."
         regex: []
     onpocketdimensiondie:
         # ipaddress - string
@@ -666,7 +701,281 @@ player:
         # playerteam - Team
         message: ":boom:**Граната игрока <var:playername> (<var:playersteamid>) нанесла урон игроку <var:targetname> (<var:targetsteamid>)**"
         regex: []
-
+    ongeneratorunlock:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":unlock: <var:name> (<var:steamid>) разблокировал дверь генератора в <var:room>."
+        regex: [
+            "Micro-HID":"комнате Micro-HID",
+            "nuke":"бункере Боеголовки «Альфа»",
+            "SCP-049":"комнате содержания SCP-049",
+            "SCP-079":"комнате содержания SCP-079",
+            "SCP-096":"комнате содержания SCP-096",
+            "SCP-106":"комнате содержания SCP-106",
+            "SCP-173":"комнате содержания SCP-173",
+            "SCP-939":"комнате содержания SCP-939" ]
+    ongeneratoraccess:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        closed:
+            message: ":lock: <var:name> (<var:steamid>) закрыл дверь генератора в <var:room>."
+            regex: [
+            "Micro-HID":"комнате Micro-HID",
+            "nuke":"бункере Боеголовки «Альфа»",
+            "SCP-049":"комнате содержания SCP-049",
+            "SCP-079":"комнате содержания SCP-079",
+            "SCP-096":"комнате содержания SCP-096",
+            "SCP-106":"комнате содержания SCP-106",
+            "SCP-173":"комнате содержания SCP-173",
+            "SCP-939":"комнате содержания SCP-939" ]
+        opened:
+            message: ":unlock: <var:name> (<var:steamid>) открыл дверь генератора в <var:room>."
+            regex: [
+            "Micro-HID":"комнате Micro-HID",
+            "nuke":"бункере Боеголовки «Альфа»",
+            "SCP-049":"комнате содержания SCP-049",
+            "SCP-079":"комнате содержания SCP-079",
+            "SCP-096":"комнате содержания SCP-096",
+            "SCP-106":"комнате содержания SCP-106",
+            "SCP-173":"комнате содержания SCP-173",
+            "SCP-939":"комнате содержания SCP-939" ]
+    ongeneratorinserttablet:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":iphone: <var:name> (<var:steamid>) активировал генератор в <var:room>."
+        regex: [
+            "Micro-HID":"комнате Micro-HID",
+            "nuke":"бункере Боеголовки «Альфа»",
+            "SCP-049":"комнате содержания SCP-049",
+            "SCP-079":"комнате содержания SCP-079",
+            "SCP-096":"комнате содержания SCP-096",
+            "SCP-106":"комнате содержания SCP-106",
+            "SCP-173":"комнате содержания SCP-173",
+            "SCP-939":"комнате содержания SCP-939" ]
+    ongeneratorejecttablet:
+        # engaged - bool
+        # hastablet - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":iphone: <var:name> (<var:steamid>) вытащил планшет из генератора в <var:room>."
+        regex: [
+            "Micro-HID":"комнате Micro-HID",
+            "nuke":"бункере Боеголовки «Альфа»",
+            "SCP-049":"комнате содержания SCP-049",
+            "SCP-079":"комнате содержания SCP-079",
+            "SCP-096":"комнате содержания SCP-096",
+            "SCP-106":"комнате содержания SCP-106",
+            "SCP-173":"комнате содержания SCP-173",
+            "SCP-939":"комнате содержания SCP-939" ]
+    on079door:
+        # open - bool
+        # door - string
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        closed:
+            message: ":door:SCP-079, <var:name> (<var:steamid>) закрыл дверь."
+            regex: []
+        opened:
+            message: ":door:SCP-079, <var:name> (<var:steamid>) открыл дверь."
+            regex: []
+    on079lock:
+        # open - bool
+        # door - string
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        unlocked:
+            message: ":unlock:SCP-079, <var:name> (<var:steamid>) разблокировал дверь."
+            regex: []
+        locked:
+            message: ":lock:SCP-079, <var:name> (<var:steamid>) заблокировал дверь."
+            regex: []
+    on079elevator:
+        # elevator - ElevatorType
+        # status - ElevatorStatus
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        up:
+            message: ":door:SCP-079, <var:name> (<var:steamid>) отослал лифт <var:elevator> вверх."
+            regex: []
+        down:
+            message: ":door:SCP-079, <var:name> (<var:steamid>) отослал лифт <var:elevator> вниз."
+            regex: []
+    on079teslagate:
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":zap:SCP-079, <var:name> (<var:steamid>) активировал ворота Тесла."
+        regex: []
+    on079addexp:
+        # xptype - ExperienceType
+        # amount - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":heavy_plus_sign:SCP-079, <var:name> (<var:steamid>) получил <var:amount> XP."
+        regex: []
+    on079levelup:
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":arrow_up:SCP-079, <var:name> (<var:steamid>) перешёл на следующий уровень."
+        regex: []
+    on079unlockdoors:
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":unlock:SCP-079, <var:name> (<var:steamid>) потерял контроль над своими заблокированными дверями."
+        regex: []
+    on079camerateleport:
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":camera:SCP-079, <var:name> (<var:steamid>) переключился на другую камеру."
+        regex: []
+    on079startspeaker:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":sound:SCP-079, <var:name> (<var:steamid>) начал говорить в <var:room>."
+        regex: [
+            "Micro-HID":"комнате Micro-HID",
+            "nuke":"бункере Боеголовки «Альфа»",
+            "SCP-049":"комнате содержания SCP-049",
+            "SCP-079":"комнате содержания SCP-079",
+            "SCP-096":"комнате содержания SCP-096",
+            "SCP-106":"комнате содержания SCP-106",
+            "SCP-173":"комнате содержания SCP-173",
+            "SCP-939":"комнате содержания SCP-939" ]
+    on079stopspeaker:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":mute:SCP-079, <var:name> (<var:steamid>) перестал говорить в <var:room>."
+        regex: [
+            "Micro-HID":"комнате Micro-HID",
+            "nuke":"бункере Боеголовки «Альфа»",
+            "SCP-049":"комнате содержания SCP-049",
+            "SCP-079":"комнате содержания SCP-079",
+            "SCP-096":"комнате содержания SCP-096",
+            "SCP-106":"комнате содержания SCP-106",
+            "SCP-173":"комнате содержания SCP-173",
+            "SCP-939":"комнате содержания SCP-939" ]
+    on079lockdown:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":lock:SCP-079, <var:name> (<var:steamid>) изолировал <var:room> от всего Комплекса."
+        regex: [
+            "Micro-HID":"комнату Micro-HID",
+            "nuke":"бункер Боеголовки «Альфа»",
+            "SCP-049":"комнату содержания SCP-049",
+            "SCP-079":"комнату содержания SCP-079",
+            "SCP-096":"комнату содержания SCP-096",
+            "SCP-106":"комнату содержания SCP-106",
+            "SCP-173":"комнату содержания SCP-173",
+            "SCP-939":"комнату содержания SCP-939" ]
+    on079elevatorteleport:
+        # elevator - ElevatorType
+        # status - ElevatorStatus
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":door:SCP-079, <var:name> (<var:steamid>) перешёл на другой этаж."
+        regex: []
 admin:
     onadminquery:
         # ipaddress - string
@@ -712,7 +1021,7 @@ admin:
         # adminteam - Team
         admin:
             ban:
-                message: ":no_entry:```diff\n- Игрок <var:playername> (<var:playersteamid>) был забанен администратором <var:adminname> (<var:adminsteamid>) на <var:duration> минут. Причина: <var:reason>```"
+                message: ":no_entry:```diff\n- Игрок <var:playername> (<var:playersteamid>) был забанен администратором <var:adminname> (<var:adminsteamid>) на <var:duration> часа(ов). Причина: <var:reason>```"
                 regex: []
             kick:
                 message: ":no_entry:```diff\n- Игрок <var:playername> (<var:playersteamid>) был кикнут администратором <var:adminname> (<var:adminsteamid>). Причина: <var:reason>```"
@@ -765,6 +1074,7 @@ team:
         # name - string
         message: ":cop:**Мобильная Оперативная Группа <var:name> прибыла в комплекс.**"
         regex: []
+        
 #####################################################################################################################
 #                                                                                                                   #
 #                                                   DISCORD BOT                                                     #
@@ -827,7 +1137,7 @@ botresponses:
         message: "```diff\n- Команда exit не может быть использована из Discord.```"
         regex: []
     help:
-        message: "```diff\n- Команда help будет введена в слелующих обновлениях SCP Discord.```"
+        message: "```diff\n- Команда help будет введена в следующих обновлениях SCP Discord.```"
         regex: []
     toggletag:
         notinstalled:
