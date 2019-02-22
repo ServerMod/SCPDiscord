@@ -58,7 +58,7 @@ namespace SCPDiscord
             Player player = plugin.Server.GetPlayers(steamID)[0];
             if(player != null)
             {
-                player.SetRank("", "", gameRole);
+                player.SetRank(null, null, gameRole);
                 plugin.Info(player.GetUserGroup().Name);
                 if(Config.GetBool("settings.verbose"))
                 {
