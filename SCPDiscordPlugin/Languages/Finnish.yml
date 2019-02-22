@@ -1,5 +1,3 @@
-# Note: If you want to edit this file you need to either rename it or set discord_overwrite_language to false or it will be reset on server start.
-
 #####################################################################################################################
 #                                                                                                                   #
 #                                                     EVENTS                                                        #
@@ -19,148 +17,139 @@ global_regex: [
 
     # Classes
     "SCP_":"SCP-",
-    "SCP-049_2":"Zombie",
-    "SCP-049-2":"Zombie",
+    "SCP-049_2":"SCP-049-2",
     "SCP-939_":"SCP-939-",
-    "SCP-939-89":"SCP-939-89",
-    "CLASSD":"D-Boy",
-    "CHAOS_INSUGENCY":"Chaos Insurgency",
-    "SPECTATOR":"Spettatore",
-    "SCIENTIST":"Scienziato",
-    "FACILITY_GUARD":"Guardia",
-    "NTF_CADET":"Cadetto MTF",
-    "NTF_SCIENTIST":"Scienziato MTF",
-    "NTF_LIEUTENANT":"Luogotenente MTF",
-    "NTF_COMMANDER":"Comandante MTF",
-    "ZOMBIE":"Zombie",
+    "SCP-939-89":"SCP-939-109",
+    "SCP_079":"SCP-079",
+    "CLASSD":"D-Luokka",
+    "SPECTATOR":"Katselija",
+    "SCIENTIST":"Tiedemies",
+    "FACILITY_GUARD":"Laitos vartija",
+    "NTF_CADET":"MTF Kokelas",
+    "NTF_SCIENTIST":"MTF Tiedemies",
+    "NTF_LIEUTENANT":"MTF Luutnantti",
+    "NTF_COMMANDER":"MTF Johtaja",
+    "ZOMBIE":"Zombi",
 
     # Teams
-    "CHAOS_INSURGENCY":"Chaos Insurgency",
+    "CHAOS_INSURGENCY":"Kaaos Kapina",
     "NINETAILFOX":"MTF",
-    "SCIENTISTS":"Scienziati",
 
     # Elevators
-    "GateA":"Gate A",
-    "GateB":"Gate B",
-    "LiftA":"Lift A",
-    "LiftB":"Lift B",
-    "SCP049Chamber":"Camera di contenimento SCP-049",
-    "WarheadRoom":"la stanza della Nuke",
+    "GateA":"Portti A",
+    "GateB":"Postti B",
+    "LiftA":"Hissi A",
+    "LiftB":"Hissi B",
+    "SCP049Chamber":"SCP-049 Hallinta Kammio",
+    "WarheadRoom":"Ohjus Huone",
 
     # Non-weapon damage types
-    "NUKE":"Nuke",
-    "FALLDOWN":"danno da caduta",
-    "CONTAIN":"contenimento",
-    "DECONT":"decontaminazione LCZ",
-    "LURE":"the femur breaker",
-    "POCKET":"la dimesione tasca",
-    "TESLA":"tesla energy",
-    "WALL":"viene schiacciato",
-    "FLYING":"anticheat",
+    "NUKE":"Ydinpommi",
+    "FALLDOWN":"Pudotus vaurio",
+    "CONTAIN":"Hallinta",
+    "DECONT":"LCZ Puhdistus",
+    "LURE":"reisiluu rikkoja",
+    "POCKET":"tasku ulottuvuus",
+    "TESLA":"tesla energia",
+    "WALL":"murskattiin",
+    "FLYING":"huijaus suoja",
     "RAGDOLLLESS":"RAGDOLLLESS",
 
     # Items
-    "JANITOR_KEYCARD":"Janitor keycard",
-    "SCIENTIST_KEYCARD":"Scientist keycard",
-    "MAJOR_SCIENTIST_KEYCARD":"Major Scientist keycard",
-    "ZONE_MANAGER_KEYCARD":"Zone Manager keycard",
-    "GUARD_KEYCARD":"Guard keycard",
-    "SENIOR_GUARD_KEYCARD":"Senior Guard keycard",
-    "CONTAINMENT_ENGINEER_KEYCARD":"Containment Engineer keycard",
-    "MTF_LIEUTENANT_KEYCARD":"MTF Lieutenant keycard",
-    "MTF_COMMANDER_KEYCARD":"MTF Commander keycard",
-    "FACILITY_MANAGER_KEYCARD":"Facility Manager keycard",
-    "CHAOS_INSURGENCY_DEVICE":"Chaos Insurgency device",
-    "O5_LEVEL_KEYCARD":"O5 keycard",
+    "JANITOR_KEYCARD":"Siivoaja Avainkortti",
+    "SCIENTIST_KEYCARD":"Tiedemies Avainkortti",
+    "MAJOR_SCIENTIST_KEYCARD":"Tärkeä Tiedemies Avainkortti",
+    "ZONE_MANAGER_KEYCARD":"Alue Esimies Avainkortti",
+    "GUARD_KEYCARD":"Vartija Avainkortti",
+    "SENIOR_GUARD_KEYCARD":"Veteraani Vartija Avainkortti",
+    "CONTAINMENT_ENGINEER_KEYCARD":"Hallinta Insinööri Avainkortti",
+    "MTF_LIEUTENANT_KEYCARD":"MTF Luutnantti Avainkortti",
+    "MTF_COMMANDER_KEYCARD":"MTF Johtaja Avainkortti",
+    "FACILITY_MANAGER_KEYCARD":"Laitos Esimies Avainkortti",
+    "CHAOS_INSURGENCY_DEVICE":"Kaaos Kapina Laite",
+    "O5_LEVEL_KEYCARD":"O5 Avainkortti",
     "RADIO":"radio",
-    "COM15":"Pistola COM-15",
-    "MEDKIT":"medkit",
-    "FLASHLIGHT":"flashlight",
-    "MICROHID":"Micro-HID",
-    "COIN":"coin",
-    "CUP":"cup",
-    "WEAPON_MANAGER_TABLET":"weapon manager tablet",
+    "COM15":"COM-15",
+    "MEDKIT":"Ensiapupakkaus",
+    "FLASHLIGHT":"Taskulamppu",
+    "MICROHID":"Mikro-HID",
+    "COIN":"kolikko",
+    "CUP":"kuppi",
+    "WEAPON_MANAGER_TABLET":"Ase hallinta tabletti",
     "E11_STANDARD_RIFLE":"Epsilon-11 SR",
     "P90":"P90",
-    "DROPPED_5":"5.56mm ammo",
+    "DROPPED_5":"5.56mm ammukset",
     "MP4":"MP4",
     "LOGICER":"Logicer",
-    "FRAG_GRENADE":"granata",
-    "FLASHBANG":"flashbang",
-    "DISARMER":"disarmer",
-    "DROPPED_7":"7.62mm ammo",
-    "FRAG":"granata",
-    "DROPPED_9":"9mm ammo",
+    "FRAG_GRENADE":"Kranaatti",
+    "FLASHBANG":"Valo kranaatti",
+    "DISARMER":"Aseitten riisuja",
+    "DROPPED_7":"7.62mm ammukset",
+    "FRAG":"Kranaatti",
+    "DROPPED_9":"9mm ammukset",
 
     # 914 settings
-    "ROUGH":"rough",
-    "COARSE":"coarse",
+    "ROUGH":"Karhea",
+    "COARSE":"Karkea",
     "ONE_TO_ONE":"1:1",
-    "VERY_FINE":"very fine",
-    "FINE":"fine",
-    
-    
+    "VERY_FINE":"Erittäin hieno",
+    "FINE":"Hieno",
+
     # Room names
-    "WC00":"i cessi",
-    "SCP_914":"SCP-914",
-    "AIRLOCK_00":"un airlock",
-    "AIRLOCK_01":"un airlock",
-    "CHECKPOINT_A":"LCZ checkpoint A",
-    "CHECKPOINT_B":"LCZ checkpoint B",
-    "HCZ_ARMORY":"L' armeria della HCZ",
-    "SERVER_ROOM":"la stanza dei server",
-    "SCP_012":"SCP-012",
-    "SCP_372":"SCP-372",
-    "ENTRANCE_CHECKPOINT":"il checkpint dell'entrata checkpoint",
-    "TESLA_GATE":"un tesla",
-    "PC_SMALL":"il piccolo ufficio",
-    "PC_LARGE":"il grande ufficio",
-    "GATE_A":"gate A",
-    "GATE_B":"gate B",
-    "CAFE":"CAFFE",
-    "INTERCOM":"l' intercom",
-    "DR_L":"un corridoio nell entrace",
-    "STRAIGHT":"un corridioio",
-    "CURVE":"un corridoio",
-    "T_INTERSECTION":"un intersezione a T",
-    "X_INTERSECTION":"un intersezione a croce",
-    "LCZ_ARMORY":"L' armeria della LHZ",
-    "CLASS_D_CELLS":"le celle dei classe-D",
-    "CUBICLES":"un ufficio",
-    
-    # UNASSIGNED FIX
-    
-    "\\(UNASSIGNED\\)":"",
-    "1 minuti":"1 minuto"
-    
+    "WC00":"vessat",
+    "SCP_914":"SCP-914 hallinta",
+    "AIRLOCK_00":"ilmalukko",
+    "AIRLOCK_01":"ilmalukko",
+    "CHECKPOINT_A":"LCZ tarkastuspiste A",
+    "CHECKPOINT_B":"LCZ tarkastuspiste B",
+    "HCZ_ARMORY":"the HCZ asevarasto",
+    "SERVER_ROOM":"palvelin huone",
+    "SCP_012":"SCP-012 hallinta",
+    "SCP_372":"SCP-372 hallinta",
+    "ENTRANCE_CHECKPOINT":"sisäänkäynti alue tarkastuspiste",
+    "TESLA_GATE":"tesla portti",
+    "PC_SMALL":"pieni toimisto",
+    "PC_LARGE":"iso toimisto",
+    "GATE_A":"portti A",
+    "GATE_B":"portti B",
+    "CAFE":"luokka",
+    "INTERCOM":"kuulutus huone",
+    "DR_L":"sisäänkäynti alue käytävä",
+    "STRAIGHT":"käytävä",
+    "CURVE":"käytävä",
+    "T_INTERSECTION":"T-risteys",
+    "X_INTERSECTION":"poikittainen risteys",
+    "LCZ_ARMORY":"LHZ asevarasto",
+    "CLASS_D_CELLS":"D-luokan sellit",
+    "CUBICLES":"toimisto"
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
-final_regex: ["discord\\.gg":"","http":"","www\\.":"","` `":"unamed"]
+final_regex: ["discord\\.gg":"","http":"","www\\.":""]
 
 round:
     onroundstart:
-        message: "**Round Iniziato.**"
+        message: "**Erä Alkoi.**"
         regex: []
     onconnect:
         # ipaddress - string
-        message: "Un giocatore Si sta connettendo..."
+        message: "Pelaaja yrittää yhdistää..."
         regex: []
     ondisconnect:
         default:
             # ipaddress - string
-            message: "Un giocatore si è disconnesso."
+            message: "Pelaaja on katkaissut yhteyden."
             regex: []
         banned:
             # ipaddress - string
-            message: "Un giocatore si è disconnesso perchè bannato"
+            message: "Pelaaja on katkaissut yhteyden koska hänellä on porttikielto."
             regex: []
     onlatedisconnect:
         # ipaddress - string
-        message: "A player has disconnected."
+        message: "Pelaaja on katkaissut yhteyden."
         regex: []
     oncheckroundend:
-        message: "Controllo fine round..."
+        message: "tarkistaa onko peli loppunut..."
         regex: []
     onroundend:
         # duration - int
@@ -180,35 +169,34 @@ round:
         # warheaddetonated - bool
         # zombies - int
         message: >+
-            **Round terminato.**
-            tempo: <var:duration> minuti.
+            **erä loppui <var:duration> minuutin jälkeen.**
             ```
-            Classe-D scappati:            <var:dclassescaped>/<var:dclassstart>\n
-            Scienziati salvati:         <var:scientistsescaped>/<var:scientistsstart>\n
-            SCP contenuti:             <var:scpdead>/<var:scpstart>\n
-            Uccisi da SCP:              <var:scpkills>\n
-            La Nuke switchwas<var:warheaddetonated> esplosa.
+            paenneita D-luokkia:            <var:dclassescaped>/<var:dclassstart>\n
+            pelastettuja tiedemiehiä:         <var:scientistsescaped>/<var:scientistsstart>\n
+            Hallittuja SCP:itä:             <var:scpdead>/<var:scpstart>\n
+            SCP:n tappamia:              <var:scpkills>\n
+            Ohjukset Switchwas<var:warheaddetonated>. -------------------
             ```
-        regex: ["switchwasTrue":"è","switchwasFalse":"non è"]
+        regex: ["switchwasTrue":"käynnistettiin","switchwasFalse":"ei käynnistetty"]
     onwaitingforplayers:
-        message: "**Il server attende giocatori.**"
+        message: "**palvelin on valmis ja odottaa pelaajia.**"
         regex: []
     onroundrestart:
-        message: "**Il round sta Ri-Iniziando...**"
+        message: "**Erä alkaa uudestaan...**"
         regex: []
     onsetservername:
         # servername - string
-        message: "**Server name: <var:servername>.**"
+        message: "**Palvelimen nimi: <var:servername>.**"
         regex: []
     onscenechanged:
         # scenename - string
-        message: "**Scene loaded: <var:scenename>.**"
+        message: "**Kohtaus ladattu: <var:scenename>.**"
         regex: []
 
 environment:
     onscp914activate:
         # knobsetting - KnobSetting
-        message: "SCP-914 è stato attivato su <var:knobsetting>."
+        message: "SCP-914 on aktivoitu asetuksella <var:knobsetting>."
         regex: []
     onstartcountdown:
         # isresumed - bool
@@ -220,13 +208,13 @@ environment:
         # class - Role
         # team - Team
         noplayer:
-            message: "**La Nuke è stata attivata da remoto per ordine del concilio 05. A tutto il personale evacquare immediatamente**."
+            message: "**laitoksella oleva ydinohjus on aktivoitu kaukaa 05 valtuuston käskystä. Kaiken henkilökunnan pitää evakuoida välittömästi.**"
             regex: []
         initiated:
-            message: "**La Nuke è stata attivata da `<var:name>` (<var:class>), <var:timeleft> secondi alla detonazione.**"
+            message: "**<var:name> (<var:steamid>), On Aktivoinut laitoksella olevan ydin ohjuksen ja se räjähtää <var:timeleft> sekunnin päästä. Kaiken henkilökunnan pitää evakuoida välittömästi.**"
             regex: []
         resumed:
-            message: "**Il conto dell Nuke è stato riavviato da `<var:name>` (<var:class>), <var:timeleft> secondi alla detonazione.**"
+            message: "**Ohjuksen lähtölaskenta on jatkettu <var:name> (<var:steamid>), <var:timeleft> sekuntia ennen räjähdystä.**"
             regex: []
     onstopcountdown:
         # timeleft
@@ -237,23 +225,23 @@ environment:
         # class
         # team
         default:
-            message: "**La Nuke è stata disattivata da `<var:name>` (<var:class>).**"
+            message: "**<var:name> (<var:steamid>) On peruuttanut laitoksella olevan ydin ohjuksen lähtölaskelman.**"
             regex: []
         noplayer:
-            message: "**La Nuke è stata disattivata per ordine della commissione etica**"
+            message: "**Laitoksella olevan ydinohjuksen laukaisu on peruutettu etiikka toimikunnan käskystä.**"
             regex: []
     ondetonate:
-        message: "**La Nuke è esplosa, Rip a chi era nel laboratorio.**"
+        message: "**Laitoksella olevan ydinohjuksen laukaisu on havaittu. MTF operaattoreita saapuu selvittämään kaikki jäljellä olevat uhat.**"
         regex: []
     ondecontaminate:
-        message: "**La Light Containment Zone sta venendo decontaminata**"
+        message: "**Kevyt hallinta alueen puhdistus on aloitettu, kaikki biologiset materiaalit tuhoutuu.**"
         regex: []
     onsummonvehicle:
         chaos:
-            message: "**Attenzione: un veicolo non autorizzato è entrato nel perimetro**"
+            message: "**Varoitus: Luvaton kulkuneuvo on ylittänyt aseman ulkoreunan.**"
             regex: []
         mtf:
-            message: "**L'elicottero degli MTF è nel raggio visivo del sito, preparatevi all' atterraggio**"
+            message: "**MTF helikopteri on visuaalisella kantamalla asemasta, valmistaudutaan laskeutumiseen.**"
             regex: []
 
 player:
@@ -273,17 +261,17 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "`<var:playername>` (<var:playerclass>) è stato colpito da `<var:attackername>` (<var:attackerclass>) con <var:damagetype> (<var:damage> hp)."
+            message: "pelaajaa <var:attackername> (<var:attackersteamid>) satutti <var:playername> (<var:playersteamid>) käyttämällä <var:damagetype> (<var:damage> hp)."
             regex: []
         friendlyfire:
-            message: "**<var:playerteam> `<var:playername>` (<var:playerclass>) è stato attaccato dal compagno <var:attackerteam> `<var:attackername>` (<var:attackerclass>) con <var:damagetype> (<var:damage> hp).**"
+            message: "**<var:attackerteam> <var:attackername> (<var:attackersteamid>) hyökkäsi tiimiläisen <var:playerteam> <var:playername> (<var:playersteamid>) kimppuun käyttämällä <var:damagetype> (<var:damage> hp).**"
             regex: []
         # Not currently used
         #self:
-        #    message: "`<var:playername>` (<var:playerclass>) si è colpito da solo con <var:damagetype> (<var:damage> hp)."
+        #    message: "<var:playername> (<var:playersteamid>) hurt themselves with <var:damagetype> (<var:damage> hp)."
         #    regex: []
         noattacker: 
-            message: "`<var:playername>` (<var:playersteamid>) ha ricevuto <var:damage> di danno per <var:damagetype>."
+            message: "<var:playername> (<var:playersteamid>) otti osumaa <var:damage> syystä <var:damagetype>."
             regex: []
     onplayerdie:
         # spawnragdoll - bool
@@ -301,18 +289,18 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "`<var:playername>` (<var:playerclass>)  è stato ucciso con **<var:damagetype>** da `<var:attackername>` (<var:attackerclass>)."
-            regex: [ "ucciso con **tesla energy**":"**fritto**" , "ucciso con **SCP-049**":"**curato**" , "ucciso con **SCP-096**":"**trucidato**" , "ucciso con **SCP-173**":"**decapitato**" , "ucciso con **SCP-939**":"**divorato**" ]
+            message: "<var:attackername> (<var:attackersteamid>) tappoi <var:playername> (<var:playersteamid>) käyttämällä <var:damagetype>."
+            regex: []
         friendlyfire:
-            message: "**<var:playerteam> `<var:playername>` (<var:playerclass>) è stato uscciso dal compagno <var:attackerteam> `<var:attackername>` (<var:attackerclass>) con <var:damagetype>.**"
+            message: "**<var:attackerteam> <var:attackername> (<var:attackersteamid>) tappoi tiimiläisen <var:playerteam> <var:playername> (<var:playersteamid>) käyttämällä <var:damagetype>.**"
             regex: []
         # Not currently used
         #self:
-        #    message: "`<var:playername>` (<var:playerclass>) si è ucciso con <var:damagetype>."
+        #    message: "<var:playername> (<var:playersteamid>) tappoi itsensä käyttämällä <var:damagetype>."
         #    regex: []
         nokiller:
-            message: "`<var:playername>` (<var:playerclass>) è morto per <var:damagetype>."
-            regex: [ "morto per tesla energy":"stato fritto da una tesla" ]
+            message: "<var:playername> (<var:playersteamid>) kuoli syystä <var:damagetype>."
+            regex: []
     onplayerpickupitem:
         # item - Item
         # ipaddress - string
@@ -321,7 +309,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) ha raccolto <var:item>."
+        message: "<var:name> (<var:steamid>) otti <var:item>."
         regex: []
     onplayerdropitem:
         # item - Item
@@ -331,7 +319,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) ha lasciato <var:item>."
+        message: "<var:name> (<var:steamid>) tiputti <var:item>."
         regex: []
     onplayerjoin:
         # ipaddress - string
@@ -340,7 +328,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "**`<var:name>` (<var:class>) è entrato.**"
+        message: "**<var:name> (<var:steamid>) liittyi peliin**"
         regex: []
     onnicknameset:
         # nickname - string
@@ -350,8 +338,8 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "Il Giocatore ` <var:name>` usa il nickname `<var:nickname>`."
-        regex: [ ]
+        message: "Pelaaja '<var:name> (<var:steamid>)' vaihtoi nimensä <var:nickname>."
+        regex: []
     onassignteam:
         # ipaddress - string
         # name - string
@@ -359,7 +347,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` si è unito al team <var:team>."
+        message: "<var:name> (<var:steamid>) liittyi <var:team> tiimiin."
         regex: []
     onsetrole:
         # ipaddress - string
@@ -368,7 +356,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` è diventato <var:class>."
+        message: "<var:name> (<var:steamid>) on tullut <var:class>."
         regex: []
     oncheckescape:
         # allowescape - bool
@@ -379,7 +367,7 @@ player:
         # class - Role
         # team - Team
         allowed:
-            message: "`<var:name>` è scappato come <var:class>."
+            message: "<var:name> (<var:steamid>) karkasi roolina <var:class>."
             regex: []
         denied:
             message: ""
@@ -391,7 +379,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` è nato come <var:class>."
+        message: "<var:name> (<var:steamid>) spawnasi roolina <var:class>."
         regex: []
     ondooraccess:
         # doorname - string
@@ -406,11 +394,11 @@ player:
         # class - Role
         # team - Team
         allowed:
-            message: "`<var:name>` (<var:class>) isopen:<var:open> una porta (<var:doorname>) usando il permesso <var:permission>."
-            regex: ["isopen:True":"ha chiuso ", "isopen:False":"ha aperto"," usando il permesso .":"."]
+            message: "<var:name> (<var:steamid>) isopen:<var:open> ovi (<var:doorname>) tarvitsee luvan <var:permission>."
+            regex: ["isopen:True":"suljettu", "isopen:False":"avattu", " requiring the permission .":""]
         denied:
-            message: "`<var:name>`  ha provato a isopen:<var:open> una porta boccata (<var:doorname>) necessita di <var:permission>."
-            regex: ["isopen:True":" chiudere ", "isopen:False":" aprire "," necessita di .":"." , "necessita di UNACCESSIBLE":"permanentemente"]
+            message: "<var:name> (<var:steamid>) yritti isopen:<var:open> lukitun oven (<var:doorname>) johon tarvitsee luvan <var:permission>."
+            regex: ["isopen:True":"sulkea", "isopen:False":"avata"," requiring the permission .":"."]
     onintercom:
         # This is not recommended to use outside of debugging
         # cooldowntime - float
@@ -421,7 +409,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) sta usando l'intercom."
+        message: "<var:name> (<var:steamid>) käyttää kuulutus laitetta."
         regex: []
     onintercomcooldowncheck:
         # This is not recommended to use outside of debugging
@@ -432,7 +420,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "Intercom cooldown check: <var:currentcooldown>s."
+        message: "kuulutuslaitteen jäähy tarkistus: <var:currentcooldown>s."
         regex: []
     onpocketdimensionexit:
         # ipaddress - string
@@ -441,7 +429,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) è scappato dalla pocket dimesion dell' SCP-106."
+        message: "<var:name> (<var:steamid>) karkasi SCP-106 tasku ulottuvuudesta."
         regex: []
     onpocketdimensionenter:
         # damage - int
@@ -457,7 +445,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "`<var:playername>` (<var:playerclass>) è stato catturato dall SCP-106."
+        message: "<var:attackername> (<var:attackersteamid>) otti <var:playername> (<var:playersteamid>) SCP-106 tasku ulottuvuuteen."
         regex: []
     onpocketdimensiondie:
         # ipaddress - string
@@ -466,7 +454,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) si è perso nella pocket dimension."
+        message: "<var:name> (<var:steamid>) eksyi SCP-106 tasku ulottuvuuteen"
         regex: []
     onthrowgrenade:
         # type - GrenadeType
@@ -476,7 +464,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) ha lanciato una <var:type>."
+        message: "<var:name> (<var:steamid>) heitti <var:type>."
         regex: []
     onplayerinfected:
         # damage - int
@@ -493,7 +481,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "`<var:playername>` è stato curato dall' SCP-049."
+        message: "SCP-049 paransi <var:playername> (<var:playersteamid>)."
         regex: []
     onspawnragdoll:
         # ipaddress - string
@@ -502,7 +490,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) ha lasciato un cadavere."
+        message: "Pelaajan <var:name> (<var:steamid>) <var:class> ragdoll spawnasi."
         regex: []
     onlure:
         # allowcontain - bool
@@ -512,7 +500,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) è stato sacrificato per contenere l' SCP-106."
+        message: "<var:name> (<var:steamid>) uhrattiin SCP-106 hallitsemiseen."
         regex: []
     oncontain106:
         # activatecontainment - bool
@@ -522,7 +510,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) ha avviato il protocollo di ricontenimento dell' SCP-106."
+        message: "<var:name> (<var:steamid>) aloitti SCP-106 palauttamis protokollin."
         regex: []
     onmedkituse:
         # recoveredamount - int
@@ -532,7 +520,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) ha usato un medikit e si è curato di <var:recoveredhealth>."
+        message: "<var:name> (<var:steamid>) käytti ensiapupakkauksen ja paransi <var:recoveredhealth>."
         regex: []
     onshoot:
         # weapon - DamageType
@@ -549,13 +537,13 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "`<var:attackername>` (<var:attackerclass>) ha sparato a `<var:playername>` (<var:playerclass>) con <var:weapon>."
+            message: "<var:attackername> (<var:attackersteamid>) ampui <var:playername> (<var:playersteamid>) aseella <var:weapon>."
             regex: []
         notarget:
-            message: "`<var:attackername>` (<var:attackerclass>) ha sparato al nulla con <var:weapon>."
+            message: "<var:attackername> (<var:attackersteamid>) ampui tarkkaan ottaen ei mihinkään aseella <var:weapon>."
             regex: []
         friendlyfire:
-            message: "**<var:playerteam> `<var:playername>` (<var:playerclass>) ha sparato all' alleato <var:attackerteam> `<var:attackername>` (<var:attackerclass>) con <var:weapon>.**"
+            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) ampui liittoutunutta <var:attackerteam> <var:attackername> (<var:attackersteamid>) käyttämällä <var:weapon>.**"
             regex: []
     on106createportal:
         # ipaddress - string
@@ -564,7 +552,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` ha aperto un portale dimesionale."
+        message: "<var:name> (<var:steamid>) on avannut ulottuvuus portaalin."
         regex: []
     on106teleport:
         # ipaddress - string
@@ -573,7 +561,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` è entrato nella sua poket dimension."
+        message: "<var:name> (<var:steamid>) matkusti oman ulottuvuus portaalin läpi."
         regex: []
     onelevatoruse:
         # elevatorname - ElevatorType
@@ -583,7 +571,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) ha chiamato l'acensore <var:elevatorname>."
+        message: "<var:name> (<var:steamid>) kutsui <var:elevatorname> hissin."
         regex: []
     onhandcuff:
         # cuffed - bool
@@ -600,11 +588,11 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "<var:targetname> (<var:trgetclass>) è stato switchcuffed<var:cuffed> da `<var:playername>` (<var:playerclass>)."
-            regex: ["switchcuffedTrue":"ammanettato","switchcuffedFalse":"liberato"]
+            message: "<var:playerclass> <var:playername> (<var:playersteamid>) pisti <var:targetclass> <var:targetname> (<var:targetsteamid>) witchcuffed<var:cuffed>."
+            regex: ["switchcuffedTrue":"käsirautoihin","switchcuffedFalse":"päästi"]
         nootherplayer:
-            message: "<var:targetname> (<var:targetclass>) è stato switchcuffed<var:cuffed>."
-            regex: ["switchcuffedTrue":"ammanettato","switchcuffedFalse":"liberato"]
+            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) laitettiin switchcuffed<var:cuffed>."
+            regex: ["switchcuffedTrue":"käsirautoihin","switchcuffedFalse":"released"]
     onplayertriggertesla:
         # ipaddress - string
         # name - string
@@ -613,10 +601,10 @@ player:
         # class - Role
         # team - Team
         default:
-            message: "<var:team> `<var:name>` (<var:class>) ha attivato un tesla."
+            message: "<var:team> <var:name> (<var:steamid>) aktivoi tesla portin."
             regex: []
         ignored:
-            message: "<var:team> `<var:name>` (<var:class>) ha attraversato un tesla senza attivarlo."
+            message: "<var:team> <var:name> (<var:steamid>) meni tesla portin läpi aktivoimatta sitä."
             regex: []
     onscp914changeknob:
         # setting - KnobSetting
@@ -626,7 +614,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) ha impostato l'interruttore dell' SCP-914 a \"<var:setting>\"."
+        message: "<var:name> (<var:steamid>) laittoi SCP-914 kahvan asetukselle \"<var:setting>\"."
         regex: []
     onplayerradioswitch:
         # setting - RadioStatus
@@ -636,8 +624,8 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) ha cambiato la sua radio sulla frequanza <var:setting>."
-        regex: [ "ha cambiato la sua radio sulla frequanza CLOSE":"ha spento la sua radio", "SHORT_RANGE":"SR", "MEDIUM_RANGE":"MR", "LONG_RANGE":"LR", "ULTRA_RANGE":"UL"]
+        message: "<var:name> (<var:steamid>) vaihtoi radion tilaksi <var:setting>."
+        regex: []
     onmakenoise: 
         # ipaddress - string
         # name - string
@@ -645,7 +633,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) ha fatto rumore!"
+        message: "<var:name> (<var:steamid>) teki ääntä!"
         regex: []
     onrecallzombie:
         # allowrecall - bool
@@ -661,7 +649,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "`<var:targetname>` è stato resuscitato come SCP-049-2 da `<var:playername>` (<var:playerclass>)"
+        message: "<var:playername> (<var:playersteamid>) elvytti pelaajan <var:targetname> (<var:targetsteamid>) rooliin SCP-049-2."
         regex: []
     oncallcommand:
         # command
@@ -672,7 +660,7 @@ player:
         # steamid
         # class
         # team
-        message: "`<var:name>` (<var:class>) ha uasato il comando:```<var:command>``` Risultato:```<var:returnmessage>```"
+        message: "<var:name> (<var:steamid>) käytti komennon '<var:command>'. Lopputulos: '<var:returnmessage>'"
         regex: []
     onreload:
         # weapon
@@ -687,7 +675,7 @@ player:
         # steamid
         # class
         # team
-        message: "`<var:name>` (<var:class>) ha ricaricoato la sua arma (<var:weapon>)."
+        message: "<var:name> (<var:steamid>) latasi hänen <var:weapon>."
         regex: []
     ongrenadeexplosion:
         # ipaddress
@@ -696,7 +684,7 @@ player:
         # steamid
         # class
         # team
-        message: "La granata di `<var:name>` (<var:class>) è esplosa."
+        message: "Pelaajan <var:name> (<var:steamid>) kranaatti räjähti."
         regex: []
     ongrenadehitplayer:
         # targetipaddress - string
@@ -711,7 +699,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "La granata di `<var:playername>` (<var:playerclass>) ha colpito `<var:targetname>` (<var:targetclass>)"
+        message: "Pelaajan <var:playername> (<var:playersteamid>) kranaatti osui pelaajaa <var:targetname> (<var:targetsteamid>)"
         regex: []
     ongeneratorunlock:
         # engaged - bool
@@ -727,8 +715,16 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "'<var:name>' (<var:class>) ha aperto un generatore nella stanza <var:room>."
-        regex: []
+        message: "<var:name> (<var:steamid>) unlocked a generator in <var:room>."
+        regex: [
+            "Micro-HID":"Micro-HID huoneessa",
+            "nuke":"ydinohjussiilossa",
+            "SCP-049":"SCP-049 säiliössä",
+            "SCP-079":"SCP-079 säiliössä",
+            "SCP-096":"SCP-096 säiliössä",
+            "SCP-106":"SCP-106 säiliössä",
+            "SCP-173":"SCP-173 säiliössä",
+            "SCP-939":"SCP-939 säiliössä" ]
     ongeneratoraccess:
         # engaged - bool
         # hastablet - bool
@@ -744,11 +740,27 @@ player:
         # class - Role
         # team - Team
         closed:
-            message: "'<var:name>' (<var:class>) ha chiuso un generatore nella stanza <var:room>."
-            regex: [ ]
+            message: "<var:name> (<var:steamid>) sulki generaattorin  <var:room>."
+            regex: [
+                "Micro-HID":"Micro-HID huoneessa",
+                "nuke":"ydinohjussiilossa",
+                "SCP-049":"SCP-049 säiliössä",
+                "SCP-079":"SCP-079 säiliössä",
+                "SCP-096":"SCP-096 säiliössä",
+                "SCP-106":"SCP-106 säiliössä",
+                "SCP-173":"SCP-173 säiliössä",
+                "SCP-939":"SCP-939 säiliössä" ]
         opened:
-            message: "'<var:name>' (<var:class>) ha aperto un generatore nella stanza <var:room>."
-            regex: [ ]
+            message: "<var:name> (<var:steamid>) avasi generaattorin <var:room>."
+            regex: [
+                "Micro-HID":"Micro-HID huoneessa",
+                "nuke":"ydinohjussiilossa",
+                "SCP-049":"SCP-049 säiliössä",
+                "SCP-079":"SCP-079 säiliössä",
+                "SCP-096":"SCP-096 säiliössä",
+                "SCP-106":"SCP-106 säiliössä",
+                "SCP-173":"SCP-173 säiliössä",
+                "SCP-939":"SCP-939 säiliössä" ]
     ongeneratorinserttablet:
         # engaged - bool
         # hastablet - bool
@@ -763,8 +775,16 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "'<var:name>' (<var:class>) ha attivato un generatore nella stanza <var:room>."
-        regex: [ ]
+        message: "<var:name> (<var:steamid>) aktivoi generaattorin <var:room>."
+        regex: [
+            "Micro-HID":"Micro-HID huoneessa",
+            "nuke":"ydinohjussiilossa",
+            "SCP-049":"SCP-049 säiliössä",
+            "SCP-079":"SCP-079 säiliössä",
+            "SCP-096":"SCP-096 säiliössä",
+            "SCP-106":"SCP-106 säiliössä",
+            "SCP-173":"SCP-173 säiliössä",
+            "SCP-939":"SCP-939 säiliössä" ]
     ongeneratorejecttablet:
         # engaged - bool
         # hastablet - bool
@@ -779,8 +799,16 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "'<var:name>' (<var:class>) ha disattivato un generatore nella stanza <var:room>."
-        regex: []
+        message: "<var:name> (<var:steamid>) otti tabletin pois generaattorista <var:room>."
+        regex: [
+            "Micro-HID":"Micro-HID huoneessa",
+            "nuke":"ydinohjussiilo",
+            "SCP-049":"SCP-049 säiliössä",
+            "SCP-079":"SCP-079 säiliössä",
+            "SCP-096":"SCP-096 säiliössä",
+            "SCP-106":"SCP-106 säiliössä",
+            "SCP-173":"SCP-173 säiliössä",
+            "SCP-939":"SCP-939 säiliössä" ]
     on079door:
         # open - bool
         # door - string
@@ -792,10 +820,10 @@ player:
         # class - Role
         # team - Team
         closed:
-            message: "'<var:name>' ha chiuso una porta come SCP-079."
+            message: "<var:name> (<var:steamid>) sulki oven roolissa SCP-079."
             regex: []
         opened:
-            message: "'<var:name>' ha aperto una porta come SCP-079."
+            message: "<var:name> (<var:steamid>) avasi oven roolissa SCP-079."
             regex: []
     on079lock:
         # open - bool
@@ -808,10 +836,10 @@ player:
         # class - Role
         # team - Team
         unlocked:
-            message: "'<var:name>' ha sbloccato una porta come SCP-079."
+            message: "<var:name> (<var:steamid>) otti oven pois lukosta roolissa SCP-079."
             regex: []
         locked:
-            message: "'<var:name>' bloccato una porta come SCP-079."
+            message: "<var:name> (<var:steamid>) lukitsi oven roolissa SCP-079."
             regex: []
     on079elevator:
         # elevator - ElevatorType
@@ -824,10 +852,10 @@ player:
         # class - Role
         # team - Team
         up:
-            message: "'<var:name>' (<var:class>) ha mandato l'ascensore <var:elevator> su."
+            message: "<var:name> (<var:steamid>) lähetti <var:elevator> hissin ylös."
             regex: []
         down:
-            message: "'<var:name>' (<var:class>) ha mandato l'ascensore <var:elevator> giu."
+            message: "<var:name> (<var:steamid>) lähetti <var:elevator> hissin alas."
             regex: []
     on079teslagate:
         # apdrain - float
@@ -837,7 +865,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "'<var:name>' (<var:class>) ha attivato un tesla gate."
+        message: "<var:name> (<var:steamid>) aktivoi tesla portin."
         regex: []
     on079addexp:
         # xptype - ExperienceType
@@ -848,7 +876,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "'<var:name>' (<var:class>) ha guadagnato <var:amount> xp."
+        message: "<var:name> (<var:steamid>) sai <var:amount> xp:tä."
         regex: []
     on079levelup:
         # ipaddress - string
@@ -857,7 +885,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "'<var:name>' è salito di livello come SCP-079."
+        message: "<var:name> (<var:steamid>) sai tason roolissa SCP-079."
         regex: []
     on079unlockdoors:
         # apdrain - float
@@ -867,7 +895,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "'<var:name>' (<var:class>) ha perso il controllo sulle porte bloccate."
+        message: "<var:name> (<var:steamid>) menetti kontrollin omista lukituista ovista."
         regex: []
     on079camerateleport:
         # apdrain - float
@@ -877,7 +905,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "'<var:name>' (<var:class>) ha cambiato telecamera."
+        message: "<var:name> (<var:steamid>) vaihtoi kameraa."
         regex: []
     on079startspeaker:
         # room - RoomType
@@ -888,8 +916,16 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "'<var:name>' (<var:class>) sta parlando in <var:room>."
-        regex: [ ]
+        message: "<var:name> (<var:steamid>) alkoi puhumaan  <var:room>."
+        regex: [
+            "Micro-HID":"Micro-HID huoneessa",
+            "nuke":"ydinohjussiilossa",
+            "SCP-049":"SCP-049 säiliössä",
+            "SCP-079":"SCP-079 säiliössä",
+            "SCP-096":"SCP-096 säiliössä",
+            "SCP-106":"SCP-106 säiliössä",
+            "SCP-173":"SCP-173 säiliössä",
+            "SCP-939":"SCP-939 säiliössä" ]
     on079stopspeaker:
         # room - RoomType
         # apdrain - float
@@ -899,8 +935,16 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "'<var:name>' (<var:class>) ha smesso di parlare da <var:room>."
-        regex: []
+        message: "<var:name> (<var:steamid>) lopetti puhumisen <var:room>."
+        regex: [
+            "Micro-HID":"Micro-HID huoneessa",
+            "nuke":"ydinohjussiilossa",
+            "SCP-049":"SCP-049 säiliössä",
+            "SCP-079":"SCP-079 säiliössä",
+            "SCP-096":"SCP-096 säiliössä",
+            "SCP-106":"SCP-106 säiliössä",
+            "SCP-173":"SCP-173 säiliössä",
+            "SCP-939":"SCP-939 säiliössä" ]
     on079lockdown:
         # room - RoomType
         # apdrain - float
@@ -910,8 +954,16 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "'<var:name>' (<var:class>) ha bloccato tutta la stanza <var:room>."
-        regex: [ ]
+        message: "<var:name> (<var:steamid>) lukitsi <var:room>."
+        regex: [
+            "Micro-HID":"Micro-HID huoneen",
+            "nuke":"ydinohjussiilon",
+            "SCP-049":"SCP-049 säiliön",
+            "SCP-079":"SCP-079 säiliön",
+            "SCP-096":"SCP-096 säiliön",
+            "SCP-106":"SCP-106 säiliön",
+            "SCP-173":"SCP-173 säiliön",
+            "SCP-939":"SCP-939 säiliön" ]
     on079elevatorteleport:
         # elevator - ElevatorType
         # status - ElevatorStatus
@@ -922,7 +974,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "'<var:name>' (<var:class>) ha cambiato piano."
+        message: "<var:name> (<var:steamid>) vaihtoi kerrosta SCP-079:na."
         regex: []
 admin:
     onadminquery:
@@ -936,7 +988,7 @@ admin:
         # output - string
         # query - string
         # successful - bool
-        message: "L' Admin `<var:name>` (<var:class>) ha eseguito un comando:```<var:query>```"
+        message: "Ylläpitäjä <var:name> (<var:steamid>) suoritti komennon '<var:query>'"
         regex: []
     onauthcheck:
         # allow - bool
@@ -948,8 +1000,8 @@ admin:
         # steamid - string
         # class - Role
         # team - Team
-        message: "`<var:name>` (<var:class>) checkaccess<var:allowed> stato autorizzato ad usare il pannello admin."
-        regex: ["checkaccesstrue":"è", "checkaccessfalse":"non è"]
+        message: "<var:name> (<var:steamid>) checkaccess<var:allowed>."
+        regex: ["checkaccesstrue":"päästettiin ylläpitäjä paneeliin", "checkaccessfalse":"yritti päästä yllääpitäjä paneeliin mutta epäonnistui."]
     onban:
         # allowban - bool
         # duration - int
@@ -969,37 +1021,36 @@ admin:
         # adminteam - Team
         admin:
             ban:
-                message: "**Il Player `<var:playername>` (<var:playerclass>) è stato bannato da `<var:adminname>` (<var:adminclass>) per <var:duration> minuti.** Causa:<var:reason>"
+                message: "<var:adminname> (<var:adminsteamid>) antoi pelaajalle <var:playername> (<var:playersteamid>) porttikiellon <var:duration> minuutiksi. Syy: <var:reason>"
                 regex: []
             kick:
-                message: "**Il Player `<var:playername>` (<var:playerclass>) è stato espulso da `<var:adminname>` (<var:adminclass>).** Causa:<var:reason>"
+                message: "<var:adminname> (<var:adminsteamid>) potki ulos pelaajan <var:playername> (<var:playersteamid>). Syy: <var:reason>"
                 regex: []
         console:
             ban:
-                message: "**`<var:playername>` (<var:playersteamid>) è stato bannato da Skynet per <var:duration> minuti.** Causa:<var:reason>"
+                message: "Skynet antoi pelaajalle <var:playername> (<var:playersteamid>) porttikiellon <var:duration> minuutiksi. Syy: <var:reason>"
                 regex: []
             kick:
-                message: "**`<var:playername>` (<var:playersteamid>) è stato espulso da Skynet.** Causa:<var:reason>"
-                regex: []
-    
+                message: "Skynet potki ulos pelaajan <var:playername> (<var:playersteamid>). Syy: <var:reason>"
+                regex: []    
 team:
     ondecideteamrespawnqueue:
         # teams - Team[]
-        message: "La coda di Respawn è stata decisa."
+        message: "Respawn jono päätetty."
         regex: []
     onteamrespawn:
         # players - List<Player>
         # spawnchaos - bool
         mtf:
-            message: "**Mobile TaskForce Epsilon-11 designated Nine-Tailed Fox has entered the facility.**"
+            message: "**Mobile TaskForce Epsilon-11 nimetty Nine-Tailed Fox on astunut laitoksen sisään.**"
             regex: []
         ci:
-            message: "**Facility incursion detected, intruders identified as members of hostile \"Chaos Insurgency\".**"
+            message: "**Laitokseen tunkeutuminen havaittu, tunkeutujat ovat jäseniä vihollis GOI:sta \"Chaos Insurgency\".**"
             regex: []
     onsetrolemaxhp:
         # maxhp - int
         # role - Role
-        message: "I massimi HP del roulo <var:role> sono impostati a <var:maxhp>."
+        message: "Maksimi HP roolille <var:role> on vaihdettu <var:maxhp>."
         regex: []
     onsetscpconfig:
         # banned049 - bool
@@ -1016,11 +1067,11 @@ team:
         # 173amount - int
         # 939_53amount - int
         # 939_89amount - int
-        message: "SCP settings set."
+        message: "SCP asetukset pistetty."
         regex: []
     onsetntfunitname:
         # name - string
-        message: "**MTF unit designated <var:name> has entered the facility.**"
+        message: "**MTF osasto nimeltä <var:name> on astunut laitokseen.**"
         regex: []
 #####################################################################################################################
 #                                                                                                                   #
@@ -1033,66 +1084,66 @@ team:
 
 botmessages:
     connectedtobot:
-        message: "```diff\n+ SCP:SL server Riavviato.```"
+        message: "```diff\n+ SCP:SL palvelin yhdistetty.```"
         regex: []
     reconnectedtobot:
-        message: "```diff\n+ SCP:SL server Riconnesso.```"
+        message: "```diff\n+ SCP:SL palvelin uudelleen yhdistetty.```"
         regex: []
 
 botresponses:
     missingarguments:
         # command - string
-        message: "```diff\n- Missing arguments.```"
+        message: "```diff\n- Puuttuu arguementtejä.```"
         regex: []
     invalidsteamid:
         # steamid - string
-        message: "```diff\n- Invalid SteamID '<var:steamid>'.```"
+        message: "```diff\n- kelvoton SteamID '<var:steamid>'.```"
         regex: []
     invalidsteamidorip:
         # steamidorip - string
-        message: "```diff\n- Invalid SteamID or IP '<var:steamidorip>'.```"
+        message: "```diff\n- kelvoton SteamID tai IP '<var:steamidorip>'.```"
         regex: []
     invalidduration:
         # duration - string
-        message: "```diff\n- Invalid duration '<var:duration>'.```"
+        message: "```diff\n- kelvoton kesto '<var:duration>'.```"
         regex: []
     playernotfound:
         # steamid - string
-        message: "```diff\n- Player with SteamID '<var:steamid>' not found.```"
+        message: "```diff\n- Pelaaja jolla on SteamID '<var:steamid>' ei löytynyt.```"
         regex: []
     playerkicked:
         # name - string
         # steamid - string
-        message: "```diff\n+ '<var:name>' (<var:steamid>) was kicked from the server.```"
+        message: "```diff\n+ '<var:name>' (<var:steamid>) potkittiin ulos palvelimelta.```"
         regex: []
     playerbanned:
         # name - string
         # steamid - string
         # reason - string
         # duration - string
-        message: "```diff\n+ '`<var:name>`' (<var:steamid>) è stato bannato dal server per '<var:reason>' (<var:duration>).```"
+        message: "```diff\n+ '<var:name>' (<var:steamid>) pelaaja sai porttikiellon palvelimelta syystä '<var:reason>' (<var:duration>).```"
         regex: []
     playerunbanned:
         # steamidorip - string
-        message: "```diff\n+ Tutti i Player con SteamID/IP '<var:steamidorip>' non sono piu bannati.```"
+        message: "```diff\n+ kaikki sisäänpääsyt SteamID/IP:llä '<var:steamidorip>' on poistettu porttikielto listalta.```"
         regex: []
     kickall:
         # reason - string
-        message: "```diff\n+ Tutti i giocatori sono stati espulsi dal server per '<var:reason>'.```"
+        message: "```diff\n+ kaikki pelaajat potkittiin ulos palvelimelta syystä '<var:reason>'.```"
         regex: []
     exit:
-        message: "```diff\n- The exit command cannot be used from Discord.```"
+        message: "```diff\n- Exit komentoa ei voi käyttää discordista.```"
         regex: []
     help:
-        message: "```diff\n- The help command will be implemented in one of the next few updates of SCPDiscord.```"
+        message: "```diff\n- Help komento toteutetaan jossain parissa seuraavassa SCPDiscord päivityksessä.```"
         regex: []
     toggletag:
         notinstalled:
-            message: "```diff\n- This command requires the ToggleTag plugin.```"
+            message: "```diff\n- Tämä komento vaatii ToggleTag liitännän.```"
             regex: []
     vpnshield:
         notinstalled:
-            message: "```diff\n- This command requires the VPNShield plugin.```"
+            message: "```diff\n- Tämä komento vaatii VPNShield liitännän.```"
             regex: []
     # The feedback from a console command, except the custom ones above. (Is not affected by global regex other than final_regex)
     consolecommandfeedback:
@@ -1125,5 +1176,5 @@ topic:
     # scpstart - int
     # zombies - int
     # tps - float
-    message: "Players online: <var:players>/<var:maxplayers>. Il round è durato <var:roundduration> minuti. SCP Vivi: <var:scpalive>. La Nuke switchdetonation<var:warheaddetonated> esplosa. Uptime: <var:uptime> minuti. IP: <var:ip>:<var:port> TPS: <var:tps>"
-    regex: [ "switchdetonationTrue":"è", "switchdetonationFalse":"non è", " 1 minuti":" 1 minuto" ]
+    message: "Pelaajia verkossa: <var:players>/<var:maxplayers>. Erä kesti <var:roundduration> minuuttia. Aktiivinen SCP: <var:scpalive>. Ohjus switchdetonation<var:warheaddetonated> laukaistu. Päälläoloaika: <var:uptime> minuuttia. IP: <var:ip>:<var:port> TPS: <var:tps>"
+    regex: [ "switchdetonationTrue":"on", "switchdetonationFalse":"ei ole", " 1 minuuttia":" 1 minuutti" ]
