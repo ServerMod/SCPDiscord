@@ -29,10 +29,12 @@ namespace SCPDiscord
             { "french",         Encoding.UTF8.GetString(Resources.french)       },
             { "polish",         Encoding.UTF8.GetString(Resources.polish)       },
             { "italian",        Encoding.UTF8.GetString(Resources.italian)      },
-            { "englishemote",   Encoding.UTF8.GetString(Resources.englishemote) },
-            { "russianemote",   Encoding.UTF8.GetString(Resources.russianemote) },
-            { "frenchemote",    Encoding.UTF8.GetString(Resources.frenchemote)  },
-            { "polishemote",    Encoding.UTF8.GetString(Resources.polishemote)  }
+            { "finnish",        Encoding.UTF8.GetString(Resources.italian)      },
+            { "english-emote",   Encoding.UTF8.GetString(Resources.english_emote) },
+            { "russian-emote",   Encoding.UTF8.GetString(Resources.russian_emote) },
+            { "french-emote",    Encoding.UTF8.GetString(Resources.french_emote)  },
+            { "polish-emote",    Encoding.UTF8.GetString(Resources.polish_emote)  },
+            { "finnish-emote",    Encoding.UTF8.GetString(Resources.polish_emote)  }
         };
 
         private static readonly List<string> messageNodes = new List<string>
