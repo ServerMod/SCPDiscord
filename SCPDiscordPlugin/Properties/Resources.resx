@@ -133,9 +133,6 @@
   <data name="french" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\french.yml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="french1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Languages\french.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="french_emote" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\french-emote.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

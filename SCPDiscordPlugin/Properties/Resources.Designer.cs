@@ -123,16 +123,6 @@ namespace SCPDiscord.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] french1 {
-            get {
-                object obj = ResourceManager.GetObject("french1", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] italian {
             get {
                 object obj = ResourceManager.GetObject("italian", resourceCulture);

@@ -63,7 +63,7 @@ namespace SCPDiscord
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
                     { "allowban",               ev.AllowBan.ToString()              },
-                    { "duration",              (ev.Duration/60).ToString()          },
+                    { "duration",               ev.Duration.ToString()              },
                     { "reason",                 ev.Reason                           },
                     { "result",                 ev.Result                           },
                     { "playeripaddress",        ev.Player.IpAddress                 },
