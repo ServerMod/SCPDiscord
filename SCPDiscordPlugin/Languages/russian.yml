@@ -1021,7 +1021,7 @@ admin:
         # adminteam - Team
         admin:
             ban:
-                message: "```diff\n- Игрок <var:playername> (<var:playersteamid>) был забанен администратором <var:adminname> (<var:adminsteamid>) на <var:duration> часа(ов). Причина: <var:reason>```"
+                message: "```diff\n- Игрок <var:playername> (<var:playersteamid>) был забанен администратором <var:adminname> (<var:adminsteamid>) на <var:duration> минут. Причина: <var:reason>```"
                 regex: []
             kick:
                 message: "```diff\n- Игрок <var:playername> (<var:playersteamid>) был кикнут администратором <var:adminname> (<var:adminsteamid>). Причина: <var:reason>```"
