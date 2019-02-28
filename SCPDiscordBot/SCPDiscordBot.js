@@ -361,7 +361,7 @@ discordClient.on("warn", (e) =>
 {
     if (verbose)
     {
-        console.warn(e);
+        console.warn(e.message);
     }
 });
 
