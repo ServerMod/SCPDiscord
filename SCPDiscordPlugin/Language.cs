@@ -309,7 +309,7 @@ namespace SCPDiscord
                 }
                 catch (Exception)
                 {
-                    plugin.Warn("Your SCPDiscord language file \"" + Config.GetString("settings.language") + ".yml\" does not contain the node \"" + node + ".message\".\nEither add it to your language file or turn on the discord_overwrite_language config setting to use the default language.");
+                    plugin.Warn("Your SCPDiscord language file \"" + Config.GetString("settings.language") + ".yml\" does not contain the node \"" + node + ".message\".\nEither add it to your language file or delete it to generate a new one.");
                 }
             }
         }
