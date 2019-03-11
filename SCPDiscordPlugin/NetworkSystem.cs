@@ -1,4 +1,4 @@
-﻿using Smod2.API;
+using Smod2.API;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -76,7 +76,7 @@ namespace SCPDiscord
                 // Update player count
                 if (Config.GetBool("settings.playercount"))
                 {
-                    string activity = "botactivity" + (plugin.pluginManager.Server.NumPlayers - 1) + " / " + plugin.GetConfigString("max_players");
+                    string activity = "botactivity" + (plugin.pluginManager.Server.NumPlayers - 1) + " / " + plugin.maxPlayers;
                     QueueMessage(activity);
                 }
 
@@ -400,7 +400,7 @@ namespace SCPDiscord
                     serverVariables = new Dictionary<string, string>
                     {
                         { "players",           (server.NumPlayers - 1) + ""                                     },
-                        { "maxplayers",         plugin.GetConfigString("max_players")                           },
+                        { "maxplayers",         plugin.maxPlayers + ""                                          },
                         { "ip",                 server.IpAddress                                                },
                         { "port",               server.Port + ""                                                },
                         { "isvisible",          server.Visible + ""                                             },

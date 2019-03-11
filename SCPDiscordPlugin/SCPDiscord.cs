@@ -37,6 +37,8 @@ namespace SCPDiscord
 
         public bool shutdown = false;
 
+        public int maxPlayers = 20;
+
         public override void Register()
         {
             // Event handlers
@@ -48,7 +50,7 @@ namespace SCPDiscord
             this.AddEventHandlers(new TickCounter(), Priority.Highest);
             this.AddEventHandlers(new SyncPlayerRole(), Priority.Highest);
 
-            this.AddConfig(new Smod2.Config.ConfigSetting("max_players", "20", Smod2.Config.SettingType.STRING, true, "Gets the max players without reserved slots."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("max_players", 20, Smod2.Config.SettingType.NUMERIC, true, "Gets the max players without reserved slots."));
 
             this.AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config", "config.yml", Smod2.Config.SettingType.STRING, true, "Name of the config file to use, by default 'config.yml'"));
         }
@@ -75,6 +77,8 @@ namespace SCPDiscord
                 Language.Reload();
                 Thread connectionThread = new Thread(new ThreadStart(() => new StartNetworkSystem(plugin)));
                 connectionThread.Start();
+
+                this.maxPlayers = GetConfigInt("max_players");
                 this.Info("SCPDiscord " + this.Details.version + " enabled.");
             });
         }
