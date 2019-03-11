@@ -371,14 +371,22 @@ discordClient.login(token)
     {
         if (serverID != null && serverID !== "")
         {
-            var roles = discordClient.guilds.get(serverID).roles;
-            roles = roles.sort((a, b) => b.position - a.position || b.id - a.id);
-            console.log("##################### Discord roles #####################");
-            for (var [roleID, role] of roles)
+            if (discordClient.guilds.get(serverID) != null)
             {
-                console.log("# " + role.name.padEnd(35, ".") + roleID + " #");
+                var roles = discordClient.guilds.get(serverID).roles;
+                roles = roles.sort((a, b) => b.position - a.position || b.id - a.id);
+                console.log("##################### Discord roles #####################");
+                for (var [roleID, role] of roles)
+                {
+                    console.log("# " + role.name.padEnd(35, ".") + roleID + " #");
+                }
+                console.log("#########################################################");
             }
-            console.log("#########################################################");
+            else
+            {
+                console.log("The server specified in your config either does not exist or the bot is not allowed to access it. Here is a list of all servers your bot is a member of: ");
+                console.log(discordClient.guilds.keyArray().toString());
+            }
         }
 
     })
