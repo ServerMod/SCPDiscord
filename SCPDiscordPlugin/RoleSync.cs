@@ -28,7 +28,8 @@ namespace SCPDiscord
         public void Reload()
         {
             plugin.SetUpFileSystem();
-            syncedPlayers = JArray.Parse(File.ReadAllText(FileManager.GetAppFolder() + "SCPDiscord/rolesync.json")).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+            syncedPlayers = JArray.Parse(File.ReadAllText(FileManager.GetAppFolder(plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json")).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+            plugin.Info("Successfully loaded config '" + FileManager.GetAppFolder(plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json'.");
         }
 
         public void SavePlayers()
@@ -41,7 +42,7 @@ namespace SCPDiscord
                 builder.Append("    {\"" + player.Key + "\": \"" + player.Value + "\"},\n");
             }
             builder.Append("]");
-            File.WriteAllText(FileManager.GetAppFolder() + "SCPDiscord/rolesync.json", builder.ToString());
+            File.WriteAllText(FileManager.GetAppFolder(plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json", builder.ToString());
         }
 
         public void SendRoleQuery(string steamID)

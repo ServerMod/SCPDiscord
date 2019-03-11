@@ -19,7 +19,7 @@ namespace SCPDiscord
         private static JObject primary = null;
         private static JObject backup = null;
 
-        private static readonly string languagesPath = FileManager.GetAppFolder() + "SCPDiscord/Languages/";
+        private static readonly string languagesPath = FileManager.GetAppFolder(plugin.GetConfigBool("scpdiscord_languages_global")) + "SCPDiscord/Languages/";
 
         // All default languages included in the .dll
         private static readonly Dictionary<string, string> defaultLanguages = new Dictionary<string, string>
@@ -190,13 +190,13 @@ namespace SCPDiscord
                 }
                 else if (e is FileNotFoundException)
                 {
-                    plugin.Error("'" + Config.GetString("settings.language") + ".yml' was not found.");
+                    plugin.Error("'" + languagesPath + Config.GetString("settings.language") + ".yml' was not found.");
                 }
                 else if (e is JsonReaderException || e is YamlException)
                 {
-                    plugin.Error("'" + Config.GetString("settings.language") + ".yml' formatting error.");
+                    plugin.Error("'" + languagesPath + Config.GetString("settings.language") + ".yml' formatting error.");
                 }
-                plugin.Error("Error reading language file '" + Config.GetString("settings.language") + ".yml'. Attempting to initialize backup system...");
+                plugin.Error("Error reading primary language file '" + languagesPath + Config.GetString("settings.language") + ".yml'. Attempting to initialize backup system...");
                 plugin.Debug(e.ToString());
             }
 
@@ -220,13 +220,13 @@ namespace SCPDiscord
                     }
                     else if (e is FileNotFoundException)
                     {
-                        plugin.Error("'" + Config.GetString("settings.language") + ".yml' was not found.");
+                        plugin.Error("'" + languagesPath + Config.GetString("settings.language") + ".yml' was not found.");
                     }
                     else if (e is JsonReaderException || e is YamlException)
                     {
-                        plugin.Error("'" + Config.GetString("settings.language") + ".yml' formatting error.");
+                        plugin.Error("'" + languagesPath + Config.GetString("settings.language") + ".yml' formatting error.");
                     }
-                    plugin.Error("Error reading backup language file 'english.yml'.");
+                    plugin.Error("Error reading backup language file '" + languagesPath + "english.yml'.");
                     plugin.Debug(e.ToString());
                 }
             }
@@ -250,7 +250,7 @@ namespace SCPDiscord
             {
                 if (!File.Exists(languagesPath + language.Key + ".yml"))
                 {
-                    plugin.Info("Creating language file " + language.Key + ".yml...");
+                    plugin.Info("Creating language file " + languagesPath + language.Key + ".yml...");
                     try
                     {
                         File.WriteAllText((languagesPath + language.Key + ".yml"), language.Value);
@@ -259,7 +259,7 @@ namespace SCPDiscord
                     {
                         plugin.Warn("Could not create language file: Language directory does not exist, attempting to create it... ");
                         Directory.CreateDirectory(languagesPath);
-                        plugin.Info("Creating language file " + language.Key + ".yml...");
+                        plugin.Info("Creating language file " + languagesPath + language.Key + ".yml...");
                         File.WriteAllText((languagesPath + language.Key + ".yml"), language.Value);
                     }
                 }
