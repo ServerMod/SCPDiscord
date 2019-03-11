@@ -1,4 +1,4 @@
-using Smod2.API;
+﻿using Smod2.API;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -424,23 +424,20 @@ namespace SCPDiscord
                     };
                 }
 
-                Dictionary<string, string> mapVariables;
-                if (server != null && server.Map != null)
+                Dictionary<string, string> mapVariables = new Dictionary<string, string>();
+                try
                 {
                     mapVariables = new Dictionary<string, string>
                     {
-                        //{ "warheaddetonated",   server.Map.WarheadDetonated + ""    },
                         { "decontaminated",     server.Map.LCZDecontaminated + ""   }
                     };
                 }
-                else
+                catch(Exception e)
                 {
-                    mapVariables = new Dictionary<string, string>
-                    {
-                        //{ "warheaddetonated",   "False" },
-                        { "decontaminated",     "False" }
-                    };
+                    plugin.Error("Server: " + (server != null) + " Server.Map: " + (server?.Map != null) + " Server.Map.LCZDecontaminated: " + (server?.Map?.LCZDecontaminated != null));
+                    plugin.Error(e.ToString());
                 }
+
 
                 Dictionary<string, string> roundVariables;
                 if (server != null && server.Round != null)
