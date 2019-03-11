@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using SCPDiscord.Properties;
 using Smod2;
+using Smod2.API;
 using Smod2.Attributes;
 using Smod2.Commands;
 using Smod2.Events;
@@ -104,6 +105,14 @@ namespace SCPDiscord
 
             public string[] OnCall(ICommandSender sender, string[] args)
             {
+                if (sender is Player player)
+                {
+                    if (!player.HasPermission("scpdiscord.reconnect"))
+                    {
+                        return new string[] { "You don't have permission to use that command." };
+                    }
+                }
+
                 if (NetworkSystem.IsConnected())
                 {
                     NetworkSystem.Disconnect();
@@ -137,6 +146,14 @@ namespace SCPDiscord
 
             public string[] OnCall(ICommandSender sender, string[] args)
             {
+                if (sender is Player player)
+                {
+                    if (!player.HasPermission("scpdiscord.reload"))
+                    {
+                        return new string[] { "You don't have permission to use that command." };
+                    }
+                }
+
                 plugin.Info("Reloading plugin...");
                 Config.Reload(plugin);
                 plugin.Info("Successfully loaded config '" + plugin.GetConfigString("scpdiscord_config") + "'.");
@@ -172,6 +189,14 @@ namespace SCPDiscord
 
             public string[] OnCall(ICommandSender sender, string[] args)
             {
+                if (sender is Player player)
+                {
+                    if (!player.HasPermission("scpdiscord.unsync"))
+                    {
+                        return new string[] { "You don't have permission to use that command." };
+                    }
+                }
+
                 if (args.Length > 0)
                 {
                     return new string[] { plugin.roleSync.RemovePlayer(args[0]) };
@@ -204,6 +229,13 @@ namespace SCPDiscord
 
             public string[] OnCall(ICommandSender sender, string[] args)
             {
+                if (sender is Player player)
+                {
+                    if (!player.HasPermission("scpdiscord.verbose"))
+                    {
+                        return new string[] { "You don't have permission to use that command." };
+                    }
+                }
                 Config.SetBool("settings.verbose", !Config.GetBool("settings.verbose"));
                 return new string[] { "Verbose messages: " + Config.GetBool("settings.verbose") };
             }
@@ -230,6 +262,13 @@ namespace SCPDiscord
 
             public string[] OnCall(ICommandSender sender, string[] args)
             {
+                if (sender is Player player)
+                {
+                    if (!player.HasPermission("scpdiscord.debug"))
+                    {
+                        return new string[] { "You don't have permission to use that command." };
+                    }
+                }
                 Config.SetBool("settings.debug", !Config.GetBool("settings.debug"));
                 return new string[] { "Debug messages: " + Config.GetBool("settings.debug") };
             }
