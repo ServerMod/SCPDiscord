@@ -133,12 +133,12 @@ namespace SCPDiscord
 
                                     case "hidetag":
                                     case "showtag":
-                                        if (plugin.pluginManager.GetEnabledPlugin("karlofduty.toggletag") != null)
+                                        if (plugin.PluginManager.GetEnabledPlugin("karlofduty.toggletag") != null)
                                         {
                                             if (arguments.Length > 0)
                                             {
                                                 command = "console_" + command;
-                                                response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+                                                response = ConsoleCommand(plugin.PluginManager.Server, command, arguments);
 
                                                 variables = new Dictionary<string, string>
                                                 {
@@ -165,9 +165,9 @@ namespace SCPDiscord
                                     case "vs_disable":
                                     case "vs_whitelist":
                                     case "vs_reload":
-                                        if (plugin.pluginManager.GetEnabledPlugin("karlofduty.vpnshield") != null)
+                                        if (plugin.PluginManager.GetEnabledPlugin("karlofduty.vpnshield") != null)
                                         {
-                                            response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+                                            response = ConsoleCommand(plugin.PluginManager.Server, command, arguments);
 
                                             variables = new Dictionary<string, string>
                                             {
@@ -189,7 +189,7 @@ namespace SCPDiscord
                                         NetworkSystem.QueueMessage(channel + plugin.roleSync.RemovePlayer(arguments[0]));
                                         break;
                                     default:
-                                        response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+                                        response = ConsoleCommand(plugin.PluginManager.Server, command, arguments);
                                         variables = new Dictionary<string, string>
                                         {
                                             { "feedback", response }
@@ -225,7 +225,7 @@ namespace SCPDiscord
 
         private string ConsoleCommand(ICommandSender user, string command, string[] arguments)
         {
-            string[] feedback = plugin.pluginManager.CommandManager.CallCommand(user, command, arguments);
+            string[] feedback = plugin.PluginManager.CommandManager.CallCommand(user, command, arguments);
 
             StringBuilder builder = new StringBuilder();
             foreach (string line in feedback)
@@ -390,7 +390,7 @@ namespace SCPDiscord
             {
                 reason = "All players kicked by Admin";
             }
-            foreach (Smod2.API.Player player in plugin.pluginManager.Server.GetPlayers())
+            foreach (Player player in plugin.PluginManager.Server.GetPlayers())
             {
                 player.Ban(0, reason);
             }

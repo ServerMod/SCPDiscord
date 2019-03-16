@@ -76,7 +76,7 @@ namespace SCPDiscord
                 // Update player count
                 if (Config.GetBool("settings.playercount"))
                 {
-                    string activity = "botactivity" + (plugin.pluginManager.Server.NumPlayers - 1) + " / " + plugin.maxPlayers;
+                    string activity = "botactivity" + (plugin.PluginManager.Server.NumPlayers - 1) + " / " + plugin.maxPlayers;
                     QueueMessage(activity);
                 }
 
@@ -393,7 +393,7 @@ namespace SCPDiscord
             Dictionary<string, string> variables = new Dictionary<string, string>();
             try
             {
-                Server server = plugin.pluginManager.Server;
+                Server server = plugin.PluginManager.Server;
                 Dictionary<string, string> serverVariables;
                 if (server != null)
                 {
@@ -403,8 +403,6 @@ namespace SCPDiscord
                         { "maxplayers",         plugin.maxPlayers + ""                                          },
                         { "ip",                 server.IpAddress                                                },
                         { "port",               server.Port + ""                                                },
-                        { "isvisible",          server.Visible + ""                                             },
-                        { "isverified",         server.Verified + ""                                            },
                         { "uptime",            (plugin.serverStartTime.ElapsedMilliseconds / 1000 / 60) + ""    },
                         { "tps",                tps.ToString ("0.00")                                           }
                     };

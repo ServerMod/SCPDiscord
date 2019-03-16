@@ -51,11 +51,11 @@ namespace SCPDiscord
             this.AddEventHandlers(new TickCounter(), Priority.Highest);
             this.AddEventHandlers(new SyncPlayerRole(), Priority.Highest);
 
-            this.AddConfig(new Smod2.Config.ConfigSetting("max_players", 20, Smod2.Config.SettingType.NUMERIC, true, "Gets the max players without reserved slots."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("max_players", 20, true, "Gets the max players without reserved slots."));
 
-            this.AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config_global", false, Smod2.Config.SettingType.BOOL, true, "Whether or not the config should be placed in the global config directory."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_rolesync_global", true, Smod2.Config.SettingType.BOOL, true, "Whether or not the rolesync file should be placed in the global config directory."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_languages_global", true, Smod2.Config.SettingType.BOOL, true, "Whether or not the languages should be placed in the global config directory."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config_global", false, true, "Whether or not the config should be placed in the global config directory."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_rolesync_global", true, true, "Whether or not the rolesync file should be placed in the global config directory."));
+            this.AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_languages_global", true, true, "Whether or not the languages should be placed in the global config directory."));
         }
 
         public override void OnEnable()
@@ -337,7 +337,7 @@ namespace SCPDiscord
 
         public void Disable()
         {
-            pluginManager.DisablePlugin(this);
+            PluginManager.DisablePlugin(this);
         }
 
         public override void OnDisable()
@@ -384,7 +384,7 @@ namespace SCPDiscord
         /// <returns>True if player was found, false if not.</returns>
         public bool KickPlayer(string steamID, string message = "Kicked from server")
         {
-            foreach (Smod2.API.Player player in pluginManager.Server.GetPlayers())
+            foreach (Smod2.API.Player player in PluginManager.Server.GetPlayers())
             {
                 if (player.SteamId == steamID)
                 {
@@ -403,7 +403,7 @@ namespace SCPDiscord
         /// <returns>True if player was found, false if not.</returns>
         public bool GetPlayerName(string steamID, ref string name)
         {
-            foreach (Smod2.API.Player player in pluginManager.Server.GetPlayers())
+            foreach (Smod2.API.Player player in PluginManager.Server.GetPlayers())
             {
                 if (player.SteamId == steamID)
                 {
