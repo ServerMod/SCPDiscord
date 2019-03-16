@@ -100,9 +100,9 @@ namespace SCPDiscord
                 }
             }
 
-            if(messageQueue.Count != 0 && Config.GetBool("settings.verbose"))
+            if(messageQueue.Count != 0)
             {
-                plugin.Warn("Warn could not send all messages.");
+                plugin.VerboseWarn("Could not send all messages.");
             }
         }
 
@@ -120,21 +120,15 @@ namespace SCPDiscord
             }
             catch (ObjectDisposedException e)
             {
-                if (Config.GetBool("settings.verbose"))
-                {
-                    plugin.Error("TCP client was unexpectedly closed.");
-                    plugin.Error(e.ToString());
-                }
+                plugin.VerboseError("TCP client was unexpectedly closed.");
+                plugin.VerboseError(e.ToString());
                 return false;
             }
         }
 
         private static void Connect(string address, int port)
         {
-            if (Config.GetBool("settings.verbose"))
-            {
-                plugin.Info("Attempting Bot Connection...");
-            }
+            plugin.Verbose("Attempting Bot Connection...");
 
             while(!IsConnected())
             {
@@ -145,10 +139,7 @@ namespace SCPDiscord
                         socket.Shutdown(SocketShutdown.Both);
                         socket.Close();
                     }
-                    if (Config.GetBool("settings.verbose"))
-                    {
-                        plugin.Info("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
-                    }
+                    plugin.Verbose("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     socket.Connect(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
                     plugin.Info("Connected to Discord bot.");
@@ -156,42 +147,26 @@ namespace SCPDiscord
                 }
                 catch (SocketException e)
                 {
-                    if (Config.GetBool("settings.verbose"))
-                    {
-                        plugin.Error("Error occured while connecting to discord bot server: " + e.Message);
-                        if(Config.GetBool("settings.verbose"))
-                        {
-                            plugin.Error(e.ToString());
-                        }
-                        
-                    }
+                    plugin.VerboseError("Error occured while connecting to discord bot server: " + e.Message);
+                    plugin.DebugError(e.ToString());
                     Thread.Sleep(5000);
                 }
                 catch (ObjectDisposedException e)
                 {
-                    if (Config.GetBool("settings.verbose"))
-                    {
-                        plugin.Error("TCP client was unexpectedly closed.");
-                        plugin.Error(e.ToString());
-                    }
+                    plugin.VerboseError("TCP client was unexpectedly closed.");
+                    plugin.DebugError(e.ToString());
                     Thread.Sleep(5000);
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    if (Config.GetBool("settings.verbose"))
-                    {
-                        plugin.Error("Invalid port.");
-                        plugin.Error(e.ToString());
-                    }
+                    plugin.VerboseError("Invalid port.");
+                    plugin.DebugError(e.ToString());
                     Thread.Sleep(5000);
                 }
                 catch (ArgumentNullException e)
                 {
-                    if (Config.GetBool("settings.verbose"))
-                    {
-                        plugin.Error("IP address is null.");
-                        plugin.Error(e.ToString());
-                    }
+                    plugin.VerboseError("IP address is null.");
+                    plugin.DebugError(e.ToString());
                     Thread.Sleep(5000);
                 }
             }
@@ -210,10 +185,7 @@ namespace SCPDiscord
             // Abort if client is dead
             if (socket == null || !socket.Connected)
             {
-                if(Config.GetBool("settings.verbose"))
-                {
-                    plugin.Warn("Error sending message '" + message + "' to bot: Not connected.");
-                }
+                plugin.VerboseWarn("Error sending message '" + message + "' to bot: Not connected.");
                 return false;
             }
 
@@ -223,10 +195,7 @@ namespace SCPDiscord
                 byte[] data = System.Text.Encoding.UTF8.GetBytes(message + '\0');
                 socket.Send(data);
 
-                if (Config.GetBool("settings.debug"))
-                {
-                    plugin.Info("Sent message '" + message + "' to bot.");
-                }
+                plugin.Debug("Sent message '" + message + "' to bot.");
                 return true;
             }
             catch (Exception e)
@@ -264,10 +233,7 @@ namespace SCPDiscord
             // Abort on empty message
             if (message == "" || message == " " || message == ".")
             {
-                if(Config.GetBool("settings.verbose"))
-                {
-                    plugin.Warn("Tried to send empty message " + messagePath + " to discord. Verify your language files.");
-                }
+                plugin.VerboseWarn("Tried to send empty message " + messagePath + " to discord. Verify your language files.");
                 return false;
             }
             
@@ -523,34 +489,22 @@ namespace SCPDiscord
                 {
                     QueueMessage("channeltopic" + channelID + topic);
 
-                    if (Config.GetBool("settings.debug"))
-                    {
-                        plugin.Info("Sent channel topic '" + topic + "' to bot.");
-                    }
+                    plugin.Debug("Sent channel topic '" + topic + "' to bot.");
                 }
                 catch (InvalidOperationException e)
                 {
-                    if (Config.GetBool("settings.verbose"))
-                    {
-                        plugin.Error("Error sending channel topic '" + topic + "' to bot.");
-                        plugin.Error(e.ToString());
-                    }
+                    plugin.VerboseError("Error sending channel topic '" + topic + "' to bot.");
+                    plugin.DebugError(e.ToString());
                 }
                 catch (ArgumentNullException e)
                 {
-                    if (Config.GetBool("settings.verbose"))
-                    {
-                        plugin.Error("Error sending channel topic '" + topic + "' to bot.");
-                        plugin.Error(e.ToString());
-                    }
+                    plugin.VerboseError("Error sending channel topic '" + topic + "' to bot.");
+                    plugin.DebugError(e.ToString());
                 }
             }
             catch (Exception e)
             {
-                if (Config.GetBool("settings.verbose"))
-                {
-                    plugin.Error(e.ToString());
-                }
+                plugin.DebugError(e.ToString());
             }
         }
     }

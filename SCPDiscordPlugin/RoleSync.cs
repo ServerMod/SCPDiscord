@@ -60,11 +60,7 @@ namespace SCPDiscord
             if(player != null)
             {
                 player.SetRank(null, null, gameRole);
-                plugin.Info(player.GetUserGroup().Name);
-                if(Config.GetBool("settings.verbose"))
-                {
-                    plugin.Info("Set " + player.Name + "'s rank to " + gameRole + ".");
-                }
+                plugin.Verbose("Set " + player.Name + "'s rank to " + gameRole + ".");
             }
         }
 
@@ -108,11 +104,8 @@ namespace SCPDiscord
 
                 if (foundStrings.Length == 0)
                 {
-                    if (Config.GetBool("settings.debug"))
-                    {
-                        response = "SteamID does not seem to exist.";
-                        plugin.Info(response);
-                    }
+					response = "SteamID does not seem to exist.";
+                    plugin.Debug(response);
                     return false;
                 }
                 response = "SteamID found.";

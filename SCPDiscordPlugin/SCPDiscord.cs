@@ -347,7 +347,55 @@ namespace SCPDiscord
             this.Info("SCPDiscord disabled.");
         }
 
-        public void QueueMessage(string[] channelAliases, string message)
+		public void Verbose(string message)
+		{
+			if (Config.GetBool("settings.verbose"))
+			{
+				plugin.Info(message);
+			}
+		}
+
+		public void VerboseWarn(string message)
+		{
+			if (Config.GetBool("settings.verbose"))
+			{
+				plugin.Warn(message);
+			}
+		}
+
+		public void VerboseError(string message)
+		{
+			if (Config.GetBool("settings.verbose"))
+			{
+				plugin.Error(message);
+			}
+		}
+
+		public new void Debug(string message)
+		{
+			if (Config.GetBool("settings.debug"))
+			{
+				plugin.Info(message);
+			}
+		}
+
+		public void DebugWarn(string message)
+		{
+			if (Config.GetBool("settings.debug"))
+			{
+				plugin.Warn(message);
+			}
+		}
+
+		public void DebugError(string message)
+		{
+			if (Config.GetBool("settings.debug"))
+			{
+				plugin.Error(message);
+			}
+		}
+
+		public void QueueMessage(string[] channelAliases, string message)
         {
             foreach (string channel in channelAliases)
             {

@@ -41,10 +41,7 @@ namespace SCPDiscord
                                 continue;
                             }
 
-                            if(Config.GetBool("settings.debug"))
-                            {
-                                plugin.Info("COMMAND: " + messages[0]);
-                            }
+                            plugin.Debug("Incoming command from discord: " + messages[0]);
 
                             string[] words = messages[0].Split(' ');
                             if (words[0] == "command")
@@ -202,10 +199,7 @@ namespace SCPDiscord
                             {
                                 plugin.roleSync.ReceiveQueryResponse(words[1], MergeString(words.Skip(2).ToArray()));
                             }
-                            if (Config.GetBool("settings.verbose"))
-                            {
-                                plugin.Info("From discord: " + messages[0]);
-                            }
+                            plugin.Verbose("From discord: " + messages[0]);
 
                             messages.RemoveAt(0);
                         }

@@ -323,10 +323,7 @@ namespace SCPDiscord
         {
             if (primary == null && backup == null)
             {
-                if (Config.GetBool("settings.verbose"))
-                {
-                    plugin.Warn("Tried to send Discord message before loading languages.");
-                }
+                plugin.Verbose("Tried to send Discord message before loading languages.");
                 return null;
             }
             try
@@ -382,10 +379,7 @@ namespace SCPDiscord
         {
             if (primary == null && backup == null)
             {
-                if (Config.GetBool("settings.verbose"))
-                {
-                    plugin.Warn("Tried to read regex dictionary before loading languages.");
-                }
+                plugin.Verbose("Tried to read regex dictionary before loading languages.");
                 return new Dictionary<string, string>();
             }
             try
@@ -395,10 +389,7 @@ namespace SCPDiscord
             }
             catch (NullReferenceException e)
             {
-                if (Config.GetBool("settings.verbose"))
-                {
-                    plugin.Warn("Error: Language regex dictionary '" + path + "' does not exist." + e);
-                }
+                plugin.Verbose("Error: Language regex dictionary '" + path + "' does not exist." + e);
                 return new Dictionary<string, string>();
             }
             catch (ArgumentNullException)
