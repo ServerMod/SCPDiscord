@@ -62,7 +62,7 @@ namespace SCPDiscord
                                         //Check if the command has enough arguments
                                         if (arguments.Length >= 2)
                                         {
-                                            BanCommand(arguments[0], arguments[1], MergeString(arguments.Skip(2).ToArray()));
+                                            BanCommand(channel, arguments[0], arguments[1], MergeString(arguments.Skip(2).ToArray()));
                                         }
                                         else
                                         {
@@ -78,7 +78,7 @@ namespace SCPDiscord
                                         //Check if the command has enough arguments
                                         if (arguments.Length >= 1)
                                         {
-                                            KickCommand(arguments[0], MergeString(arguments.Skip(1).ToArray()));
+                                            KickCommand(channel, arguments[0], MergeString(arguments.Skip(1).ToArray()));
                                         }
                                         else
                                         {
@@ -98,7 +98,7 @@ namespace SCPDiscord
                                        //Check if the command has enough arguments
                                         if (arguments.Length >= 1)
                                         {
-                                            UnbanCommand(arguments[0]);
+                                            UnbanCommand(channel, arguments[0]);
                                         }
                                         else
                                         {
@@ -229,13 +229,14 @@ namespace SCPDiscord
             return builder.ToString();
         }
 
-        /// <summary>
-        /// Handles a ban command from Discord.
-        /// </summary>
-        /// <param name="steamID">SteamID of player to be banned.</param>
-        /// <param name="duration">Duration of ban expressed as xu where x is a number and u is a character representing a unit of time.</param>
-        /// <param name="reason">Optional reason for the ban.</param>
-        private void BanCommand(string steamID, string duration, string reason = "")
+		/// <summary>
+		/// Handles a ban command from Discord.
+		/// </summary>
+		/// <param name="channelID">ChannelID of the channel the command was used in.</param>
+		/// <param name="steamID">SteamID of player to be banned.</param>
+		/// <param name="duration">Duration of ban expressed as xu where x is a number and u is a character representing a unit of time.</param>
+		/// <param name="reason">Optional reason for the ban.</param>
+		private void BanCommand(string channelID, string steamID, string duration, string reason = "")
         {
             // Perform very basic SteamID validation.
             if (!IsPossibleSteamID(steamID))
@@ -244,7 +245,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.invalidsteamid", variables);
+                plugin.SendMessage(channelID, "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -266,7 +267,7 @@ namespace SCPDiscord
                 {
                     { "duration", duration }
                 };
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.invalidduration", variables);
+                plugin.SendMessage(channelID, "botresponses.invalidduration", variables);
                 return;
             }
 
@@ -303,11 +304,12 @@ namespace SCPDiscord
             plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerbanned", banVars);
         }
 
-        /// <summary>
-        /// Handles an unban command from Discord.
-        /// </summary>
-        /// <param name="steamID">SteamID of player to be unbanned.</param>
-        private void UnbanCommand(string steamID)
+		/// <summary>
+		/// Handles an unban command from Discord.
+		/// </summary>
+		/// <param name="channelID">ChannelID of discord channel command was used in.</param>
+		/// <param name="steamID">SteamID of player to be unbanned.</param>
+		private void UnbanCommand(string channelID, string steamID)
         {
             // Perform very basic SteamID validation. (Also secretly maybe works on ip addresses now)
             if (!IsPossibleSteamID(steamID) && !IPAddress.TryParse(steamID, out IPAddress address))
@@ -316,7 +318,7 @@ namespace SCPDiscord
                 {
                     { "steamidorip", steamID }
                 };
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.invalidsteamidorip", variables);
+                plugin.SendMessage(channelID, "botresponses.invalidsteamidorip", variables);
                 return;
             }
 
@@ -337,7 +339,7 @@ namespace SCPDiscord
         /// Handles the kick command.
         /// </summary>
         /// <param name="steamID">SteamID of player to be kicked.</param>
-        private void KickCommand(string steamID, string reason)
+        private void KickCommand(string channelID, string steamID, string reason)
         {
             //Perform very basic SteamID validation
             if (!IsPossibleSteamID(steamID))
@@ -346,7 +348,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.invalidsteamid", variables);
+                plugin.SendMessage(channelID, "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -370,7 +372,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playernotfound", variables);
+                plugin.SendMessage(channelID, "botresponses.playernotfound", variables);
             }
         }
 
