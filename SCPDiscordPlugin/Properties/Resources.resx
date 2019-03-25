@@ -127,6 +127,9 @@
   <data name="english_emote" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\english-emote.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="finnish" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Languages\finnish.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="finnish_emote" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\finnish-emote.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

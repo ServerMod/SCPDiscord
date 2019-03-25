@@ -93,6 +93,16 @@ namespace SCPDiscord.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] finnish {
+            get {
+                object obj = ResourceManager.GetObject("finnish", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] finnish_emote {
             get {
                 object obj = ResourceManager.GetObject("finnish_emote", resourceCulture);
