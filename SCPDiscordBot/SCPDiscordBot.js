@@ -35,7 +35,7 @@ function setChannelTopic(channelID, topic)
     }
     else if (verbose)
     {
-        console.warn("Server status channel was not found.");
+        console.warn("Could not set channel topic, channel not found: " + channelID);
     }
 }
 
