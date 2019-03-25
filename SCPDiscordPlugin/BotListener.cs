@@ -178,6 +178,31 @@ namespace SCPDiscord
                                         }
                                         break;
 
+									case "scperms_reload":
+									case "scperms_giverank":
+									case "scperms_removerank":
+									case "scperms_verbose":
+									case "scperms_debug":
+									case "scpermissions_reload":
+									case "scpermissions_giverank":
+									case "scpermissions_removerank":
+									case "scpermissions_verbose":
+									case "scpermissions_debug":
+										if (plugin.PluginManager.GetEnabledPlugin("karlofduty.scpermissions") != null)
+										{
+											response = ConsoleCommand(plugin.PluginManager.Server, command, arguments);
+
+											variables = new Dictionary<string, string>
+											{
+												{ "feedback", response }
+											};
+											plugin.SendMessage(channel, "botresponses.consolecommandfeedback", variables);
+										}
+										else
+										{
+											plugin.SendMessage(channel, "botresponses.scpermissions.notinstalled");
+										}
+										break;
                                     case "syncrole":
                                         NetworkSystem.QueueMessage(channel + plugin.roleSync.AddPlayer(arguments[0], arguments[1]));
                                         break;

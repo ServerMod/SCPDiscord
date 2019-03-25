@@ -1147,6 +1147,10 @@ botresponses:
         notinstalled:
             message: "```diff\n- This command requires the VPNShield plugin.```"
             regex: []
+    scpermissions:
+        notinstalled:
+            message: "```diff\n- This command requires the SCPermissions plugin.```"
+            regex: []
     # The feedback from a console command, except the custom ones above. (Is not affected by global regex other than final_regex)
     consolecommandfeedback:
         # feedback - string
