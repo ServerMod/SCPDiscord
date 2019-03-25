@@ -24,18 +24,18 @@ namespace SCPDiscord
         // All default languages included in the .dll
         private static readonly Dictionary<string, string> defaultLanguages = new Dictionary<string, string>
         {
-            { "english",        Encoding.UTF8.GetString(Resources.english)      },
-            { "russian",        Encoding.UTF8.GetString(Resources.russian)      },
-            { "french",         Encoding.UTF8.GetString(Resources.french)       },
-            { "polish",         Encoding.UTF8.GetString(Resources.polish)       },
-            { "italian",        Encoding.UTF8.GetString(Resources.italian)      },
-            { "finnish",        Encoding.UTF8.GetString(Resources.finnish)      },
-            { "english-emote",   Encoding.UTF8.GetString(Resources.english_emote) },
-            { "russian-emote",   Encoding.UTF8.GetString(Resources.russian_emote) },
-            { "french-emote",    Encoding.UTF8.GetString(Resources.french_emote)  },
-            { "polish-emote",    Encoding.UTF8.GetString(Resources.polish_emote)  },
-            { "italian-emote",    Encoding.UTF8.GetString(Resources.italian_emote)  },
-			{ "finnish-emote",    Encoding.UTF8.GetString(Resources.finnish_emote)  }
+            { "english",			Encoding.UTF8.GetString(Resources.english)			},
+            { "russian",			Encoding.UTF8.GetString(Resources.russian)			},
+            { "french",				Encoding.UTF8.GetString(Resources.french)			},
+            { "polish",				Encoding.UTF8.GetString(Resources.polish)			},
+            { "italian",			Encoding.UTF8.GetString(Resources.italian)			},
+            { "finnish",			Encoding.UTF8.GetString(Resources.finnish)			},
+            { "english-emote",		Encoding.UTF8.GetString(Resources.english_emote)	},
+            { "russian-emote",		Encoding.UTF8.GetString(Resources.russian_emote)	},
+            { "french-emote",		Encoding.UTF8.GetString(Resources.french_emote)		},
+            { "polish-emote",		Encoding.UTF8.GetString(Resources.polish_emote)		},
+            { "italian-emote",		Encoding.UTF8.GetString(Resources.italian_emote)	},
+			{ "finnish-emote",		Encoding.UTF8.GetString(Resources.finnish_emote)	}
         };
 
         private static readonly List<string> messageNodes = new List<string>
