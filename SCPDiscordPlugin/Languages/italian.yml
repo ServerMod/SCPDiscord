@@ -302,7 +302,7 @@ player:
         # playerteam - Team
         default:
             message: "`<var:playername>` (<var:playerclass>)  è stato ucciso con **<var:damagetype>** da `<var:attackername>` (<var:attackerclass>)."
-            regex: [ "ucciso con **tesla energy**":"**fritto**" , "ucciso con **SCP-049**":"**curato**" , "ucciso con **SCP-096**":"**trucidato**" , "ucciso con **SCP-173**":"**decapitato**" , "ucciso con **SCP-939**":"**divorato**" ]
+            regex: [ "ucciso con \\*\\*tesla energy\\*\\*":"**fritto**" , "ucciso con \\*\\*SCP-049\\*\\*":"**curato**" , "ucciso con \\*\\*SCP-096\\*\\*":"**trucidato**" , "ucciso con \\*\\*SCP-173\\*\\*":"**decapitato**" , "ucciso con \\*\\*SCP-939\\*\\*":"**divorato**" ]
         friendlyfire:
             message: "**<var:playerteam> `<var:playername>` (<var:playerclass>) è stato uscciso dal compagno <var:attackerteam> `<var:attackername>` (<var:attackerclass>) con <var:damagetype>.**"
             regex: []
