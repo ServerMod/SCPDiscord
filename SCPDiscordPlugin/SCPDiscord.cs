@@ -23,7 +23,7 @@ namespace SCPDiscord
         id = "karlofduty.scpdiscord",
         version = "1.2.0",
         SmodMajor = 3,
-        SmodMinor = 3,
+        SmodMinor = 4,
         SmodRevision = 0
     )]
     public class SCPDiscord : Plugin
