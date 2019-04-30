@@ -64,12 +64,12 @@ namespace SCPDiscord
             plugin = this;
 
             serverStartTime.Start();
-            AddCommand("scpd_rc", new ReconnectCommand(this));
-            AddCommand("scpd_reconnect", new ReconnectCommand(this));
-            AddCommand("scpd_reload", new ReloadCommand(this));
-            AddCommand("scpd_unsync", new UnsyncCommand(this));
-            AddCommand("scpd_verbose", new VerboseCommand(this));
-            AddCommand("scpd_debug", new DebugCommand(this));
+            AddCommand("scpd_rc", new ReconnectCommand());
+            AddCommand("scpd_reconnect", new ReconnectCommand());
+            AddCommand("scpd_reload", new ReloadCommand());
+            AddCommand("scpd_unsync", new UnsyncCommand());
+            AddCommand("scpd_verbose", new VerboseCommand());
+            AddCommand("scpd_debug", new DebugCommand());
 
             Task.Run(async () =>
             {
@@ -89,13 +89,6 @@ namespace SCPDiscord
 
         private class ReconnectCommand : ICommandHandler
         {
-            private SCPDiscord plugin;
-
-            public ReconnectCommand(SCPDiscord plugin)
-            {
-                this.plugin = plugin;
-            }
-
             public string GetCommandDescription()
             {
                 return "Attempts to close the connection to the Discord bot and reconnect.";
@@ -130,13 +123,6 @@ namespace SCPDiscord
 
         private class ReloadCommand : ICommandHandler
         {
-            private SCPDiscord plugin;
-
-            public ReloadCommand(SCPDiscord plugin)
-            {
-                this.plugin = plugin;
-            }
-
             public string GetCommandDescription()
             {
                 return "Reloads all plugin configs and data files and then reconnects.";
@@ -172,13 +158,6 @@ namespace SCPDiscord
 
         private class UnsyncCommand : ICommandHandler
         {
-            private SCPDiscord plugin;
-
-            public UnsyncCommand(SCPDiscord plugin)
-            {
-                this.plugin = plugin;
-            }
-
             public string GetCommandDescription()
             {
                 return "Removes a user from having their discord role synced to the server.";
@@ -212,13 +191,6 @@ namespace SCPDiscord
 
         private class VerboseCommand : ICommandHandler
         {
-            private SCPDiscord plugin;
-
-            public VerboseCommand(SCPDiscord plugin)
-            {
-                this.plugin = plugin;
-            }
-
             public string GetCommandDescription()
             {
                 return "Toggles verbose messages.";
@@ -245,13 +217,6 @@ namespace SCPDiscord
 
         private class DebugCommand : ICommandHandler
         {
-            private SCPDiscord plugin;
-
-            public DebugCommand(SCPDiscord plugin)
-            {
-                this.plugin = plugin;
-            }
-
             public string GetCommandDescription()
             {
                 return "Toggles debug messages.";
