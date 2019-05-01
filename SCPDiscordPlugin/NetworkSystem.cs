@@ -5,10 +5,11 @@ using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
+using SCPDiscord.EventListeners;
 
 namespace SCPDiscord
 {
-    // Seperate class to run the thread
+    // Separate class to run the thread
     public class StartNetworkSystem
     {
         public StartNetworkSystem(SCPDiscord plugin)
@@ -28,20 +29,21 @@ namespace SCPDiscord
     public static class NetworkSystem
     {
         private static Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        private static List<string> messageQueue = new List<string>();
+        private static readonly List<string> messageQueue = new List<string>();
         private static SCPDiscord plugin;
         private static Stopwatch topicUpdateTimer;
-        public static void Run(SCPDiscord plugin)
+        public static void Run(SCPDiscord pl)
         {
+	        plugin = pl;
             topicUpdateTimer = Stopwatch.StartNew();
             topicUpdateTimer.Start();
-            NetworkSystem.plugin = plugin;
             while(!Config.ready || !Language.ready)
             {
                 Thread.Sleep(1000);
             }
 
-            Thread messageThread = new Thread(new ThreadStart(() => new BotListener(plugin)));
+            // ReSharper disable once ObjectCreationAsStatement
+            Thread messageThread = new Thread(() => new BotListener(plugin));
             messageThread.Start();
 
             while (!plugin.shutdown)
@@ -50,11 +52,11 @@ namespace SCPDiscord
                 {
                     if(IsConnected())
                     {
-                        Update(plugin);
+                        Update();
                     }
                     else
                     {
-                        Connect(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
+                        Connect();
                     }
                     Thread.Sleep(1000);
                 }
@@ -65,7 +67,7 @@ namespace SCPDiscord
             }
         }
 
-        private static void Update(SCPDiscord plugin)
+        private static void Update()
         {
             if (topicUpdateTimer.ElapsedMilliseconds >= 10000)
             {
@@ -85,7 +87,7 @@ namespace SCPDiscord
                 {
                     if (Config.GetDict("aliases").ContainsKey(channel))
                     {
-                        RefreshChannelTopic(plugin, Config.GetDict("aliases")[channel], tps);
+                        RefreshChannelTopic(Config.GetDict("aliases")[channel], tps);
                     }
                 }
             }
@@ -126,7 +128,7 @@ namespace SCPDiscord
             }
         }
 
-        private static void Connect(string address, int port)
+        private static void Connect()
         {
             plugin.Verbose("Attempting Bot Connection...");
 
@@ -204,39 +206,39 @@ namespace SCPDiscord
                 plugin.Error(e.ToString());
                 if (!(e is InvalidOperationException || e is ArgumentNullException || e is SocketException))
                 {
-                    throw e;
+                    throw;
                 }
             }
             return false;
         }
 
-        public static bool ProcessMessage(string channelID, string messagePath, Dictionary<string,string> variables)
+        public static void ProcessMessage(string channelID, string messagePath, Dictionary<string, string> variables)
         {
             // Get unparsed message from config
-            string message = "";
+            string message;
             try
             {
                 message = Language.GetString(messagePath + ".message");
             }
             catch (Exception e)
             {
-                plugin.Error("Error reading base message" + e);
-                return false;
+	            plugin.Error("Error reading base message" + e);
+	            return;
             }
 
-            // An error mesage is already sent in the language function if this is null, so this just returns
-            if(message == null)
+            switch (message)
             {
-                return false;
+	            // An error message is already sent in the language function if this is null, so this just returns
+	            case null:
+		            return;
+	            // Abort on empty message
+	            case "":
+	            case " ":
+	            case ".":
+		            plugin.VerboseWarn("Tried to send empty message " + messagePath + " to discord. Verify your language files.");
+		            return;
             }
 
-            // Abort on empty message
-            if (message == "" || message == " " || message == ".")
-            {
-                plugin.VerboseWarn("Tried to send empty message " + messagePath + " to discord. Verify your language files.");
-                return false;
-            }
-            
             // Add time stamp
             if (Config.GetString("settings.timestamp") != "off" && Config.GetString("settings.timestamp") != "")
             {
@@ -263,15 +265,15 @@ namespace SCPDiscord
             ///////////////////////////////////////////////
 
             // Global regex replacements //////////////////
-            Dictionary<string, string> globalRegex = new Dictionary<string, string>();
+            Dictionary<string, string> globalRegex;
             try
             {
                 globalRegex = Language.GetRegexDictionary("global_regex");
             }
             catch (Exception e)
             {
-                plugin.Error("Error reading global regex" + e);
-                return false;
+	            plugin.Error("Error reading global regex" + e);
+	            return;
             }
             // Run the global regex replacements
             foreach (KeyValuePair<string, string> entry in globalRegex)
@@ -281,15 +283,15 @@ namespace SCPDiscord
             ///////////////////////////////////////////////
 
             // Local regex replacements ///////////////////
-            Dictionary<string, string> localRegex = new Dictionary<string, string>();
+            Dictionary<string, string> localRegex;
             try
             {
                 localRegex = Language.GetRegexDictionary(messagePath + ".regex");
             }
             catch (Exception e)
             {
-                plugin.Error("Error reading local regex" + e);
-                return false;
+	            plugin.Error("Error reading local regex" + e);
+	            return;
             }
             // Run the local regex replacements
             foreach (KeyValuePair<string, string> entry in localRegex)
@@ -311,15 +313,15 @@ namespace SCPDiscord
                 ///////////////////////////////////////////////
 
                 // Final regex replacements ///////////////////
-                Dictionary<string, string> finalRegex = new Dictionary<string, string>();
+                Dictionary<string, string> finalRegex;
                 try
                 {
                     finalRegex = Language.GetRegexDictionary("final_regex");
                 }
                 catch (Exception e)
                 {
-                    plugin.Error("Error reading final regex" + e);
-                    return false;
+	                plugin.Error("Error reading final regex" + e);
+	                return;
                 }
                 // Run the final regex replacements
                 foreach (KeyValuePair<string, string> entry in finalRegex)
@@ -330,7 +332,6 @@ namespace SCPDiscord
             }
 
             messageQueue.Add(channelID + message);
-            return true;
         }
 
         public static void QueueMessage(string message)
@@ -354,7 +355,7 @@ namespace SCPDiscord
         /// ///////////////////////////////////////////////
 
         /// Channel topic refreshing //////////////////////
-        private static void RefreshChannelTopic(SCPDiscord plugin, string channelID, float tps)
+        private static void RefreshChannelTopic(string channelID, float tps)
         {
             Dictionary<string, string> variables = new Dictionary<string, string>();
             try
@@ -393,18 +394,18 @@ namespace SCPDiscord
                 {
                     mapVariables = new Dictionary<string, string>
                     {
-                        { "decontaminated",     server.Map.LCZDecontaminated + ""   }
+                        { "decontaminated",     (server?.Map != null && server.Map.LCZDecontaminated) + ""   }
                     };
                 }
                 catch(Exception e)
                 {
-                    plugin.Error("Server: " + (server != null) + " Server.Map: " + (server?.Map != null) + " Server.Map.LCZDecontaminated: " + (server?.Map?.LCZDecontaminated != null));
-                    plugin.Error(e.ToString());
+                    plugin.VerboseError("Server: " + (server != null) + " Server.Map: " + (server?.Map != null) + " Server.Map.LCZDecontaminated: " + (server?.Map?.LCZDecontaminated != null));
+                    plugin.DebugError(e.ToString());
                 }
 
 
                 Dictionary<string, string> roundVariables;
-                if (server != null && server.Round != null)
+                if (server?.Round != null)
                 {
                     roundVariables = new Dictionary<string, string>
                     {
@@ -449,23 +450,23 @@ namespace SCPDiscord
                     };
                 }
 
-                foreach (var entry in serverVariables)
+                foreach (KeyValuePair<string, string> entry in serverVariables)
                 {
                     variables.Add(entry.Key, entry.Value);
                 }
 
-                foreach (var entry in mapVariables)
+                foreach (KeyValuePair<string, string> entry in mapVariables)
                 {
                     variables.Add(entry.Key, entry.Value);
                 }
 
-                foreach (var entry in roundVariables)
+                foreach (KeyValuePair<string, string> entry in roundVariables)
                 {
                     variables.Add(entry.Key, entry.Value);
                 }
 
 
-                var topic = Language.GetString("topic.message");
+                string topic = Language.GetString("topic.message");
 
                 topic = topic.Replace("\n", "");
 

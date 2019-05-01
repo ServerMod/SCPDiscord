@@ -1,8 +1,8 @@
-﻿using Smod2.EventHandlers;
+﻿using System.Collections.Generic;
+using Smod2.EventHandlers;
 using Smod2.EventSystem.Events;
-using System.Collections.Generic;
 
-namespace SCPDiscord
+namespace SCPDiscord.EventListeners
 {
     class TeamEventListener : IEventHandlerTeamRespawn, IEventHandlerSetRoleMaxHP, IEventHandlerDecideTeamRespawnQueue, IEventHandlerSetSCPConfig, IEventHandlerSetNTFUnitName
     {
@@ -13,23 +13,23 @@ namespace SCPDiscord
             this.plugin = plugin;
         }
 
+        /// <summary>
+        /// Called at the start, when the team respawn queue is being read. This happens BEFORE it fills it to full with filler_team_id.
+        /// </summary>
         public void OnDecideTeamRespawnQueue(DecideRespawnQueueEvent ev)
         {
-            /// <summary>  
-            /// Called at the start, when the team respawn queue is being read. This happens BEFORE it fills it to full with filler_team_id.
-            /// <summary>  
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "teams", ev.Teams.ToString() },
             };
-            plugin.SendMessage(Config.GetArray("channels.ondecideteamrespawnqueue"), "team.ondecideteamrespawnqueue", variables);
+            this.plugin.SendMessage(Config.GetArray("channels.ondecideteamrespawnqueue"), "team.ondecideteamrespawnqueue", variables);
         }
 
+        /// <summary>
+        /// Called before MTF or CI respawn.
+        /// </summary>
         public void OnTeamRespawn(TeamRespawnEvent ev)
         {
-            /// <summary>  
-            /// Called before MTF or CI respawn.
-            /// <summary>  
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "players",    ev.PlayerList.ToString()    },
@@ -38,33 +38,33 @@ namespace SCPDiscord
 
             if(ev.SpawnChaos)
             {
-                plugin.SendMessage(Config.GetArray("channels.onteamrespawn.ci"), "team.onteamrespawn.ci", variables);
+                this.plugin.SendMessage(Config.GetArray("channels.onteamrespawn.ci"), "team.onteamrespawn.ci", variables);
             }
             else
             {
-                plugin.SendMessage(Config.GetArray("channels.onteamrespawn.mtf"), "team.onteamrespawn.mtf", variables);
+                this.plugin.SendMessage(Config.GetArray("channels.onteamrespawn.mtf"), "team.onteamrespawn.mtf", variables);
             }
 
         }
 
+        /// <summary>
+        /// Called when the max HP of each role is being set. This happens every round.
+        /// </summary>
         public void OnSetRoleMaxHP(SetRoleMaxHPEvent ev)
         {
-            /// <summary>  
-            /// Called when the max HP of each role is being set. This happens every round.
-            /// <summary>  
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "maxhp",  ev.MaxHP.ToString() },
                 { "role",   ev.Role.ToString()  }
             };
-            plugin.SendMessage(Config.GetArray("channels.onsetrolemaxhp"), "team.onsetrolemaxhp", variables);
+            this.plugin.SendMessage(Config.GetArray("channels.onsetrolemaxhp"), "team.onsetrolemaxhp", variables);
         }
 
+        /// <summary>
+        /// Called when the configs of SCPs are being set. This happens every round.
+        /// </summary>
         public void OnSetSCPConfig(SetSCPConfigEvent ev)
         {
-            /// <summary>  
-            /// Called when the configs of SCPs are being set. This happens every round.
-            /// <summary>  
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "banned049",      ev.Ban049.ToString()            },
@@ -82,19 +82,19 @@ namespace SCPDiscord
                 { "939_53amount",   ev.SCP939_53amount.ToString()   },
                 { "939_89amount",   ev.SCP939_89amount.ToString()   }
             };
-            plugin.SendMessage(Config.GetArray("channels.onsetscpconfig"), "team.onsetscpconfig", variables);
+            this.plugin.SendMessage(Config.GetArray("channels.onsetscpconfig"), "team.onsetscpconfig", variables);
         }
 
+        /// <summary>
+        /// Called when the name of NTF unit is about to be set. This happens when NTF units respawn.
+        /// <summary>
         public void OnSetNTFUnitName(SetNTFUnitNameEvent ev)
         {
-            /// <summary>  
-            /// Called when the name of NTF unit is about to be set. This happens when NTF units respawn.
-            /// <summary>  
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "name", ev.Unit }
             };
-            plugin.SendMessage(Config.GetArray("channels.onsetntfunitname"), "team.onsetntfunitname", variables);
+            this.plugin.SendMessage(Config.GetArray("channels.onsetntfunitname"), "team.onsetntfunitname", variables);
         }
     }
 }

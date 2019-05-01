@@ -12,6 +12,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SCPDiscord.EventListeners;
 using YamlDotNet.Core;
 
 namespace SCPDiscord
@@ -26,9 +27,10 @@ namespace SCPDiscord
         SmodMinor = 4,
         SmodRevision = 0
     )]
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class SCPDiscord : Plugin
     {
-        public Stopwatch serverStartTime = new Stopwatch();
+        public readonly Stopwatch serverStartTime = new Stopwatch();
 
         internal static SCPDiscord plugin;
 
@@ -36,26 +38,26 @@ namespace SCPDiscord
 
         public RoleSync roleSync;
 
-        public bool shutdown = false;
+        public bool shutdown;
 
         public int maxPlayers = 20;
 
         public override void Register()
         {
             // Event handlers
-            this.AddEventHandlers(new RoundEventListener(this), Priority.Highest);
-            this.AddEventHandlers(new PlayerEventListener(this), Priority.Highest);
-            this.AddEventHandlers(new AdminEventListener(this), Priority.Highest);
-            this.AddEventHandlers(new EnvironmentEventListener(this), Priority.Highest);
-            this.AddEventHandlers(new TeamEventListener(this), Priority.Highest);
-            this.AddEventHandlers(new TickCounter(), Priority.Highest);
-            this.AddEventHandlers(new SyncPlayerRole(), Priority.Highest);
+            AddEventHandlers(new RoundEventListener(this), Priority.Highest);
+            AddEventHandlers(new PlayerEventListener(this), Priority.Highest);
+            AddEventHandlers(new AdminEventListener(this), Priority.Highest);
+            AddEventHandlers(new EnvironmentEventListener(this), Priority.Highest);
+            AddEventHandlers(new TeamEventListener(this), Priority.Highest);
+            AddEventHandlers(new TickCounter(), Priority.Highest);
+            AddEventHandlers(new SyncPlayerRole(), Priority.Highest);
 
-            this.AddConfig(new Smod2.Config.ConfigSetting("max_players", 20, true, "Gets the max players without reserved slots."));
+            AddConfig(new Smod2.Config.ConfigSetting("max_players", 20, true, "Gets the max players without reserved slots."));
 
-            this.AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config_global", false, true, "Whether or not the config should be placed in the global config directory."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_rolesync_global", true, true, "Whether or not the rolesync file should be placed in the global config directory."));
-            this.AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_languages_global", true, true, "Whether or not the languages should be placed in the global config directory."));
+            AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config_global", false, true, "Whether or not the config should be placed in the global config directory."));
+            AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_rolesync_global", true, true, "Whether or not the rolesync file should be placed in the global config directory."));
+            AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_languages_global", true, true, "Whether or not the languages should be placed in the global config directory."));
         }
 
         public override void OnEnable()
@@ -63,38 +65,32 @@ namespace SCPDiscord
             plugin = this;
 
             serverStartTime.Start();
-            this.AddCommand("scpd_rc", new ReconnectCommand(this));
-            this.AddCommand("scpd_reconnect", new ReconnectCommand(this));
-            this.AddCommand("scpd_reload", new ReloadCommand(this));
-            this.AddCommand("scpd_unsync", new UnsyncCommand(this));
-            this.AddCommand("scpd_verbose", new VerboseCommand(this));
-            this.AddCommand("scpd_debug", new DebugCommand(this));
+            AddCommand("scpd_rc", new ReconnectCommand());
+            AddCommand("scpd_reconnect", new ReconnectCommand());
+            AddCommand("scpd_reload", new ReloadCommand());
+            AddCommand("scpd_unsync", new UnsyncCommand());
+            AddCommand("scpd_verbose", new VerboseCommand());
+            AddCommand("scpd_debug", new DebugCommand());
 
             Task.Run(async () =>
             {
                 await Task.Delay(4000);
                 SetUpFileSystem();
                 LoadConfig();
-                roleSync = new RoleSync(this);
+                this.roleSync = new RoleSync(this);
 
                 Language.Reload();
-                Thread connectionThread = new Thread(new ThreadStart(() => new StartNetworkSystem(plugin)));
+                // ReSharper disable once ObjectCreationAsStatement
+                Thread connectionThread = new Thread(() => new StartNetworkSystem(plugin));
                 connectionThread.Start();
 
                 this.maxPlayers = GetConfigInt("max_players");
-                this.Info("SCPDiscord " + this.Details.version + " enabled.");
+                Info("SCPDiscord " + this.Details.version + " enabled.");
             });
         }
 
         private class ReconnectCommand : ICommandHandler
         {
-            private SCPDiscord plugin;
-
-            public ReconnectCommand(SCPDiscord plugin)
-            {
-                this.plugin = plugin;
-            }
-
             public string GetCommandDescription()
             {
                 return "Attempts to close the connection to the Discord bot and reconnect.";
@@ -111,31 +107,24 @@ namespace SCPDiscord
                 {
                     if (!player.HasPermission("scpdiscord.reconnect"))
                     {
-                        return new string[] { "You don't have permission to use that command." };
+                        return new[] { "You don't have permission to use that command." };
                     }
                 }
 
                 if (NetworkSystem.IsConnected())
                 {
                     NetworkSystem.Disconnect();
-                    return new string[] { "Connection closed, reconnecting will begin shortly." };
+                    return new[] { "Connection closed, reconnecting will begin shortly." };
                 }
                 else
                 {
-                    return new string[] { "Connection was already closed, reconnecting is in progress." };
+                    return new[] { "Connection was already closed, reconnecting is in progress." };
                 }
             }
         }
 
         private class ReloadCommand : ICommandHandler
         {
-            private SCPDiscord plugin;
-
-            public ReloadCommand(SCPDiscord plugin)
-            {
-                this.plugin = plugin;
-            }
-
             public string GetCommandDescription()
             {
                 return "Reloads all plugin configs and data files and then reconnects.";
@@ -152,7 +141,7 @@ namespace SCPDiscord
                 {
                     if (!player.HasPermission("scpdiscord.reload"))
                     {
-                        return new string[] { "You don't have permission to use that command." };
+                        return new[] { "You don't have permission to use that command." };
                     }
                 }
 
@@ -165,19 +154,12 @@ namespace SCPDiscord
                     NetworkSystem.Disconnect();
                 }
 
-                return new string[] { "Reload complete." };
+                return new[] { "Reload complete." };
             }
         }
 
         private class UnsyncCommand : ICommandHandler
         {
-            private SCPDiscord plugin;
-
-            public UnsyncCommand(SCPDiscord plugin)
-            {
-                this.plugin = plugin;
-            }
-
             public string GetCommandDescription()
             {
                 return "Removes a user from having their discord role synced to the server.";
@@ -185,7 +167,7 @@ namespace SCPDiscord
 
             public string GetUsage()
             {
-                return "scpd_unsync <discordid>";
+                return "scpd_unsync <discord id>";
             }
 
             public string[] OnCall(ICommandSender sender, string[] args)
@@ -194,30 +176,23 @@ namespace SCPDiscord
                 {
                     if (!player.HasPermission("scpdiscord.unsync"))
                     {
-                        return new string[] { "You don't have permission to use that command." };
+                        return new[] { "You don't have permission to use that command." };
                     }
                 }
 
                 if (args.Length > 0)
                 {
-                    return new string[] { plugin.roleSync.RemovePlayer(args[0]) };
+                    return new[] { plugin.roleSync.RemovePlayer(args[0]) };
                 }
                 else
                 {
-                    return new string[] { "Not enough arguments." };
+                    return new[] { "Not enough arguments." };
                 }
             }
         }
 
         private class VerboseCommand : ICommandHandler
         {
-            private SCPDiscord plugin;
-
-            public VerboseCommand(SCPDiscord plugin)
-            {
-                this.plugin = plugin;
-            }
-
             public string GetCommandDescription()
             {
                 return "Toggles verbose messages.";
@@ -234,23 +209,16 @@ namespace SCPDiscord
                 {
                     if (!player.HasPermission("scpdiscord.verbose"))
                     {
-                        return new string[] { "You don't have permission to use that command." };
+                        return new[] { "You don't have permission to use that command." };
                     }
                 }
                 Config.SetBool("settings.verbose", !Config.GetBool("settings.verbose"));
-                return new string[] { "Verbose messages: " + Config.GetBool("settings.verbose") };
+                return new[] { "Verbose messages: " + Config.GetBool("settings.verbose") };
             }
         }
 
         private class DebugCommand : ICommandHandler
         {
-            private SCPDiscord plugin;
-
-            public DebugCommand(SCPDiscord plugin)
-            {
-                this.plugin = plugin;
-            }
-
             public string GetCommandDescription()
             {
                 return "Toggles debug messages.";
@@ -267,14 +235,17 @@ namespace SCPDiscord
                 {
                     if (!player.HasPermission("scpdiscord.debug"))
                     {
-                        return new string[] { "You don't have permission to use that command." };
+                        return new[] { "You don't have permission to use that command." };
                     }
                 }
                 Config.SetBool("settings.debug", !Config.GetBool("settings.debug"));
-                return new string[] { "Debug messages: " + Config.GetBool("settings.debug") };
+                return new[] { "Debug messages: " + Config.GetBool("settings.debug") };
             }
         }
 
+		/// <summary>
+		/// Makes sure all plugin files exist.
+		/// </summary>
         public void SetUpFileSystem()
         {
             if (!Directory.Exists(FileManager.GetAppFolder(GetConfigBool("scpdiscord_config_global")) + "SCPDiscord"))
@@ -298,6 +269,7 @@ namespace SCPDiscord
                 File.WriteAllText(FileManager.GetAppFolder(GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml", Encoding.UTF8.GetString(Resources.config));
             }
 
+            // ReSharper disable once InvertIf
             if (!File.Exists(FileManager.GetAppFolder(GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json"))
             {
                 plugin.Info("Config file rolesync.json does not exist, creating...");
@@ -305,7 +277,10 @@ namespace SCPDiscord
             }
         }
 
-        public void LoadConfig()
+		/// <summary>
+		/// Loads all config options from the plugin config file.
+		/// </summary>
+        private void LoadConfig()
         {
             try
             {
@@ -346,6 +321,10 @@ namespace SCPDiscord
             NetworkSystem.Disconnect();
             this.Info("SCPDiscord disabled.");
         }
+
+		/// <summary>
+		/// Logging functions
+		/// </summary>
 
 		public void Verbose(string message)
 		{
@@ -395,7 +374,12 @@ namespace SCPDiscord
 			}
 		}
 
-		public void QueueMessage(string[] channelAliases, string message)
+		/// <summary>
+		/// Enqueue a string to be sent to Discord
+		/// </summary>
+		/// <param name="channelAliases">The user friendly name of the channel, set in the config.</param>
+		/// <param name="message">The message to be sent.</param>
+		public void SendString(IEnumerable<string> channelAliases, string message)
         {
             foreach (string channel in channelAliases)
             {
@@ -406,21 +390,35 @@ namespace SCPDiscord
             }
         }
 
-        public void SendMessage(string[] channelAliases, string messagePath, Dictionary<string, string> variables = null)
+		/// <summary>
+		/// Sends a message from the loaded language file.
+		/// </summary>
+		/// <param name="channelAliases">A collection of channel aliases, set in the config.</param>
+		/// <param name="messagePath">The language node of the message to send.</param>
+		/// <param name="variables">Variables to support in the message as key value pairs.</param>
+        public void SendMessage(IEnumerable<string> channelAliases, string messagePath, Dictionary<string, string> variables = null)
         {
             foreach (string channel in channelAliases)
             {
                 if (Config.GetDict("aliases").ContainsKey(channel))
                 {
-                    Thread messageThread = new Thread(new ThreadStart(() => new ProcessMessageAsync(Config.GetDict("aliases")[channel], messagePath, variables)));
+	                // ReSharper disable once ObjectCreationAsStatement
+	                Thread messageThread = new Thread(() => new ProcessMessageAsync(Config.GetDict("aliases")[channel], messagePath, variables));
                     messageThread.Start();
                 }
             }
         }
 
-        public void SendMessage(string channelid, string messagePath, Dictionary<string, string> variables = null)
+		/// <summary>
+		/// Sends a message from the loaded language file to a specific channel by channel ID. Usually used for replies to Discord messages.
+		/// </summary>
+		/// <param name="channelID">The ID of the channel to send to.</param>
+		/// <param name="messagePath">The language node of the message to send.</param>
+		/// <param name="variables">Variables to support in the message as key value pairs.</param>
+        public void SendMessage(string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
-            Thread messageThread = new Thread(new ThreadStart(() => new ProcessMessageAsync(channelid, messagePath, variables)));
+	        // ReSharper disable once ObjectCreationAsStatement
+	        Thread messageThread = new Thread(() => new ProcessMessageAsync(channelID, messagePath, variables));
             messageThread.Start();
         }
 
@@ -432,9 +430,10 @@ namespace SCPDiscord
         /// <returns>True if player was found, false if not.</returns>
         public bool KickPlayer(string steamID, string message = "Kicked from server")
         {
-            foreach (Smod2.API.Player player in PluginManager.Server.GetPlayers())
+            foreach (Player player in PluginManager.Server.GetPlayers())
             {
-                if (player.SteamId == steamID)
+	            // ReSharper disable once InvertIf
+	            if (player.SteamId == steamID)
                 {
                     player.Ban(0, message);
                     return true;
@@ -451,9 +450,10 @@ namespace SCPDiscord
         /// <returns>True if player was found, false if not.</returns>
         public bool GetPlayerName(string steamID, ref string name)
         {
-            foreach (Smod2.API.Player player in PluginManager.Server.GetPlayers())
+            foreach (Player player in PluginManager.Server.GetPlayers())
             {
-                if (player.SteamId == steamID)
+	            // ReSharper disable once InvertIf
+	            if (player.SteamId == steamID)
                 {
                     name = player.Name;
                     return true;

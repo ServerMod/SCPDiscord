@@ -11,9 +11,9 @@ namespace SCPDiscord
 {
     public static class Config
     {
-        public static bool ready = false;
+        public static bool ready;
 
-        private static Dictionary<string, string> configStrings = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> configStrings = new Dictionary<string, string>
         {
             { "bot.ip",             "127.0.0.1" },
 
@@ -21,7 +21,7 @@ namespace SCPDiscord
             { "settings.timestamp", ""          }
         };
 
-        private static Dictionary<string, bool> configBools = new Dictionary<string, bool>
+        private static readonly Dictionary<string, bool> configBools = new Dictionary<string, bool>
         {
             { "settings.playercount",       true    },
             { "settings.verbose",           true    },
@@ -30,12 +30,12 @@ namespace SCPDiscord
             { "settings.configvalidation",  true    }
         };
 
-        private static Dictionary<string, int> configInts = new Dictionary<string, int>
+        private static readonly Dictionary<string, int> configInts = new Dictionary<string, int>
         {
             { "bot.port", 8888 }
         };
 
-        private static Dictionary<string, string[]> configArrays = new Dictionary<string, string[]>
+        private static readonly Dictionary<string, string[]> configArrays = new Dictionary<string, string[]>
         {
             // Bot messages
             { "channels.statusmessages",            new string[]{ } },
@@ -151,7 +151,7 @@ namespace SCPDiscord
             { "channels.onsetntfunitname",          new string[]{ } },
         };
 
-        private static Dictionary<string, Dictionary<string, string>> configDicts = new Dictionary<string, Dictionary<string, string>>
+        private static readonly Dictionary<string, Dictionary<string, string>> configDicts = new Dictionary<string, Dictionary<string, string>>
         {
             { "aliases", new Dictionary<string, string>() }
         };
@@ -222,7 +222,7 @@ namespace SCPDiscord
             }
 
             // Read config bools
-            foreach (KeyValuePair<string, bool> node in configBools.ToList().Where(kvm => !(kvm.Key == "settings.configvalidation")))
+            foreach (KeyValuePair<string, bool> node in configBools.ToList().Where(kvm => kvm.Key != "settings.configvalidation"))
             {
                 try
                 {
@@ -327,6 +327,7 @@ namespace SCPDiscord
             configDicts[key] = value;
         }
 
+		// TODO: Add command to call this at will
         public static void ValidateConfig(SCPDiscord plugin)
         {
             StringBuilder sb = new StringBuilder();

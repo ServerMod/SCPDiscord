@@ -27,8 +27,7 @@ namespace SCPDiscord
                         byte[] data = new byte[1000];
                         int dataLength = NetworkSystem.Receive(data);
 
-                        string incomingData = "";
-                        incomingData = Encoding.UTF8.GetString(data, 0, dataLength);
+                        string incomingData = Encoding.UTF8.GetString(data, 0, dataLength);
 
                         List<string> messages = new List<string>(incomingData.Split('\n'));
 
@@ -53,8 +52,9 @@ namespace SCPDiscord
                                 {
                                     arguments = words.Skip(3).ToArray();
                                 }
-                                string response = "";
-                                Dictionary<string, string> variables = new Dictionary<string, string>();
+
+                                string response;
+                                Dictionary<string, string> variables;
 
                                 switch (command)
                                 {
@@ -276,7 +276,7 @@ namespace SCPDiscord
 
             // Create duration timestamp.
             string humanReadableDuration = "";
-            DateTime endTime = new DateTime();
+            DateTime endTime;
             try
             {
                 endTime = ParseBanDuration(duration, ref humanReadableDuration);
@@ -302,7 +302,7 @@ namespace SCPDiscord
                 name = "Offline player";
             }
 
-            //Semicolons are seperators in the ban file so cannot be part of strings
+            //Semicolons are separators in the ban file so cannot be part of strings
             name = name.Replace(";","");
             reason = reason.Replace(";","");
 
@@ -337,7 +337,7 @@ namespace SCPDiscord
 		private void UnbanCommand(string channelID, string steamID)
         {
             // Perform very basic SteamID validation. (Also secretly maybe works on ip addresses now)
-            if (!IsPossibleSteamID(steamID) && !IPAddress.TryParse(steamID, out IPAddress address))
+            if (!IsPossibleSteamID(steamID) && !IPAddress.TryParse(steamID, out IPAddress _))
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
@@ -360,11 +360,13 @@ namespace SCPDiscord
             plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerunbanned", unbanVars);
         }
 
-        /// <summary>
-        /// Handles the kick command.
-        /// </summary>
-        /// <param name="steamID">SteamID of player to be kicked.</param>
-        private void KickCommand(string channelID, string steamID, string reason)
+		/// <summary>
+		/// Handles the kick command.
+		/// </summary>
+		/// <param name="channelID">Channel ID for response message.</param>
+		/// <param name="steamID">SteamID of player to be kicked.</param>
+		/// <param name="reason">The kick reason.</param>
+		private void KickCommand(string channelID, string steamID, string reason)
         {
             //Perform very basic SteamID validation
             if (!IsPossibleSteamID(steamID))
@@ -504,7 +506,7 @@ namespace SCPDiscord
         /// <returns>True if a possible SteamID, false if not.</returns>
         private static bool IsPossibleSteamID(string steamID)
         {
-            return (steamID.Length == 17 && long.TryParse(steamID, out long n));
+            return (steamID.Length == 17 && long.TryParse(steamID, out long _));
         }
     }
 }
