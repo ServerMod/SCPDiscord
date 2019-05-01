@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
+using SCPDiscord.EventListeners;
 
 namespace SCPDiscord
 {

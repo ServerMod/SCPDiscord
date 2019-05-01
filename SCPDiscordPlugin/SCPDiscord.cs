@@ -12,6 +12,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SCPDiscord.EventListeners;
 using YamlDotNet.Core;
 
 namespace SCPDiscord
@@ -79,6 +80,7 @@ namespace SCPDiscord
                 this.roleSync = new RoleSync(this);
 
                 Language.Reload();
+                // ReSharper disable once ObjectCreationAsStatement
                 Thread connectionThread = new Thread(() => new StartNetworkSystem(plugin));
                 connectionThread.Start();
 
@@ -165,7 +167,7 @@ namespace SCPDiscord
 
             public string GetUsage()
             {
-                return "scpd_unsync <discordid>";
+                return "scpd_unsync <discord id>";
             }
 
             public string[] OnCall(ICommandSender sender, string[] args)
@@ -400,7 +402,8 @@ namespace SCPDiscord
             {
                 if (Config.GetDict("aliases").ContainsKey(channel))
                 {
-                    Thread messageThread = new Thread(() => new ProcessMessageAsync(Config.GetDict("aliases")[channel], messagePath, variables));
+	                // ReSharper disable once ObjectCreationAsStatement
+	                Thread messageThread = new Thread(() => new ProcessMessageAsync(Config.GetDict("aliases")[channel], messagePath, variables));
                     messageThread.Start();
                 }
             }
@@ -414,7 +417,8 @@ namespace SCPDiscord
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
         public void SendMessage(string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
-            Thread messageThread = new Thread(() => new ProcessMessageAsync(channelID, messagePath, variables));
+	        // ReSharper disable once ObjectCreationAsStatement
+	        Thread messageThread = new Thread(() => new ProcessMessageAsync(channelID, messagePath, variables));
             messageThread.Start();
         }
 

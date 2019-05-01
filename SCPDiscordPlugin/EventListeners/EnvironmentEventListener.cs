@@ -1,8 +1,8 @@
-﻿using Smod2.EventHandlers;
+﻿using System.Collections.Generic;
+using Smod2.EventHandlers;
 using Smod2.Events;
-using System.Collections.Generic;
 
-namespace SCPDiscord
+namespace SCPDiscord.EventListeners
 {
     internal class EnvironmentEventListener : IEventHandlerSCP914Activate, IEventHandlerWarheadStartCountdown, IEventHandlerWarheadStopCountdown,
         IEventHandlerWarheadDetonate, IEventHandlerLCZDecontaminate, IEventHandlerSummonVehicle
@@ -14,24 +14,24 @@ namespace SCPDiscord
             this.plugin = plugin;
         }
 
+		/// <summary>
+        ///  This is the event handler for when a SCP914 is activated
+        /// </summary>
         public void OnSCP914Activate(SCP914ActivateEvent ev)
         {
-            /// <summary>
-            ///  This is the event handler for when a SCP914 is activated
-            /// </summary>
+            
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "knobsetting",    ev.KnobSetting.ToString()   }
             };
-            plugin.SendMessage(Config.GetArray("channels.onscp914activate"), "environment.onscp914activate", variables);
+            this.plugin.SendMessage(Config.GetArray("channels.onscp914activate"), "environment.onscp914activate", variables);
         }
 
+        /// <summary>
+        ///  This is the event handler for when the warhead starts counting down, isResumed is false if its the initial count down. Note: activator can be null
+        /// </summary>
         public void OnStartCountdown(WarheadStartEvent ev)
         {
-            /// <summary>
-            ///  This is the event handler for when the warhead starts counting down, isResumed is false if its the initial count down. Note: activator can be null
-            /// </summary>
-
             if (ev.Activator == null)
             {
                 Dictionary<string, string> vars = new Dictionary<string, string>
@@ -40,7 +40,7 @@ namespace SCPDiscord
                     { "timeleft",       ev.TimeLeft.ToString()                  },
                     { "opendoorsafter", ev.OpenDoorsAfter.ToString()            }
                 };
-                plugin.SendMessage(Config.GetArray("channels.onstartcountdown.noplayer"), "environment.onstartcountdown.noplayer", vars);
+                this.plugin.SendMessage(Config.GetArray("channels.onstartcountdown.noplayer"), "environment.onstartcountdown.noplayer", vars);
                 return;
             }
 
@@ -59,27 +59,26 @@ namespace SCPDiscord
 
             if (ev.IsResumed)
             {
-                plugin.SendMessage(Config.GetArray("channels.onstartcountdown.resumed"), "environment.onstartcountdown.resumed", variables);
+                this.plugin.SendMessage(Config.GetArray("channels.onstartcountdown.resumed"), "environment.onstartcountdown.resumed", variables);
             }
             else
             {
-                plugin.SendMessage(Config.GetArray("channels.onstartcountdown.initiated"), "environment.onstartcountdown.initiated", variables);
+                this.plugin.SendMessage(Config.GetArray("channels.onstartcountdown.initiated"), "environment.onstartcountdown.initiated", variables);
             }
         }
 
+        /// <summary>
+        ///  This is the event handler for when the warhead stops counting down.
+        /// </summary>
         public void OnStopCountdown(WarheadStopEvent ev)
         {
-            /// <summary>
-            ///  This is the event handler for when the warhead stops counting down.
-            /// </summary>
-
             if (ev.Activator == null)
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
                     { "timeleft",       ev.TimeLeft.ToString()                  }
                 };
-                plugin.SendMessage(Config.GetArray("channels.onstopcountdown.noplayer"), "environment.onstopcountdown.noplayer", variables);
+                this.plugin.SendMessage(Config.GetArray("channels.onstopcountdown.noplayer"), "environment.onstopcountdown.noplayer", variables);
             }
             else
             {
@@ -93,39 +92,38 @@ namespace SCPDiscord
                     { "class",          ev.Activator.TeamRole.Role.ToString()   },
                     { "team",           ev.Activator.TeamRole.Team.ToString()   }
                 };
-                plugin.SendMessage(Config.GetArray("channels.onstopcountdown.default"), "environment.onstopcountdown.default", variables);
+                this.plugin.SendMessage(Config.GetArray("channels.onstopcountdown.default"), "environment.onstopcountdown.default", variables);
             }
         }
 
+        /// <summary>
+        ///  This is the event handler for when the warhead is about to detonate (so before it actually triggers)
+        /// </summary>
         public void OnDetonate()
         {
-            /// <summary>
-            ///  This is the event handler for when the warhead is about to detonate (so before it actually triggers)
-            /// </summary>
-            plugin.SendMessage(Config.GetArray("channels.ondetonate"), "environment.ondetonate");
+            this.plugin.SendMessage(Config.GetArray("channels.ondetonate"), "environment.ondetonate");
         }
 
+        /// <summary>
+        ///  This is the event handler for when the LCZ is decontaminated
+        /// </summary>
         public void OnDecontaminate()
         {
-            /// <summary>
-            ///  This is the event handler for when the LCZ is decontaminated
-            /// </summary>
-            plugin.SendMessage(Config.GetArray("channels.ondecontaminate"), "environment.ondecontaminate");
+            this.plugin.SendMessage(Config.GetArray("channels.ondecontaminate"), "environment.ondecontaminate");
         }
 
+        /// <summary>
+        /// Called when a van/chopper is summoned.
+        /// </summary>
         public void OnSummonVehicle(SummonVehicleEvent ev)
         {
-            /// <summary>
-            /// Called when a van/chopper is summoned.
-            /// </summary>
-
             if (ev.IsCI)
             {
-                plugin.SendMessage(Config.GetArray("channels.onsummonvehicle.chaos"), "environment.onsummonvehicle.chaos");
+                this.plugin.SendMessage(Config.GetArray("channels.onsummonvehicle.chaos"), "environment.onsummonvehicle.chaos");
             }
             else
             {
-                plugin.SendMessage(Config.GetArray("channels.onsummonvehicle.mtf"), "environment.onsummonvehicle.mtf");
+                this.plugin.SendMessage(Config.GetArray("channels.onsummonvehicle.mtf"), "environment.onsummonvehicle.mtf");
             }
         }
     }
