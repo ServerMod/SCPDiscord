@@ -71,6 +71,7 @@ namespace SCPDiscord
             AddCommand("scpd_unsync", new UnsyncCommand());
             AddCommand("scpd_verbose", new VerboseCommand());
             AddCommand("scpd_debug", new DebugCommand());
+			AddCommand("scpd_validate", new ValidateCommand());
 
             Task.Run(async () =>
             {
@@ -243,10 +244,38 @@ namespace SCPDiscord
             }
         }
 
+        private class ValidateCommand : ICommandHandler
+        {
+	        public string GetCommandDescription()
+	        {
+		        return "Creates a config validation report.";
+	        }
+
+	        public string GetUsage()
+	        {
+		        return "scpd_validate";
+	        }
+
+	        public string[] OnCall(ICommandSender sender, string[] args)
+	        {
+		        if (sender is Player player)
+		        {
+			        if (!player.HasPermission("scpdiscord.validate"))
+			        {
+				        return new[] { "You don't have permission to use that command." };
+			        }
+		        }
+
+		        Config.ValidateConfig(plugin);
+
+				return new[] { "<End of validation report.>" };
+	        }
+        }
+
 		/// <summary>
 		/// Makes sure all plugin files exist.
 		/// </summary>
-        public void SetUpFileSystem()
+		public void SetUpFileSystem()
         {
             if (!Directory.Exists(FileManager.GetAppFolder(GetConfigBool("scpdiscord_config_global")) + "SCPDiscord"))
             {
