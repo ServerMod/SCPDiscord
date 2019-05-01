@@ -1,8 +1,8 @@
-﻿using Smod2.EventHandlers;
+﻿using System.Collections.Generic;
+using Smod2.EventHandlers;
 using Smod2.Events;
-using System.Collections.Generic;
 
-namespace SCPDiscord
+namespace SCPDiscord.EventListeners
 {
     //Comments here are my own as there were none in the Smod2 api
     internal class AdminEventListener : IEventHandlerAdminQuery, IEventHandlerAuthCheck, IEventHandlerBan
@@ -16,7 +16,7 @@ namespace SCPDiscord
 
         public void OnAdminQuery(AdminQueryEvent ev)
         {
-            ///Triggered whenever an adming uses an admin command, both gui and commandline RA
+            // Triggered whenever an admin uses an admin command, both gui and commandline RA
             if (ev.Query == "REQUEST_DATA PLAYER_LIST SILENT")
             {
                 return;
@@ -35,12 +35,12 @@ namespace SCPDiscord
                 { "successful",     ev.Successful.ToString()            }
             };
 
-            plugin.SendMessage(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);
+            this.plugin.SendMessage(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);
         }
 
         public void OnAuthCheck(AuthCheckEvent ev)
         {
-            ///Probably triggered when someone gains access to the admin panel using a password, not sure
+            // Probably triggered when someone gains access to the admin panel using a password, not sure
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "allow",          ev.Allow.ToString()                     },
@@ -53,7 +53,7 @@ namespace SCPDiscord
                 { "class",          ev.Requester.TeamRole.Role.ToString()   },
                 { "team",           ev.Requester.TeamRole.Team.ToString()   }
             };
-            plugin.SendMessage(Config.GetArray("channels.onauthcheck"), "admin.onauthcheck", variables);
+            this.plugin.SendMessage(Config.GetArray("channels.onauthcheck"), "admin.onauthcheck", variables);
         }
 
         public void OnBan(BanEvent ev)
@@ -63,7 +63,7 @@ namespace SCPDiscord
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
                     { "allowban",               ev.AllowBan.ToString()              },
-                    { "duration",              (ev.Duration/60).ToString()          },
+                    { "duration",               ev.Duration.ToString()              },
                     { "reason",                 ev.Reason                           },
                     { "result",                 ev.Result                           },
                     { "playeripaddress",        ev.Player.IpAddress                 },
@@ -81,11 +81,11 @@ namespace SCPDiscord
                 };
                 if (ev.Duration == 0)
                 {
-                    plugin.SendMessage(Config.GetArray("channels.onban.admin.kick"), "admin.onban.admin.kick", variables);
+                    this.plugin.SendMessage(Config.GetArray("channels.onban.admin.kick"), "admin.onban.admin.kick", variables);
                 }
                 else
                 {
-                    plugin.SendMessage(Config.GetArray("channels.onban.admin.ban"), "admin.onban.admin.ban", variables);
+                    this.plugin.SendMessage(Config.GetArray("channels.onban.admin.ban"), "admin.onban.admin.ban", variables);
                 }
             }
             else
@@ -105,11 +105,11 @@ namespace SCPDiscord
                 };
                 if (ev.Duration == 0)
                 {
-                    plugin.SendMessage(Config.GetArray("channels.onban.console.kick"), "admin.onban.console.kick", variables);
+                    this.plugin.SendMessage(Config.GetArray("channels.onban.console.kick"), "admin.onban.console.kick", variables);
                 }
                 else
                 {
-                    plugin.SendMessage(Config.GetArray("channels.onban.console.ban"), "admin.onban.console.ban", variables);
+                    this.plugin.SendMessage(Config.GetArray("channels.onban.console.ban"), "admin.onban.console.ban", variables);
                 }
             }
         }

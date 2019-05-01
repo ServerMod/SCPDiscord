@@ -1,8 +1,8 @@
-﻿using Smod2.EventHandlers;
+﻿using System.Collections.Generic;
+using Smod2.EventHandlers;
 using Smod2.EventSystem.Events;
-using System.Collections.Generic;
 
-namespace SCPDiscord
+namespace SCPDiscord.EventListeners
 {
     class TeamEventListener : IEventHandlerTeamRespawn, IEventHandlerSetNTFUnitName
     {
@@ -15,9 +15,6 @@ namespace SCPDiscord
 
         public void OnTeamRespawn(TeamRespawnEvent ev)
         {
-            /// <summary>  
-            /// Called before MTF or CI respawn.
-            /// <summary>  
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "players",    ev.PlayerList.ToString()    },
@@ -26,24 +23,21 @@ namespace SCPDiscord
 
             if(ev.SpawnChaos)
             {
-                plugin.SendMessage(Config.GetArray("channels.onteamrespawn.ci"), "team.onteamrespawn.ci", variables);
+                this.plugin.SendMessage(Config.GetArray("channels.onteamrespawn.ci"), "team.onteamrespawn.ci", variables);
             }
             else
             {
-                plugin.SendMessage(Config.GetArray("channels.onteamrespawn.mtf"), "team.onteamrespawn.mtf", variables);
+                this.plugin.SendMessage(Config.GetArray("channels.onteamrespawn.mtf"), "team.onteamrespawn.mtf", variables);
             }
         }
 
         public void OnSetNTFUnitName(SetNTFUnitNameEvent ev)
         {
-            /// <summary>  
-            /// Called when the name of NTF unit is about to be set. This happens when NTF units respawn.
-            /// <summary>  
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "name", ev.Unit }
             };
-            plugin.SendMessage(Config.GetArray("channels.onsetntfunitname"), "team.onsetntfunitname", variables);
+            this.plugin.SendMessage(Config.GetArray("channels.onsetntfunitname"), "team.onsetntfunitname", variables);
         }
     }
 }
