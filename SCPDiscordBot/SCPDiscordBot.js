@@ -208,7 +208,7 @@ tcpServer.on("connection", (socket) =>
 				}
 			}
 		);
-		for (let channelID of messageQueue)
+		for (let channelID in messageQueue)
 		{
 			const verifiedChannel = discordClient.channels.get(channelID);
 			if (verifiedChannel != null)
