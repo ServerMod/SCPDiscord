@@ -91,7 +91,7 @@ namespace SCPDiscord
                                         break;
 
                                     case "kickall":
-                                        KickallCommand(MergeString(arguments));
+                                        KickallCommand(channel, MergeString(arguments));
                                         break;
 
                                     case "unban":
@@ -391,7 +391,7 @@ namespace SCPDiscord
                     { "name", playerName },
                     { "steamid", steamID }
                 };
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerkicked", variables);
+                plugin.SendMessage(channelID, "botresponses.playerkicked", variables);
             }
             else
             {
@@ -407,7 +407,7 @@ namespace SCPDiscord
         /// Kicks all players from the server
         /// </summary>
         /// <param name="reason">Reason displayed to kicked players</param>
-        private void KickallCommand(string reason)
+        private void KickallCommand(string channelID, string reason)
         {
             if(reason == "")
             {
@@ -421,7 +421,7 @@ namespace SCPDiscord
             {
                 { "reason", reason }
             };
-            plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.kickall", variables);
+            plugin.SendMessage(channelID, "botresponses.kickall", variables);
         }
 
         private static string MergeString(string[] reason)
