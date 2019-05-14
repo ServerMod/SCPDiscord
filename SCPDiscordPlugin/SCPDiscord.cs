@@ -267,8 +267,9 @@ namespace SCPDiscord
 		        }
 
 		        Config.ValidateConfig(plugin);
+				Language.ValidateLanguageStrings();
 
-				return new[] { "<End of validation report.>" };
+				return new[] { "Validation report posted in server console." };
 	        }
         }
 

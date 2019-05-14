@@ -239,8 +239,11 @@ namespace SCPDiscord
                 plugin.Disable();
             }
 
-            ValidateLanguageStrings();
-
+            if (Config.GetBool("settings.verbose"))
+            {
+				ValidateLanguageStrings();
+            }
+            
             ready = true;
         }
 
@@ -302,9 +305,12 @@ namespace SCPDiscord
             plugin.Info("Successfully loaded " + identifier + " language file '" + language + ".yml'.");
         }
 
-        private static void ValidateLanguageStrings()
+        public static void ValidateLanguageStrings()
         {
-            foreach (string node in messageNodes)
+	        StringBuilder sb = new StringBuilder();
+			sb.Append("\n||||||||||||| SCPDiscord language validator ||||||||||||||\n");
+	        bool valid = true;
+			foreach (string node in messageNodes)
             {
                 try
                 {
@@ -312,10 +318,19 @@ namespace SCPDiscord
                 }
                 catch (Exception)
                 {
-                    plugin.Warn("Your SCPDiscord language file \"" + Config.GetString("settings.language") + ".yml\" does not contain the node \"" + node + ".message\".\nEither add it to your language file or delete it to generate a new one.");
+                    sb.Append("Your SCPDiscord language file \"" + Config.GetString("settings.language") + ".yml\" does not contain the node \"" + node + ".message\".\nEither add it to your language file or delete the file to generate a new one.\n");
+                    valid = false;
                 }
             }
-        }
+
+			if (valid)
+			{
+				sb.Append("No language errors.\n");
+			}
+
+			sb.Append("||||||||||||| End of language validation ||||||||||||||");
+			plugin.Info(sb.ToString());
+		}
 
         /// <summary>
         /// Gets a string from the primary or backup language file
