@@ -403,11 +403,12 @@ namespace SCPDiscord
             }
         }
 
-        /// <summary>
-        /// Kicks all players from the server
-        /// </summary>
-        /// <param name="reason">Reason displayed to kicked players</param>
-        private void KickallCommand(string channelID, string reason)
+		/// <summary>
+		/// Kicks all players from the server
+		/// </summary>
+		/// <param name="channelID">The channel to send the message in</param>
+		/// <param name="reason">Reason displayed to kicked players</param>
+		private void KickallCommand(string channelID, string reason)
         {
             if(reason == "")
             {
@@ -424,10 +425,15 @@ namespace SCPDiscord
             plugin.SendMessage(channelID, "botresponses.kickall", variables);
         }
 
-        private static string MergeString(string[] reason)
+		/// <summary>
+		/// Merges an array of strings into a sentence.
+		/// </summary>
+		/// <param name="input">The string array to merge.</param>
+		/// <returns>The output sentence.</returns>
+		private static string MergeString(string[] input)
         {
             StringBuilder output = new StringBuilder();
-            foreach(string word in reason)
+            foreach(string word in input)
             {
                 output.Append(word);
                 output.Append(' ');
