@@ -327,11 +327,10 @@ namespace SCPDiscord
             configDicts[key] = value;
         }
 
-		// TODO: Add command to call this at will
         public static void ValidateConfig(SCPDiscord plugin)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("||||||||||||| SCPDiscord config validator ||||||||||||||\n");
+            sb.Append("\n||||||||||||| SCPDiscord config validator ||||||||||||||\n");
             sb.Append("------------ Config strings ------------\n");
             foreach (KeyValuePair<string, string> node in configStrings)
             {
@@ -379,7 +378,7 @@ namespace SCPDiscord
                     sb.Append("    " + subNode.Key + ": " + subNode.Value + "\n");
                 }
             }
-            sb.Append("|||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+            sb.Append("|||||||||||| End of config validation ||||||||||||");
             plugin.Info(sb.ToString());
         }
     }
