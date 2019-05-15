@@ -1,6 +1,7 @@
+"use strict";
 console.log("Config loading...");
 const fs = require("fs");
-const YAML = require("yaml");
+const yaml = require("yaml");
 const file = fs.readFileSync("./config.yml", "utf8");
 const {
 	token,
@@ -11,9 +12,8 @@ const {
 	verbose,
 	cooldown,
 	permissions,
-	serverID,
-	roleSync
-} = YAML.parse(file);
+	serverID
+} = yaml.parse(file);
 console.log("Config loaded.");
 
 var connectedToDiscord = false;

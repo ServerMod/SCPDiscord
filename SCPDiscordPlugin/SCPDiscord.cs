@@ -11,8 +11,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using SCPDiscord.EventListeners;
+using Smod2.EventHandlers;
 using YamlDotNet.Core;
 
 namespace SCPDiscord
@@ -73,21 +73,20 @@ namespace SCPDiscord
             AddCommand("scpd_debug", new DebugCommand());
 			AddCommand("scpd_validate", new ValidateCommand());
 
-            Task.Run(async () =>
-            {
-                await Task.Delay(4000);
-                SetUpFileSystem();
-                LoadConfig();
-                this.roleSync = new RoleSync(this);
+            SetUpFileSystem();
+            this.roleSync = new RoleSync(this);
+            LoadConfig();
 
-                Language.Reload();
-                // ReSharper disable once ObjectCreationAsStatement
-                Thread connectionThread = new Thread(() => new StartNetworkSystem(plugin));
-                connectionThread.Start();
 
-                this.maxPlayers = GetConfigInt("max_players");
-                Info("SCPDiscord " + this.Details.version + " enabled.");
-            });
+            Language.Reload();
+
+			// TODO: Keep the network thread around so it can get killed
+            // ReSharper disable once ObjectCreationAsStatement
+            Thread connectionThread = new Thread(() => new StartNetworkSystem(plugin));
+            connectionThread.Start();
+
+            this.maxPlayers = GetConfigInt("max_players");
+            Info("SCPDiscord " + this.Details.version + " enabled.");
         }
 
         private class ReconnectCommand : ICommandHandler
@@ -426,7 +425,7 @@ namespace SCPDiscord
 		/// <param name="channelAliases">A collection of channel aliases, set in the config.</param>
 		/// <param name="messagePath">The language node of the message to send.</param>
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
-        public void SendMessage(IEnumerable<string> channelAliases, string messagePath, Dictionary<string, string> variables = null)
+		public void SendMessage(IEnumerable<string> channelAliases, string messagePath, Dictionary<string, string> variables = null)
         {
             foreach (string channel in channelAliases)
             {
