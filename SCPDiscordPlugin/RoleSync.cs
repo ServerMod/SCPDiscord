@@ -81,7 +81,7 @@ namespace SCPDiscord
 							{
 								command = command.Replace("<var:" + variable.Key + ">", variable.Value);
 							}
-							this.plugin.Info(this.plugin.ConsoleCommand(null, command.Split(' ')[0], command.Split(' ').Skip(1).ToArray()));
+							plugin.Debug(this.plugin.ConsoleCommand(null, command.Split(' ')[0], command.Split(' ').Skip(1).ToArray()));
 						}
 			            
 						plugin.Verbose("Synced " + player.Name);
