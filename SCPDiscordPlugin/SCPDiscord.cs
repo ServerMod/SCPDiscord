@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading;
 using SCPDiscord.EventListeners;
 using Smod2.EventHandlers;
+using Smod2.Piping;
 using YamlDotNet.Core;
 
 namespace SCPDiscord
@@ -416,6 +417,7 @@ namespace SCPDiscord
 		/// </summary>
 		/// <param name="channelAliases">The user friendly name of the channel, set in the config.</param>
 		/// <param name="message">The message to be sent.</param>
+		[PipeMethod]
 		public void SendString(IEnumerable<string> channelAliases, string message)
         {
             foreach (string channel in channelAliases)
@@ -450,6 +452,7 @@ namespace SCPDiscord
 		/// <param name="channelAliases">A collection of channel aliases, set in the config.</param>
 		/// <param name="messagePath">The language node of the message to send.</param>
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
+		[PipeMethod]
 		public void SendMessage(IEnumerable<string> channelAliases, string messagePath, Dictionary<string, string> variables = null)
         {
             foreach (string channel in channelAliases)
@@ -469,7 +472,8 @@ namespace SCPDiscord
 		/// <param name="channelID">The ID of the channel to send to.</param>
 		/// <param name="messagePath">The language node of the message to send.</param>
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
-        public void SendMessage(string channelID, string messagePath, Dictionary<string, string> variables = null)
+		[PipeMethod]
+		public void SendMessage(string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
 	        // ReSharper disable once ObjectCreationAsStatement
 	        Thread messageThread = new Thread(() => new ProcessMessageAsync(channelID, messagePath, variables));
