@@ -320,29 +320,51 @@ namespace SCPDiscord
 		/// Handles an unban command from Discord.
 		/// </summary>
 		/// <param name="channelID">ChannelID of discord channel command was used in.</param>
-		/// <param name="steamID">SteamID of player to be unbanned.</param>
-		private void UnbanCommand(string channelID, string steamID)
+		/// <param name="steamIDOrIP">SteamID of player to be unbanned.</param>
+		private void UnbanCommand(string channelID, string steamIDOrIP)
         {
             // Perform very basic SteamID validation. (Also secretly maybe works on ip addresses now)
-            if (!IsPossibleSteamID(steamID) && !IPAddress.TryParse(steamID, out IPAddress _))
+            if (!IsPossibleSteamID(steamIDOrIP) && !IPAddress.TryParse(steamIDOrIP, out IPAddress _))
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
-                    { "steamidorip", steamID }
+                    { "steamidorip", steamIDOrIP }
                 };
                 plugin.SendMessage(channelID, "botresponses.invalidsteamidorip", variables);
                 return;
             }
 
-            // Read and save all lines to file except for the one to be unbanned
-            File.WriteAllLines(FileManager.GetAppFolder(true) + "/SteamIdBans.txt", File.ReadAllLines(FileManager.GetAppFolder(true) + "/SteamIdBans.txt").Where(w => !w.Contains(steamID)).ToArray());
+			// Get all ban entries in the files.
+            List<string> ipBans = File.ReadAllLines(FileManager.GetAppFolder(true) + "/IpBans.txt").ToList();
+			List<string> steamIDBans = File.ReadAllLines(FileManager.GetAppFolder(true) + "/SteamIdBans.txt").ToList();
 
-            // Read and save all lines to file except for the one to be unbanned
-            File.WriteAllLines(FileManager.GetAppFolder(true) + "/IpBans.txt", File.ReadAllLines(FileManager.GetAppFolder(true) + "/IpBans.txt").Where(w => !w.Contains(steamID)).ToArray());
+			// Get all ban entries to be removed.
+			List<string> matchingIPBans = ipBans.FindAll(s => s.Contains(steamIDOrIP));
+			List<string> matchingSteamIDBans = steamIDBans.FindAll(s => s.Contains(steamIDOrIP));
 
+			// Delete the entries from the original containers now that there is a backup of them
+			ipBans.RemoveAll(s => s.Contains(steamIDOrIP));
+			steamIDBans.RemoveAll(s => s.Contains(steamIDOrIP));
+
+			// Check if either ban file has a ban with a time stamp matching the one removed and remove it too as most servers create both a steamid-ban entry and an ip-ban entry.
+			foreach (var row in matchingIPBans)
+            {
+	            steamIDBans.RemoveAll(s => s.Contains(row.Split(';').Last()));
+			}
+
+			foreach (var row in matchingSteamIDBans)
+			{
+				ipBans.RemoveAll(s => s.Contains(row.Split(';').Last()));
+			}
+
+			// Save the edited ban files
+			File.WriteAllLines(FileManager.GetAppFolder(true) + "/IpBans.txt", ipBans);
+            File.WriteAllLines(FileManager.GetAppFolder(true) + "/SteamIdBans.txt", steamIDBans);
+
+			// Send response message to Discord
             Dictionary<string, string> unbanVars = new Dictionary<string, string>
             {
-                { "steamidorip", steamID }
+                { "steamidorip", steamIDOrIP }
             };
             plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerunbanned", unbanVars);
         }
