@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
+using SCPDiscord.Commands;
 using SCPDiscord.EventListeners;
 using Smod2.EventHandlers;
 using Smod2.Piping;
@@ -74,7 +75,7 @@ namespace SCPDiscord
             AddCommand("scpd_debug", new DebugCommand());
 			AddCommand("scpd_validate", new ValidateCommand());
 
-            SetUpFileSystem();
+			SetUpFileSystem();
             this.roleSync = new RoleSync(this);
             LoadConfig();
 
@@ -88,189 +89,6 @@ namespace SCPDiscord
 
             this.maxPlayers = GetConfigInt("max_players");
             Info("SCPDiscord " + this.Details.version + " enabled.");
-        }
-
-        private class ReconnectCommand : ICommandHandler
-        {
-            public string GetCommandDescription()
-            {
-                return "Attempts to close the connection to the Discord bot and reconnect.";
-            }
-
-            public string GetUsage()
-            {
-                return "scpd_rc/scpd_reconnect";
-            }
-
-            public string[] OnCall(ICommandSender sender, string[] args)
-            {
-                if (sender is Player player)
-                {
-                    if (!player.HasPermission("scpdiscord.reconnect"))
-                    {
-                        return new[] { "You don't have permission to use that command." };
-                    }
-                }
-
-                if (NetworkSystem.IsConnected())
-                {
-                    NetworkSystem.Disconnect();
-                    return new[] { "Connection closed, reconnecting will begin shortly." };
-                }
-                else
-                {
-                    return new[] { "Connection was already closed, reconnecting is in progress." };
-                }
-            }
-        }
-
-        private class ReloadCommand : ICommandHandler
-        {
-            public string GetCommandDescription()
-            {
-                return "Reloads all plugin configs and data files and then reconnects.";
-            }
-
-            public string GetUsage()
-            {
-                return "scpd_reload";
-            }
-
-            public string[] OnCall(ICommandSender sender, string[] args)
-            {
-                if (sender is Player player)
-                {
-                    if (!player.HasPermission("scpdiscord.reload"))
-                    {
-                        return new[] { "You don't have permission to use that command." };
-                    }
-                }
-
-                plugin.Info("Reloading plugin...");
-                plugin.LoadConfig();
-                Language.Reload();
-                plugin.roleSync.Reload();
-                if (NetworkSystem.IsConnected())
-                {
-                    NetworkSystem.Disconnect();
-                }
-
-                return new[] { "Reload complete." };
-            }
-        }
-
-        private class UnsyncCommand : ICommandHandler
-        {
-            public string GetCommandDescription()
-            {
-                return "Removes a user from having their discord role synced to the server.";
-            }
-
-            public string GetUsage()
-            {
-                return "scpd_unsync <discord id>";
-            }
-
-            public string[] OnCall(ICommandSender sender, string[] args)
-            {
-                if (sender is Player player)
-                {
-                    if (!player.HasPermission("scpdiscord.unsync"))
-                    {
-                        return new[] { "You don't have permission to use that command." };
-                    }
-                }
-
-                if (args.Length > 0)
-                {
-                    return new[] { plugin.roleSync.RemovePlayer(args[0]) };
-                }
-                else
-                {
-                    return new[] { "Not enough arguments." };
-                }
-            }
-        }
-
-        private class VerboseCommand : ICommandHandler
-        {
-            public string GetCommandDescription()
-            {
-                return "Toggles verbose messages.";
-            }
-
-            public string GetUsage()
-            {
-                return "scpd_verbose";
-            }
-
-            public string[] OnCall(ICommandSender sender, string[] args)
-            {
-                if (sender is Player player)
-                {
-                    if (!player.HasPermission("scpdiscord.verbose"))
-                    {
-                        return new[] { "You don't have permission to use that command." };
-                    }
-                }
-                Config.SetBool("settings.verbose", !Config.GetBool("settings.verbose"));
-                return new[] { "Verbose messages: " + Config.GetBool("settings.verbose") };
-            }
-        }
-
-        private class DebugCommand : ICommandHandler
-        {
-            public string GetCommandDescription()
-            {
-                return "Toggles debug messages.";
-            }
-
-            public string GetUsage()
-            {
-                return "scpd_debug";
-            }
-
-            public string[] OnCall(ICommandSender sender, string[] args)
-            {
-                if (sender is Player player)
-                {
-                    if (!player.HasPermission("scpdiscord.debug"))
-                    {
-                        return new[] { "You don't have permission to use that command." };
-                    }
-                }
-                Config.SetBool("settings.debug", !Config.GetBool("settings.debug"));
-                return new[] { "Debug messages: " + Config.GetBool("settings.debug") };
-            }
-        }
-
-        private class ValidateCommand : ICommandHandler
-        {
-	        public string GetCommandDescription()
-	        {
-		        return "Creates a config validation report.";
-	        }
-
-	        public string GetUsage()
-	        {
-		        return "scpd_validate";
-	        }
-
-	        public string[] OnCall(ICommandSender sender, string[] args)
-	        {
-		        if (sender is Player player)
-		        {
-			        if (!player.HasPermission("scpdiscord.validate"))
-			        {
-				        return new[] { "You don't have permission to use that command." };
-			        }
-		        }
-
-		        Config.ValidateConfig(plugin);
-				Language.ValidateLanguageStrings();
-
-				return new[] { "Validation report posted in server console." };
-	        }
         }
 
         private class SyncPlayerRole : IEventHandlerPlayerJoin
@@ -318,7 +136,7 @@ namespace SCPDiscord
 		/// <summary>
 		/// Loads all config options from the plugin config file.
 		/// </summary>
-        private void LoadConfig()
+        public void LoadConfig()
         {
             try
             {
@@ -428,8 +246,6 @@ namespace SCPDiscord
                 }
             }
         }
-
-
 
 		/// <summary>
 		/// Sends a message from the loaded language file.
