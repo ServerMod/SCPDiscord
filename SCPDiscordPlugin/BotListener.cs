@@ -46,10 +46,11 @@ namespace SCPDiscord
                             {
                                 string channel = words[1];
                                 string command = words[2];
+                                string discordTag = words[3].Replace('_', ' ');
                                 string[] arguments = new string[0];
-                                if(words.Length >= 4)
+                                if(words.Length >= 5)
                                 {
-                                    arguments = words.Skip(3).ToArray();
+                                    arguments = words.Skip(4).ToArray();
                                 }
 
                                 string response;
@@ -61,7 +62,7 @@ namespace SCPDiscord
                                         //Check if the command has enough arguments
                                         if (arguments.Length >= 2)
                                         {
-                                            BanCommand(channel, arguments[0], arguments[1], MergeString(arguments.Skip(2).ToArray()));
+                                            BanCommand(channel, arguments[0], arguments[1], MergeString(arguments.Skip(2).ToArray()), discordTag);
                                         }
                                         else
                                         {
@@ -77,7 +78,7 @@ namespace SCPDiscord
                                         //Check if the command has enough arguments
                                         if (arguments.Length >= 1)
                                         {
-                                            KickCommand(channel, arguments[0], MergeString(arguments.Skip(1).ToArray()));
+                                            KickCommand(channel, arguments[0], MergeString(arguments.Skip(1).ToArray()), discordTag);
                                         }
                                         else
                                         {
@@ -90,7 +91,7 @@ namespace SCPDiscord
                                         break;
 
                                     case "kickall":
-                                        KickallCommand(channel, MergeString(arguments));
+                                        KickallCommand(channel, MergeString(arguments), discordTag);
                                         break;
 
                                     case "unban":
@@ -248,7 +249,7 @@ namespace SCPDiscord
 		/// <param name="steamID">SteamID of player to be banned.</param>
 		/// <param name="duration">Duration of ban expressed as xu where x is a number and u is a character representing a unit of time.</param>
 		/// <param name="reason">Optional reason for the ban.</param>
-		private void BanCommand(string channelID, string steamID, string duration, string reason = "")
+		private void BanCommand(string channelID, string steamID, string duration, string reason, string adminTag)
         {
             // Perform very basic SteamID validation.
             if (!IsPossibleSteamID(steamID))
@@ -300,19 +301,20 @@ namespace SCPDiscord
 
             // Add the player to the SteamIDBans file.
             StreamWriter streamWriter = new StreamWriter(FileManager.GetAppFolder(true) + "/SteamIdBans.txt", true);
-            streamWriter.WriteLine(name + ';' + steamID + ';' + endTime.Ticks + ';' + reason + ";DISCORD;" + DateTime.UtcNow.Ticks);
+            streamWriter.WriteLine(name + ';' + steamID + ';' + endTime.Ticks + ';' + reason + ";" + adminTag + ";" + DateTime.UtcNow.Ticks);
             streamWriter.Dispose();
 
             // Kicks the player if they are online.
             plugin.KickPlayer(steamID, "Banned for the following reason: '" + reason + "'");
 
             Dictionary<string, string> banVars = new Dictionary<string, string>
-                {
-                    { "name",       name                    },
-                    { "steamid",    steamID                 },
-                    { "reason",     reason                  },
-                    { "duration",   humanReadableDuration   }
-                };
+            {
+                { "name",       name                    },
+                { "steamid",    steamID                 },
+                { "reason",     reason                  },
+                { "duration",   humanReadableDuration   },
+                { "admintag",   adminTag                }
+            };
             plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerbanned", banVars);
         }
 
@@ -375,7 +377,7 @@ namespace SCPDiscord
 		/// <param name="channelID">Channel ID for response message.</param>
 		/// <param name="steamID">SteamID of player to be kicked.</param>
 		/// <param name="reason">The kick reason.</param>
-		private void KickCommand(string channelID, string steamID, string reason)
+		private void KickCommand(string channelID, string steamID, string reason, string adminTag)
         {
             //Perform very basic SteamID validation
             if (!IsPossibleSteamID(steamID))
@@ -398,7 +400,8 @@ namespace SCPDiscord
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
                     { "name", playerName },
-                    { "steamid", steamID }
+                    { "steamid", steamID },
+                    { "admintag", adminTag }
                 };
                 plugin.SendMessage(channelID, "botresponses.playerkicked", variables);
             }
@@ -417,7 +420,7 @@ namespace SCPDiscord
 		/// </summary>
 		/// <param name="channelID">The channel to send the message in</param>
 		/// <param name="reason">Reason displayed to kicked players</param>
-		private void KickallCommand(string channelID, string reason)
+		private void KickallCommand(string channelID, string reason, string adminTag)
         {
             if(reason == "")
             {
@@ -429,7 +432,8 @@ namespace SCPDiscord
             }
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "reason", reason }
+                { "reason", reason },
+				{ "admintag", adminTag}
             };
             plugin.SendMessage(channelID, "botresponses.kickall", variables);
         }

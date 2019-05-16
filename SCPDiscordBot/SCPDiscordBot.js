@@ -347,15 +347,22 @@ discordClient.on("message", (message) =>
 			sockets.forEach(
 				(socket) =>
 				{
-					console.log(
-						"RELAYED: command "
-						+ message.channel.id
-						+ " "
-						+ message.content.slice(prefix.length).replace("\\_", "_")
-						+ "\n");
+					if (verbose)
+					{
+						console.log(
+							"RELAYED: command "
+							+ message.channel.id
+							+ " "
+							+ message.author.tag.replace(/ /g, "_")
+							+ " "
+							+ message.content.slice(prefix.length).replace("\\_", "_")
+							+ "\n");
+					}
 					socket.write(
 						"command "
 						+ message.channel.id
+						+ " "
+						+ message.author.tag.replace(/ /g, "_")
 						+ " "
 						+ message.content.slice(prefix.length).replace("\\_", "_")
 						+ "\n");
