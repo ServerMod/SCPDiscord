@@ -323,7 +323,7 @@ namespace SCPDiscord
 		/// <param name="steamIDOrIP">SteamID of player to be unbanned.</param>
 		private void UnbanCommand(string channelID, string steamIDOrIP)
         {
-            // Perform very basic SteamID validation. (Also secretly maybe works on ip addresses now)
+            // Perform very basic SteamID and ip validation.
             if (!IsPossibleSteamID(steamIDOrIP) && !IPAddress.TryParse(steamIDOrIP, out IPAddress _))
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>

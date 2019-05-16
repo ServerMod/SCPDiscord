@@ -429,22 +429,7 @@ namespace SCPDiscord
             }
         }
 
-		public string ConsoleCommand(ICommandSender user, string command, string[] arguments)
-		{
-			if(user == null)
-			{
-				user = Server;
-			}
 
-			string[] feedback = plugin.PluginManager.CommandManager.CallCommand(user, command, arguments);
-
-			StringBuilder builder = new StringBuilder();
-			foreach (string line in feedback)
-			{
-				builder.Append(line + "\n");
-			}
-			return builder.ToString();
-		}
 
 		/// <summary>
 		/// Sends a message from the loaded language file.
@@ -519,5 +504,29 @@ namespace SCPDiscord
             }
             return false;
         }
+
+		/// <summary>
+		/// Runs a console command.
+		/// </summary>
+		/// <param name="user">The user to run the command as, null for the server itself.</param>
+		/// <param name="command">The name of the command to run.</param>
+		/// <param name="arguments">Command arguments split up into individual strings.</param>
+		/// <returns></returns>
+        public string ConsoleCommand(ICommandSender user, string command, string[] arguments)
+		{
+			if(user == null)
+			{
+				user = Server;
+			}
+
+			string[] feedback = plugin.PluginManager.CommandManager.CallCommand(user, command, arguments);
+
+			StringBuilder builder = new StringBuilder();
+			foreach (string line in feedback)
+			{
+				builder.Append(line + "\n");
+			}
+			return builder.ToString();
+		}
     }
 }

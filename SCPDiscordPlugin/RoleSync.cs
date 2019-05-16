@@ -73,9 +73,9 @@ namespace SCPDiscord
 							{ "playerid",     player.PlayerId.ToString()       },
 							{ "steamid",      player.SteamId                   }
 						};
-						for (var i = 0; i < keyValuePair.Value.Length; i++)
+						foreach (string unparsedCommand in keyValuePair.Value)
 						{
-							string command = keyValuePair.Value[i];
+							string command = unparsedCommand;
 							// Variable insertion
 							foreach (KeyValuePair<string, string> variable in variables)
 							{

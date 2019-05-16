@@ -157,8 +157,6 @@ namespace SCPDiscord
             { "aliases", new Dictionary<string, string>() }
         };
 
-        private static Dictionary<string, string[]> roleSync = new Dictionary<string, string[]>();
-
 		internal static void Reload(SCPDiscord plugin)
         {
             ready = false;
