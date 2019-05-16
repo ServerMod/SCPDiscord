@@ -172,14 +172,7 @@ tcpServer.on("connection", (socket) =>
 
 					if (member != null)
 					{
-						for (var key in roleSync)
-						{
-							if (member.roles.find(x => x.id === key) != null)
-							{
-								socket.write("roleresponse " + steamID + " " + roleSync[key]);
-								break;
-							}
-						}
+						socket.write("roleresponse " + steamID + " " + JSON.stringify(member.roles.keyArray()));
 					}
 					else
 					{

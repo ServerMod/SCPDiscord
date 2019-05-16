@@ -1,5 +1,4 @@
 using Smod2.API;
-using Smod2.Commands;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -135,7 +134,7 @@ namespace SCPDiscord
                                             if (arguments.Length > 0)
                                             {
                                                 command = "console_" + command;
-                                                response = ConsoleCommand(plugin.PluginManager.Server, command, arguments);
+                                                response = plugin.ConsoleCommand(plugin.PluginManager.Server, command, arguments);
 
                                                 variables = new Dictionary<string, string>
                                                 {
@@ -164,7 +163,7 @@ namespace SCPDiscord
                                     case "vs_reload":
                                         if (plugin.PluginManager.GetEnabledPlugin("karlofduty.vpnshield") != null)
                                         {
-                                            response = ConsoleCommand(plugin.PluginManager.Server, command, arguments);
+                                            response = plugin.ConsoleCommand(plugin.PluginManager.Server, command, arguments);
 
                                             variables = new Dictionary<string, string>
                                             {
@@ -190,7 +189,7 @@ namespace SCPDiscord
 									case "scpermissions_debug":
 										if (plugin.PluginManager.GetEnabledPlugin("karlofduty.scpermissions") != null)
 										{
-											response = ConsoleCommand(plugin.PluginManager.Server, command, arguments);
+											response = plugin.ConsoleCommand(plugin.PluginManager.Server, command, arguments);
 
 											variables = new Dictionary<string, string>
 											{
@@ -211,7 +210,7 @@ namespace SCPDiscord
                                         NetworkSystem.QueueMessage(channel + plugin.roleSync.RemovePlayer(arguments[0]));
                                         break;
                                     default:
-                                        response = ConsoleCommand(plugin.PluginManager.Server, command, arguments);
+                                        response = plugin.ConsoleCommand(plugin.PluginManager.Server, command, arguments);
                                         variables = new Dictionary<string, string>
                                         {
                                             { "feedback", response }
@@ -240,18 +239,6 @@ namespace SCPDiscord
                 }
                 Thread.Sleep(1000);
             }
-        }
-
-        private string ConsoleCommand(ICommandSender user, string command, string[] arguments)
-        {
-            string[] feedback = plugin.PluginManager.CommandManager.CallCommand(user, command, arguments);
-
-            StringBuilder builder = new StringBuilder();
-            foreach (string line in feedback)
-            {
-                builder.Append(line + "\n");
-            }
-            return builder.ToString();
         }
 
 		/// <summary>

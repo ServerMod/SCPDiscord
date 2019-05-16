@@ -22,7 +22,7 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "1.3.0",
+        version = "1.3.0-BETA2",
         SmodMajor = 3,
         SmodMinor = 4,
         SmodRevision = 0
@@ -272,6 +272,14 @@ namespace SCPDiscord
 	        }
         }
 
+        private class SyncPlayerRole : IEventHandlerPlayerJoin
+        {
+	        public void OnPlayerJoin(PlayerJoinEvent ev)
+	        {
+		        plugin.roleSync.SendRoleQuery(ev.Player.SteamId);
+	        }
+        }
+
 		/// <summary>
 		/// Makes sure all plugin files exist.
 		/// </summary>
@@ -418,6 +426,23 @@ namespace SCPDiscord
                 }
             }
         }
+
+		public string ConsoleCommand(ICommandSender user, string command, string[] arguments)
+		{
+			if(user == null)
+			{
+				user = Server;
+			}
+
+			string[] feedback = plugin.PluginManager.CommandManager.CallCommand(user, command, arguments);
+
+			StringBuilder builder = new StringBuilder();
+			foreach (string line in feedback)
+			{
+				builder.Append(line + "\n");
+			}
+			return builder.ToString();
+		}
 
 		/// <summary>
 		/// Sends a message from the loaded language file.

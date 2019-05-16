@@ -43,10 +43,3 @@ permissions:
 
 # You need to enter your server id here to use role syncing, this will also show your server's roleIDs on startup
 serverID: "add-server-id-here"
-
-# Dictionary of discord roles to be synced to the game, value on the left is the discord role id and the right is the name of the game role they should be granted. (Not the role title but the role designation in the RA config)
-# The bot will give players the first role in the list that they have access to so make sure to put the highest ranks in the top of the list.
-roleSync: 
-    "add-role-id-1-here": "owner"
-    "add-role-id-2-here": "moderator"
-    "add-role-id-3-here": "donator"
