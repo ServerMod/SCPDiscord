@@ -74,6 +74,10 @@ namespace SCPDiscord
             AddCommand("scpd_verbose", new VerboseCommand());
             AddCommand("scpd_debug", new DebugCommand());
 			AddCommand("scpd_validate", new ValidateCommand());
+			AddCommand("scpd_grs", new GrantReservedSlotCommand());
+			AddCommand("scpd_rrs", new RemoveReservedSlotCommand());
+			AddCommand("scpd_grantreservedslot", new ValidateCommand());
+			AddCommand("scpd_removereservedslot", new RemoveReservedSlotCommand());
 
 			SetUpFileSystem();
             this.roleSync = new RoleSync(this);

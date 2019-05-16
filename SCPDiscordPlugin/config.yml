@@ -28,7 +28,7 @@ settings:
     # Whether or not to use the rolesync system
     rolesync: true
 
-# Sets commands which are run whenever someone with a synced Discord rank joins the server
+# Sets commands which are run whenever someone with a synced Discord rank joins the server, only the highest one in the list that matches the player is executed
 # Valid variables:
 # steamid
 # playerid
@@ -38,9 +38,13 @@ rolesync:
     - "add-role-id-here":
         - "scperms_givetemprank <var:steamid> moderator"
         - "pbc <var:steamid> 3 Moderator role synced from Discord."
+        - "scpd_grantreservedslot <var:steamid>"
     - "add-another-role-id-here":
         - "scperms_givetemprank <var:steamid> donator"
         - "pbc <var:steamid> 3 Donator role synced from Discord."
+        - "scpd_grantreservedslot <var:steamid>"
+    - "add-everyone-role-id-here"
+        - "scpd_removereservedslot <var:steamid>"
 
 # Name your channels here, this name is used in the channels section below. The left value is a name of your choice and the right is a channel id you want it to represent.
 aliases: 
