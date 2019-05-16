@@ -82,14 +82,10 @@ namespace SCPDiscord
 			SetUpFileSystem();
             this.roleSync = new RoleSync(this);
             LoadConfig();
-
-
             Language.Reload();
 
-			// TODO: Keep the network thread around so it can get killed
             // ReSharper disable once ObjectCreationAsStatement
-            Thread connectionThread = new Thread(() => new StartNetworkSystem(plugin));
-            connectionThread.Start();
+            new Thread(() => new StartNetworkSystem(plugin)).Start();
 
             this.maxPlayers = GetConfigInt("max_players");
             Info("SCPDiscord " + this.Details.version + " enabled.");
