@@ -228,7 +228,7 @@ namespace SCPDiscord
                 }
                 catch (ArgumentNullException)
                 {
-                    if (GetBool("settings.configvalidation"))
+                    if (GetBool("settings.configvalidation") && node.Key != "settings.metrics")
                     {
                         plugin.Warn("Config bool '" + node.Key + "' not found, using default value: " + node.Value);
                     }

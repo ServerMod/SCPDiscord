@@ -98,7 +98,7 @@ channels:
     onplayerdie: 
         default: [ "default" ]
         friendlyfire: [ "default", "staff" ]
-        noattacker: [ "default" ]
+        nokiller: [ "default" ]
     onplayerpickupitem: []
     onplayerdropitem: []
     onplayerjoin: [ "default", "staff" ]
@@ -135,7 +135,7 @@ channels:
         nootherplayer: [ "default" ]
     onplayertriggertesla:
         default: []
-        ignore: []
+        ignored: []
     onscp914changeknob: []
     onplayerradioswitch: []
     onmakenoise: []
