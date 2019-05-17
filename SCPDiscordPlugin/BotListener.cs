@@ -1,5 +1,4 @@
 using Smod2.API;
-using Smod2.Commands;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,8 +26,7 @@ namespace SCPDiscord
                         byte[] data = new byte[1000];
                         int dataLength = NetworkSystem.Receive(data);
 
-                        string incomingData = "";
-                        incomingData = Encoding.UTF8.GetString(data, 0, dataLength);
+                        string incomingData = Encoding.UTF8.GetString(data, 0, dataLength);
 
                         List<string> messages = new List<string>(incomingData.Split('\n'));
 
@@ -41,23 +39,22 @@ namespace SCPDiscord
                                 continue;
                             }
 
-                            if(Config.GetBool("settings.debug"))
-                            {
-                                plugin.Info("COMMAND: " + messages[0]);
-                            }
+                            plugin.Debug("Incoming command from discord: " + messages[0]);
 
                             string[] words = messages[0].Split(' ');
                             if (words[0] == "command")
                             {
                                 string channel = words[1];
                                 string command = words[2];
+                                string discordTag = words[3].Replace('_', ' ');
                                 string[] arguments = new string[0];
-                                if(words.Length >= 4)
+                                if(words.Length >= 5)
                                 {
-                                    arguments = words.Skip(3).ToArray();
+                                    arguments = words.Skip(4).ToArray();
                                 }
-                                string response = "";
-                                Dictionary<string, string> variables = new Dictionary<string, string>();
+
+                                string response;
+                                Dictionary<string, string> variables;
 
                                 switch (command)
                                 {
@@ -65,7 +62,7 @@ namespace SCPDiscord
                                         //Check if the command has enough arguments
                                         if (arguments.Length >= 2)
                                         {
-                                            BanCommand(arguments[0], arguments[1], MergeString(arguments.Skip(2).ToArray()));
+                                            BanCommand(channel, arguments[0], arguments[1], MergeString(arguments.Skip(2).ToArray()), discordTag);
                                         }
                                         else
                                         {
@@ -73,7 +70,7 @@ namespace SCPDiscord
                                             {
                                                 { "command", messages[0] }
                                             };
-                                            plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                            plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
                                         }
                                         break;
 
@@ -81,7 +78,7 @@ namespace SCPDiscord
                                         //Check if the command has enough arguments
                                         if (arguments.Length >= 1)
                                         {
-                                            KickCommand(arguments[0], MergeString(arguments.Skip(1).ToArray()));
+                                            KickCommand(channel, arguments[0], MergeString(arguments.Skip(1).ToArray()), discordTag);
                                         }
                                         else
                                         {
@@ -89,19 +86,19 @@ namespace SCPDiscord
                                             {
                                                 { "command", messages[0] }
                                             };
-                                            plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                            plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
                                         }
                                         break;
 
                                     case "kickall":
-                                        KickallCommand(MergeString(arguments));
+                                        KickallCommand(channel, MergeString(arguments), discordTag);
                                         break;
 
                                     case "unban":
                                        //Check if the command has enough arguments
                                         if (arguments.Length >= 1)
                                         {
-                                            UnbanCommand(arguments[0]);
+                                            UnbanCommand(channel, arguments[0]);
                                         }
                                         else
                                         {
@@ -109,7 +106,7 @@ namespace SCPDiscord
                                             {
                                                 { "command", messages[0] }
                                             };
-                                            plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                            plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
                                         }
                                         break;
 
@@ -124,27 +121,27 @@ namespace SCPDiscord
                                         break;
 
                                     case "exit":
-                                        plugin.SendMessage(channel, "botresponses.exit");
+                                        plugin.SendMessageByID(channel, "botresponses.exit");
                                         break;
 
                                     case "help":
-                                        plugin.SendMessage(channel, "botresponses.help");
+                                        plugin.SendMessageByID(channel, "botresponses.help");
                                         break;
 
                                     case "hidetag":
                                     case "showtag":
-                                        if (plugin.pluginManager.GetEnabledPlugin("karlofduty.toggletag") != null)
+                                        if (plugin.PluginManager.GetEnabledPlugin("karlofduty.toggletag") != null)
                                         {
                                             if (arguments.Length > 0)
                                             {
                                                 command = "console_" + command;
-                                                response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+                                                response = plugin.ConsoleCommand(plugin.PluginManager.Server, command, arguments);
 
                                                 variables = new Dictionary<string, string>
                                                 {
                                                     { "feedback", response }
                                                 };
-                                                plugin.SendMessage(channel, "botresponses.consolecommandfeedback", variables);
+                                                plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
                                             }
                                             else
                                             {
@@ -152,12 +149,12 @@ namespace SCPDiscord
                                                 {
                                                     { "command", command }
                                                 };
-                                                plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                                plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
                                             }
                                         }
                                         else
                                         {
-                                            plugin.SendMessage(channel, "botresponses.toggletag.notinstalled");
+                                            plugin.SendMessageByID(channel, "botresponses.toggletag.notinstalled");
                                         }
                                         break;
 
@@ -165,22 +162,47 @@ namespace SCPDiscord
                                     case "vs_disable":
                                     case "vs_whitelist":
                                     case "vs_reload":
-                                        if (plugin.pluginManager.GetEnabledPlugin("karlofduty.vpnshield") != null)
+                                        if (plugin.PluginManager.GetEnabledPlugin("karlofduty.vpnshield") != null)
                                         {
-                                            response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+                                            response = plugin.ConsoleCommand(plugin.PluginManager.Server, command, arguments);
 
                                             variables = new Dictionary<string, string>
                                             {
                                                 { "feedback", response }
                                             };
-                                            plugin.SendMessage(channel, "botresponses.consolecommandfeedback", variables);
+                                            plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
                                         }
                                         else
                                         {
-                                            plugin.SendMessage(channel, "botresponses.vpnshield.notinstalled");
+                                            plugin.SendMessageByID(channel, "botresponses.vpnshield.notinstalled");
                                         }
                                         break;
 
+									case "scperms_reload":
+									case "scperms_giverank":
+									case "scperms_removerank":
+									case "scperms_verbose":
+									case "scperms_debug":
+									case "scpermissions_reload":
+									case "scpermissions_giverank":
+									case "scpermissions_removerank":
+									case "scpermissions_verbose":
+									case "scpermissions_debug":
+										if (plugin.PluginManager.GetEnabledPlugin("karlofduty.scpermissions") != null)
+										{
+											response = plugin.ConsoleCommand(plugin.PluginManager.Server, command, arguments);
+
+											variables = new Dictionary<string, string>
+											{
+												{ "feedback", response }
+											};
+											plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
+										}
+										else
+										{
+											plugin.SendMessageByID(channel, "botresponses.scpermissions.notinstalled");
+										}
+										break;
                                     case "syncrole":
                                         NetworkSystem.QueueMessage(channel + plugin.roleSync.AddPlayer(arguments[0], arguments[1]));
                                         break;
@@ -189,12 +211,12 @@ namespace SCPDiscord
                                         NetworkSystem.QueueMessage(channel + plugin.roleSync.RemovePlayer(arguments[0]));
                                         break;
                                     default:
-                                        response = ConsoleCommand(plugin.pluginManager.Server, command, arguments);
+                                        response = plugin.ConsoleCommand(plugin.PluginManager.Server, command, arguments);
                                         variables = new Dictionary<string, string>
                                         {
                                             { "feedback", response }
                                         };
-                                        plugin.SendMessage(channel, "botresponses.consolecommandfeedback", variables);
+                                        plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
                                         break;
                                 }
                             }
@@ -202,10 +224,7 @@ namespace SCPDiscord
                             {
                                 plugin.roleSync.ReceiveQueryResponse(words[1], MergeString(words.Skip(2).ToArray()));
                             }
-                            if (Config.GetBool("settings.verbose"))
-                            {
-                                plugin.Info("From discord: " + messages[0]);
-                            }
+                            plugin.Verbose("From discord: " + messages[0]);
 
                             messages.RemoveAt(0);
                         }
@@ -223,25 +242,14 @@ namespace SCPDiscord
             }
         }
 
-        private string ConsoleCommand(ICommandSender user, string command, string[] arguments)
-        {
-            string[] feedback = plugin.pluginManager.CommandManager.CallCommand(user, command, arguments);
-
-            StringBuilder builder = new StringBuilder();
-            foreach (string line in feedback)
-            {
-                builder.Append(line + "\n");
-            }
-            return builder.ToString();
-        }
-
-        /// <summary>
-        /// Handles a ban command from Discord.
-        /// </summary>
-        /// <param name="steamID">SteamID of player to be banned.</param>
-        /// <param name="duration">Duration of ban expressed as xu where x is a number and u is a character representing a unit of time.</param>
-        /// <param name="reason">Optional reason for the ban.</param>
-        private void BanCommand(string steamID, string duration, string reason = "")
+		/// <summary>
+		/// Handles a ban command from Discord.
+		/// </summary>
+		/// <param name="channelID">ChannelID of the channel the command was used in.</param>
+		/// <param name="steamID">SteamID of player to be banned.</param>
+		/// <param name="duration">Duration of ban expressed as xu where x is a number and u is a character representing a unit of time.</param>
+		/// <param name="reason">Optional reason for the ban.</param>
+		private void BanCommand(string channelID, string steamID, string duration, string reason, string adminTag)
         {
             // Perform very basic SteamID validation.
             if (!IsPossibleSteamID(steamID))
@@ -250,13 +258,13 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.invalidsteamid", variables);
+                plugin.SendMessageByID(channelID, "botresponses.invalidsteamid", variables);
                 return;
             }
 
             // Create duration timestamp.
             string humanReadableDuration = "";
-            DateTime endTime = new DateTime();
+            DateTime endTime;
             try
             {
                 endTime = ParseBanDuration(duration, ref humanReadableDuration);
@@ -272,7 +280,7 @@ namespace SCPDiscord
                 {
                     { "duration", duration }
                 };
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.invalidduration", variables);
+                plugin.SendMessageByID(channelID, "botresponses.invalidduration", variables);
                 return;
             }
 
@@ -282,7 +290,7 @@ namespace SCPDiscord
                 name = "Offline player";
             }
 
-            //Semicolons are seperators in the ban file so cannot be part of strings
+            //Semicolons are separators in the ban file so cannot be part of strings
             name = name.Replace(";","");
             reason = reason.Replace(";","");
 
@@ -293,57 +301,83 @@ namespace SCPDiscord
 
             // Add the player to the SteamIDBans file.
             StreamWriter streamWriter = new StreamWriter(FileManager.GetAppFolder(true) + "/SteamIdBans.txt", true);
-            streamWriter.WriteLine(name + ';' + steamID + ';' + endTime.Ticks + ';' + reason + ";DISCORD;" + DateTime.UtcNow.Ticks);
+            streamWriter.WriteLine(name + ';' + steamID + ';' + endTime.Ticks + ';' + reason + ";" + adminTag + ";" + DateTime.UtcNow.Ticks);
             streamWriter.Dispose();
 
             // Kicks the player if they are online.
             plugin.KickPlayer(steamID, "Banned for the following reason: '" + reason + "'");
 
             Dictionary<string, string> banVars = new Dictionary<string, string>
-                {
-                    { "name",       name                    },
-                    { "steamid",    steamID                 },
-                    { "reason",     reason                  },
-                    { "duration",   humanReadableDuration   }
-                };
+            {
+                { "name",       name                    },
+                { "steamid",    steamID                 },
+                { "reason",     reason                  },
+                { "duration",   humanReadableDuration   },
+                { "admintag",   adminTag                }
+            };
             plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerbanned", banVars);
         }
 
-        /// <summary>
-        /// Handles an unban command from Discord.
-        /// </summary>
-        /// <param name="steamID">SteamID of player to be unbanned.</param>
-        private void UnbanCommand(string steamID)
+		/// <summary>
+		/// Handles an unban command from Discord.
+		/// </summary>
+		/// <param name="channelID">ChannelID of discord channel command was used in.</param>
+		/// <param name="steamIDOrIP">SteamID of player to be unbanned.</param>
+		private void UnbanCommand(string channelID, string steamIDOrIP)
         {
-            // Perform very basic SteamID validation. (Also secretly maybe works on ip addresses now)
-            if (!IsPossibleSteamID(steamID) && !IPAddress.TryParse(steamID, out IPAddress address))
+            // Perform very basic SteamID and ip validation.
+            if (!IsPossibleSteamID(steamIDOrIP) && !IPAddress.TryParse(steamIDOrIP, out IPAddress _))
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
-                    { "steamidorip", steamID }
+                    { "steamidorip", steamIDOrIP }
                 };
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.invalidsteamidorip", variables);
+                plugin.SendMessageByID(channelID, "botresponses.invalidsteamidorip", variables);
                 return;
             }
 
-            // Read and save all lines to file except for the one to be unbanned
-            File.WriteAllLines(FileManager.GetAppFolder(true) + "/SteamIdBans.txt", File.ReadAllLines(FileManager.GetAppFolder(true) + "/SteamIdBans.txt").Where(w => !w.Contains(steamID)).ToArray());
+			// Get all ban entries in the files.
+            List<string> ipBans = File.ReadAllLines(FileManager.GetAppFolder(true) + "/IpBans.txt").ToList();
+			List<string> steamIDBans = File.ReadAllLines(FileManager.GetAppFolder(true) + "/SteamIdBans.txt").ToList();
 
-            // Read and save all lines to file except for the one to be unbanned
-            File.WriteAllLines(FileManager.GetAppFolder(true) + "/IpBans.txt", File.ReadAllLines(FileManager.GetAppFolder(true) + "/IpBans.txt").Where(w => !w.Contains(steamID)).ToArray());
+			// Get all ban entries to be removed.
+			List<string> matchingIPBans = ipBans.FindAll(s => s.Contains(steamIDOrIP));
+			List<string> matchingSteamIDBans = steamIDBans.FindAll(s => s.Contains(steamIDOrIP));
 
+			// Delete the entries from the original containers now that there is a backup of them
+			ipBans.RemoveAll(s => s.Contains(steamIDOrIP));
+			steamIDBans.RemoveAll(s => s.Contains(steamIDOrIP));
+
+			// Check if either ban file has a ban with a time stamp matching the one removed and remove it too as most servers create both a steamid-ban entry and an ip-ban entry.
+			foreach (var row in matchingIPBans)
+            {
+	            steamIDBans.RemoveAll(s => s.Contains(row.Split(';').Last()));
+			}
+
+			foreach (var row in matchingSteamIDBans)
+			{
+				ipBans.RemoveAll(s => s.Contains(row.Split(';').Last()));
+			}
+
+			// Save the edited ban files
+			File.WriteAllLines(FileManager.GetAppFolder(true) + "/IpBans.txt", ipBans);
+            File.WriteAllLines(FileManager.GetAppFolder(true) + "/SteamIdBans.txt", steamIDBans);
+
+			// Send response message to Discord
             Dictionary<string, string> unbanVars = new Dictionary<string, string>
             {
-                { "steamidorip", steamID }
+                { "steamidorip", steamIDOrIP }
             };
             plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerunbanned", unbanVars);
         }
 
-        /// <summary>
-        /// Handles the kick command.
-        /// </summary>
-        /// <param name="steamID">SteamID of player to be kicked.</param>
-        private void KickCommand(string steamID, string reason)
+		/// <summary>
+		/// Handles the kick command.
+		/// </summary>
+		/// <param name="channelID">Channel ID for response message.</param>
+		/// <param name="steamID">SteamID of player to be kicked.</param>
+		/// <param name="reason">The kick reason.</param>
+		private void KickCommand(string channelID, string steamID, string reason, string adminTag)
         {
             //Perform very basic SteamID validation
             if (!IsPossibleSteamID(steamID))
@@ -352,7 +386,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.invalidsteamid", variables);
+                plugin.SendMessageByID(channelID, "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -366,9 +400,10 @@ namespace SCPDiscord
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
                     { "name", playerName },
-                    { "steamid", steamID }
+                    { "steamid", steamID },
+                    { "admintag", adminTag }
                 };
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerkicked", variables);
+                plugin.SendMessageByID(channelID, "botresponses.playerkicked", variables);
             }
             else
             {
@@ -376,35 +411,42 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playernotfound", variables);
+                plugin.SendMessageByID(channelID, "botresponses.playernotfound", variables);
             }
         }
 
-        /// <summary>
-        /// Kicks all players from the server
-        /// </summary>
-        /// <param name="reason">Reason displayed to kicked players</param>
-        private void KickallCommand(string reason)
+		/// <summary>
+		/// Kicks all players from the server
+		/// </summary>
+		/// <param name="channelID">The channel to send the message in</param>
+		/// <param name="reason">Reason displayed to kicked players</param>
+		private void KickallCommand(string channelID, string reason, string adminTag)
         {
             if(reason == "")
             {
                 reason = "All players kicked by Admin";
             }
-            foreach (Smod2.API.Player player in plugin.pluginManager.Server.GetPlayers())
+            foreach (Player player in plugin.PluginManager.Server.GetPlayers())
             {
                 player.Ban(0, reason);
             }
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "reason", reason }
+                { "reason", reason },
+				{ "admintag", adminTag}
             };
-            plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.kickall", variables);
+            plugin.SendMessageByID(channelID, "botresponses.kickall", variables);
         }
 
-        private static string MergeString(string[] reason)
+		/// <summary>
+		/// Merges an array of strings into a sentence.
+		/// </summary>
+		/// <param name="input">The string array to merge.</param>
+		/// <returns>The output sentence.</returns>
+		private static string MergeString(string[] input)
         {
             StringBuilder output = new StringBuilder();
-            foreach(string word in reason)
+            foreach(string word in input)
             {
                 output.Append(word);
                 output.Append(' ');
@@ -483,7 +525,7 @@ namespace SCPDiscord
         /// <returns>True if a possible SteamID, false if not.</returns>
         private static bool IsPossibleSteamID(string steamID)
         {
-            return (steamID.Length == 17 && long.TryParse(steamID, out long n));
+            return (steamID.Length == 17 && long.TryParse(steamID, out long _));
         }
     }
 }

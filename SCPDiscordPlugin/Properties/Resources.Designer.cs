@@ -83,9 +83,29 @@ namespace SCPDiscord.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] englishemote {
+        internal static byte[] english_emote {
             get {
-                object obj = ResourceManager.GetObject("englishemote", resourceCulture);
+                object obj = ResourceManager.GetObject("english_emote", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] finnish {
+            get {
+                object obj = ResourceManager.GetObject("finnish", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] finnish_emote {
+            get {
+                object obj = ResourceManager.GetObject("finnish_emote", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -103,9 +123,9 @@ namespace SCPDiscord.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] frenchemote {
+        internal static byte[] french_emote {
             get {
-                object obj = ResourceManager.GetObject("frenchemote", resourceCulture);
+                object obj = ResourceManager.GetObject("french_emote", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -123,6 +143,16 @@ namespace SCPDiscord.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] italian_emote {
+            get {
+                object obj = ResourceManager.GetObject("italian_emote", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] polish {
             get {
                 object obj = ResourceManager.GetObject("polish", resourceCulture);
@@ -133,9 +163,9 @@ namespace SCPDiscord.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] polishemote {
+        internal static byte[] polish_emote {
             get {
-                object obj = ResourceManager.GetObject("polishemote", resourceCulture);
+                object obj = ResourceManager.GetObject("polish_emote", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -153,9 +183,9 @@ namespace SCPDiscord.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] russianemote {
+        internal static byte[] russian_emote {
             get {
-                object obj = ResourceManager.GetObject("russianemote", resourceCulture);
+                object obj = ResourceManager.GetObject("russian_emote", resourceCulture);
                 return ((byte[])(obj));
             }
         }

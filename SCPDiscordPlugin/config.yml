@@ -25,9 +25,31 @@ settings:
     debug: false
     # Turns on the config validation which shows the values after they have been read by the plugin so you can see they are correct
     configvalidation: false
+    # Whether or not to use the rolesync system
+    rolesync: true
+
+# Sets commands which are run whenever someone with a synced Discord rank joins the server, only the highest one in the list that matches the player is executed
+# Valid variables:
+# steamid
+# playerid
+# name
+# ipadress
+rolesync:
+    - "add-role-id-here":
+        - "scperms_givetemprank <var:steamid> moderator" # If you have no need for a permissions plugin you can also set their vanilla rank using the "scpd_grantvanillarank" command
+        - "pbc <var:steamid> 3 Moderator role synced from Discord."
+        - "scpd_grantreservedslot <var:steamid>"
+    - "add-another-role-id-here":
+        - "scperms_givetemprank <var:steamid> donator"
+        - "pbc <var:steamid> 3 Donator role synced from Discord."
+        - "scpd_grantreservedslot <var:steamid>"
+    - "add-everyone-role-id-here":
+        - "scpd_removereservedslot <var:steamid>"
 
 # Name your channels here, this name is used in the channels section below. The left value is a name of your choice and the right is a channel id you want it to represent.
-aliases: ["default":"add-channel-id-here","staff":"add-channel-id-here"]
+aliases: 
+    - "default": "add-channel-id-here"
+    - "staff": "add-channel-id-here"
 
 # Using the channel aliases above you can direct events to different channels here
 # Set to [] to disable an event.
@@ -76,7 +98,7 @@ channels:
     onplayerdie: 
         default: [ "default" ]
         friendlyfire: [ "default", "staff" ]
-        noattacker: [ "default" ]
+        nokiller: [ "default" ]
     onplayerpickupitem: []
     onplayerdropitem: []
     onplayerjoin: [ "default", "staff" ]
@@ -113,7 +135,7 @@ channels:
         nootherplayer: [ "default" ]
     onplayertriggertesla:
         default: []
-        ignore: []
+        ignored: []
     onscp914changeknob: []
     onplayerradioswitch: []
     onmakenoise: []

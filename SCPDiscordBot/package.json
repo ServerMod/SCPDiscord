@@ -1,5 +1,5 @@
 {
-  "name": "SCPDiscord",
+  "name": "scpdiscord",
   "version": "1.1.0",
   "description": "SCPDiscord, a Discord - SCP:SL bridge",
   "main": "SCPDiscordBot.js",

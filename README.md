@@ -30,4 +30,4 @@ Check out the [Wiki tab](https://github.com/KarlOfDuty/SCPDiscord/wiki) for all 
 
 [Languages](https://github.com/KarlOfDuty/SCPDiscord/wiki/Languages)
 
-[Commands](https://github.com/KarlOfDuty/SCPDiscord/wiki/Commands)
+[Commands and Permissions](https://github.com/KarlOfDuty/SCPDiscord/wiki/Commands-and-Permissions)

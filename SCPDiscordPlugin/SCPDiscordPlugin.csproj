@@ -60,34 +60,43 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\GrantVanillaRankCommand.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Commands\DebugCommand.cs" />
     <Compile Include="EventListeners\AdminEventListener.cs" />
     <Compile Include="BotListener.cs" />
     <Compile Include="EventListeners\EnvironmentEventListener.cs" />
     <Compile Include="EventListeners\PlayerEventListener.cs" />
+    <Compile Include="Commands\GrantReservedSlotCommand.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="NetworkSystem.cs" />
+    <Compile Include="EventListeners\RoundEventListener.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="EventListeners\RoundEventListener.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Commands\ReconnectCommand.cs" />
+    <Compile Include="Commands\ReloadCommand.cs" />
+    <Compile Include="Commands\RemoveReservedSlotCommand.cs" />
     <Compile Include="RoleSync.cs" />
     <Compile Include="SCPDiscord.cs" />
     <Compile Include="EventListeners\TeamEventListener.cs" />
     <Compile Include="EventListeners\TickCounter.cs" />
+    <Compile Include="Commands\UnsyncCommand.cs" />
+    <Compile Include="Commands\VerboseCommand.cs" />
+    <Compile Include="Commands\ValidateCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -95,15 +104,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="config.yml" />
+    <None Include="Languages\english-emote.yml" />
     <None Include="Languages\english.yml" />
-    <None Include="Languages\englishemote.yml" />
+    <None Include="Languages\finnish-emote.yml" />
+    <None Include="Languages\finnish.yml" />
+    <None Include="Languages\french-emote.yml" />
     <None Include="Languages\french.yml" />
-    <None Include="Languages\frenchemote.yml" />
+    <None Include="Languages\italian-emote.yml" />
     <None Include="Languages\italian.yml" />
+    <None Include="Languages\polish-emote.yml" />
     <None Include="Languages\polish.yml" />
-    <None Include="Languages\polishemote.yml" />
+    <None Include="Languages\russian-emote.yml" />
     <None Include="Languages\russian.yml" />
-    <None Include="Languages\russianemote.yml" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -114,6 +126,7 @@
     <Content Include="lib\Assembly-CSharp.dll" />
     <Content Include="lib\Smod2.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>taskkill /F /IM SCPSL.exe /T 2&gt;nul &amp;set errorlevel=0

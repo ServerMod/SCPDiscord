@@ -1,6 +1,6 @@
 #####################################################################################################################
 #                                                                                                                   #
-#                                                     EVENTS       # Russian translation by TeMbI4.                 #
+#                                                     EVENTS       # Russian translation by TeMbI4#8759.            #
 #                                                                                                                   #
 #   message: The message to be displayed. Variables are inserted in the format <var:name>, such as <var:ipaddress>. #
 #   regex: A regular expression paired with a replacement string to find and replace parts of a message.            #
@@ -32,7 +32,7 @@ global_regex: [
     "ZOMBIE":"Зомби",
 
     # Teams
-    "CHAOS_INSURGENCY":"Повстанцы Хаоса",
+    "CHAOS_INSURGENCY":"Повстанец Хаоса",
     "NINETAILFOX":"Мобильная Оперативная Группа",
 
     # Elevators
@@ -112,9 +112,9 @@ global_regex: [
     "PC_LARGE":"большой офис с компьютерами",
     "GATE_A":"ворота A",
     "GATE_B":"ворота B",
-    "CAFE":"клас с компьютерами в ЛЗС",
+    "CAFE":"класс с компьютерами в ЛЗС",
     "INTERCOM":"интерком",
-    "DR_L":"коридор перед конференц комнатой",
+    "DR_L":"коридор перед конференц. комнатой",
     "STRAIGHT":"прямой коридор",
     "CURVE":"дуговой коридор",
     "T_INTERSECTION":"Т-образный коридор",
@@ -175,9 +175,9 @@ round:
             Научных сотрудников сбежало:         <var:scientistsescaped>/<var:scientistsstart>\n
             Объектов SCP было уничтожено:        <var:scpdead>/<var:scpstart>\n
             Людей убито объектами SCP:           <var:scpkills>\n
-            Боеголовка «Альфа» switchwas<var:warheaddetonated> взорвана.
+            Боеголовка «Альфа» switchwas:<var:warheaddetonated> взорвана.
             ```
-        regex: ["switchwasTrue":"была","switchwasFalse":"не была"]
+        regex: ["switchwas:True":"была","switchwas:False":"не была"]
     onwaitingforplayers:
         message: ":white_check_mark:**Сервер запущен и ждёт игроков.**"
         regex: []
@@ -588,11 +588,11 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: ":link: <var:targetclass> <var:targetname> (<var:targetsteamid>) был switchcuffed<var:cuffed> игроком <var:playerclass> <var:playername> (<var:playersteamid>)."
-            regex: ["switchcuffedTrue":"связан","switchcuffedFalse":"развязан"]
+            message: ":link: <var:targetclass> <var:targetname> (<var:targetsteamid>) был switchcuffed:<var:cuffed> игроком <var:playerclass> <var:playername> (<var:playersteamid>)."
+            regex: ["switchcuffed:True":"связан","switchcuffed:False":"развязан"]
         nootherplayer:
-            message: ":link: <var:targetclass> <var:targetname> (<var:targetsteamid>) был switchcuffed<var:cuffed>."
-            regex: ["switchcuffedTrue":"связан","switchcuffedFalse":"развязан"]
+            message: ":link: <var:targetclass> <var:targetname> (<var:targetsteamid>) был switchcuffed:<var:cuffed>."
+            regex: ["switchcuffed:True":"связан","switchcuffed:False":"развязан"]
     onplayertriggertesla:
         # ipaddress - string
         # name - string
@@ -1000,8 +1000,8 @@ admin:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":closed_lock_with_key: <var:name> (<var:steamid>) checkaccess<var:allowed>."
-        regex: ["checkaccesstrue":"получил доступ к админ панели", "checkaccessfalse":"пытался получить доступ к админ панели, но запрос был отклонён"]
+        message: ":closed_lock_with_key: <var:name> (<var:steamid>) checkaccess:<var:allowed>."
+        regex: ["checkaccess:True":"получил доступ к админ панели", "checkaccess:Talse":"пытался получить доступ к админ панели, но запрос был отклонён"]
     onban:
         # allowban - bool
         # duration - int
@@ -1021,7 +1021,7 @@ admin:
         # adminteam - Team
         admin:
             ban:
-                message: ":no_entry:```diff\n- Игрок <var:playername> (<var:playersteamid>) был забанен администратором <var:adminname> (<var:adminsteamid>) на <var:duration> часа(ов). Причина: <var:reason>```"
+                message: ":no_entry:```diff\n- Игрок <var:playername> (<var:playersteamid>) был забанен администратором <var:adminname> (<var:adminsteamid>) на <var:duration> минут. Причина: <var:reason>```"
                 regex: []
             kick:
                 message: ":no_entry:```diff\n- Игрок <var:playername> (<var:playersteamid>) был кикнут администратором <var:adminname> (<var:adminsteamid>). Причина: <var:reason>```"
@@ -1178,5 +1178,5 @@ topic:
     # scpstart - int
     # zombies - int
     # tps - float
-    message: "Игроков онлайн: <var:players>/<var:maxplayers>. Раунд длился <var:roundduration> минут(ы). Живых SCP: <var:scpalive>. Боеголовка «Альфа» switchdetonation<var:warheaddetonated> взорвана. Время работы: <var:uptime> минут. IP: <var:ip>:<var:port> TPS: <var:tps>"
-    regex: [ "switchdetonationTrue":"была", "switchdetonationFalse":"не была", " 1 minutes":" 1 minute" ]
+    message: "Игроков онлайн: <var:players>/<var:maxplayers>. Раунд длился <var:roundduration> минут(ы). Живых SCP: <var:scpalive>. Боеголовка «Альфа» switchdetonation:<var:warheaddetonated> взорвана. Время работы: <var:uptime> минут. IP: <var:ip>:<var:port> TPS: <var:tps>"
+    regex: [ "switchdetonation:True":"была", "switchdetonation:False":"не была", " 1 minutes":" 1 minute" ]

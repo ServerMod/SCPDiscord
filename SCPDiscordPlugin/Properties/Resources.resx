@@ -124,28 +124,37 @@
   <data name="english" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\english.yml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="englishemote" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Languages\englishemote.yml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="english_emote" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Languages\english-emote.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="finnish" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Languages\finnish.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="finnish_emote" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Languages\finnish-emote.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="french" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\french.yml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="frenchemote" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Languages\frenchemote.yml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="french_emote" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Languages\french-emote.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="italian" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\italian.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="italian_emote" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Languages\italian-emote.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="polish" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\polish.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="polishemote" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Languages\polishemote.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="polish_emote" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Languages\polish-emote.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="russian" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Languages\russian.yml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="russianemote" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Languages\russianemote.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="russian_emote" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Languages\russian-emote.yml;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

@@ -20,73 +20,73 @@ global_regex: [
     "SCP-049_2":"SCP-049-2",
     "SCP-939_":"SCP-939-",
     "SCP-939-89":"SCP-939-109",
-    "SCP_079":"SCP-079",
-    "CLASSD":"D-Class",
-    "SPECTATOR":"Spectator",
-    "SCIENTIST":"Scientist",
-    "FACILITY_GUARD":"Facility Guard",
-    "NTF_CADET":"MTF Cadet",
-    "NTF_SCIENTIST":"MTF Scientist",
-    "NTF_LIEUTENANT":"MTF Lieutenant",
-    "NTF_COMMANDER":"MTF Commander",
+    "SCP_079":"SCP-079-",
+    "CLASSD":"Personel Klasy D",
+    "SPECTATOR":"Obserwator",
+    "SCIENTIST":"Naukowiec",
+    "FACILITY_GUARD":"Ochroniarz",
+    "NTF_CADET":"Kadet Nine-Tailed Fox",
+    "NTF_SCIENTIST":"Naukowiec Nine-Tailed Fox",
+    "NTF_LIEUTENANT":"Porucznik Nine-Tailed Fox",
+    "NTF_COMMANDER":"Dowódca Nine-Tailed Fox",
     "ZOMBIE":"Zombie",
 
     # Teams
-    "CHAOS_INSURGENCY":"Chaos Insurgency",
+    "CHAOS_INSURGENCY":"Rebelia Chaosu",
     "NINETAILFOX":"MTF",
 
     # Elevators
-    "GateA":"Gate A",
-    "GateB":"Gate B",
-    "LiftA":"Lift A",
-    "LiftB":"Lift B",
-    "SCP049Chamber":"SCP-049 Containment Chamber",
-    "WarheadRoom":"the warhead room",
+    "GateA":"Brama A",
+    "GateB":"Brama B",
+    "LiftA":"Winda A",
+    "LiftB":"Winda B",
+    "SCP049Chamber":"Pomieszczenie SCP-049",
+    "WarheadRoom":"Pomieszczenie Głowicy Alfa",
 
     # Non-weapon damage types
-    "NUKE":"nuke",
-    "FALLDOWN":"fall damage",
-    "CONTAIN":"containment",
-    "DECONT":"LCZ decontamination",
-    "LURE":"the femur breaker",
-    "POCKET":"the pocket dimension",
-    "TESLA":"tesla energy",
-    "WALL":"getting crushed",
+    "NUKE":"Głowicy Alfa",
+    "FALLDOWN":"Obrażeń od upadku",
+    "CONTAIN":"Dekontaminacji",
+    "DECONT":"Dekontaminacji LCZ",
+    "LURE":"Poświęcenia",
+    "POCKET":"Wymiaru Łuzowego",
+    "TESLA":"Bramki Tesli",
+    "WALL":"Przygnieciony przez ścianę",
     "FLYING":"anticheat",
     "RAGDOLLLESS":"RAGDOLLLESS",
 
     # Items
-    "JANITOR_KEYCARD":"Janitor keycard",
-    "SCIENTIST_KEYCARD":"Scientist keycard",
-    "MAJOR_SCIENTIST_KEYCARD":"Major Scientist keycard",
-    "ZONE_MANAGER_KEYCARD":"Zone Manager keycard",
-    "GUARD_KEYCARD":"Guard keycard",
-    "SENIOR_GUARD_KEYCARD":"Senior Guard keycard",
-    "CONTAINMENT_ENGINEER_KEYCARD":"Containment Engineer keycard",
-    "MTF_LIEUTENANT_KEYCARD":"MTF Lieutenant keycard",
-    "MTF_COMMANDER_KEYCARD":"MTF Commander keycard",
-    "FACILITY_MANAGER_KEYCARD":"Facility Manager keycard",
-    "CHAOS_INSURGENCY_DEVICE":"Chaos Insurgency device",
-    "O5_LEVEL_KEYCARD":"O5 keycard",
-    "RADIO":"radio",
+    "JANITOR_KEYCARD":"Karta Sprzątacza",
+    "SCIENTIST_KEYCARD":"Karta Naukowca",
+    "MAJOR_SCIENTIST_KEYCARD":"Karta Starszego Naukowca",
+    "ZONE_MANAGER_KEYCARD":"Karta Administratora Strefy",
+    "GUARD_KEYCARD":"Karta Ochroniarza",
+    "SENIOR_GUARD_KEYCARD":"Karta Starszego Ochroniarza",
+    "CONTAINMENT_ENGINEER_KEYCARD":"Karta Inżyniera Dekontaminacji",
+    "MTF_LIEUTENANT_KEYCARD":"Karta porucznika MTF",
+    "MTF_COMMANDER_KEYCARD":"Karta Dowódcy MTF",
+    "FACILITY_MANAGER_KEYCARD":"Karta Administratora Placówki",
+    "CHAOS_INSURGENCY_DEVICE":"Urządzenie Rebelii Chaosu",
+    "O5_LEVEL_KEYCARD":"Karta O5",
+    "RADIO":"Radio",
     "COM15":"COM-15",
-    "MEDKIT":"medkit",
-    "FLASHLIGHT":"flashlight",
+    "MEDKIT":"Apteczka",
+    "FLASHLIGHT":"Latarka",
     "MICROHID":"Micro-HID",
-    "COIN":"coin",
-    "CUP":"cup",
-    "WEAPON_MANAGER_TABLET":"weapon manager tablet",
+    "COIN":"Moneta",
+    "CUP":"Kubek",
+    "WEAPON_MANAGER_TABLET":"Urządzenie do zarządzania bronią",
     "E11_STANDARD_RIFLE":"Epsilon-11 SR",
     "P90":"P90",
-    "DROPPED_5":"5.56mm ammo",
+    "DROPPED_5":"Amunicja 5.56mm",
     "MP4":"MP4",
     "LOGICER":"Logicer",
-    "FRAG_GRENADE":"grenade",
-    "FLASHBANG":"flashbang",
-    "DISARMER":"disarmer",
-    "DROPPED_7":"7.62mm ammo",
-    "FRAG":"grenade",
-    "DROPPED_9":"9mm ammo",
+    "FRAG_GRENADE":"Granat Wybuchowy",
+    "FLASHBANG":"Granat Oślepiający",
+    "DISARMER":"Rozbrajacz",
+    "DROPPED_7":"Amunicja 7.62mm",
+    "FRAG":"Granat",
+    "DROPPED_9":"Amunicja 9mm",
 
     # 914 settings
     "ROUGH":"rough",
@@ -96,60 +96,60 @@ global_regex: [
     "FINE":"fine",
 
     # Room names
-    "WC00":"the restrooms",
-    "SCP_914":"SCP-914 containment",
-    "AIRLOCK_00":"an airlock",
-    "AIRLOCK_01":"an airlock",
-    "CHECKPOINT_A":"LCZ checkpoint A",
-    "CHECKPOINT_B":"LCZ checkpoint B",
-    "HCZ_ARMORY":"the HCZ armory",
-    "SERVER_ROOM":"the server room",
-    "SCP_012":"SCP-012 containment",
-    "SCP_372":"SCP-372 containment",
-    "ENTRANCE_CHECKPOINT":"the entrance zone checkpoint",
-    "TESLA_GATE":"a tesla gate",
+    "WC00":"toalety",
+    "SCP_914":"komora przechowawcza SCP-914",
+    "AIRLOCK_00":"śluza",
+    "AIRLOCK_01":"śluza",
+    "CHECKPOINT_A":"LCZ punkt kontrolny A",
+    "CHECKPOINT_B":"LCZ punkt kontrolny B",
+    "HCZ_ARMORY":"zbrojownia HCZ",
+    "SERVER_ROOM":"serweronia",
+    "SCP_012":"klatka SCP-012",
+    "SCP_372":"klatka SCP-372",
+    "ENTRANCE_CHECKPOINT":"punkt kontrolny strefy wyjściowej",
+    "TESLA_GATE":"tesla",
     "PC_SMALL":"the small office",
     "PC_LARGE":"the large office",
     "GATE_A":"gate A",
     "GATE_B":"gate B",
-    "CAFE":"the classroom",
-    "INTERCOM":"the intercom room",
-    "DR_L":"an entrance zone corridor",
-    "STRAIGHT":"a corridor",
-    "CURVE":"a corridor",
-    "T_INTERSECTION":"a T-intersection",
-    "X_INTERSECTION":"a cross intersection",
-    "LCZ_ARMORY":"the LHZ armory",
-    "CLASS_D_CELLS":"D-class cells",
-    "CUBICLES":"an office"
+    "CAFE":"cafeteria",
+    "INTERCOM":"intercom",
+    "DR_L":"korytarz",
+    "STRAIGHT":"korytarz",
+    "CURVE":"korytarz",
+    "T_INTERSECTION":"skrzyżowanie typu T",
+    "X_INTERSECTION":"skrzyżowanie typu X",
+    "LCZ_ARMORY":"zbrojownia w LCZ",
+    "CLASS_D_CELLS":"cele klasy-D",
+    "CUBICLES":"gabinet"
     ]
-
+    
 # Executes on the final version of the message, this is the only regex that affects player names
 final_regex: ["discord\\.gg":"","http":"","www\\.":""]
 
 round:
     onroundstart:
-        message: "**Round started.**"
+        message: ":zap:**Runda rozpoczęła się.**"
         regex: []
     onconnect:
         # ipaddress - string
-        message: "Player attempting connection..."
+        message: ":arrow_right:Gracz próbuje się połączyć..."
         regex: []
     ondisconnect:
         default:
             # ipaddress - string
-            message: "A player has disconnected."
+            message: ":arrow_left:Gracz rozłączył się."
             regex: []
         banned:
             # ipaddress - string
-            message: "A player has disconnected because they are banned."
+            message: ":arrow_left:Gracz rozłączył się z powodu bana"
             regex: []
     onlatedisconnect:
         # ipaddress - string
-        message: "A player has disconnected."
+        message: ":arrow_left:Gracz rozłączył się."
         regex: []
     oncheckroundend:
-        message: "Checking if round has ended..."
+        message: "Sprawdzanie czy runda zakończyła się..."
         regex: []
     onroundend:
         # duration - int
@@ -169,34 +169,34 @@ round:
         # warheaddetonated - bool
         # zombies - int
         message: >+
-            **Round ended after <var:duration> minutes.**
+            **Runda zakończyła się. Czas trwania: <var:duration> minut.**
             ```
-            Escaped D-class:            <var:dclassescaped>/<var:dclassstart>\n
-            Rescued Scientists:         <var:scientistsescaped>/<var:scientistsstart>\n
-            Contained SCPs:             <var:scpdead>/<var:scpstart>\n
-            Killed by SCP:              <var:scpkills>\n
-            Warhead switchwas<var:warheaddetonated> detonated.
+            Ocalony Personel klasy D:            <var:dclassescaped>/<var:dclassstart>\n
+            Ocaleni naukowcy:         <var:scientistsescaped>/<var:scientistsstart>\n
+            Zneutralizowane obiekty SCP:             <var:scpdead>/<var:scpstart>\n
+            Zabójstwa SCP:              <var:scpkills>\n
+            Głowica alfa <var:warheaddetonated> zdetonowana.
             ```
-        regex: ["switchwasTrue":"was","switchwasFalse":"was not"]
+        regex: ["switchwasTrue":"została","switchwasFalse":"nie została"]
     onwaitingforplayers:
-        message: "**Server is ready and waiting for players.**"
+        message: ":white_check_mark:**Serwer jest gotowy i oczekuje na graczy**"
         regex: []
     onroundrestart:
-        message: "**Round is restarting...**"
+        message: "**:arrows_counterclockwise:Runda jest restartowana...**"
         regex: []
     onsetservername:
         # servername - string
-        message: "**Server name: <var:servername>.**"
+        message: "**Nazwa serwera: <var:servername>.**"
         regex: []
     onscenechanged:
         # scenename - string
-        message: "**Scene loaded: <var:scenename>.**"
+        message: "**Scena załadowana: <var:scenename>.**"
         regex: []
 
 environment:
     onscp914activate:
         # knobsetting - KnobSetting
-        message: "SCP-914 has been activated on setting <var:knobsetting>."
+        message: ":control_knobs:SCP-914 został uruchomiony na ustawieniu <var:knobsetting>."
         regex: []
     onstartcountdown:
         # isresumed - bool
@@ -208,13 +208,13 @@ environment:
         # class - Role
         # team - Team
         noplayer:
-            message: "**The on-site nuclear warhead has been remotely activated by order of the O5 Council. All personnel must evacuate immediately.**"
+            message: ":radioactive:**Głowica Alfa została zdalnie aktywowana na rozkaz rady O5. Cały personel powinien zostać natychmiastowo ewakuowany.**"
             regex: []
         initiated:
-            message: "**The on-site nuclear warhead has been activated by <var:name> (<var:steamid>), <var:timeleft> seconds until detonation. All personnel must evacuate immediately.**"
+            message: "**:radioactive:Głowica Alfa została aktywowana przez <var:name> (<var:steamid>), <var:timeleft> sekund do detonacji. Cały personel powinien zostać natychmiastowo ewakuowany.**"
             regex: []
         resumed:
-            message: "**The warhead countdown has been resumed <var:name> (<var:steamid>), <var:timeleft> seconds until detonation.**"
+            message: "**:radioactive:Procedura Aktywacji Głowicy Alfa wznowiona przez <var:name> (<var:steamid>), <var:timeleft> sekund do detonacji.**"
             regex: []
     onstopcountdown:
         # timeleft
@@ -225,23 +225,23 @@ environment:
         # class
         # team
         default:
-            message: "**The on-site nuclear warhead detonation has been canceled by <var:name> (<var:steamid>).**"
+            message: ":radioactive:**Detonacja Głowicy Alfa przerwana przez <var:name> (<var:steamid>).**"
             regex: []
         noplayer:
-            message: "**The on-site nuclear warhead detonation has been canceled remotely by order of the Ethics Committee**"
+            message: ":radioactive:**Detonacja Głowicy Alfa przerwana zdalnie przez Komisję Etyki**"
             regex: []
     ondetonate:
-        message: "**Detonation of the on-site nuclear warhead has been detected. MTF operatives are inbound to clear out any remaining threats.**"
+        message: "**Placówka zdetonowana. Oddziały MTF są zobligowane do likwidacji wszelkich zagrożeń**"
         regex: []
     ondecontaminate:
-        message: "**Light Containment Zone de-contamination has been initiated, all biological material will be destroyed.**"
+        message: ":biohazard:**Dekontaminacja LCZ rozpoczęła się, cały materiał biologiczny znajdujący się w strefie zostanie zniszczony.**"
         regex: []
     onsummonvehicle:
         chaos:
-            message: "**Warning: Unauthorized vehicle has breached the site perimeter.**"
+            message: ":red_car:**Uwaga: Nieautoryzowany pojazd pojawił się na terenie placówki!**"
             regex: []
         mtf:
-            message: "**MTF helicopter is in visual range of the site, preparing to land.**"
+            message: ":helicopter:**Helikopter MTF w zasięgu wzroku, przygotowanie do lądowania.**"
             regex: []
 
 player:
@@ -260,18 +260,18 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        default:
-            message: "<var:playername> (<var:playersteamid>) was hurt by <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp)."
+        default: 
+            message: ":red_circle:<var:playername> (<var:playersteamid>) został zaatakowany przez <var:attackername> (<var:attackersteamid>) przy użyciu <var:damagetype> (<var:damage> hp)."
             regex: []
         friendlyfire:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) was attacked by teammate <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp).**"
+            message: ":red_circle:**<var:playerteam> <var:playername> (<var:playersteamid>) został zaatakowany przez sojusznika <var:attackerteam> <var:attackername> (<var:attackersteamid>) przy użyciu <var:damagetype> (<var:damage> hp).**"
             regex: []
         # Not currently used
         #self:
-        #    message: "<var:playername> (<var:playersteamid>) hurt themselves with <var:damagetype> (<var:damage> hp)."
+        #    message: ":red_circle:<var:playername> (<var:playersteamid>) hurt themselves with <var:damagetype> (<var:damage> hp)."
         #    regex: []
         noattacker: 
-            message: "<var:playername> (<var:playersteamid>) took <var:damage> damage by <var:damagetype>."
+            message: ":red_circle:<var:playername> (<var:playersteamid>) otrzymał <var:damage> obrażeń od <var:damagetype>."
             regex: []
     onplayerdie:
         # spawnragdoll - bool
@@ -289,17 +289,17 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "<var:playername> (<var:playersteamid>) was killed by <var:attackername> (<var:attackersteamid>) using <var:damagetype>."
+            message: ":skull:<var:playername> (<var:playersteamid>) został zabity przez <var:attackername> (<var:attackersteamid>) przy użyciu <var:damagetype>."
             regex: []
         friendlyfire:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) was teamkilled by <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype>.**"
+            message: ":skull:**<var:playerteam> <var:playername> (<var:playersteamid>) został zabity przez sojusznika <var:attackerteam> <var:attackername> (<var:attackersteamid>) przy użyciu <var:damagetype>.**"
             regex: []
         # Not currently used
         #self:
-        #    message: "<var:playername> (<var:playersteamid>) killed themselves using <var:damagetype>."
+        #    message: ":skull:<var:playername> (<var:playersteamid>) killed themselves using <var:damagetype>."
         #    regex: []
         nokiller:
-            message: "<var:playername> (<var:playersteamid>) died by <var:damagetype>."
+            message: ":skull:<var:playername> (<var:playersteamid>) zginął od <var:damagetype>."
             regex: []
     onplayerpickupitem:
         # item - Item
@@ -309,7 +309,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) picked up <var:item>."
+        message: ":inbox_tray:<var:name> (<var:steamid>) podniósł <var:item>."
         regex: []
     onplayerdropitem:
         # item - Item
@@ -319,7 +319,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) dropped <var:item>."
+        message: ":outbox_tray:<var:name> (<var:steamid>) upuścił <var:item>."
         regex: []
     onplayerjoin:
         # ipaddress - string
@@ -328,7 +328,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "**<var:name> (<var:steamid>) joined the game.**"
+        message: ":arrow_forward:**<var:name> (<var:steamid>) dołączył do gry.**"
         regex: []
     onnicknameset:
         # nickname - string
@@ -338,7 +338,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "Player '<var:name> (<var:steamid>)' set their nickname to <var:nickname>."
+        message: ":regional_indicator_n:Gracz '<var:name> (<var:steamid>)' ustawił swój pseudonim: <var:nickname>."
         regex: []
     onassignteam:
         # ipaddress - string
@@ -347,7 +347,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) has joined the <var:team> team."
+        message: ":mens:<var:name> (<var:steamid>) został przydzielony do drużyny: <var:team>"
         regex: []
     onsetrole:
         # ipaddress - string
@@ -356,7 +356,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) has become a <var:class>."
+        message: ":mens:Graczowi <var:name> (<var:steamid>) został przydzielona rola: <var:class>."
         regex: []
     oncheckescape:
         # allowescape - bool
@@ -367,7 +367,7 @@ player:
         # class - Role
         # team - Team
         allowed:
-            message: "<var:name> (<var:steamid>) has escaped as <var:class>."
+            message: "<var:name> (<var:steamid>) uciekł jako <var:class>."
             regex: []
         denied:
             message: ""
@@ -379,7 +379,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) spawned as <var:class>."
+        message: ":mens:<var:name> (<var:steamid>) został zespawnowany jako <var:class>."
         regex: []
     ondooraccess:
         # doorname - string
@@ -394,11 +394,11 @@ player:
         # class - Role
         # team - Team
         allowed:
-            message: "<var:name> (<var:steamid>) isopen:<var:open> a door (<var:doorname>) requiring the permission <var:permission>."
-            regex: ["isopen:True":"closed", "isopen:False":"opened", " requiring the permission .":""]
+            message: ":ballot_box_with_check:<var:name> (<var:steamid>) isopen:<var:open> drzwi (<var:doorname>) requiring the permission <var:permission>."
+            regex: ["isopen:True":"zamknął", "isopen:False":"otworzył", " requiring the permission .":""]
         denied:
-            message: "<var:name> (<var:steamid>) tried to isopen:<var:open> a locked door (<var:doorname>) requiring the permission <var:permission>."
-            regex: ["isopen:True":"close", "isopen:False":"open"," requiring the permission .":"."]
+            message: ":octagonal_sign:<var:name> (<var:steamid>) próbował isopen:<var:open> drzwi (<var:doorname>) do których nie posiada uprawnień: requiring the permission <var:permission>."
+            regex: ["isopen:True":"zamknąć", "isopen:False":"otworzyć"," requiring the permission .":"."]
     onintercom:
         # This is not recommended to use outside of debugging
         # cooldowntime - float
@@ -409,7 +409,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) is using the intercom."
+        message: ":speaker:<var:name> (<var:steamid>) używa interkomu."
         regex: []
     onintercomcooldowncheck:
         # This is not recommended to use outside of debugging
@@ -420,7 +420,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "Intercom cooldown check: <var:currentcooldown>s."
+        message: ":timer:Czas odnowienia interkomu: <var:currentcooldown>s."
         regex: []
     onpocketdimensionexit:
         # ipaddress - string
@@ -429,7 +429,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) escaped the SCP-106 pocket dimension."
+        message: ":door:<var:name> (<var:steamid>) pomyślnie opuścił Wymiar Łuzowy"
         regex: []
     onpocketdimensionenter:
         # damage - int
@@ -445,7 +445,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "<var:playername> (<var:playersteamid>) was taken into the SCP-106 pocket dimension by <var:attackername> (<var:attackersteamid>)."
+        message: ":door:<var:name> (<var:steamid>) został wciągnięty do Wymiaru Łuzowego przez <var:attackername> (<var:attackersteamid>)"
         regex: []
     onpocketdimensiondie:
         # ipaddress - string
@@ -454,7 +454,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) was lost in the SCP-106 pocket dimension."
+        message: ":skull:Graczowi <var:name> (<var:steamid>) nie udało się uciec z Wymiaru Łuzowego"
         regex: []
     onthrowgrenade:
         # type - GrenadeType
@@ -464,7 +464,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) threw a <var:type>."
+        message: ":bomb:<var:name> (<var:steamid>) rzucił <var:type>."
         regex: []
     onplayerinfected:
         # damage - int
@@ -481,7 +481,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "<var:playername> (<var:playersteamid>) was cured by SCP-049."
+        message: ":skull:<var:playername> (<var:playersteamid>) został wyleczony przez SCP-049."
         regex: []
     onspawnragdoll:
         # ipaddress - string
@@ -490,7 +490,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>)'s <var:class> ragdoll spawned."
+        message: "ragdoll gracza <var:name> (<var:steamid>) klasy <var:class> zespawnowany "
         regex: []
     onlure:
         # allowcontain - bool
@@ -500,7 +500,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) was sacrificed to contain SCP-106."
+        message: ":skull:<var:name> (<var:steamid>) został poświęcony, aby zdekontaminować SCP-106"
         regex: []
     oncontain106:
         # activatecontainment - bool
@@ -510,7 +510,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) has initiated SCP-106 recall protocol."
+        message: ":rotating_light:<var:name> (<var:steamid>) zainicjował procedurę dekontaminacyjną SCP-106"
         regex: []
     onmedkituse:
         # recoveredamount - int
@@ -520,7 +520,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) used a medkit and healed <var:recoveredhealth>."
+        message: ":pill:<var:name> (<var:steamid>) użył apteczki i odnowił <var:recoveredhealth> hp."
         regex: []
     onshoot:
         # weapon - DamageType
@@ -537,13 +537,13 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "<var:attackername> (<var:attackersteamid>) shot <var:playername> (<var:playersteamid>) with <var:weapon>."
+            message: ":gun:<var:attackername> (<var:attackersteamid>) postrzelił gracza <var:playername> (<var:playersteamid>) przy pomocy <var:weapon>."
             regex: []
         notarget:
-            message: "<var:attackername> (<var:attackersteamid>) shot at nothing in particular with <var:weapon>."
+            message: ":gun:<var:attackername> (<var:attackersteamid>) strzelił bez celu przy użyciu <var:weapon>."
             regex: []
         friendlyfire:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) shot ally <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:weapon>.**"
+            message: ":gun:**<var:playerteam> <var:playername> (<var:playersteamid>) został postrzelony przez <var:attackerteam> <var:attackername> (<var:attackersteamid>) przy pomocy <var:weapon>.**"
             regex: []
     on106createportal:
         # ipaddress - string
@@ -552,7 +552,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) has opened a dimensional portal."
+        message: ":eight_pointed_black_star:<var:name> (<var:steamid>) otworzył portal międzywymiarowy"
         regex: []
     on106teleport:
         # ipaddress - string
@@ -561,7 +561,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) travelled through their pocket dimension."
+        message: ":eight_pointed_black_star:<var:name> (<var:steamid>) przeszedł przez portal"
         regex: []
     onelevatoruse:
         # elevatorname - ElevatorType
@@ -571,7 +571,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) called the <var:elevatorname> elevator."
+        message: ":door:<var:name> (<var:steamid>) przywołał windę <var:elevatorname>"
         regex: []
     onhandcuff:
         # cuffed - bool
@@ -588,11 +588,11 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) was switchcuffed<var:cuffed> by <var:playerclass> <var:playername> (<var:playersteamid>)."
-            regex: ["switchcuffedTrue":"cuffed","switchcuffedFalse":"released"]
+            message: ":link:<var:targetclass> <var:targetname> (<var:targetsteamid>) został switchcuffed<var:cuffed> przez <var:playerclass> <var:playername> (<var:playersteamid>)."
+            regex: ["switchcuffedTrue":"zakuty","switchcuffedFalse":"uwolniony"]
         nootherplayer:
-            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) was switchcuffed<var:cuffed>."
-            regex: ["switchcuffedTrue":"cuffed","switchcuffedFalse":"released"]
+            message: ":link:<var:targetclass> <var:targetname> (<var:targetsteamid>) został switchcuffed<var:cuffed>."
+            regex: ["switchcuffedTrue":"zakuty","switchcuffedFalse":"uwolniony"]
     onplayertriggertesla:
         # ipaddress - string
         # name - string
@@ -601,10 +601,10 @@ player:
         # class - Role
         # team - Team
         default:
-            message: "<var:team> <var:name> (<var:steamid>) activated a tesla gate."
+            message: ":zap:<var:team> <var:name> (<var:steamid>) przeszedł przez bramkę Tesli"
             regex: []
         ignored:
-            message: "<var:team> <var:name> (<var:steamid>) went through a tesla gate without activating it."
+            message: ":zap:<var:team> <var:name> (<var:steamid>) przeszedł przez bramkę Tesli bez jej aktywowania"
             regex: []
     onscp914changeknob:
         # setting - KnobSetting
@@ -614,7 +614,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) set the SCP-914 knob to \"<var:setting>\"."
+        message: ":control_knobs:<var:name> (<var:steamid>) ustawił pokrętło SCP-914 na pozycję \"<var:setting>\"."
         regex: []
     onplayerradioswitch:
         # setting - RadioStatus
@@ -624,7 +624,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) switched their radio to the <var:setting> status."
+        message: ":radio:<var:name> (<var:steamid>) Zmienił częstotliwość radia na <var:setting>"
         regex: []
     onmakenoise: 
         # ipaddress - string
@@ -633,7 +633,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) made noise!"
+        message: ":sound:<var:name> (<var:steamid>) wydał dźwięk"
         regex: []
     onrecallzombie:
         # allowrecall - bool
@@ -649,7 +649,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "<var:targetname> (<var:targetsteamid>) was revived as an SCP-049-2 instance by <var:playername> (<var:playersteamid>)"
+        message: "<var:targetname> (<var:targetsteamid>) został przywrócony do życia w formie SCP-049-2 <var:playername> (<var:playersteamid>)"
         regex: []
     oncallcommand:
         # command
@@ -660,7 +660,7 @@ player:
         # steamid
         # class
         # team
-        message: "<var:name> (<var:steamid>) used the command '<var:command>'. Result: '<var:returnmessage>'"
+        message: "<var:name> (<var:steamid>) użył komendy '<var:command>'. Wynik: '<var:returnmessage>'"
         regex: []
     onreload:
         # weapon
@@ -675,7 +675,7 @@ player:
         # steamid
         # class
         # team
-        message: "<var:name> (<var:steamid>) reloaded their <var:weapon>."
+        message: "<var:name> (<var:steamid>) przeładował <var:weapon>."
         regex: []
     ongrenadeexplosion:
         # ipaddress
@@ -684,7 +684,7 @@ player:
         # steamid
         # class
         # team
-        message: "<var:name> (<var:steamid>)'s grenade exploded."
+        message: ":bomb:Granat gracza <var:name> (<var:steamid>) eksplodował"
         regex: []
     ongrenadehitplayer:
         # targetipaddress - string
@@ -699,7 +699,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "<var:playername> (<var:playersteamid>)'s grenade hit <var:targetname> (<var:targetsteamid>)"
+        message: ":bomb:Granat gracza <var:playername> (<var:playersteamid>) zranił gracza <var:targetname> (<var:targetsteamid>)"
         regex: []
     ongeneratorunlock:
         # engaged - bool
@@ -715,16 +715,16 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) unlocked a generator in <var:room>."
+        message: ":unlock: <var:name> (<var:steamid>) odblokował generator w <var:room>."
         regex: [
-            "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
     ongeneratoraccess:
         # engaged - bool
         # hastablet - bool
@@ -740,27 +740,27 @@ player:
         # class - Role
         # team - Team
         closed:
-            message: "<var:name> (<var:steamid>) closed a generator in <var:room>."
+            message: ":lock: <var:name> (<var:steamid>) zamkął generaotr w <var:room>."
             regex: [
-                "Micro-HID":"the Micro-HID room",
-                "nuke":"the nuke silo",
-                "SCP-049":"SCP-049 containment",
-                "SCP-079":"SCP-079 containment",
-                "SCP-096":"SCP-096 containment",
-                "SCP-106":"SCP-106 containment",
-                "SCP-173":"SCP-173 containment",
-                "SCP-939":"SCP-939 containment" ]
+                "Micro-HID":"pokoju z Micro HID",
+                "nuke":"głowicy alfa",
+                "SCP-049":"klatce SCP-049",
+                "SCP-079":"klatce SCP-079",
+                "SCP-096":"klatce SCP-096",
+                "SCP-106":"klatce SCP-106",
+                "SCP-173":"klatce SCP-173",
+                "SCP-939":"klatce SCP-939" ]
         opened:
-            message: "<var:name> (<var:steamid>) opened a generator in <var:room>."
+            message: ":unlock: <var:name> (<var:steamid>) otowrzył generator w <var:room>."
             regex: [
-                "Micro-HID":"the Micro-HID room",
-                "nuke":"the nuke silo",
-                "SCP-049":"SCP-049 containment",
-                "SCP-079":"SCP-079 containment",
-                "SCP-096":"SCP-096 containment",
-                "SCP-106":"SCP-106 containment",
-                "SCP-173":"SCP-173 containment",
-                "SCP-939":"SCP-939 containment" ]
+                "Micro-HID":"pokoju z Micro HID",
+                "nuke":"głowicy alfa",
+                "SCP-049":"klatce SCP-049",
+                "SCP-079":"klatce SCP-079",
+                "SCP-096":"klatce SCP-096",
+                "SCP-106":"klatce SCP-106",
+                "SCP-173":"klatce SCP-173",
+                "SCP-939":"klatce SCP-939" ]
     ongeneratorinserttablet:
         # engaged - bool
         # hastablet - bool
@@ -775,16 +775,16 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) activated the generator in <var:room>."
+        message: "<var:name> (<var:steamid>) aktywował generaotr w <var:room>."
         regex: [
-            "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
     ongeneratorejecttablet:
         # engaged - bool
         # hastablet - bool
@@ -799,16 +799,16 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) ejected a tablet from the generator in <var:room>."
+        message: ":eject: <var:name> (<var:steamid>) wyjoł tablet z generatora obok <var:room>."
         regex: [
-            "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
     on079door:
         # open - bool
         # door - string
@@ -820,10 +820,10 @@ player:
         # class - Role
         # team - Team
         closed:
-            message: "<var:name> (<var:steamid>) closed a door as SCP-079."
+            message: "<var:name> (<var:steamid>) zamkął drzwi jako SCP-079."
             regex: []
         opened:
-            message: "<var:name> (<var:steamid>) opened a door as SCP-079."
+            message: "<var:name> (<var:steamid>) otworzył drzwi jako SCP-079."
             regex: []
     on079lock:
         # open - bool
@@ -836,10 +836,10 @@ player:
         # class - Role
         # team - Team
         unlocked:
-            message: "<var:name> (<var:steamid>) unlocked a door as SCP-079."
+            message: ":unlock: <var:name> (<var:steamid>) odblokował drzwi jako SCP-079."
             regex: []
         locked:
-            message: "<var:name> (<var:steamid>) locked a door as SCP-079."
+            message: ":lock: <var:name> (<var:steamid>) zablokował drzwi jako SCP-079."
             regex: []
     on079elevator:
         # elevator - ElevatorType
@@ -852,10 +852,10 @@ player:
         # class - Role
         # team - Team
         up:
-            message: "<var:name> (<var:steamid>) sent the <var:elevator> elevator up."
+            message: ":arrow_up: <var:name> (<var:steamid>) wysłał winde <var:elevator> na góre."
             regex: []
         down:
-            message: "<var:name> (<var:steamid>) sent the <var:elevator> elevator down."
+            message: ":arrow_down: <var:name> (<var:steamid>) wysłał winde <var:elevator> na dół."
             regex: []
     on079teslagate:
         # apdrain - float
@@ -865,7 +865,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) activated a tesla gate."
+        message: "<var:name> (<var:steamid>) aktywował tesle jako SCP-079."
         regex: []
     on079addexp:
         # xptype - ExperienceType
@@ -876,7 +876,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) got <var:amount> xp."
+        message: "<var:name> (<var:steamid>) zdobył <var:amount> xp."
         regex: []
     on079levelup:
         # ipaddress - string
@@ -885,7 +885,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) leveled up as SCP-079."
+        message: "<var:name> (<var:steamid>) zdobył kolejny level jako SCP-079."
         regex: []
     on079unlockdoors:
         # apdrain - float
@@ -895,7 +895,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) lost control over their locked doors."
+        message: ":unlock: <var:name> (<var:steamid>) stracił kontrole nad drzwiami."
         regex: []
     on079camerateleport:
         # apdrain - float
@@ -905,7 +905,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) switched camera."
+        message: "<var:name> (<var:steamid>) zmienił kamere."
         regex: []
     on079startspeaker:
         # room - RoomType
@@ -916,16 +916,16 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) started speaking in <var:room>."
+        message: ":speaker: <var:name> (<var:steamid>) zaczoł mówić w <var:room>."
         regex: [
-            "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
     on079stopspeaker:
         # room - RoomType
         # apdrain - float
@@ -935,16 +935,16 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) stopped speaking in <var:room>."
+        message: ":speaker: <var:name> (<var:steamid>) przestał mówić w <var:room>."
         regex: [
-            "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
     on079lockdown:
         # room - RoomType
         # apdrain - float
@@ -954,16 +954,16 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) has locked down <var:room>."
+        message: ":lock: <var:name> (<var:steamid>) zablokował <var:room>."
         regex: [
-            "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
+            "Micro-HID":"pokoju z Micro HID",
+            "nuke":"głowicy alfa",
+            "SCP-049":"klatce SCP-049",
+            "SCP-079":"klatce SCP-079",
+            "SCP-096":"klatce SCP-096",
+            "SCP-106":"klatce SCP-106",
+            "SCP-173":"klatce SCP-173",
+            "SCP-939":"klatce SCP-939" ]
     on079elevatorteleport:
         # elevator - ElevatorType
         # status - ElevatorStatus
@@ -974,8 +974,9 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) switched floor as SCP-079."
+        message: ":arrow_up_down: <var:name> (<var:steamid>) zmienił piętro jako SCP-079."
         regex: []
+
 admin:
     onadminquery:
         # ipaddress - string
@@ -988,7 +989,7 @@ admin:
         # output - string
         # query - string
         # successful - bool
-        message: "Admin <var:name> (<var:steamid>) executed command '<var:query>'"
+        message: ":keyboard:Admin <var:name> (<var:steamid>) wykonał komendę '<var:query>'"
         regex: []
     onauthcheck:
         # allow - bool
@@ -1000,8 +1001,8 @@ admin:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) checkaccess<var:allowed>."
-        regex: ["checkaccesstrue":"was allowed access to the admin panel", "checkaccessfalse":"tried to get access to the admin panel but was denied"]
+        message: ":closed_lock_with_key:<var:name> (<var:steamid>) checkaccess<var:allowed>."
+        regex: ["checkaccesstrue":"posiada uprawnienia do użycia panelu administratora", "checkaccessfalse":"próbował uzyskać dostęp do panelu administratora, lecz został odrzucony"]
     onban:
         # allowban - bool
         # duration - int
@@ -1021,37 +1022,37 @@ admin:
         # adminteam - Team
         admin:
             ban:
-                message: "Player <var:playername> (<var:playersteamid>) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes. Reason: <var:reason>"
+                message: ":no_entry:Gracz <var:playername> (<var:playersteamid>) został zbanowany przez <var:adminname> (<var:adminsteamid>) na <var:duration> minut. Powód: <var:reason>"
                 regex: []
             kick:
-                message: "Player <var:playername> (<var:playersteamid>) was kicked by <var:adminname> (<var:adminsteamid>). Reason: <var:reason>"
+                message: ":no_entry:Gracz <var:playername> (<var:playersteamid>) został wyrzucony przez <var:adminname> (<var:adminsteamid>). Powód: <var:reason>"
                 regex: []
         console:
             ban:
-                message: "Player <var:playername> (<var:playersteamid>) was banned by Skynet for <var:duration> minutes. Reason: <var:reason>"
+                message: ":no_entry:Gracz <var:playername> (<var:playersteamid>) został zbanowany przez <var:adminname> na <var:duration> minut. Powód: <var:reason>"
                 regex: []
             kick:
-                message: "Player <var:playername> (<var:playersteamid>) was kicked by Skynet. Reason: <var:reason>"
+                message: ":no_entry:Gracz <var:playername> (<var:playersteamid>) został wyrzucony przez <var:adminname>. Powód: <var:reason>"
                 regex: []
     
 team:
     ondecideteamrespawnqueue:
         # teams - Team[]
-        message: "Respawn queue decided."
+        message: "Drużyna gotowa do respawnu"
         regex: []
     onteamrespawn:
         # players - List<Player>
         # spawnchaos - bool
         mtf:
-            message: "**Mobile TaskForce Epsilon-11 designated Nine-Tailed Fox has entered the facility.**"
+            message: "**:cop:Nine-Tailed Fox wkracza do placówki.**"
             regex: []
         ci:
-            message: "**Facility incursion detected, intruders identified as members of hostile GOI \"Chaos Insurgency\".**"
+            message: "**:spy:Niautoryzowane wkroczenie do placówki, intruzi zweryfikowani jako \"Rebelia Chaosu\".**"
             regex: []
     onsetrolemaxhp:
         # maxhp - int
         # role - Role
-        message: "Max HP for <var:role> set to <var:maxhp>."
+        message: "Maksymalne zdrowie dla <var:role> ustawione na <var:maxhp>."
         regex: []
     onsetscpconfig:
         # banned049 - bool
@@ -1068,13 +1069,12 @@ team:
         # 173amount - int
         # 939_53amount - int
         # 939_89amount - int
-        message: "SCP settings set."
+        message: "Skonfigurowano podmioty SCP."
         regex: []
     onsetntfunitname:
         # name - string
-        message: "**MTF unit designated <var:name> has entered the facility.**"
+        message: "**Jednostka MTF <var:name> Wkroczyła do placówki.**"
         regex: []
-
 #####################################################################################################################
 #                                                                                                                   #
 #                                                   DISCORD BOT                                                     #
@@ -1086,73 +1086,70 @@ team:
 
 botmessages:
     connectedtobot:
-        message: "```diff\n+ SCP:SL server connected.```"
+        message: "```diff\n+ Połączono z serwerem SCP:SL```"
         regex: []
     reconnectedtobot:
-        message: "```diff\n+ SCP:SL server reconnected.```"
+        message: "```diff\n+ Połączono ponownie z serwerem SCP:SL```"
         regex: []
 
 botresponses:
     missingarguments:
         # command - string
-        message: "```diff\n- Missing arguments.```"
+        message: "```diff\n- Brakujące argumenty komendy```"
         regex: []
     invalidsteamid:
         # steamid - string
-        message: "```diff\n- Invalid SteamID '<var:steamid>'.```"
+        message: "```diff\n- Błędne SteamID '<var:steamid>'.```"
         regex: []
     invalidsteamidorip:
         # steamidorip - string
-        message: "```diff\n- Invalid SteamID or IP '<var:steamidorip>'.```"
+        message: "```diff\n- Błędna SteamID lub IP '<var:steamidorip>'.```"
         regex: []
     invalidduration:
         # duration - string
-        message: "```diff\n- Invalid duration '<var:duration>'.```"
+        message: "```diff\n- Błędna długość czasu: '<var:duration>'.```"
         regex: []
     playernotfound:
         # steamid - string
-        message: "```diff\n- Player with SteamID '<var:steamid>' not found.```"
+        message: "```diff\n- Nie znaleziono gracza ze SteamID '<var:steamid>' ```"
         regex: []
     playerkicked:
         # name - string
         # steamid - string
-        # admintag - string
-        message: "```diff\n+ '<var:name>' (<var:steamid>) was kicked from the server by <var:admintag>.```"
+        message: "```diff\n+ '<var:name>' (<var:steamid>) został wyrzucony z serwera.```"
         regex: []
     playerbanned:
         # name - string
         # steamid - string
         # reason - string
         # duration - string
-        # admintag - string
-        message: "```diff\n+ '<var:name>' (<var:steamid>) was banned from the server by <var:admintag> for the reason '<var:reason>' (<var:duration>).```"
+        message: "```diff\n+ '<var:name>' (<var:steamid>) został zbanowany. Powód: '<var:reason>' (<var:duration>).```"
         regex: []
     playerunbanned:
         # steamidorip - string
-        message: "```diff\n+ All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists.```"
+        message: "```diff\n+ Wszystkie wpisy z podanym SteamID bądź IP '<var:steamidorip>' zostały usunięte z listy osób zbanowanych.```"
         regex: []
     kickall:
         # reason - string
-        # admintag - string
-        message: "```diff\n+ All players have been kicked from the server by <var:admintag> with the reason '<var:reason>'.```"
+        message: "```diff\n+ Wszyscy gracze zostali wyrzuceni z serwera. Powód: '<var:reason>'.```"
         regex: []
     exit:
-        message: "```diff\n- The exit command cannot be used from Discord.```"
+        message: "```diff\n- Komenda \"exit\" nie może zostać użyta przez bota```"
         regex: []
     help:
-        message: "```diff\n- The help command will be implemented in one of the next few updates of SCPDiscord.```"
+        message: "```diff\n- Komenda \"help\" zostanie zaimplementowana w jednej z kolejnych wersji SCPDiscord```"
         regex: []
     toggletag:
         notinstalled:
-            message: "```diff\n- This command requires the ToggleTag plugin.```"
+            message: "```diff\n- Komenda wymaga zainstalowanego pluginu ToggleTag```"
             regex: []
     vpnshield:
         notinstalled:
-            message: "```diff\n- This command requires the VPNShield plugin.```"
+            message: "```diff\n- Komenda wymaga zainstalowanego pluginu VPNShield```"
             regex: []
     scpermissions:
         notinstalled:
-            message: "```diff\n- This command requires the SCPermissions plugin.```"
+            message: "```diff\n- Komenda wymaga zainstalowanego SCPermissions.```"
             regex: []
     # The feedback from a console command, except the custom ones above. (Is not affected by global regex other than final_regex)
     consolecommandfeedback:
@@ -1185,5 +1182,5 @@ topic:
     # scpstart - int
     # zombies - int
     # tps - float
-    message: "Players online: <var:players>/<var:maxplayers>. Round has lasted <var:roundduration> minutes. Active SCP: <var:scpalive>. Warhead switchdetonation<var:warheaddetonated> been detonated. Uptime: <var:uptime> minutes. IP: <var:ip>:<var:port> TPS: <var:tps>"
-    regex: [ "switchdetonationTrue":"has", "switchdetonationFalse":"has not", " 1 minutes":" 1 minute" ]
+    message: "Graczy online: <var:players>/<var:maxplayers>. Runda trwa <var:roundduration> minut. Żyje <var:scpalive> SCP. Głowica Alfa <var:warheaddetonated> zdetonowana. Serwer działa od: <var:uptime> minut. IP: <var:ip>:<var:port> TPS: <var:tps>"
+    regex: [ "switchdetonationTrue":"została", "switchdetonationFalse":"nie została", " 1 minutes":" 1 minute" ]
