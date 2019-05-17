@@ -78,6 +78,8 @@ namespace SCPDiscord
 			AddCommand("scpd_rrs", new RemoveReservedSlotCommand());
 			AddCommand("scpd_grantreservedslot", new ValidateCommand());
 			AddCommand("scpd_removereservedslot", new RemoveReservedSlotCommand());
+			AddCommand("scpd_gvr", new GrantVanillaRankCommand());
+			AddCommand("scpd_grantvanillarank", new GrantVanillaRankCommand());
 
 			SetUpFileSystem();
             this.roleSync = new RoleSync(this);
