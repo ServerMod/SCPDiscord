@@ -70,7 +70,7 @@ namespace SCPDiscord
                                             {
                                                 { "command", messages[0] }
                                             };
-                                            plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                            plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
                                         }
                                         break;
 
@@ -86,7 +86,7 @@ namespace SCPDiscord
                                             {
                                                 { "command", messages[0] }
                                             };
-                                            plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                            plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
                                         }
                                         break;
 
@@ -106,7 +106,7 @@ namespace SCPDiscord
                                             {
                                                 { "command", messages[0] }
                                             };
-                                            plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                            plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
                                         }
                                         break;
 
@@ -121,11 +121,11 @@ namespace SCPDiscord
                                         break;
 
                                     case "exit":
-                                        plugin.SendMessage(channel, "botresponses.exit");
+                                        plugin.SendMessageByID(channel, "botresponses.exit");
                                         break;
 
                                     case "help":
-                                        plugin.SendMessage(channel, "botresponses.help");
+                                        plugin.SendMessageByID(channel, "botresponses.help");
                                         break;
 
                                     case "hidetag":
@@ -141,7 +141,7 @@ namespace SCPDiscord
                                                 {
                                                     { "feedback", response }
                                                 };
-                                                plugin.SendMessage(channel, "botresponses.consolecommandfeedback", variables);
+                                                plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
                                             }
                                             else
                                             {
@@ -149,12 +149,12 @@ namespace SCPDiscord
                                                 {
                                                     { "command", command }
                                                 };
-                                                plugin.SendMessage(channel, "botresponses.missingarguments", variables);
+                                                plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
                                             }
                                         }
                                         else
                                         {
-                                            plugin.SendMessage(channel, "botresponses.toggletag.notinstalled");
+                                            plugin.SendMessageByID(channel, "botresponses.toggletag.notinstalled");
                                         }
                                         break;
 
@@ -170,11 +170,11 @@ namespace SCPDiscord
                                             {
                                                 { "feedback", response }
                                             };
-                                            plugin.SendMessage(channel, "botresponses.consolecommandfeedback", variables);
+                                            plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
                                         }
                                         else
                                         {
-                                            plugin.SendMessage(channel, "botresponses.vpnshield.notinstalled");
+                                            plugin.SendMessageByID(channel, "botresponses.vpnshield.notinstalled");
                                         }
                                         break;
 
@@ -196,11 +196,11 @@ namespace SCPDiscord
 											{
 												{ "feedback", response }
 											};
-											plugin.SendMessage(channel, "botresponses.consolecommandfeedback", variables);
+											plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
 										}
 										else
 										{
-											plugin.SendMessage(channel, "botresponses.scpermissions.notinstalled");
+											plugin.SendMessageByID(channel, "botresponses.scpermissions.notinstalled");
 										}
 										break;
                                     case "syncrole":
@@ -216,7 +216,7 @@ namespace SCPDiscord
                                         {
                                             { "feedback", response }
                                         };
-                                        plugin.SendMessage(channel, "botresponses.consolecommandfeedback", variables);
+                                        plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
                                         break;
                                 }
                             }
@@ -258,7 +258,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessage(channelID, "botresponses.invalidsteamid", variables);
+                plugin.SendMessageByID(channelID, "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -280,7 +280,7 @@ namespace SCPDiscord
                 {
                     { "duration", duration }
                 };
-                plugin.SendMessage(channelID, "botresponses.invalidduration", variables);
+                plugin.SendMessageByID(channelID, "botresponses.invalidduration", variables);
                 return;
             }
 
@@ -332,7 +332,7 @@ namespace SCPDiscord
                 {
                     { "steamidorip", steamIDOrIP }
                 };
-                plugin.SendMessage(channelID, "botresponses.invalidsteamidorip", variables);
+                plugin.SendMessageByID(channelID, "botresponses.invalidsteamidorip", variables);
                 return;
             }
 
@@ -386,7 +386,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessage(channelID, "botresponses.invalidsteamid", variables);
+                plugin.SendMessageByID(channelID, "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -403,7 +403,7 @@ namespace SCPDiscord
                     { "steamid", steamID },
                     { "admintag", adminTag }
                 };
-                plugin.SendMessage(channelID, "botresponses.playerkicked", variables);
+                plugin.SendMessageByID(channelID, "botresponses.playerkicked", variables);
             }
             else
             {
@@ -411,7 +411,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessage(channelID, "botresponses.playernotfound", variables);
+                plugin.SendMessageByID(channelID, "botresponses.playernotfound", variables);
             }
         }
 
@@ -435,7 +435,7 @@ namespace SCPDiscord
                 { "reason", reason },
 				{ "admintag", adminTag}
             };
-            plugin.SendMessage(channelID, "botresponses.kickall", variables);
+            plugin.SendMessageByID(channelID, "botresponses.kickall", variables);
         }
 
 		/// <summary>

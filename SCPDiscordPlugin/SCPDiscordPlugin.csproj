@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -61,10 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Commands\DebugCommand.cs" />
     <Compile Include="EventListeners\AdminEventListener.cs" />
     <Compile Include="BotListener.cs" />
     <Compile Include="EventListeners\EnvironmentEventListener.cs" />
     <Compile Include="EventListeners\PlayerEventListener.cs" />
+    <Compile Include="Commands\GrantReservedSlotCommand.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="NetworkSystem.cs" />
     <Compile Include="EventListeners\RoundEventListener.cs" />
@@ -78,10 +80,16 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Commands\ReconnectCommand.cs" />
+    <Compile Include="Commands\ReloadCommand.cs" />
+    <Compile Include="Commands\RemoveReservedSlotCommand.cs" />
     <Compile Include="RoleSync.cs" />
     <Compile Include="SCPDiscord.cs" />
     <Compile Include="EventListeners\TeamEventListener.cs" />
     <Compile Include="EventListeners\TickCounter.cs" />
+    <Compile Include="Commands\UnsyncCommand.cs" />
+    <Compile Include="Commands\VerboseCommand.cs" />
+    <Compile Include="Commands\ValidateCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -117,6 +125,7 @@
     <Content Include="lib\Assembly-CSharp.dll" />
     <Content Include="lib\Smod2.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>taskkill /F /IM SCPSL.exe /T 2&gt;nul &amp;set errorlevel=0

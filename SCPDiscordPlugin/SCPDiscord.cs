@@ -230,22 +230,32 @@ namespace SCPDiscord
 			}
 		}
 
+		// TODO: Set message functions back to void whenever piping void functions is fixed.
+
 		/// <summary>
-		/// Enqueue a string to be sent to Discord
+		/// Enqueue a string to be sent to Discord.
 		/// </summary>
 		/// <param name="channelAliases">The user friendly name of the channel, set in the config.</param>
 		/// <param name="message">The message to be sent.</param>
 		[PipeMethod]
-		public void SendString(IEnumerable<string> channelAliases, string message)
+		public bool SendString(IEnumerable<string> channelAliases, string message)
         {
             foreach (string channel in channelAliases)
             {
                 if (Config.GetDict("aliases").ContainsKey(channel))
                 {
-                    NetworkSystem.QueueMessage(channel + message);
+                    NetworkSystem.QueueMessage(Config.GetDict("aliases")[channel] + message);
                 }
             }
+
+            return true;
         }
+		[PipeMethod]
+		public bool SendStringByID(string channelID, string message)
+		{
+			NetworkSystem.QueueMessage(channelID + message);
+			return true;
+		}
 
 		/// <summary>
 		/// Sends a message from the loaded language file.
@@ -254,7 +264,7 @@ namespace SCPDiscord
 		/// <param name="messagePath">The language node of the message to send.</param>
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
 		[PipeMethod]
-		public void SendMessage(IEnumerable<string> channelAliases, string messagePath, Dictionary<string, string> variables = null)
+		public bool SendMessage(IEnumerable<string> channelAliases, string messagePath, Dictionary<string, string> variables = null)
         {
             foreach (string channel in channelAliases)
             {
@@ -265,6 +275,8 @@ namespace SCPDiscord
                     messageThread.Start();
                 }
             }
+
+            return true;
         }
 
 		/// <summary>
@@ -274,11 +286,11 @@ namespace SCPDiscord
 		/// <param name="messagePath">The language node of the message to send.</param>
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
 		[PipeMethod]
-		public void SendMessage(string channelID, string messagePath, Dictionary<string, string> variables = null)
+		public bool SendMessageByID(string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
 	        // ReSharper disable once ObjectCreationAsStatement
-	        Thread messageThread = new Thread(() => new ProcessMessageAsync(channelID, messagePath, variables));
-            messageThread.Start();
+	        new Thread(() => new ProcessMessageAsync(channelID, messagePath, variables)).Start();
+            return true;
         }
 
         /// <summary>
