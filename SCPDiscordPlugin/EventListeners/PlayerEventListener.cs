@@ -11,7 +11,7 @@ namespace SCPDiscord.EventListeners
         IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerLure, IEventHandlerContain106, IEventHandlerMedkitUse,
         IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerHandcuffed,
         IEventHandlerRecallZombie, IEventHandlerCallCommand, IEventHandlerReload,
-        IEventHandlerGeneratorUnlock, IEventHandlerGeneratorInsertTablet, IEventHandler079LevelUp
+        IEventHandlerGeneratorUnlock, IEventHandlerGeneratorInsertTablet, IEventHandlerGeneratorEjectTablet, IEventHandler079LevelUp
     {
         private readonly SCPDiscord plugin;
 
