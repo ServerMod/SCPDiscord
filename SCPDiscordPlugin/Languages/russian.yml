@@ -1116,14 +1116,16 @@ botresponses:
     playerkicked:
         # name - string
         # steamid - string
-        message: "```diff\n+ Игрок <var:name> (<var:steamid>) был кикнут с сервера.```"
+        # admintag - string
+        message: "```diff\n+ Игрок <var:name> (<var:steamid>) был кикнут с сервера администратором <var:admintag>.```"
         regex: []
     playerbanned:
         # name - string
         # steamid - string
         # reason - string
         # duration - string
-        message: "```diff\n+ Игрок <var:name> (<var:steamid>) был забанен по причине '<var:reason>' (<var:duration>).```"
+        # admintag - string
+        message: "```diff\n+ Игрок <var:name> (<var:steamid>) был забанен администратором <var:admintag> по причине '<var:reason>' (<var:duration>).```"
         regex: []
     playerunbanned:
         # steamidorip - string
@@ -1131,7 +1133,8 @@ botresponses:
         regex: []
     kickall:
         # reason - string
-        message: "```diff\n+ Все игроки были кикнуты с сервера по причине '<var:reason>'.```"
+        # admintag - string
+        message: "```diff\n+ Все игроки были кикнуты с сервера администратором <var:admintag> по причине '<var:reason>'.```"
         regex: []
     exit:
         message: "```diff\n- Команда exit не может быть использована из Discord.```"
@@ -1141,11 +1144,15 @@ botresponses:
         regex: []
     toggletag:
         notinstalled:
-            message: "```diff\n- Эта команда требует ToggleTag плагин.```"
+            message: "```diff\n- Эта команда требует плагин ToggleTag.```"
             regex: []
     vpnshield:
         notinstalled:
-            message: "```diff\n- Эта команда требует VPNShield плагин.```"
+            message: "```diff\n- Эта команда требует плагин VPNShield.```"
+            regex: []
+    scpermissions:
+        notinstalled:
+            message: "```diff\n- Эта команда требует плагин SCPermissions.```"
             regex: []
     # The feedback from a console command, except the custom ones above. (Is not affected by regex other than final_regex)
     consolecommandfeedback:
