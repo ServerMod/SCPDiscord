@@ -43,7 +43,7 @@ rolesync:
         - "scperms_givetemprank <var:steamid> donator"
         - "pbc <var:steamid> 3 Donator role synced from Discord."
         - "scpd_grantreservedslot <var:steamid>"
-    - "add-everyone-role-id-here"
+    - "add-everyone-role-id-here":
         - "scpd_removereservedslot <var:steamid>"
 
 # Name your channels here, this name is used in the channels section below. The left value is a name of your choice and the right is a channel id you want it to represent.
