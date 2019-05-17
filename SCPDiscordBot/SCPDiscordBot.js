@@ -11,6 +11,7 @@ const {
 	commandChannels,
 	verbose,
 	cooldown,
+	delay,
 	permissions,
 	serverID
 } = yaml.parse(file);
@@ -78,13 +79,13 @@ function syncRoleCommand(message, args)
 	var output = "command " + message.channel.id + " syncrole ";
 	if (args.length < 1)
 	{
-		message.channel.send("```diff\n- Missing arguments.```");
+		sendMessage(message.channel, "```diff\n- Missing arguments.```");
 		return;
 	}
 
 	if (args[0].length !== 17 || isNaN(args[0]))
 	{
-		message.channel.send("```diff\n- Not a valid SteamID64.```");
+		sendMessage(message.channel, "```diff\n- Not a valid SteamID64.```");
 		return;
 	}
 	output += args[0];
@@ -104,6 +105,22 @@ function unsyncRoleCommand(message)
 	});
 }
 
+
+function sendMessage(channel, message)
+{
+	if (channel != null)
+	{
+		setTimeout(() => channel.send(message), delay);
+		if (verbose)
+		{
+			console.log("Sent: '" + message + "' to channel '#" + channel.name + "'.");
+		}
+	}
+	else if (verbose)
+	{
+		console.warn("Channel not found for message: " + message);
+	}
+}
 // Connection event
 tcpServer.on("connection", (socket) =>
 {
@@ -204,45 +221,27 @@ tcpServer.on("connection", (socket) =>
 		for (let channelID in messageQueue)
 		{
 			const verifiedChannel = discordClient.channels.get(channelID);
-			if (verifiedChannel != null)
+			//Message is copied to a new variable as it's deletion later may happen before the send function finishes
+			let message = messageQueue[channelID].slice(0, -1);
+
+			// If message is too long, split it up
+			while (message.length >= 2000)
 			{
-				//Message is copied to a new variable as it's deletion later may happen before the send function finishes
-				let message = messageQueue[channelID].slice(0, -1);
-
-				// If message is too long, split it up
-				while (message.length >= 2000)
+				const cutMessage = message.slice(0, 1999);
+				message = message.slice(1999);
+				if (cutMessage != null && cutMessage !== " " && cutMessage !== "")
 				{
-					const cutMessage = message.slice(0, 1999);
-					message = message.slice(1999);
-					if (cutMessage != null && cutMessage !== " " && cutMessage !== "")
+					if (discordClient.status)
 					{
-						if (discordClient.status)
-						{
-							verifiedChannel.send(cutMessage);
-							if (verbose)
-							{
-								console.log("Sent: " + channelID + ": '" + cutMessage + "' to Discord.");
-							}
-						}
-					}
-				}
-
-				// Send remaining message
-				if (message !== " " && message !== "")
-				{
-					verifiedChannel.send(message);
-					if (verbose)
-					{
-						console.log("Sent: " + channelID + ": '" + message + "' to Discord.");
+						sendMessage(verifiedChannel, message);
 					}
 				}
 			}
-			else
+
+			// Send remaining message
+			if (message !== " " && message !== "")
 			{
-				if (verbose)
-				{
-					console.warn("Channel not found for message: " + messageQueue[channelID]);
-				}
+				sendMessage(verifiedChannel, message);
 			}
 			messageQueue[channelID] = "";
 		}
@@ -273,7 +272,7 @@ tcpServer.on("connection", (socket) =>
 			const verifiedChannel = discordClient.channels.get(statusChannels[i]);
 			if (verifiedChannel != null)
 			{
-				verifiedChannel.send("```diff\n- SCP:SL server connection lost.```");
+				sendMessage(verifiedChannel, "```diff\n- SCP:SL server connection lost.```");
 			}
 			else if (verbose)
 			{
@@ -297,7 +296,7 @@ discordClient.on("ready", () =>
 		const verifiedChannel = discordClient.channels.get(statusChannels[i]);
 		if (verifiedChannel != null)
 		{
-			verifiedChannel.send("```diff\n+ Bot Online.```");
+			sendMessage(verifiedChannel, "```diff\n+ Bot Online.```");
 		}
 		else if (verbose)
 		{
@@ -326,11 +325,9 @@ discordClient.on("message", (message) =>
 	const command = args.shift().toLowerCase();
 	if (hasPermission(message.member, command))
 	{
-		//message.channel.send("```diff\n+ You are allowed to use this command```");
 		if (sockets.length < 1)
 		{
-			message.channel.send(
-				"```diff\n- The SCP:SL server is not currently connected to the bot server, could not deliver command.```");
+			sendMessage(message.channel, "```diff\n- The SCP:SL server is not currently connected to the bot server, could not deliver command.```");
 			return;
 		}
 
@@ -371,7 +368,7 @@ discordClient.on("message", (message) =>
 	}
 	else
 	{
-		message.channel.send("```diff\n- You are not allowed to use this command.```");
+		sendMessage(message.channel, "```diff\n- You are not allowed to use this command.```");
 	}
 });
 
@@ -479,7 +476,7 @@ function shutdown()
 					const verifiedChannel = discordClient.channels.get(statusChannels[i]);
 					if (verifiedChannel != null)
 					{
-						verifiedChannel.send("```diff\n- Bot shutting down...```");
+						sendMessage(verifiedChannel, "```diff\n- Bot shutting down...```");
 					}
 					else if (verbose)
 					{

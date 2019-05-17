@@ -19,6 +19,9 @@ verbose: false
 # Message cooldown, number of milliseconds to wait between sending messages. Use this if your server sends too many messages for the bot to keep up. (Bot will get delayed if it hits more than 5 messages per 5 seconds)
 cooldown: 1000
 
+# Message cooldown in milliseconds, use this if you want to keep players from ghosting by looking at the Discord channel while they play.
+delay: 0
+
 # Set permissions for discord roles here, the list names are the names of the discord roles and the list items are the first word of a command. Discord admins have access to all commands.
 permissions:
     "add-role-id-1-here": # An everyone role example
