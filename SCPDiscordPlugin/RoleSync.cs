@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using Smod2.API;
-using Smod2.EventHandlers;
-using Smod2.Events;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,6 +14,9 @@ namespace SCPDiscord
     public class RoleSync
     {
         private Dictionary<string, string> syncedPlayers = new Dictionary<string, string>();
+
+		// This variable is set when the config reloads instead of when the role system reloads as the config has to be read to get the info anyway
+		public Dictionary<string, string[]> roleDictionary = new Dictionary<string, string[]>();
 
         private readonly SCPDiscord plugin;
         public RoleSync(SCPDiscord plugin)
@@ -54,13 +55,39 @@ namespace SCPDiscord
             NetworkSystem.QueueMessage("rolequery " + steamID + " " + syncedPlayers[steamID]);
         }
 
-        public void ReceiveQueryResponse(string steamID, string gameRole)
+        public void ReceiveQueryResponse(string steamID, string jsonString)
         {
             Player player = plugin.Server.GetPlayers(steamID)[0];
+			
             if (player != null)
             {
-                player.SetRank(null, null, gameRole);
-				plugin.Verbose("Set " + player.Name + "'s rank to " + gameRole + " (" + player.GetRankName() + ").");
+	            List<string> roles = JArray.Parse(jsonString).Values<string>().ToList();
+				foreach (KeyValuePair<string, string[]> keyValuePair in this.roleDictionary)
+				{
+					if (roles.Contains(keyValuePair.Key))
+					{
+						Dictionary<string, string> variables = new Dictionary<string, string>
+						{
+							{ "ipaddress",    player.IpAddress                 },
+							{ "name",         player.Name                      },
+							{ "playerid",     player.PlayerId.ToString()       },
+							{ "steamid",      player.SteamId                   }
+						};
+						foreach (string unparsedCommand in keyValuePair.Value)
+						{
+							string command = unparsedCommand;
+							// Variable insertion
+							foreach (KeyValuePair<string, string> variable in variables)
+							{
+								command = command.Replace("<var:" + variable.Key + ">", variable.Value);
+							}
+							plugin.Debug(this.plugin.ConsoleCommand(null, command.Split(' ')[0], command.Split(' ').Skip(1).ToArray()));
+						}
+			            
+						plugin.Verbose("Synced " + player.Name);
+						return;
+					}
+				}
             }
         }
 
@@ -178,14 +205,6 @@ namespace SCPDiscord
                 return "Discord user ID is not linked to a Steam account";
             }
             
-        }
-    }
-
-    public class SyncPlayerRole : IEventHandlerPlayerJoin
-    {
-        public void OnPlayerJoin(PlayerJoinEvent ev)
-        {
-            SCPDiscord.plugin.roleSync.SendRoleQuery(ev.Player.SteamId);
         }
     }
 }

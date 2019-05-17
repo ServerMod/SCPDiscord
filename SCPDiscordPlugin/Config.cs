@@ -27,9 +27,10 @@ namespace SCPDiscord
             { "settings.verbose",           true    },
             { "settings.debug",             false   },
             { "settings.metrics",           true    },
-            { "settings.configvalidation",  true    }
-        };
-
+            { "settings.configvalidation",  true    },
+            { "settings.rolesync",          false   }
+		};
+		
         private static readonly Dictionary<string, int> configInts = new Dictionary<string, int>
         {
             { "bot.port", 8888 }
@@ -112,7 +113,7 @@ namespace SCPDiscord
             { "aliases", new Dictionary<string, string>() }
         };
 
-        internal static void Reload(SCPDiscord plugin)
+		internal static void Reload(SCPDiscord plugin)
         {
             ready = false;
             plugin.SetUpFileSystem();
@@ -123,7 +124,7 @@ namespace SCPDiscord
             // Converts the FileStream into a YAML Dictionary object
             IDeserializer deserializer = new DeserializerBuilder().Build();
             object yamlObject = deserializer.Deserialize(new StreamReader(stream));
-
+			
             // Converts the YAML Dictionary into JSON String
             ISerializer serializer = new SerializerBuilder()
                 .JsonCompatible()
@@ -139,10 +140,7 @@ namespace SCPDiscord
             }
             catch (ArgumentNullException)
             {
-                if (GetBool("settings.configvalidation"))
-                {
-                    plugin.Warn("Config bool 'settings.configvalidation' not found, using default value: true");
-                }
+	            plugin.Warn("Config bool 'settings.configvalidation' not found, using default value: true");
             }
 
             // Read config strings
@@ -186,7 +184,7 @@ namespace SCPDiscord
                 }
                 catch (ArgumentNullException)
                 {
-                    if (GetBool("settings.configvalidation"))
+                    if (GetBool("settings.configvalidation") && node.Key != "settings.metrics")
                     {
                         plugin.Warn("Config bool '" + node.Key + "' not found, using default value: " + node.Value);
                     }
@@ -225,7 +223,20 @@ namespace SCPDiscord
                 }
             }
 
-            if (GetBool("settings.configvalidation"))
+			// Read rolesync system
+            try
+            {
+	            plugin.roleSync.roleDictionary = json.SelectToken("rolesync").Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<JArray>().Values<string>().ToArray());
+			}
+            catch (ArgumentNullException)
+            {
+	            if (GetBool("settings.configvalidation"))
+	            {
+		            plugin.Warn("Config bool 'settings.configvalidation' not found, using default value: true");
+	            }
+            }
+
+            if (GetBool("settings.configvalidation") && GetBool("settings.verbose"))
             {
                 ValidateConfig(plugin);
             }
@@ -286,7 +297,7 @@ namespace SCPDiscord
         public static void ValidateConfig(SCPDiscord plugin)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("||||||||||||| SCPDiscord config validator ||||||||||||||\n");
+            sb.Append("\n||||||||||||| SCPDiscord config validator ||||||||||||||\n");
             sb.Append("------------ Config strings ------------\n");
             foreach (KeyValuePair<string, string> node in configStrings)
             {
@@ -334,7 +345,22 @@ namespace SCPDiscord
                     sb.Append("    " + subNode.Key + ": " + subNode.Value + "\n");
                 }
             }
-            sb.Append("|||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+
+            sb.Append("------------ Rolesync system ------------\n");
+            foreach (KeyValuePair<string, string[]> node in plugin.roleSync.roleDictionary)
+            {
+	            if (!Regex.IsMatch(node.Key, @"^\d+$"))
+	            {
+		            sb.Append("WARNING: Invalid channel ID: " + node.Key + "!\n");
+	            }
+	            sb.Append(node.Key + ":\n");
+	            foreach (string command in node.Value)
+	            {
+		            sb.Append("    " + command + "\n");
+	            }
+            }
+
+			sb.Append("|||||||||||| End of config validation ||||||||||||");
             plugin.Info(sb.ToString());
         }
     }

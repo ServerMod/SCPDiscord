@@ -255,7 +255,7 @@ namespace SCPDiscord
                 foreach (KeyValuePair<string, string> variable in variables)
                 {
                     // Wait until after the regex replacements to add the player names
-                    if (variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname" || variable.Key == "feedback")
+                    if (variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname" || variable.Key == "feedback" || variable.Key == "admintag")
                     {
                         continue;
                     }
@@ -305,10 +305,7 @@ namespace SCPDiscord
                 // Add names/command feedback to the message //
                 foreach (KeyValuePair<string, string> variable in variables)
                 {
-                    if (variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname" || variable.Key == "feedback")
-                    {
-                        message = message.Replace("<var:" + variable.Key + ">", EscapeDiscordFormatting(variable.Value));
-                    }
+                    message = message.Replace("<var:" + variable.Key + ">", EscapeDiscordFormatting(variable.Value));
                 }
                 ///////////////////////////////////////////////
 
