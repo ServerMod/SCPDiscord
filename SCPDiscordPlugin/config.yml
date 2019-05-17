@@ -36,7 +36,7 @@ settings:
 # ipadress
 rolesync:
     - "add-role-id-here":
-        - "scperms_givetemprank <var:steamid> moderator"
+        - "scperms_givetemprank <var:steamid> moderator" # If you have no need for a permissions plugin you can also set their vanilla rank using the "scpd_grantvanillarank" command
         - "pbc <var:steamid> 3 Moderator role synced from Discord."
         - "scpd_grantreservedslot <var:steamid>"
     - "add-another-role-id-here":
