@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\GrantVanillaRankCommand.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Commands\DebugCommand.cs" />
     <Compile Include="EventListeners\AdminEventListener.cs" />
