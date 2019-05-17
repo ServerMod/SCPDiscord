@@ -1116,14 +1116,16 @@ botresponses:
     playerkicked:
         # name - string
         # steamid - string
-        message: "```diff\n+ '<var:name>' (<var:steamid>) został wyrzucony z serwera.```"
+        # admintag - string        
+        message: "```diff\n+ '<var:name>' (<var:steamid>) został wyrzucony z serwera przez <var:admintag>.```"
         regex: []
     playerbanned:
         # name - string
         # steamid - string
         # reason - string
         # duration - string
-        message: "```diff\n+ '<var:name>' (<var:steamid>) został zbanowany. Powód: '<var:reason>' (<var:duration>).```"
+        # admintag - string
+        message: "```diff\n+ '<var:name>' (<var:steamid>) został zbanowany przez <var:admintag>. Powód: '<var:reason>' (<var:duration>).```"
         regex: []
     playerunbanned:
         # steamidorip - string
@@ -1131,7 +1133,8 @@ botresponses:
         regex: []
     kickall:
         # reason - string
-        message: "```diff\n+ Wszyscy gracze zostali wyrzuceni z serwera. Powód: '<var:reason>'.```"
+        # admintag - string
+        message: "```diff\n+ Wszyscy gracze zostali wyrzuceni z serwera pzrzez <var:admintag>. Powód: '<var:reason>'.```"
         regex: []
     exit:
         message: "```diff\n- Komenda \"exit\" nie może zostać użyta przez bota```"
