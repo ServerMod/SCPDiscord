@@ -45,8 +45,8 @@ namespace SCPDiscord
                             if (words[0] == "command")
                             {
                                 string channel = words[1];
-                                string command = words[2];
-                                string discordTag = words[3].Replace('_', ' ');
+                                string discordTag = words[2].Replace('_', ' ');
+                                string command = words[3];
                                 string[] arguments = new string[0];
                                 if(words.Length >= 5)
                                 {
