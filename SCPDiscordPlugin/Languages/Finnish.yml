@@ -1114,14 +1114,16 @@ botresponses:
     playerkicked:
         # name - string
         # steamid - string
-        message: "```diff\n+ '<var:name>' (<var:steamid>) potkittiin ulos palvelimelta.```"
+        # admintag - string
+        message: "```diff\n+ <var:admintag> potki ulos pelaajan '<var:name>' (<var:steamid>) palvelimelta.```"
         regex: []
     playerbanned:
         # name - string
         # steamid - string
         # reason - string
         # duration - string
-        message: "```diff\n+ '<var:name>' (<var:steamid>) pelaaja sai porttikiellon palvelimelta syystä '<var:reason>' (<var:duration>).```"
+        # admintag - string
+        message: "```diff\n+ (<var:steamid>) antoi pelaajalle '<var:name>' (<var:steamid>) porttikiellon syystä: '<var:reason>' (<var:duration>).```"
         regex: []
     playerunbanned:
         # steamidorip - string
@@ -1129,7 +1131,8 @@ botresponses:
         regex: []
     kickall:
         # reason - string
-        message: "```diff\n+ kaikki pelaajat potkittiin ulos palvelimelta syystä '<var:reason>'.```"
+        # admintag - string
+        message: "```diff\n+ <var:admintag> potki kaikki pelaajat ulos palvelimelta syystä: '<var:reason>'.```"
         regex: []
     exit:
         message: "```diff\n- Exit komentoa ei voi käyttää discordista.```"
