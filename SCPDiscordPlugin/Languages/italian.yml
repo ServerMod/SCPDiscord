@@ -1033,7 +1033,7 @@ team:
 
 botmessages:
     connectedtobot:
-        message: "```diff\n+ SCP:SL server Riavviato.```"
+        message: "```diff\n+ SCP:SL server Connesso.```"
         regex: []
     reconnectedtobot:
         message: "```diff\n+ SCP:SL server Riconnesso.```"
@@ -1042,23 +1042,23 @@ botmessages:
 botresponses:
     missingarguments:
         # command - string
-        message: "```diff\n- Missing arguments.```"
+        message: "```diff\n- Mancano parametri.```"
         regex: []
     invalidsteamid:
         # steamid - string
-        message: "```diff\n- Invalid SteamID '<var:steamid>'.```"
+        message: "```diff\n- SteamID non valido '<var:steamid>'.```"
         regex: []
     invalidsteamidorip:
         # steamidorip - string
-        message: "```diff\n- Invalid SteamID or IP '<var:steamidorip>'.```"
+        message: "```diff\n- SteamID o IP non valido '<var:steamidorip>'.```"
         regex: []
     invalidduration:
         # duration - string
-        message: "```diff\n- Invalid duration '<var:duration>'.```"
+        message: "```diff\n- Durata non valida '<var:duration>'.```"
         regex: []
     playernotfound:
         # steamid - string
-        message: "```diff\n- Player with SteamID '<var:steamid>' not found.```"
+        message: "```diff\n- Utente con SteamID '<var:steamid>' non trovato.```"
         regex: []
     playerkicked:
         # name - string
@@ -1084,22 +1084,22 @@ botresponses:
         message: "```diff\n+ Tutti i giocatori sono stati espulsi dal server da `<var:admintag>` per '<var:reason>'.```"
         regex: []
     exit:
-        message: "```diff\n- The exit command cannot be used from Discord.```"
+        message: "```diff\n- Il comando exit non puo essere usato da Discord.```"
         regex: []
     help:
-        message: "```diff\n- The help command will be implemented in one of the next few updates of SCPDiscord.```"
+        message: "```diff\n- Il comando Help sara introdotto in una prossima versione.```"
         regex: []
     toggletag:
         notinstalled:
-            message: "```diff\n- This command requires the ToggleTag plugin.```"
+            message: "```diff\n- Queso comando richiede il plugin ToggleTag.```"
             regex: []
     vpnshield:
         notinstalled:
-            message: "```diff\n- This command requires the VPNShield plugin.```"
+            message: "```diff\n- Queso comando richiede il plugin VPNShield.```"
             regex: []
     scpermissions:
         notinstalled:
-            message: "```diff\n- This command requires the SCPermissions plugin.```"
+            message: "```diff\n- Queso comando richiede il plugin SCPermissions.```"
             regex: []
     # The feedback from a console command, except the custom ones above. (Is not affected by global regex other than final_regex)
     consolecommandfeedback:

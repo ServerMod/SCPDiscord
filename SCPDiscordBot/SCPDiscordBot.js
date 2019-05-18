@@ -76,7 +76,7 @@ function hasPermission(member, command)
 
 function syncRoleCommand(message, args)
 {
-	var output = "command " + message.channel.id + " syncrole ";
+	var output = "command " + message.channel.id + " " + message.author.tag.replace(/ /g, "_") + " syncrole ";
 	if (args.length < 1)
 	{
 		sendMessage(message.channel, "```diff\n- Missing arguments.```");
@@ -101,7 +101,7 @@ function unsyncRoleCommand(message)
 {
 	sockets.forEach((socket) =>
 	{
-		socket.write("command " + message.channel.id + " unsyncrole " + message.member.id + "\n");
+		socket.write("command " + message.channel.id + " " + message.author.tag.replace(/ /g, "_") + " unsyncrole " + message.member.id + "\n");
 	});
 }
 
