@@ -1063,14 +1063,16 @@ botresponses:
     playerkicked:
         # name - string
         # steamid - string
-        message: "```diff\n+ '<var:name>' (<var:steamid>) was kicked from the server.```"
+        # admintag - string
+        message: "```diff\n+ '<var:name>' (<var:steamid>) è stato espulso dal server da `<var:admintag>`.```"
         regex: []
     playerbanned:
         # name - string
         # steamid - string
         # reason - string
         # duration - string
-        message: "```diff\n+ '`<var:name>`' (<var:steamid>) è stato bannato dal server per '<var:reason>' (<var:duration>).```"
+        # admintag - string
+        message: "```diff\n+ '`<var:name>`' (<var:steamid>) è stato bannato dal server da `<var:admintag>` per '<var:reason>' (<var:duration>).```"
         regex: []
     playerunbanned:
         # steamidorip - string
@@ -1078,7 +1080,8 @@ botresponses:
         regex: []
     kickall:
         # reason - string
-        message: "```diff\n+ Tutti i giocatori sono stati espulsi dal server per '<var:reason>'.```"
+        # admintag - string
+        message: "```diff\n+ Tutti i giocatori sono stati espulsi dal server da `<var:admintag>` per '<var:reason>'.```"
         regex: []
     exit:
         message: "```diff\n- The exit command cannot be used from Discord.```"
@@ -1093,6 +1096,10 @@ botresponses:
     vpnshield:
         notinstalled:
             message: "```diff\n- This command requires the VPNShield plugin.```"
+            regex: []
+    scpermissions:
+        notinstalled:
+            message: "```diff\n- This command requires the SCPermissions plugin.```"
             regex: []
     # The feedback from a console command, except the custom ones above. (Is not affected by global regex other than final_regex)
     consolecommandfeedback:
