@@ -57,10 +57,10 @@ namespace SCPDiscord
 
         public void ReceiveQueryResponse(string steamID, string jsonString)
         {
-            Player player = plugin.Server.GetPlayers(steamID)[0];
-			
-            if (player != null)
-            {
+	        try
+	        {
+	            Player player = plugin.Server.GetPlayers(steamID).First();
+				
 	            List<string> roles = JArray.Parse(jsonString).Values<string>().ToList();
 				foreach (KeyValuePair<string, string[]> keyValuePair in this.roleDictionary)
 				{
@@ -88,7 +88,11 @@ namespace SCPDiscord
 						return;
 					}
 				}
-            }
+	        }
+	        catch (InvalidOperationException)
+	        {
+				this.plugin.Warn("Tried to run commands on a player who is not on the server anymore.");
+	        }
         }
 
         public string AddPlayer(string steamID, string discordID)
