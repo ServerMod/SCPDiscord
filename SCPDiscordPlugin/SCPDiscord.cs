@@ -84,6 +84,11 @@ namespace SCPDiscord
 			SetUpFileSystem();
             this.roleSync = new RoleSync(this);
             LoadConfig();
+            if (this.Server.Port == Config.GetInt("bot.port"))
+            {
+				this.Error("ERROR: Server is running on the same port as the plugin, aborting...");
+				this.Disable();
+            }
             Language.Reload();
 
             // ReSharper disable once ObjectCreationAsStatement
