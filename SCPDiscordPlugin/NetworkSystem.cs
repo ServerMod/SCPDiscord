@@ -311,7 +311,7 @@ namespace SCPDiscord
                 // Add names/command feedback to the message //
                 foreach (KeyValuePair<string, string> variable in variables)
                 {
-                    message = message.Replace("<var:" + variable.Key + ">", EscapeDiscordFormatting(variable.Value));
+                    message = message.Replace("<var:" + variable.Key + ">", EscapeDiscordFormatting(variable.Value ?? "null"));
                 }
                 ///////////////////////////////////////////////
 
