@@ -24,10 +24,10 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "1.3.0-D",
+        version = "1.3.1-Pre",
         SmodMajor = 3,
         SmodMinor = 4,
-        SmodRevision = 0
+        SmodRevision = 1
     )]
     // ReSharper disable once ClassNeverInstantiated.Global
     public class SCPDiscord : Plugin
