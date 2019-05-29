@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Smod2.API;
 using Smod2.Commands;
 
@@ -30,15 +32,17 @@ namespace SCPDiscord.Commands
 				return new[] { "Invalid arguments." };
 			}
 
-			Player player = SCPDiscord.plugin.Server.GetPlayers(args[0])[0];
-
-			if (player != null)
+			try
 			{
+				Player player = SCPDiscord.plugin.Server.GetPlayers(args[0]).First();
 				player.SetRank(null, null, args[1]);
 				return new[] { "Player rank updated." };
+				
 			}
-
-			return new[] { "Player not found." };
+			catch (InvalidOperationException)
+			{
+				return new[] { "Player not found." };
+			}
 		}
 	}
 }

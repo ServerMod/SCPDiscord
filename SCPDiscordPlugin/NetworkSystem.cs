@@ -1,4 +1,4 @@
-﻿using Smod2.API;
+using Smod2.API;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -184,6 +184,12 @@ namespace SCPDiscord
         /// Message functions /////////////////////////////
         private static bool SendMessage(string message)
         {
+	        if (string.IsNullOrEmpty(message))
+	        {
+				plugin.Error("Tried to send message but it was null or empty.");
+		        return true;
+	        }
+
             // Abort if client is dead
             if (socket == null || !socket.Connected)
             {
@@ -305,7 +311,7 @@ namespace SCPDiscord
                 // Add names/command feedback to the message //
                 foreach (KeyValuePair<string, string> variable in variables)
                 {
-                    message = message.Replace("<var:" + variable.Key + ">", EscapeDiscordFormatting(variable.Value));
+                    message = message.Replace("<var:" + variable.Key + ">", EscapeDiscordFormatting(variable.Value ?? "null"));
                 }
                 ///////////////////////////////////////////////
 

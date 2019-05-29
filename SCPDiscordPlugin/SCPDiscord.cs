@@ -24,10 +24,10 @@ namespace SCPDiscord
         name = "SCPDiscord-lite",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "1.3.0-B",
+        version = "1.3.1-Pre",
         SmodMajor = 3,
         SmodMinor = 4,
-        SmodRevision = 0
+        SmodRevision = 1
     )]
     // ReSharper disable once ClassNeverInstantiated.Global
     public class SCPDiscord : Plugin
@@ -76,7 +76,7 @@ namespace SCPDiscord
 			AddCommand("scpd_validate", new ValidateCommand());
 			AddCommand("scpd_grs", new GrantReservedSlotCommand());
 			AddCommand("scpd_rrs", new RemoveReservedSlotCommand());
-			AddCommand("scpd_grantreservedslot", new ValidateCommand());
+			AddCommand("scpd_grantreservedslot", new GrantReservedSlotCommand());
 			AddCommand("scpd_removereservedslot", new RemoveReservedSlotCommand());
 			AddCommand("scpd_gvr", new GrantVanillaRankCommand());
 			AddCommand("scpd_grantvanillarank", new GrantVanillaRankCommand());
@@ -84,6 +84,11 @@ namespace SCPDiscord
 			SetUpFileSystem();
             this.roleSync = new RoleSync(this);
             LoadConfig();
+            if (this.Server.Port == Config.GetInt("bot.port"))
+            {
+				this.Error("ERROR: Server is running on the same port as the plugin, aborting...");
+				this.Disable();
+            }
             Language.Reload();
 
             // ReSharper disable once ObjectCreationAsStatement

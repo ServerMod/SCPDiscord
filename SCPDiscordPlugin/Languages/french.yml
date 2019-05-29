@@ -445,7 +445,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "<var:name> (<var:steamid>) a été pris dans la dimension de poche SCP-106 par <var:attackername> (<var:attackersteamid>)."
+        message: "<var:playername> (<var:playersteamid>) a été pris dans la dimension de poche SCP-106 par <var:attackername> (<var:attackersteamid>)."
         regex: []
     onpocketdimensiondie:
         # ipaddress - string

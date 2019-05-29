@@ -1,4 +1,6 @@
 "use strict";
+const packageInfo = require("./package.json");
+console.log("Initializing SCPDiscord Bot version " + packageInfo.version);
 console.log("Config loading...");
 const fs = require("fs");
 const yaml = require("yaml");

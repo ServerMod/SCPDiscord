@@ -37,14 +37,14 @@ namespace SCPDiscord.Commands
 				return new[] { "This user already has a reserved slot." };
 			}
 
-			Player player = SCPDiscord.plugin.Server.GetPlayers(args[0]).FirstOrDefault(null);
-			if (player == null)
+			try
+			{
+				Player player = SCPDiscord.plugin.Server.GetPlayers(args[0]).First();
+				new ReservedSlot(player.IpAddress, player.SteamId, player.Name + ", added via SCPDiscord " + DateTime.Now).AppendToFile();
+			}
+			catch (InvalidOperationException)
 			{
 				new ReservedSlot("", args[0], "Offline player added via SCPDiscord " + DateTime.Now).AppendToFile();
-			}
-			else
-			{
-				new ReservedSlot(player.IpAddress, player.SteamId, player.Name + ", added via SCPDiscord " + DateTime.Now).AppendToFile();
 			}
 			return new[] { "Reserved slot added." };
 		}
