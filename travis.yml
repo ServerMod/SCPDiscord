@@ -1,0 +1,4 @@
+language: csharp
+solution: SCPDiscord.sln
+mono:
+  - latest
