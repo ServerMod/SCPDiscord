@@ -20,7 +20,7 @@ Steps to reproduce the behavior:
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-** Setup (please complete the following information):**
+**Setup (please complete the following information):**
  - OS: [e.g. Ubuntu 18.04]
  - Version: [e.g. 1.1.0-C]
  - Smod Version: [e.g. 3.4.1]
