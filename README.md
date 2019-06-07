@@ -2,6 +2,8 @@
 
 SCPDiscord links features from your SCP:SL server console to Discord channels, such as printing out server events to Discord and using server commands through Discord. It is incredibly customisable as you can read more about below.
 
+**Note: While keeping the plugin and bot on different devices is not supported (as that leads me to become everyone's network IT support) it is possible to connect between different devices. If you do so make sure only the server the plugin is running on is allowed to connect to the bot using your firewall. The bot is made to be used internally on the same device/network as the plugin so there is no authentication of messages.**
+
 ## Features:
 
 * Ability to log any ServerMod event to Discord. All are optional and can be toggled individually.
