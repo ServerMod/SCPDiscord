@@ -349,7 +349,7 @@ namespace SCPDiscord
             }
 
             sb.Append("------------ Config ints ------------\n");
-            foreach (KeyValuePair<string, bool> node in configBools)
+            foreach (KeyValuePair<string, int> node in configInts)
             {
                 sb.Append(node.Key + ": " + node.Value + "\n");
             }
