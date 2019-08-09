@@ -231,10 +231,6 @@ namespace SCPDiscord
                     }
                     catch (Exception ex)
                     {
-                        if(ex is IOException)
-                        {
-                            plugin.Error("BotListener Error: " + ex);
-                        }
                         plugin.Error("BotListener Error: " + ex);
                     }
                 }
