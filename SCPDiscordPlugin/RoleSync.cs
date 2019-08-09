@@ -59,9 +59,24 @@ namespace SCPDiscord
         {
 	        try
 	        {
-	            Player player = plugin.Server.GetPlayers(steamID).First();
-				
-	            List<string> roles = JArray.Parse(jsonString).Values<string>().ToList();
+		        Player player;
+		        try
+	            {
+					player = plugin.Server.GetPlayers(steamID)?.First();
+	            }
+	            catch (NullReferenceException e)
+	            {
+		            plugin.Error("Error getting player for RoleSync: " + e);
+		            return;
+	            }
+
+		        if (player == null)
+		        {
+			        plugin.Error("Could not get player for rolesync, did they disconnect immediately?");
+			        return;
+				}
+
+		        List<string> roles = JArray.Parse(jsonString).Values<string>().ToList();
 				foreach (KeyValuePair<string, string[]> keyValuePair in this.roleDictionary)
 				{
 					if (roles.Contains(keyValuePair.Key))
