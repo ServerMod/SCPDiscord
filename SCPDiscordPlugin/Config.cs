@@ -45,8 +45,9 @@ namespace SCPDiscord
             // Round events
             { "channels.onroundstart",              new string[]{ } },
             { "channels.onconnect",                 new string[]{ } },
-            { "channels.ondisconnect.default",      new string[]{ } },
-            { "channels.ondisconnect.banned",       new string[]{ } },
+          //{ "channels.ondisconnect.default",      new string[]{ } },
+          //{ "channels.ondisconnect.banned",       new string[]{ } },
+            { "channels.onplayerleave",             new string[]{ }},
             { "channels.onlatedisconnect",          new string[]{ } },
             { "channels.oncheckroundend",           new string[]{ } },
             { "channels.onroundend",                new string[]{ } },
