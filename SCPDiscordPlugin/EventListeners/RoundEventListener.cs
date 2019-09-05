@@ -5,8 +5,8 @@ using Smod2.Events;
 
 namespace SCPDiscord.EventListeners
 {
-    internal class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerDisconnect, IEventHandlerLateDisconnect, IEventHandlerWaitingForPlayers,
-        IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName, IEventHandlerSceneChanged
+    internal class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerWaitingForPlayers,
+        IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName, IEventHandlerSceneChanged, IEventHandlerPlayerLeave
     {
         private readonly SCPDiscord plugin;
 
@@ -36,15 +36,18 @@ namespace SCPDiscord.EventListeners
             this.plugin.SendMessage(Config.GetArray("channels.onconnect"), "round.onconnect", variables);
         }
 
+        /*
         /// <summary>
         ///  This is the event handler for disconnection events.
         /// </summary>
+        **DEPRICATED**
         public void OnDisconnect(DisconnectEvent ev)
         {
 			Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "ipaddress", ev.Connection.IpAddress }
             };
+            ev.
             if (ev.Connection.IsBanned)
             {
                 this.plugin.SendMessage(Config.GetArray("channels.ondisconnect.banned"), "round.ondisconnect.banned", variables);
@@ -53,11 +56,28 @@ namespace SCPDiscord.EventListeners
             {
                 this.plugin.SendMessage(Config.GetArray("channels.ondisconnect.default"), "round.ondisconnect.default", variables);
             }
+        }*/
+
+        /// <summary>
+        /// This is the event handler for player's leaving
+        /// </summary>
+        public void OnPlayerLeave(PlayerLeaveEvent ev)
+        {
+            Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+                { "ipaddress", ev.IP                     },
+                { "name", ev.Name                        },
+                { "steamid", ev.SteamID                  },
+                { "playerid", ev.PlayerID.ToString()     }
+            };
+            this.plugin.SendMessage(Config.GetArray("channels.onplayerleave"), "round.onplayerleave", variables);
         }
 
+        /*
         /// <summary>  
         ///  This is the event handler for disconnection events after the player has disconnected.
-        /// </summary> 
+        /// </summary>
+        **DEPRICATED**
         public void OnLateDisconnect(LateDisconnectEvent ev)
         {
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -65,7 +85,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress", ev.Connection.IpAddress }
             };
             this.plugin.SendMessage(Config.GetArray("channels.onlatedisconnect"), "round.onlatedisconnect", variables);
-        }
+        }*/
 
         /// <summary>
         ///  This event handler will call everytime the game checks for a round end

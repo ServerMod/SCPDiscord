@@ -674,7 +674,7 @@ namespace SCPDiscord.EventListeners
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
-                    { "cuffed",             ev.Handcuffed.ToString()                },
+                    { "cuffed",             ev.Allow.ToString()                     },
                     { "targetipaddress",    ev.Player.IpAddress                     },
                     { "targetname",         ev.Player.Name                          },
                     { "targetplayerid",     ev.Player.PlayerId.ToString()           },
@@ -694,7 +694,7 @@ namespace SCPDiscord.EventListeners
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
-                    { "cuffed",             ev.Handcuffed.ToString()                },
+                    { "cuffed",             ev.Allow.ToString()                     },
                     { "targetipaddress",    ev.Player.IpAddress                     },
                     { "targetname",         ev.Player.Name                          },
                     { "targetplayerid",     ev.Player.PlayerId.ToString()           },
