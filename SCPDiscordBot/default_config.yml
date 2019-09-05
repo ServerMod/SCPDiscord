@@ -7,7 +7,7 @@ prefix: "+"
 # Port to listen on, this has to be the same as the "bot port" in the plugin config and all bots you run have to have different ports or they will clash.
 listeningPort: 8888
 
-# Host to listen on, localhost by default. In case you want server to listen on 0.0.0.0, make sure your farewall rules are correct
+# Host to listen on, localhost by default. In case you want server to listen on 0.0.0.0, make sure your firewall rules are correct
 listeningHost: "127.0.0.1"
 
 # Channel to post the bot status messages in
