@@ -9,6 +9,7 @@ const {
 	token,
 	prefix,
 	listeningPort,
+	listeningHost,
 	statusChannels,
 	commandChannels,
 	verbose,
@@ -434,7 +435,7 @@ discordClient.login(token)
 	});
 
 console.log("Binding TCP port...");
-tcpServer.listen(listeningPort, () =>
+tcpServer.listen(listeningPort, listeningHost, () =>
 {
 	console.log("Server is listening on port " + listeningPort);
 });
