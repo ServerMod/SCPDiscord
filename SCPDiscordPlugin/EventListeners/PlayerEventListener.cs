@@ -576,7 +576,7 @@ namespace SCPDiscord.EventListeners
             {
                 Dictionary<string, string> noTargetVars = new Dictionary<string, string>
                 {
-                    { "weapon",                 ev.Weapon.ToString()                },
+                    { "weapon",                 ev.Weapon.WeaponType.ToString()     },
                     { "attackeripaddress",      ev.Player.IpAddress                 },
                     { "attackername",           ev.Player.Name                      },
                     { "attackerplayerid",       ev.Player.PlayerId.ToString()       },
