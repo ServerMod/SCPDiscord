@@ -136,16 +136,6 @@ round:
         message: "Gracz próbuje się połączyć..."
         regex: []
     ondisconnect:
-        default:
-            # ipaddress - string
-            message: "Gracz rozłączył się."
-            regex: []
-        banned:
-            # ipaddress - string
-            message: "Gracz rozłączył się z powodu bana"
-            regex: []
-    onlatedisconnect:
-        # ipaddress - string
         message: "Gracz rozłączył się."
         regex: []
     oncheckroundend:

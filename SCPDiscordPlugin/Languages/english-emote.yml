@@ -136,17 +136,14 @@ round:
         message: ":arrow_right:Player attempting connection..."
         regex: []
     ondisconnect:
-        default:
-            # ipaddress - string
-            message: ":arrow_left:A player has disconnected."
-            regex: []
-        banned:
-            # ipaddress - string
-            message: ":arrow_left:A player has disconnected because they are banned."
-            regex: []
-    onlatedisconnect:
-        # ipaddress - string
         message: ":arrow_left:A player has disconnected."
+        regex: []
+    onplayerleave:
+        # ipaddress - string
+        # playerid - int
+        # steamid - string
+        # name - string
+        message: "**:arrow_backward:<var:name> (<var:steamid>) left the game.**"
         regex: []
     oncheckroundend:
         message: "Checking if round has ended..."

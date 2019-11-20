@@ -136,17 +136,7 @@ round:
         message: ":arrow_right: En attente de joueurs..."
         regex: []
     ondisconnect:
-        default:
-            # ipaddress - string
-            message: ":arrow_left: Un joueur vient de se déconnecter."
-            regex: []
-        banned:
-            # ipaddress - string
-            message: ":arrow_left: Un joueur s'est déconnecté parce qu'il est banni."
-            regex: []
-    onlatedisconnect:
-        # ipaddress - string
-        message: ":arrow_left: Un joueur s'est déconnecté."
+        message: ":arrow_left: Un joueur vient de se déconnecter."
         regex: []
     oncheckroundend:
         message: "Entrain de regarder si la partie est terminée..."

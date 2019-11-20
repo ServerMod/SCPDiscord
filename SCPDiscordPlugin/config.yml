@@ -64,6 +64,7 @@ channels:
     # Round events
     onroundstart: [ "default", "staff" ]
     onconnect: [ "default", "staff" ]
+    ondisconnect: [ "default" ]
     onplayerleave: [ "default" ]
     oncheckroundend: []
     onroundend: [ "default", "staff" ]
