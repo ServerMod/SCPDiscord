@@ -136,16 +136,6 @@ round:
         message: ":arrow_right:Pelaaja yrittää yhdistää..."
         regex: []
     ondisconnect:
-        default:
-            # ipaddress - string
-            message: ":arrow_left:Pelaaja on katkaissut yhteyden."
-            regex: []
-        banned:
-            # ipaddress - string
-            message: ":arrow_left:Pelaaja on katkaissut yhteyden koska hänellä on porttikielto."
-            regex: []
-    onlatedisconnect:
-        # ipaddress - string
         message: ":arrow_left:Pelaaja on katkaissut yhteyden."
         regex: []
     oncheckroundend:

@@ -136,16 +136,6 @@ round:
         message: "Un giocatore sta tentando di connettersi..."
         regex: []
     ondisconnect:
-        default:
-            # ipaddress - string
-            message: "Un giocatore si è disconnesso."
-            regex: []
-        banned:
-            # ipaddress - string
-            message: "Un giocatore si è disconnesso perché è bannato."
-            regex: []
-    onlatedisconnect:
-        # ipaddress - string
         message: "Un giocatore si è disconnesso."
         regex: []
     oncheckroundend:

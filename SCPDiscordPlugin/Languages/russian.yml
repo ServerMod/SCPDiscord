@@ -136,16 +136,6 @@ round:
         message: "Игрок пытается подключиться..."
         regex: []
     ondisconnect:
-        default:
-            # ipaddress - string
-            message: "Игрок отключился."
-            regex: []
-        banned:
-            # ipaddress - string
-            message: "Игрок отключился, так как он был забанен."
-            regex: []
-    onlatedisconnect:
-        # ipaddress - string
         message: "Игрок отключился."
         regex: []
     oncheckroundend:
