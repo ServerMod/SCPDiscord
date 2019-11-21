@@ -45,6 +45,7 @@ pipeline {
             sh 'mv SCPDiscordBot/default_config.yml SCPDiscord/Bot/config.yml'
             sh 'mv SCPDiscordBot/node_modules SCPDiscord/Bot/node_modules'
             sh 'mv SCPDiscordBot/package.json SCPDiscord/Bot/'
+            sh 'mv SCPDiscordBot/SCPDiscordBot.js SCPDiscord/Bot/'
           }
         }
       }
