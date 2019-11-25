@@ -13,7 +13,7 @@ namespace SCPDiscord.EventListeners
         IEventHandlerRadioSwitch, IEventHandlerMakeNoise, IEventHandlerRecallZombie, IEventHandlerCallCommand, IEventHandlerReload, IEventHandlerGrenadeExplosion, IEventHandlerGrenadeHitPlayer,
         IEventHandlerGeneratorUnlock, IEventHandlerGeneratorAccess, IEventHandlerGeneratorInsertTablet, IEventHandlerGeneratorEjectTablet, IEventHandler079Door, IEventHandler079Lock,
         IEventHandler079Elevator, IEventHandler079TeslaGate, IEventHandler079AddExp, IEventHandler079LevelUp, IEventHandler079UnlockDoors, IEventHandler079CameraTeleport, IEventHandler079StartSpeaker,
-        IEventHandler079StopSpeaker, IEventHandler079Lockdown, IEventHandler079ElevatorTeleport
+        IEventHandler079StopSpeaker, IEventHandler079Lockdown, IEventHandler079ElevatorTeleport, IEventHandlerPlayerDropAllItems
     {
         private readonly SCPDiscord plugin;
 
@@ -1258,5 +1258,22 @@ namespace SCPDiscord.EventListeners
                 this.plugin.SendMessage(Config.GetArray("channels.on079elevatorteleport"), "player.on079elevatorteleport", variables);
             }
         }
+
+        public void OnPlayerDropAllItems(PlayerDropAllItemsEvent ev)
+        {
+	        if (ev.Allow)
+	        {
+		        Dictionary<string, string> variables = new Dictionary<string, string>
+		        {
+			        { "ipaddress",                  ev.Player.IpAddress                 },
+			        { "name",                       ev.Player.Name                      },
+			        { "playerid",                   ev.Player.PlayerId.ToString()       },
+			        { "steamid",                    ev.Player.SteamId                   },
+			        { "class",                      ev.Player.TeamRole.Role.ToString()  },
+			        { "team",                       ev.Player.TeamRole.Team.ToString()  }
+		        };
+		        this.plugin.SendMessage(Config.GetArray("channels.onplayerdropallitems"), "player.onplayerdropallitems", variables);
+	        }
+		}
     }
 }

@@ -973,7 +973,15 @@ player:
         # team - Team
         message: ":door: <var:name> (<var:steamid>) switched floor as SCP-079."
         regex: []
-
+    onplayerdropallitems:
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: ":outbox_tray: <var:name> (<var:steamid>) had all of their items dropped."
+        regex: []
 admin:
     onadminquery:
         # ipaddress - string

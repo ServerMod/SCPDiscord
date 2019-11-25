@@ -167,6 +167,7 @@ channels:
     on079stopspeaker: []
     on079lockdown: []
     on079elevatorteleport: []
+    onplayerdropallitems: []
 
     # Admin events
     onadminquery: [ "staff" ]

@@ -128,8 +128,9 @@ namespace SCPDiscord
             "player.on079stopspeaker",
             "player.on079lockdown",
             "player.on079elevatorteleport",
+			"player.onplayerdropallitems",
 
-            "admin.onadminquery",
+			"admin.onadminquery",
             "admin.onauthcheck",
             "admin.onban.admin.kick",
             "admin.onban.console.kick",

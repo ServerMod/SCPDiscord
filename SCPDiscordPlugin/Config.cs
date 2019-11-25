@@ -134,6 +134,7 @@ namespace SCPDiscord
             { "channels.on079stopspeaker",          new string[]{ } },
             { "channels.on079lockdown",             new string[]{ } },
             { "channels.on079elevatorteleport",     new string[]{ } },
+            { "channels.onplayerdropallitems",		new string[]{ } },
 
             // Admin events
             { "channels.onadminquery",              new string[]{ } },
