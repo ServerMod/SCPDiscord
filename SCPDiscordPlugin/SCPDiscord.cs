@@ -24,9 +24,9 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "1.3.1",
+        version = "1.4.0",
         SmodMajor = 3,
-        SmodMinor = 5,
+        SmodMinor = 6,
         SmodRevision = 0
     )]
     // ReSharper disable once ClassNeverInstantiated.Global
