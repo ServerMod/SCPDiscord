@@ -129,21 +129,21 @@ final_regex: ["discord\\.gg":"","http":"","www\\.":""]
 
 round:
     onroundstart:
-        message: ":zap:**Round started.**"
+        message: ":zap: **Round started.**"
         regex: []
     onconnect:
         # ipaddress - string
-        message: ":arrow_right:Player attempting connection..."
+        message: ":arrow_right: Player attempting connection..."
         regex: []
     ondisconnect:
-        message: ":arrow_left:A player has disconnected."
+        message: ":arrow_left: A player has disconnected."
         regex: []
     onplayerleave:
         # ipaddress - string
         # playerid - int
         # steamid - string
         # name - string
-        message: "**:arrow_backward:<var:name> (<var:steamid>) left the game.**"
+        message: "**:arrow_backward: <var:name> (<var:steamid>) left the game.**"
         regex: []
     oncheckroundend:
         message: "Checking if round has ended..."
@@ -176,10 +176,10 @@ round:
             ```
         regex: ["switchwasTrue":"was","switchwasFalse":"was not"]
     onwaitingforplayers:
-        message: ":white_check_mark:**Server is ready and waiting for players.**"
+        message: ":white_check_mark: **Server is ready and waiting for players.**"
         regex: []
     onroundrestart:
-        message: ":arrows_counterclockwise:**Round is restarting...**"
+        message: ":arrows_counterclockwise: **Round is restarting...**"
         regex: []
     onsetservername:
         # servername - string
@@ -193,7 +193,7 @@ round:
 environment:
     onscp914activate:
         # knobsetting - KnobSetting
-        message: ":control_knobs:SCP-914 has been activated on setting <var:knobsetting>."
+        message: ":control_knobs: SCP-914 has been activated on setting <var:knobsetting>."
         regex: []
     onstartcountdown:
         # isresumed - bool
@@ -205,13 +205,13 @@ environment:
         # class - Role
         # team - Team
         noplayer:
-            message: ":radioactive:**The on-site nuclear warhead has been remotely activated by order of the O5 Council. All personnel must evacuate immediately.**"
+            message: ":radioactive: **The on-site nuclear warhead has been remotely activated by order of the O5 Council. All personnel must evacuate immediately.**"
             regex: []
         initiated:
-            message: ":radioactive:**The on-site nuclear warhead has been activated by <var:name> (<var:steamid>), <var:timeleft> seconds until detonation. All personnel must evacuate immediately.**"
+            message: ":radioactive: **The on-site nuclear warhead has been activated by <var:name> (<var:steamid>), <var:timeleft> seconds until detonation. All personnel must evacuate immediately.**"
             regex: []
         resumed:
-            message: ":radioactive:**The warhead countdown has been resumed <var:name> (<var:steamid>), <var:timeleft> seconds until detonation.**"
+            message: ":radioactive: **The warhead countdown has been resumed <var:name> (<var:steamid>), <var:timeleft> seconds until detonation.**"
             regex: []
     onstopcountdown:
         # timeleft
@@ -222,23 +222,23 @@ environment:
         # class
         # team
         default:
-            message: ":radioactive:**The on-site nuclear warhead detonation has been canceled by <var:name> (<var:steamid>).**"
+            message: ":radioactive: **The on-site nuclear warhead detonation has been canceled by <var:name> (<var:steamid>).**"
             regex: []
         noplayer:
-            message: ":radioactive:**The on-site nuclear warhead detonation has been canceled remotely by order of the Ethics Committee**"
+            message: ":radioactive: **The on-site nuclear warhead detonation has been canceled remotely by order of the Ethics Committee**"
             regex: []
     ondetonate:
-        message: ":radioactive:**Detonation of the on-site nuclear warhead has been detected. Dispatching Foundation operatives to investigate.**"
+        message: ":radioactive: **Detonation of the on-site nuclear warhead has been detected. Dispatching Foundation operatives to investigate.**"
         regex: []
     ondecontaminate:
-        message: ":biohazard:**Light Containment Zone de-contamination has been initiated, all biological material will be destroyed.**"
+        message: ":biohazard: **Light Containment Zone de-contamination has been initiated, all biological material will be destroyed.**"
         regex: []
     onsummonvehicle:
         chaos:
-            message: ":blue_car:**Warning: Unauthorized vehicle has breached the site perimeter.**"
+            message: ":blue_car: **Warning: Unauthorized vehicle has breached the site perimeter.**"
             regex: []
         mtf:
-            message: ":helicopter:**MTF helicopter is in visual range of the site, preparing to land.**"
+            message: ":helicopter: **MTF helicopter is in visual range of the site, preparing to land.**"
             regex: []
     
 player:
@@ -1029,7 +1029,7 @@ admin:
                 message: ":no_entry: Player <var:playername> (<var:playersteamid>) was banned by Skynet for <var:duration> minutes. Reason: <var:reason>"
                 regex: []
             kick:
-                message: ":no_entry:Player <var:playername> (<var:playersteamid>) was kicked by Skynet. Reason: <var:reason>"
+                message: ":no_entry: Player <var:playername> (<var:playersteamid>) was kicked by Skynet. Reason: <var:reason>"
                 regex: []
     
 team:
