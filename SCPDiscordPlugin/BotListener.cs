@@ -296,7 +296,7 @@ namespace SCPDiscord
             }
 
             // Add the player to the SteamIDBans file.
-            StreamWriter streamWriter = new StreamWriter(FileManager.GetAppFolder(true) + "/SteamIdBans.txt", true);
+            StreamWriter streamWriter = new StreamWriter(FileManager.GetAppFolder(true, true) + "SteamIdBans.txt", true);
             streamWriter.WriteLine(name + ';' + steamID + ';' + endTime.Ticks + ';' + reason + ";" + adminTag + ";" + DateTime.UtcNow.Ticks);
             streamWriter.Dispose();
 
@@ -333,8 +333,8 @@ namespace SCPDiscord
             }
 
 			// Get all ban entries in the files.
-            List<string> ipBans = File.ReadAllLines(FileManager.GetAppFolder(true) + "/IpBans.txt").ToList();
-			List<string> steamIDBans = File.ReadAllLines(FileManager.GetAppFolder(true) + "/SteamIdBans.txt").ToList();
+            List<string> ipBans = File.ReadAllLines(FileManager.GetAppFolder(true, true) + "IpBans.txt").ToList();
+			List<string> steamIDBans = File.ReadAllLines(FileManager.GetAppFolder(true, true) + "SteamIdBans.txt").ToList();
 
 			// Get all ban entries to be removed.
 			List<string> matchingIPBans = ipBans.FindAll(s => s.Contains(steamIDOrIP));
@@ -356,8 +356,8 @@ namespace SCPDiscord
 			}
 
 			// Save the edited ban files
-			File.WriteAllLines(FileManager.GetAppFolder(true) + "/IpBans.txt", ipBans);
-            File.WriteAllLines(FileManager.GetAppFolder(true) + "/SteamIdBans.txt", steamIDBans);
+			File.WriteAllLines(FileManager.GetAppFolder(true, true) + "IpBans.txt", ipBans);
+            File.WriteAllLines(FileManager.GetAppFolder(true, true) + "SteamIdBans.txt", steamIDBans);
 
 			// Send response message to Discord
             Dictionary<string, string> unbanVars = new Dictionary<string, string>

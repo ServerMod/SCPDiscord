@@ -58,7 +58,7 @@ namespace SCPDiscord.EventListeners
         /// </summary>
         public void OnPlayerHurt(PlayerHurtEvent ev)
         {
-            if (ev.Player == null || ev.Player.TeamRole.Role == Role.UNASSIGNED)
+            if (ev.Player == null || ev.Player.TeamRole.Role == Smod2.API.RoleType.UNASSIGNED)
             {
                 return;
             }
@@ -72,7 +72,7 @@ namespace SCPDiscord.EventListeners
                     { "playeripaddress",    ev.Player.IpAddress                 },
                     { "playername",         ev.Player.Name                      },
                     { "playerplayerid",     ev.Player.PlayerId.ToString()       },
-                    { "playersteamid",      ev.Player.SteamId                   },
+                    { "playersteamid",      ev.Player.GetParsedUserID()         },
                     { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
                     { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -87,13 +87,13 @@ namespace SCPDiscord.EventListeners
                 { "attackeripaddress",  ev.Attacker.IpAddress                   },
                 { "attackername",       ev.Attacker.Name                        },
                 { "attackerplayerid",   ev.Attacker.PlayerId.ToString()         },
-                { "attackersteamid",    ev.Attacker.SteamId                     },
+                { "attackersteamid",    ev.Attacker.GetParsedUserID()           },
                 { "attackerclass",      ev.Attacker.TeamRole.Role.ToString()    },
                 { "attackerteam",       ev.Attacker.TeamRole.Team.ToString()    },
                 { "playeripaddress",    ev.Player.IpAddress                     },
                 { "playername",         ev.Player.Name                          },
                 { "playerplayerid",     ev.Player.PlayerId.ToString()           },
-                { "playersteamid",      ev.Player.SteamId                       },
+                { "playersteamid",      ev.Player.GetParsedUserID()             },
                 { "playerclass",        ev.Player.TeamRole.Role.ToString()      },
                 { "playerteam",         ev.Player.TeamRole.Team.ToString()      }
             };
@@ -113,7 +113,7 @@ namespace SCPDiscord.EventListeners
         /// </summary>
         public void OnPlayerDie(PlayerDeathEvent ev)
         {
-            if (ev.Player == null || ev.Player.TeamRole.Role == Role.UNASSIGNED)
+            if (ev.Player == null || ev.Player.TeamRole.Role == Smod2.API.RoleType.UNASSIGNED)
             {
                 return;
             }
@@ -127,7 +127,7 @@ namespace SCPDiscord.EventListeners
                     { "playeripaddress",    ev.Player.IpAddress                 },
                     { "playername",         ev.Player.Name                      },
                     { "playerplayerid",     ev.Player.PlayerId.ToString()       },
-                    { "playersteamid",      ev.Player.SteamId                   },
+                    { "playersteamid",      ev.Player.GetParsedUserID()         },
                     { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
                     { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -237,7 +237,7 @@ namespace SCPDiscord.EventListeners
         /// </summary>
         public void OnAssignTeam(PlayerInitialAssignTeamEvent ev)
         {
-            if (ev.Team == Smod2.API.Team.NONE)
+            if (ev.Team == TeamType.NONE)
             {
                 return;
             }
@@ -259,7 +259,7 @@ namespace SCPDiscord.EventListeners
         /// </summary>
         public void OnSetRole(PlayerSetRoleEvent ev)
         {
-            if (ev.Role == Role.UNASSIGNED)
+            if (ev.Role == Smod2.API.RoleType.UNASSIGNED)
             {
                 return;
             }

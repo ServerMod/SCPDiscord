@@ -26,10 +26,10 @@ namespace SCPDiscord
         id = "karlofduty.scpdiscord",
         version = "1.4.0",
         SmodMajor = 3,
-        SmodMinor = 6,
+        SmodMinor = 7,
         SmodRevision = 0
     )]
-    // ReSharper disable once ClassNeverInstantiated.Global
+
     public class SCPDiscord : Plugin
     {
         public readonly Stopwatch serverStartTime = new Stopwatch();
@@ -91,7 +91,6 @@ namespace SCPDiscord
             }
             Language.Reload();
 
-            // ReSharper disable once ObjectCreationAsStatement
             new Thread(() => new StartNetworkSystem(plugin)).Start();
 
             this.maxPlayers = GetConfigInt("max_players");
@@ -111,32 +110,31 @@ namespace SCPDiscord
 		/// </summary>
 		public void SetUpFileSystem()
         {
-            if (!Directory.Exists(FileManager.GetAppFolder(GetConfigBool("scpdiscord_config_global")) + "SCPDiscord"))
+            if (!Directory.Exists(FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_config_global")) + "SCPDiscord"))
             {
-                Directory.CreateDirectory(FileManager.GetAppFolder(GetConfigBool("scpdiscord_config_global")) + "SCPDiscord");
+                Directory.CreateDirectory(FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_config_global")) + "SCPDiscord");
             }
 
-            if (!Directory.Exists(FileManager.GetAppFolder(GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord"))
+            if (!Directory.Exists(FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord"))
             {
-                Directory.CreateDirectory(FileManager.GetAppFolder(GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord");
+                Directory.CreateDirectory(FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord");
             }
 
-            if (!Directory.Exists(FileManager.GetAppFolder(GetConfigBool("scpdiscord_languages_global")) + "SCPDiscord"))
+            if (!Directory.Exists(FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_languages_global")) + "SCPDiscord"))
             {
-                Directory.CreateDirectory(FileManager.GetAppFolder(GetConfigBool("scpdiscord_languages_global")) + "SCPDiscord");
+                Directory.CreateDirectory(FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_languages_global")) + "SCPDiscord");
             }
 
-            if (!File.Exists(FileManager.GetAppFolder(GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml"))
+            if (!File.Exists(FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml"))
             {
-                this.Info("Config file '" + FileManager.GetAppFolder(GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' does not exist, creating...");
-                File.WriteAllText(FileManager.GetAppFolder(GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml", Encoding.UTF8.GetString(Resources.config));
+                this.Info("Config file '" + FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' does not exist, creating...");
+                File.WriteAllText(FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml", Encoding.UTF8.GetString(Resources.config));
             }
 
-            // ReSharper disable once InvertIf
-            if (!File.Exists(FileManager.GetAppFolder(GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json"))
+            if (!File.Exists(FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json"))
             {
                 plugin.Info("Config file rolesync.json does not exist, creating...");
-                File.WriteAllText(FileManager.GetAppFolder(GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json", "[]");
+                File.WriteAllText(FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json", "[]");
             }
         }
 
@@ -148,7 +146,7 @@ namespace SCPDiscord
             try
             {
                 Config.Reload(plugin);
-                this.Info("Successfully loaded config '" + FileManager.GetAppFolder(GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml'.");
+                this.Info("Successfully loaded config '" + FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml'.");
             }
             catch (Exception e)
             {
@@ -162,13 +160,13 @@ namespace SCPDiscord
                 }
                 else if (e is FileNotFoundException)
                 {
-                    this.Error("'" + FileManager.GetAppFolder(GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' was not found.");
+                    this.Error("'" + FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' was not found.");
                 }
                 else if (e is JsonReaderException || e is YamlException)
                 {
-                    this.Error("'" + FileManager.GetAppFolder(GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' formatting error.");
+                    this.Error("'" + FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' formatting error.");
                 }
-                this.Error("Error reading config file '" + FileManager.GetAppFolder(GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml'. Aborting startup." + e);
+                this.Error("Error reading config file '" + FileManager.GetAppFolder(true, GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml'. Aborting startup." + e);
                 Disable();
             }
         }
@@ -277,7 +275,6 @@ namespace SCPDiscord
             {
                 if (Config.GetDict("aliases").ContainsKey(channel))
                 {
-	                // ReSharper disable once ObjectCreationAsStatement
 	                Thread messageThread = new Thread(() => new ProcessMessageAsync(Config.GetDict("aliases")[channel], messagePath, variables));
                     messageThread.Start();
                 }
@@ -295,7 +292,6 @@ namespace SCPDiscord
 		[PipeMethod]
 		public bool SendMessageByID(string channelID, string messagePath, Dictionary<string, string> variables = null)
         {
-	        // ReSharper disable once ObjectCreationAsStatement
 	        new Thread(() => new ProcessMessageAsync(channelID, messagePath, variables)).Start();
             return true;
         }
@@ -310,7 +306,6 @@ namespace SCPDiscord
         {
             foreach (Player player in PluginManager.Server.GetPlayers())
             {
-	            // ReSharper disable once InvertIf
 	            if (player.SteamId == steamID)
                 {
                     player.Ban(0, message);
@@ -330,7 +325,6 @@ namespace SCPDiscord
         {
             foreach (Player player in PluginManager.Server.GetPlayers())
             {
-	            // ReSharper disable once InvertIf
 	            if (player.SteamId == steamID)
                 {
                     name = player.Name;

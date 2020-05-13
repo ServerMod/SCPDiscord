@@ -19,6 +19,8 @@ namespace SCPDiscord.Commands
 
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
+			return new[] { "This command doesn't work in this version." };
+			/*
 			if (sender is Player admin)
 			{
 				if (!admin.HasPermission("scpdiscord.grantreservedslot"))
@@ -47,6 +49,7 @@ namespace SCPDiscord.Commands
 				new ReservedSlot("", args[0], "Offline player added via SCPDiscord " + DateTime.Now).AppendToFile();
 			}
 			return new[] { "Reserved slot added." };
+			*/
 		}
 	}
 }

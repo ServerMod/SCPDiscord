@@ -32,7 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
@@ -42,9 +42,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Smod2, Version=3.6.0.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -130,11 +129,14 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>taskkill /F /IM SCPSL.exe /T 2&gt;nul &amp;set errorlevel=0
-cd $(ProjectDir)
-copy /y bin\SCPDiscord.dll ..\..\..\scpserver\sm_plugins\
-mkdir ..\..\..\scpserver\sm_plugins\dependencies
-copy /y bin\YamlDotNet.dll ..\..\..\scpserver\sm_plugins\dependencies\
-del ..\..\..\scpserver\sm_plugins\SCPDiscord-lite.dll</PostBuildEvent>
+    <PostBuildEvent>copy /y "SCPDiscord.dll" "C:\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\sm_plugins\"
+
+mkdir "C:\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\sm_plugins\dependencies"
+
+copy /y "YamlDotNet.dll" "C:\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\sm_plugins\dependencies\"
+
+copy /y "Newtonsoft.Json.dll" "C:\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\sm_plugins\dependencies\"
+
+del "C:\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\sm_plugins\SCPDiscord-lite.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -163,8 +163,8 @@ namespace SCPDiscord
             ready = false;
             plugin.SetUpFileSystem();
 
-            // Reads file contents into FileStream
-            FileStream stream = File.OpenRead(FileManager.GetAppFolder(plugin.GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml");
+			// Reads file contents into FileStream
+			FileStream stream = File.OpenRead(FileManager.GetAppFolder(true, plugin.GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml");
 
             // Converts the FileStream into a YAML Dictionary object
             IDeserializer deserializer = new DeserializerBuilder().Build();
@@ -178,6 +178,8 @@ namespace SCPDiscord
 
             JObject json = JObject.Parse(jsonString);
 
+			plugin.Verbose("Reading config validation");
+
             // Reads the configvalidation node first as it is used for reading the others
             try
             {
@@ -188,12 +190,13 @@ namespace SCPDiscord
 	            plugin.Warn("Config bool 'settings.configvalidation' not found, using default value: true");
             }
 
-            // Read config strings
-            foreach (KeyValuePair<string, string> node in configStrings.ToList())
+			// Read config strings
+			foreach (KeyValuePair<string, string> node in configStrings.ToList())
             {
                 try
                 {
-                    configStrings[node.Key] = json.SelectToken(node.Key).Value<string>();
+	                plugin.Verbose("Reading " + node.Key);
+					configStrings[node.Key] = json.SelectToken(node.Key).Value<string>();
                 }
                 catch (ArgumentNullException)
                 {
@@ -209,7 +212,8 @@ namespace SCPDiscord
             {
                 try
                 {
-                    configInts[node.Key] = json.SelectToken(node.Key).Value<int>();
+	                plugin.Verbose("Reading " + node.Key);
+					configInts[node.Key] = json.SelectToken(node.Key).Value<int>();
                 }
                 catch (ArgumentNullException)
                 {
@@ -225,7 +229,8 @@ namespace SCPDiscord
             {
                 try
                 {
-                    configBools[node.Key] = json.SelectToken(node.Key).Value<bool>();
+	                plugin.Verbose("Reading " + node.Key);
+					configBools[node.Key] = json.SelectToken(node.Key).Value<bool>();
                 }
                 catch (ArgumentNullException)
                 {
@@ -241,7 +246,8 @@ namespace SCPDiscord
             {
                 try
                 {
-                    configArrays[node.Key] = json.SelectToken(node.Key).Value<JArray>().Values<string>().ToArray();
+	                plugin.Verbose("Reading " + node.Key);
+					configArrays[node.Key] = json.SelectToken(node.Key).Value<JArray>().Values<string>().ToArray();
                 }
                 catch (ArgumentNullException)
                 {
@@ -257,7 +263,8 @@ namespace SCPDiscord
             {
                 try
                 {
-                    configDicts[node.Key] = json.SelectToken(node.Key).Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+	                plugin.Verbose("Reading " + node.Key);
+					configDicts[node.Key] = json.SelectToken(node.Key).Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
                 }
                 catch (ArgumentNullException)
                 {
@@ -271,7 +278,8 @@ namespace SCPDiscord
 			// Read rolesync system
             try
             {
-	            plugin.roleSync.roleDictionary = json.SelectToken("rolesync").Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<JArray>().Values<string>().ToArray());
+				plugin.Verbose("Reading rolesync");
+				plugin.roleSync.roleDictionary = json.SelectToken("rolesync").Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<JArray>().Values<string>().ToArray());
 			}
             catch (ArgumentNullException)
             {

@@ -58,7 +58,7 @@ namespace SCPDiscord.EventListeners
 
         public void OnBan(BanEvent ev)
         {
-            if (ev.Admin != null)
+            if (ev.Issuer != null)
             {
                 Dictionary<string, string> variables = new Dictionary<string, string>
                 {
@@ -72,12 +72,7 @@ namespace SCPDiscord.EventListeners
                     { "playersteamid",          ev.Player.SteamId                   },
                     { "playerclass",            ev.Player.TeamRole.Role.ToString()  },
                     { "playerteam",             ev.Player.TeamRole.Team.ToString()  },
-                    { "adminipaddress",         ev.Admin.IpAddress                  },
-                    { "adminname",              ev.Admin.Name                       },
-                    { "adminplayerid",          ev.Admin.PlayerId.ToString()        },
-                    { "adminsteamid",           ev.Admin.SteamId                    },
-                    { "adminclass",             ev.Admin.TeamRole.Role.ToString()   },
-                    { "adminteam",              ev.Admin.TeamRole.Team.ToString()   }
+                    { "issuer",                 ev.Issuer                           }
                 };
                 if (ev.Duration == 0)
                 {

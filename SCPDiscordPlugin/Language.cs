@@ -19,7 +19,7 @@ namespace SCPDiscord
         private static JObject primary;
         private static JObject backup;
 
-        private static string languagesPath = FileManager.GetAppFolder() + "SCPDiscord/Languages/";
+        private static string languagesPath = FileManager.GetAppFolder(true, true) + "SCPDiscord/Languages/";
 
         // All default languages included in the .dll
         private static readonly Dictionary<string, string> defaultLanguages = new Dictionary<string, string>
@@ -170,7 +170,7 @@ namespace SCPDiscord
         {
             ready = false;
             plugin = SCPDiscord.plugin;
-			languagesPath = FileManager.GetAppFolder(plugin.GetConfigBool("scpdiscord_languages_global")) + "SCPDiscord/Languages/";
+			languagesPath = FileManager.GetAppFolder(true, plugin.GetConfigBool("scpdiscord_languages_global")) + "SCPDiscord/Languages/";
 
 			// Save default language files
 			SaveDefaultLanguages();

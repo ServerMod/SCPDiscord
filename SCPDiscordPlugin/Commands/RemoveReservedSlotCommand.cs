@@ -18,6 +18,8 @@ namespace SCPDiscord.Commands
 
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
+			return new[] { "This command doesn't work in this version." };
+			/*
 			if (sender is Player player)
 			{
 				if (!player.HasPermission("scpdiscord.removereservedslot"))
@@ -35,10 +37,11 @@ namespace SCPDiscord.Commands
 			{
 				return new[] { "This user does not have a reserved slot." };
 			}
-
+			
 			ReservedSlot.GetSlots().First(slot => slot.SteamID == args[0])?.RemoveSlotFromFile();
 
 			return new[] { "Reserved slot removed." };
+			*/
 		}
 	}
 }

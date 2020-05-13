@@ -5,8 +5,8 @@ using Smod2.Events;
 namespace SCPDiscord.EventListeners
 {
     internal class EnvironmentEventListener : IEventHandlerSCP914Activate, IEventHandlerWarheadStartCountdown, IEventHandlerWarheadStopCountdown,
-        IEventHandlerWarheadDetonate, IEventHandlerLCZDecontaminate, IEventHandlerSummonVehicle
-    {
+        IEventHandlerWarheadDetonate, IEventHandlerLCZDecontaminate, IEventHandlerSummonVehicle, IEventHandlerGeneratorFinish, IEventHandlerScpDeathAnnouncement, IEventHandlerCassieCustomAnnouncement, IEventHandlerCassieTeamAnnouncement
+	{
         private readonly SCPDiscord plugin;
 
         public EnvironmentEventListener(SCPDiscord plugin)
@@ -126,5 +126,25 @@ namespace SCPDiscord.EventListeners
                 this.plugin.SendMessage(Config.GetArray("channels.onsummonvehicle.mtf"), "environment.onsummonvehicle.mtf");
             }
         }
-    }
+
+        public void OnGeneratorFinish(GeneratorFinishEvent ev)
+        {
+	        this.plugin.VerboseError("Event not yet implemented");
+        }
+
+        public void OnScpDeathAnnouncement(ScpDeathAnnouncementEvent ev)
+        {
+			this.plugin.VerboseError("Event not yet implemented");
+		}
+
+        public void OnCassieCustomAnnouncement(CassieCustomAnnouncementEvent ev)
+        {
+			this.plugin.VerboseError("Event not yet implemented");
+		}
+
+        public void OnCassieTeamAnnouncement(CassieTeamAnnouncementEvent ev)
+        {
+			this.plugin.VerboseError("Event not yet implemented");
+		}
+	}
 }
