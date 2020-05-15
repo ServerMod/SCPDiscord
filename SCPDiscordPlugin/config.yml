@@ -38,11 +38,11 @@ settings:
 rolesync:
     - "add-role-id-here":
         - "scperms_givetemprank moderator <var:steamid>" # If you have no need for a permissions plugin you can also set their vanilla rank using the "scpd_grantvanillarank" command
-        - "pbc <var:steamid> 3 Moderator role synced from Discord."
+        - "pbc <var:playerid> 3 Moderator role synced from Discord."
         - "scpd_grantreservedslot <var:steamid>"
     - "add-another-role-id-here":
         - "scperms_givetemprank donator <var:steamid>"
-        - "pbc <var:steamid> 3 Donator role synced from Discord."
+        - "pbc <var:playerid> 3 Donator role synced from Discord."
         - "scpd_grantreservedslot <var:steamid>"
     - "add-everyone-role-id-here":
         - "scpd_removereservedslot <var:steamid>"
@@ -62,9 +62,9 @@ channels:
     topic: [ "default", "staff" ]
 
     # Round events
-    onroundstart: [ "default", "staff" ]
-    onconnect: [ "default", "staff" ]
-    ondisconnect: [ "default" ]
+    onroundstart: []
+    onconnect: []
+    ondisconnect: []
     onplayerleave: [ "default" ]
     oncheckroundend: []
     onroundend: [ "default", "staff" ]
@@ -101,7 +101,7 @@ channels:
     onplayerpickupitem: []
     onplayerdropitem: []
     onplayerjoin: [ "default", "staff" ]
-    onnicknameset: [ "default", "staff" ]
+    onnicknameset: []
     onassignteam: []
     onsetrole: []
     oncheckescape:
