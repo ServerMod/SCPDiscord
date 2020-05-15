@@ -38,6 +38,7 @@ pipeline {
           steps {
             sh 'mv SCPDiscordPlugin/bin/SCPDiscord.dll SCPDiscord/Plugin/'
             sh 'mv SCPDiscordPlugin/bin/YamlDotNet.dll SCPDiscord/Plugin/dependencies'
+            sh 'mv SCPDiscordPlugin/bin/Newtonsoft.Json.dll SCPDiscord/Plugin/dependencies'
           }
         }
         stage('Bot') {
