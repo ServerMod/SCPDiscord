@@ -164,7 +164,7 @@ namespace SCPDiscord
             plugin.SetUpFileSystem();
 
 			// Reads file contents into FileStream
-			FileStream stream = File.OpenRead(FileManager.GetAppFolder(true, plugin.GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml");
+			FileStream stream = File.OpenRead(FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml");
 
             // Converts the FileStream into a YAML Dictionary object
             IDeserializer deserializer = new DeserializerBuilder().Build();

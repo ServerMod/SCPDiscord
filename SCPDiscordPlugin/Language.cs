@@ -170,7 +170,7 @@ namespace SCPDiscord
         {
             ready = false;
             plugin = SCPDiscord.plugin;
-			languagesPath = FileManager.GetAppFolder(true, plugin.GetConfigBool("scpdiscord_languages_global")) + "SCPDiscord/Languages/";
+			languagesPath = FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_languages_global")) + "SCPDiscord/Languages/";
 
 			// Save default language files
 			SaveDefaultLanguages();
