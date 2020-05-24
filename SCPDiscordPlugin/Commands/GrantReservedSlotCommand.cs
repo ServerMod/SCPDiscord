@@ -42,7 +42,7 @@ namespace SCPDiscord.Commands
 			try
 			{
 				Player player = SCPDiscord.plugin.Server.GetPlayers(args[0]).First();
-				new ReservedSlot(player.IpAddress, player.SteamId, player.Name + ", added via SCPDiscord " + DateTime.Now).AppendToFile();
+				new ReservedSlot(player.IpAddress, player.UserId, player.Name + ", added via SCPDiscord " + DateTime.Now).AppendToFile();
 			}
 			catch (InvalidOperationException)
 			{

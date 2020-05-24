@@ -25,7 +25,7 @@ namespace SCPDiscord
         {
             { "settings.playercount",       true    },
             { "settings.verbose",           true    },
-            { "settings.debug",             false   },
+            { "settings.debug",             true   },
             { "settings.metrics",           true    },
             { "settings.configvalidation",  true    },
             { "settings.rolesync",          false   }
@@ -195,7 +195,6 @@ namespace SCPDiscord
             {
                 try
                 {
-	                plugin.Verbose("Reading " + node.Key);
 					configStrings[node.Key] = json.SelectToken(node.Key).Value<string>();
                 }
                 catch (ArgumentNullException)
@@ -212,7 +211,6 @@ namespace SCPDiscord
             {
                 try
                 {
-	                plugin.Verbose("Reading " + node.Key);
 					configInts[node.Key] = json.SelectToken(node.Key).Value<int>();
                 }
                 catch (ArgumentNullException)
@@ -229,7 +227,6 @@ namespace SCPDiscord
             {
                 try
                 {
-	                plugin.Verbose("Reading " + node.Key);
 					configBools[node.Key] = json.SelectToken(node.Key).Value<bool>();
                 }
                 catch (ArgumentNullException)
@@ -246,7 +243,6 @@ namespace SCPDiscord
             {
                 try
                 {
-	                plugin.Verbose("Reading " + node.Key);
 					configArrays[node.Key] = json.SelectToken(node.Key).Value<JArray>().Values<string>().ToArray();
                 }
                 catch (ArgumentNullException)
@@ -263,7 +259,6 @@ namespace SCPDiscord
             {
                 try
                 {
-	                plugin.Verbose("Reading " + node.Key);
 					configDicts[node.Key] = json.SelectToken(node.Key).Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
                 }
                 catch (ArgumentNullException)
@@ -278,7 +273,6 @@ namespace SCPDiscord
 			// Read rolesync system
             try
             {
-				plugin.Verbose("Reading rolesync");
 				plugin.roleSync.roleDictionary = json.SelectToken("rolesync").Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<JArray>().Values<string>().ToArray());
 			}
             catch (ArgumentNullException)

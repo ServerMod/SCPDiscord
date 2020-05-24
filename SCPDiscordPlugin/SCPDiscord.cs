@@ -101,7 +101,7 @@ namespace SCPDiscord
         {
 	        public void OnPlayerJoin(PlayerJoinEvent ev)
 	        {
-		        plugin.roleSync.SendRoleQuery(ev.Player.SteamId);
+		        plugin.roleSync.SendRoleQuery(ev.Player.UserId);
 	        }
         }
 
@@ -306,7 +306,7 @@ namespace SCPDiscord
         {
             foreach (Player player in PluginManager.Server.GetPlayers())
             {
-	            if (player.SteamId == steamID)
+	            if (player.GetParsedUserID() == steamID)
                 {
                     player.Ban(0, message);
                     return true;
@@ -325,7 +325,7 @@ namespace SCPDiscord
         {
             foreach (Player player in PluginManager.Server.GetPlayers())
             {
-	            if (player.SteamId == steamID)
+	            if (player.GetParsedUserID() == steamID)
                 {
                     name = player.Name;
                     return true;

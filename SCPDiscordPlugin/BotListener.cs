@@ -114,7 +114,7 @@ namespace SCPDiscord
                                         var message = "```md\n# Players online (" + (plugin.Server.NumPlayers - 1) + "):\n";
                                         foreach (Player player in plugin.Server.GetPlayers())
                                         {
-                                            message += player.Name.PadRight(35) + "<" + player.SteamId + ">" + "\n";
+                                            message += player.Name.PadRight(35) + "<" + player.UserId + ">" + "\n";
                                         }
                                         message += "```";
                                         NetworkSystem.QueueMessage(channel + message);

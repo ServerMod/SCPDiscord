@@ -8,7 +8,7 @@ namespace SCPDiscord.EventListeners
     internal class PlayerEventListener : IEventHandlerPlayerJoin, IEventHandlerPlayerDie, IEventHandlerSpawn, IEventHandlerPlayerHurt, IEventHandlerPlayerPickupItem,
         IEventHandlerPlayerDropItem, IEventHandlerNicknameSet, IEventHandlerInitialAssignTeam, IEventHandlerSetRole, IEventHandlerCheckEscape, IEventHandlerDoorAccess,
         IEventHandlerIntercom, IEventHandlerIntercomCooldownCheck, IEventHandlerPocketDimensionExit, IEventHandlerPocketDimensionEnter, IEventHandlerPocketDimensionDie,
-        IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerSpawnRagdoll, IEventHandlerLure, IEventHandlerContain106, IEventHandlerMedkitUse, IEventHandlerShoot,
+        IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerSpawnRagdoll, IEventHandlerLure, IEventHandlerContain106, IEventHandlerMedicalUse, IEventHandlerShoot,
         IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse, IEventHandlerHandcuffed, IEventHandlerPlayerTriggerTesla, IEventHandlerSCP914ChangeKnob,
         IEventHandlerRadioSwitch, IEventHandlerMakeNoise, IEventHandlerRecallZombie, IEventHandlerCallCommand, IEventHandlerReload, IEventHandlerGrenadeExplosion, IEventHandlerGrenadeHitPlayer,
         IEventHandlerGeneratorUnlock, IEventHandlerGeneratorAccess, IEventHandlerGeneratorInsertTablet, IEventHandlerGeneratorEjectTablet, IEventHandler079Door, IEventHandler079Lock,
@@ -142,13 +142,13 @@ namespace SCPDiscord.EventListeners
                 { "attackeripaddress",  ev.Killer.IpAddress                 },
                 { "attackername",       ev.Killer.Name                      },
                 { "attackerplayerid",   ev.Killer.PlayerId.ToString()       },
-                { "attackersteamid",    ev.Killer.SteamId                   },
+                { "attackersteamid",    ev.Killer.GetParsedUserID()                   },
                 { "attackerclass",      ev.Killer.TeamRole.Role.ToString()  },
                 { "attackerteam",       ev.Killer.TeamRole.Team.ToString()  },
                 { "playeripaddress",    ev.Player.IpAddress                 },
                 { "playername",         ev.Player.Name                      },
                 { "playerplayerid",     ev.Player.PlayerId.ToString()       },
-                { "playersteamid",      ev.Player.SteamId                   },
+                { "playersteamid",      ev.Player.GetParsedUserID()                   },
                 { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
                 { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
             };
@@ -172,7 +172,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",    ev.Player.IpAddress                   },
                 { "name",         ev.Player.Name                        },
                 { "playerid",     ev.Player.PlayerId.ToString()         },
-                { "steamid",      ev.Player.SteamId                     },
+                { "steamid",      ev.Player.GetParsedUserID()                     },
                 { "class",        ev.Player.TeamRole.Role.ToString()    },
                 { "team",         ev.Player.TeamRole.Team.ToString()    }
             };
@@ -190,7 +190,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",    ev.Player.IpAddress                   },
                 { "name",         ev.Player.Name                        },
                 { "playerid",     ev.Player.PlayerId.ToString()         },
-                { "steamid",      ev.Player.SteamId                     },
+                { "steamid",      ev.Player.GetParsedUserID()                     },
                 { "class",        ev.Player.TeamRole.Role.ToString()    },
                 { "team",         ev.Player.TeamRole.Team.ToString()    }
             };
@@ -207,7 +207,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",    ev.Player.IpAddress                   },
                 { "name",         ev.Player.Name                        },
                 { "playerid",     ev.Player.PlayerId.ToString()         },
-                { "steamid",      ev.Player.SteamId                     },
+                { "steamid",      ev.Player.GetParsedUserID()                     },
                 { "class",        ev.Player.TeamRole.Role.ToString()    },
                 { "team",         ev.Player.TeamRole.Team.ToString()    }
             };
@@ -225,7 +225,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",      ev.Player.IpAddress                 },
                 { "name",           ev.Player.Name                      },
                 { "playerid",       ev.Player.PlayerId.ToString()       },
-                { "steamid",        ev.Player.SteamId                   },
+                { "steamid",        ev.Player.GetParsedUserID()                   },
                 { "class",          ev.Player.TeamRole.Role.ToString()  },
                 { "team",           ev.Player.TeamRole.Team.ToString()  }
             };
@@ -247,7 +247,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",      ev.Player.IpAddress                 },
                 { "name",           ev.Player.Name                      },
                 { "playerid",       ev.Player.PlayerId.ToString()       },
-                { "steamid",        ev.Player.SteamId                   },
+                { "steamid",        ev.Player.GetParsedUserID()                   },
                 { "class",          ev.Player.TeamRole.Role.ToString()  },
                 { "team",           ev.Team.ToString()                  }
             };
@@ -269,7 +269,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",      ev.Player.IpAddress                 },
                 { "name",           ev.Player.Name                      },
                 { "playerid",       ev.Player.PlayerId.ToString()       },
-                { "steamid",        ev.Player.SteamId                   },
+                { "steamid",        ev.Player.GetParsedUserID()                   },
                 { "class",          ev.Player.TeamRole.Role.ToString()  },
                 { "team",           ev.Player.TeamRole.Team.ToString()  }
             };
@@ -287,7 +287,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",      ev.Player.IpAddress                 },
                 { "name",           ev.Player.Name                      },
                 { "playerid",       ev.Player.PlayerId.ToString()       },
-                { "steamid",        ev.Player.SteamId                   },
+                { "steamid",        ev.Player.GetParsedUserID()                   },
                 { "class",          ev.Player.TeamRole.Role.ToString()  },
                 { "team",           ev.Player.TeamRole.Team.ToString()  }
             };
@@ -313,7 +313,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",      ev.Player.IpAddress                 },
                 { "name",           ev.Player.Name                      },
                 { "playerid",       ev.Player.PlayerId.ToString()       },
-                { "steamid",        ev.Player.SteamId                   },
+                { "steamid",        ev.Player.GetParsedUserID()                   },
                 { "class",          ev.Player.TeamRole.Role.ToString()  },
                 { "team",           ev.Player.TeamRole.Team.ToString()  }
             };
@@ -336,7 +336,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",      ev.Player.IpAddress                 },
                 { "name",           ev.Player.Name                      },
                 { "playerid",       ev.Player.PlayerId.ToString()       },
-                { "steamid",        ev.Player.SteamId                   },
+                { "steamid",        ev.Player.GetParsedUserID()                   },
                 { "class",          ev.Player.TeamRole.Role.ToString()  },
                 { "team",           ev.Player.TeamRole.Team.ToString()  }
             };
@@ -362,7 +362,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",      ev.Player.IpAddress                 },
                 { "name",           ev.Player.Name                      },
                 { "playerid",       ev.Player.PlayerId.ToString()       },
-                { "steamid",        ev.Player.SteamId                   },
+                { "steamid",        ev.Player.GetParsedUserID()                   },
                 { "class",          ev.Player.TeamRole.Role.ToString()  },
                 { "team",           ev.Player.TeamRole.Team.ToString()  }
             };
@@ -381,7 +381,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",          ev.Player.IpAddress                 },
                 { "name",               ev.Player.Name                      },
                 { "playerid",           ev.Player.PlayerId.ToString()       },
-                { "steamid",            ev.Player.SteamId                   },
+                { "steamid",            ev.Player.GetParsedUserID()                   },
                 { "class",              ev.Player.TeamRole.Role.ToString()  },
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
@@ -399,7 +399,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",          ev.Player.IpAddress                 },
                 { "name",               ev.Player.Name                      },
                 { "playerid",           ev.Player.PlayerId.ToString()       },
-                { "steamid",            ev.Player.SteamId                   },
+                { "steamid",            ev.Player.GetParsedUserID()                   },
                 { "class",              ev.Player.TeamRole.Role.ToString()  },
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
@@ -417,13 +417,13 @@ namespace SCPDiscord.EventListeners
                 { "attackeripaddress",  ev.Attacker.IpAddress               },
                 { "attackername",       ev.Attacker.Name                    },
                 { "attackerplayerid",   ev.Attacker.PlayerId.ToString()     },
-                { "attackersteamid",    ev.Attacker.SteamId                 },
+                { "attackersteamid",    ev.Attacker.GetParsedUserID()                 },
                 { "attackerclass",      ev.Attacker.TeamRole.Role.ToString()},
                 { "attackerteam",       ev.Attacker.TeamRole.Team.ToString()},
                 { "playeripaddress",    ev.Player.IpAddress                 },
                 { "playername",         ev.Player.Name                      },
                 { "playerplayerid",     ev.Player.PlayerId.ToString()       },
-                { "playersteamid",      ev.Player.SteamId                   },
+                { "playersteamid",      ev.Player.GetParsedUserID()                   },
                 { "playerclass",        ev.Player.TeamRole.Role.ToString()  },
                 { "playerteam",         ev.Player.TeamRole.Team.ToString()  }
             };
@@ -440,7 +440,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",          ev.Player.IpAddress                 },
                 { "name",               ev.Player.Name                      },
                 { "playerid",           ev.Player.PlayerId.ToString()       },
-                { "steamid",            ev.Player.SteamId                   },
+                { "steamid",            ev.Player.GetParsedUserID()                   },
                 { "class",              ev.Player.TeamRole.Role.ToString()  },
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
@@ -458,7 +458,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",          ev.Player.IpAddress                 },
                 { "name",               ev.Player.Name                      },
                 { "playerid",           ev.Player.PlayerId.ToString()       },
-                { "steamid",            ev.Player.SteamId                   },
+                { "steamid",            ev.Player.GetParsedUserID()                   },
                 { "class",              ev.Player.TeamRole.Role.ToString()  },
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
@@ -477,13 +477,13 @@ namespace SCPDiscord.EventListeners
                 { "attackeripaddress",      ev.Attacker.IpAddress                   },
                 { "attackername",           ev.Attacker.Name                        },
                 { "attackerplayerid",       ev.Attacker.PlayerId.ToString()         },
-                { "attackersteamid",        ev.Attacker.SteamId                     },
+                { "attackersteamid",        ev.Attacker.GetParsedUserID()                     },
                 { "attackerclass",          ev.Attacker.TeamRole.Role.ToString()    },
                 { "attackerteam",           ev.Attacker.TeamRole.Team.ToString()    },
                 { "playeripaddress",        ev.Attacker.IpAddress                   },
                 { "playername",             ev.Player.Name                          },
                 { "playerplayerid",         ev.Player.PlayerId.ToString()           },
-                { "playersteamid",          ev.Player.SteamId                       },
+                { "playersteamid",          ev.Player.GetParsedUserID()                       },
                 { "playerclass",            ev.Player.TeamRole.Role.ToString()      },
                 { "playerteam",             ev.Player.TeamRole.Team.ToString()      }
             };
@@ -500,7 +500,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",          ev.Player.IpAddress                 },
                 { "name",               ev.Player.Name                      },
                 { "playerid",           ev.Player.PlayerId.ToString()       },
-                { "steamid",            ev.Player.SteamId                   },
+                { "steamid",            ev.Player.GetParsedUserID()                   },
                 { "class",              ev.Role.ToString()                  },
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
@@ -518,7 +518,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",          ev.Player.IpAddress                 },
                 { "name",               ev.Player.Name                      },
                 { "playerid",           ev.Player.PlayerId.ToString()       },
-                { "steamid",            ev.Player.SteamId                   },
+                { "steamid",            ev.Player.GetParsedUserID()                   },
                 { "class",              ev.Player.TeamRole.Role.ToString()  },
                 { "team",               ev.Player.TeamRole.Team.ToString()  }
             };
@@ -537,7 +537,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",              ev.Player.IpAddress                 },
                 { "name",                   ev.Player.Name                      },
                 { "playerid",               ev.Player.PlayerId.ToString()       },
-                { "steamid",                ev.Player.SteamId                   },
+                { "steamid",                ev.Player.GetParsedUserID()                   },
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
@@ -547,17 +547,19 @@ namespace SCPDiscord.EventListeners
         /// <summary>
         /// Called when a player uses Medkit
         /// </summary>
-        public void OnMedkitUse(PlayerMedkitUseEvent ev)
+        public void OnMedicalUse(PlayerMedicalUseEvent ev)
         {
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "recoveredhealth",        ev.RecoverHealth.ToString()         },
-                { "ipaddress",              ev.Player.IpAddress                 },
-                { "name",                   ev.Player.Name                      },
-                { "playerid",               ev.Player.PlayerId.ToString()       },
-                { "steamid",                ev.Player.SteamId                   },
-                { "class",                  ev.Player.TeamRole.Role.ToString()  },
-                { "team",                   ev.Player.TeamRole.Team.ToString()  }
+                { "amounthealth",           ev.AmountHealth.ToString()         },
+                { "amountartificial",       ev.AmountArtificial.ToString()     },
+                { "amountregen",            ev.AmountRegen.ToString()          },
+				{ "ipaddress",              ev.Player.IpAddress                },
+                { "name",                   ev.Player.Name                     },
+                { "playerid",               ev.Player.PlayerId.ToString()      },
+                { "steamid",                ev.Player.GetParsedUserID()        },
+                { "class",                  ev.Player.TeamRole.Role.ToString() },
+                { "team",                   ev.Player.TeamRole.Team.ToString() }
             };
             this.plugin.SendMessage(Config.GetArray("channels.onmedkituse"), "player.onmedkituse", variables);
         }
@@ -580,7 +582,7 @@ namespace SCPDiscord.EventListeners
                     { "attackeripaddress",      ev.Player.IpAddress                 },
                     { "attackername",           ev.Player.Name                      },
                     { "attackerplayerid",       ev.Player.PlayerId.ToString()       },
-                    { "attackersteamid",        ev.Player.SteamId                   },
+                    { "attackersteamid",        ev.Player.GetParsedUserID()                   },
                     { "attackerclass",          ev.Player.TeamRole.Role.ToString()  },
                     { "attackerteam",           ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -594,18 +596,18 @@ namespace SCPDiscord.EventListeners
                 { "attackeripaddress",      ev.Player.IpAddress                 },
                 { "attackername",           ev.Player.Name                      },
                 { "attackerplayerid",       ev.Player.PlayerId.ToString()       },
-                { "attackersteamid",        ev.Player.SteamId                   },
+                { "attackersteamid",        ev.Player.GetParsedUserID()                   },
                 { "attackerclass",          ev.Player.TeamRole.Role.ToString()  },
                 { "attackerteam",           ev.Player.TeamRole.Team.ToString()  },
                 { "playeripaddress",        ev.Target.IpAddress                 },
                 { "playername",             ev.Target.Name                      },
                 { "playerplayerid",         ev.Target.PlayerId.ToString()       },
-                { "playersteamid",          ev.Target.SteamId                   },
+                { "playersteamid",          ev.Target.GetParsedUserID()                   },
                 { "playerclass",            ev.Target.TeamRole.Role.ToString()  },
                 { "playerteam",             ev.Target.TeamRole.Team.ToString()  }
             };
 
-            if (ev.Player.SteamId != ev.Target.SteamId && this.IsTeamDamage((int)ev.Player.TeamRole.Team, (int)ev.Target.TeamRole.Team))
+            if (ev.Player.UserId != ev.Target.UserId && this.IsTeamDamage((int)ev.Player.TeamRole.Team, (int)ev.Target.TeamRole.Team))
             {
                 this.plugin.SendMessage(Config.GetArray("channels.onshoot.friendlyfire"), "player.onshoot.friendlyfire", variables);
             }
@@ -623,7 +625,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",              ev.Player.IpAddress                 },
                 { "name",                   ev.Player.Name                      },
                 { "playerid",               ev.Player.PlayerId.ToString()       },
-                { "steamid",                ev.Player.SteamId                   },
+                { "steamid",                ev.Player.GetParsedUserID()                   },
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
@@ -640,7 +642,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",              ev.Player.IpAddress                 },
                 { "name",                   ev.Player.Name                      },
                 { "playerid",               ev.Player.PlayerId.ToString()       },
-                { "steamid",                ev.Player.SteamId                   },
+                { "steamid",                ev.Player.GetParsedUserID()                   },
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
@@ -658,7 +660,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",              ev.Player.IpAddress                 },
                 { "name",                   ev.Player.Name                      },
                 { "playerid",               ev.Player.PlayerId.ToString()       },
-                { "steamid",                ev.Player.SteamId                   },
+                { "steamid",                ev.Player.GetParsedUserID()                   },
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
@@ -678,13 +680,13 @@ namespace SCPDiscord.EventListeners
                     { "targetipaddress",    ev.Player.IpAddress                     },
                     { "targetname",         ev.Player.Name                          },
                     { "targetplayerid",     ev.Player.PlayerId.ToString()           },
-                    { "targetsteamid",      ev.Player.SteamId                       },
+                    { "targetsteamid",      ev.Player.GetParsedUserID()                       },
                     { "targetclass",        ev.Player.TeamRole.Role.ToString()      },
                     { "targetteam",         ev.Player.TeamRole.Team.ToString()      },
                     { "playeripaddress",    ev.Owner.IpAddress                      },
                     { "playername",         ev.Owner.Name                           },
                     { "playerplayerid",     ev.Owner.PlayerId.ToString()            },
-                    { "playersteamid",      ev.Owner.SteamId                        },
+                    { "playersteamid",      ev.Owner.GetParsedUserID()                        },
                     { "playerclass",        ev.Owner.TeamRole.Role.ToString()       },
                     { "playerteam",         ev.Owner.TeamRole.Team.ToString()       }
                 };
@@ -698,7 +700,7 @@ namespace SCPDiscord.EventListeners
                     { "targetipaddress",    ev.Player.IpAddress                     },
                     { "targetname",         ev.Player.Name                          },
                     { "targetplayerid",     ev.Player.PlayerId.ToString()           },
-                    { "targetsteamid",      ev.Player.SteamId                       },
+                    { "targetsteamid",      ev.Player.GetParsedUserID()                       },
                     { "targetclass",        ev.Player.TeamRole.Role.ToString()      },
                     { "targetteam",         ev.Player.TeamRole.Team.ToString()      }
                 };
@@ -716,7 +718,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",              ev.Player.IpAddress                 },
                 { "name",                   ev.Player.Name                      },
                 { "playerid",               ev.Player.PlayerId.ToString()       },
-                { "steamid",                ev.Player.SteamId                   },
+                { "steamid",                ev.Player.GetParsedUserID()                   },
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
@@ -742,7 +744,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",              ev.Player.IpAddress                 },
                 { "name",                   ev.Player.Name                      },
                 { "playerid",               ev.Player.PlayerId.ToString()       },
-                { "steamid",                ev.Player.SteamId                   },
+                { "steamid",                ev.Player.GetParsedUserID()                   },
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
@@ -757,7 +759,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",              ev.Player.IpAddress                 },
                 { "name",                   ev.Player.Name                      },
                 { "playerid",               ev.Player.PlayerId.ToString()       },
-                { "steamid",                ev.Player.SteamId                   },
+                { "steamid",                ev.Player.GetParsedUserID()                   },
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
@@ -771,7 +773,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",              ev.Player.IpAddress                 },
                 { "name",                   ev.Player.Name                      },
                 { "playerid",               ev.Player.PlayerId.ToString()       },
-                { "steamid",                ev.Player.SteamId                   },
+                { "steamid",                ev.Player.GetParsedUserID()                   },
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
@@ -786,13 +788,13 @@ namespace SCPDiscord.EventListeners
                 { "playeripaddress",    ev.Player.IpAddress                     },
                 { "playername",         ev.Player.Name                          },
                 { "playerplayerid",     ev.Player.PlayerId.ToString()           },
-                { "playersteamid",      ev.Player.SteamId                       },
+                { "playersteamid",      ev.Player.GetParsedUserID()                       },
                 { "playerclass",        ev.Player.TeamRole.Role.ToString()      },
                 { "playerteam",         ev.Player.TeamRole.Team.ToString()      },
                 { "targetipaddress",    ev.Target.IpAddress                     },
                 { "targetname",         ev.Target.Name                          },
                 { "targetplayerid",     ev.Target.PlayerId.ToString()           },
-                { "targetsteamid",      ev.Target.SteamId                       },
+                { "targetsteamid",      ev.Target.GetParsedUserID()                       },
                 { "targetclass",        ev.Target.TeamRole.Role.ToString()      },
                 { "targetteam",         ev.Target.TeamRole.Team.ToString()      },
             };
@@ -808,7 +810,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",              ev.Player.IpAddress                 },
                 { "name",                   ev.Player.Name                      },
                 { "playerid",               ev.Player.PlayerId.ToString()       },
-                { "steamid",                ev.Player.SteamId                   },
+                { "steamid",                ev.Player.GetParsedUserID()                   },
                 { "class",                  ev.Player.TeamRole.Role.ToString()  },
                 { "team",                   ev.Player.TeamRole.Team.ToString()  }
             };
@@ -828,7 +830,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",                  ev.Player.IpAddress                     },
                 { "name",                       ev.Player.Name                          },
                 { "playerid",                   ev.Player.PlayerId.ToString()           },
-                { "steamid",                    ev.Player.SteamId                       },
+                { "steamid",                    ev.Player.GetParsedUserID()                       },
                 { "class",                      ev.Player.TeamRole.Role.ToString()      },
                 { "team",                       ev.Player.TeamRole.Team.ToString()      }
             };
@@ -842,7 +844,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",                  ev.Player.IpAddress                     },
                 { "name",                       ev.Player.Name                          },
                 { "playerid",                   ev.Player.PlayerId.ToString()           },
-                { "steamid",                    ev.Player.SteamId                       },
+                { "steamid",                    ev.Player.GetParsedUserID()                       },
                 { "class",                      ev.Player.TeamRole.Role.ToString()      },
                 { "team",                       ev.Player.TeamRole.Team.ToString()      }
             };
@@ -856,13 +858,13 @@ namespace SCPDiscord.EventListeners
                 { "playeripaddress",    ev.Player.IpAddress                     },
                 { "playername",         ev.Player.Name                          },
                 { "playerplayerid",     ev.Player.PlayerId.ToString()           },
-                { "playersteamid",      ev.Player.SteamId                       },
+                { "playersteamid",      ev.Player.GetParsedUserID()                       },
                 { "playerclass",        ev.Player.TeamRole.Role.ToString()      },
                 { "playerteam",         ev.Player.TeamRole.Team.ToString()      },
                 { "targetipaddress",    ev.Victim.IpAddress                     },
                 { "targetname",         ev.Victim.Name                          },
                 { "targetplayerid",     ev.Victim.PlayerId.ToString()           },
-                { "targetsteamid",      ev.Victim.SteamId                       },
+                { "targetsteamid",      ev.Victim.GetParsedUserID()                       },
                 { "targetclass",        ev.Victim.TeamRole.Role.ToString()      },
                 { "targetteam",         ev.Victim.TeamRole.Team.ToString()      },
             };
@@ -888,7 +890,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                     },
                     { "name",                       ev.Player.Name                          },
                     { "playerid",                   ev.Player.PlayerId.ToString()           },
-                    { "steamid",                    ev.Player.SteamId                       },
+                    { "steamid",                    ev.Player.GetParsedUserID()                       },
                     { "class",                      ev.Player.TeamRole.Role.ToString()      },
                     { "team",                       ev.Player.TeamRole.Team.ToString()      }
                 };
@@ -915,7 +917,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                     },
                     { "name",                       ev.Player.Name                          },
                     { "playerid",                   ev.Player.PlayerId.ToString()           },
-                    { "steamid",                    ev.Player.SteamId                       },
+                    { "steamid",                    ev.Player.GetParsedUserID()                       },
                     { "class",                      ev.Player.TeamRole.Role.ToString()      },
                     { "team",                       ev.Player.TeamRole.Team.ToString()      }
                 };
@@ -949,7 +951,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                     },
                     { "name",                       ev.Player.Name                          },
                     { "playerid",                   ev.Player.PlayerId.ToString()           },
-                    { "steamid",                    ev.Player.SteamId                       },
+                    { "steamid",                    ev.Player.GetParsedUserID()                       },
                     { "class",                      ev.Player.TeamRole.Role.ToString()      },
                     { "team",                       ev.Player.TeamRole.Team.ToString()      }
                 };
@@ -976,7 +978,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                     },
                     { "name",                       ev.Player.Name                          },
                     { "playerid",                   ev.Player.PlayerId.ToString()           },
-                    { "steamid",                    ev.Player.SteamId                       },
+                    { "steamid",                    ev.Player.GetParsedUserID()                       },
                     { "class",                      ev.Player.TeamRole.Role.ToString()      },
                     { "team",                       ev.Player.TeamRole.Team.ToString()      }
                 };
@@ -999,7 +1001,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                 },
                     { "name",                       ev.Player.Name                      },
                     { "playerid",                   ev.Player.PlayerId.ToString()       },
-                    { "steamid",                    ev.Player.SteamId                   },
+                    { "steamid",                    ev.Player.GetParsedUserID()                   },
                     { "class",                      ev.Player.TeamRole.Role.ToString()  },
                     { "team",                       ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -1029,7 +1031,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                 },
                     { "name",                       ev.Player.Name                      },
                     { "playerid",                   ev.Player.PlayerId.ToString()       },
-                    { "steamid",                    ev.Player.SteamId                   },
+                    { "steamid",                    ev.Player.GetParsedUserID()                   },
                     { "class",                      ev.Player.TeamRole.Role.ToString()  },
                     { "team",                       ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -1059,7 +1061,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                 },
                     { "name",                       ev.Player.Name                      },
                     { "playerid",                   ev.Player.PlayerId.ToString()       },
-                    { "steamid",                    ev.Player.SteamId                   },
+                    { "steamid",                    ev.Player.GetParsedUserID()                   },
                     { "class",                      ev.Player.TeamRole.Role.ToString()  },
                     { "team",                       ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -1087,7 +1089,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                 },
                     { "name",                       ev.Player.Name                      },
                     { "playerid",                   ev.Player.PlayerId.ToString()       },
-                    { "steamid",                    ev.Player.SteamId                   },
+                    { "steamid",                    ev.Player.GetParsedUserID()                   },
                     { "class",                      ev.Player.TeamRole.Role.ToString()  },
                     { "team",                       ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -1107,7 +1109,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",                  ev.Player.IpAddress                 },
                 { "name",                       ev.Player.Name                      },
                 { "playerid",                   ev.Player.PlayerId.ToString()       },
-                { "steamid",                    ev.Player.SteamId                   },
+                { "steamid",                    ev.Player.GetParsedUserID()                   },
                 { "class",                      ev.Player.TeamRole.Role.ToString()  },
                 { "team",                       ev.Player.TeamRole.Team.ToString()  }
             };
@@ -1124,7 +1126,7 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",                  ev.Player.IpAddress                 },
                 { "name",                       ev.Player.Name                      },
                 { "playerid",                   ev.Player.PlayerId.ToString()       },
-                { "steamid",                    ev.Player.SteamId                   },
+                { "steamid",                    ev.Player.GetParsedUserID()                   },
                 { "class",                      ev.Player.TeamRole.Role.ToString()  },
                 { "team",                       ev.Player.TeamRole.Team.ToString()  }
             };
@@ -1143,7 +1145,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                 },
                     { "name",                       ev.Player.Name                      },
                     { "playerid",                   ev.Player.PlayerId.ToString()       },
-                    { "steamid",                    ev.Player.SteamId                   },
+                    { "steamid",                    ev.Player.GetParsedUserID()                   },
                     { "class",                      ev.Player.TeamRole.Role.ToString()  },
                     { "team",                       ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -1164,7 +1166,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                 },
                     { "name",                       ev.Player.Name                      },
                     { "playerid",                   ev.Player.PlayerId.ToString()       },
-                    { "steamid",                    ev.Player.SteamId                   },
+                    { "steamid",                    ev.Player.GetParsedUserID()                   },
                     { "class",                      ev.Player.TeamRole.Role.ToString()  },
                     { "team",                       ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -1186,7 +1188,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                 },
                     { "name",                       ev.Player.Name                      },
                     { "playerid",                   ev.Player.PlayerId.ToString()       },
-                    { "steamid",                    ev.Player.SteamId                   },
+                    { "steamid",                    ev.Player.GetParsedUserID()                   },
                     { "class",                      ev.Player.TeamRole.Role.ToString()  },
                     { "team",                       ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -1207,7 +1209,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                 },
                     { "name",                       ev.Player.Name                      },
                     { "playerid",                   ev.Player.PlayerId.ToString()       },
-                    { "steamid",                    ev.Player.SteamId                   },
+                    { "steamid",                    ev.Player.GetParsedUserID()                   },
                     { "class",                      ev.Player.TeamRole.Role.ToString()  },
                     { "team",                       ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -1229,7 +1231,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                 },
                     { "name",                       ev.Player.Name                      },
                     { "playerid",                   ev.Player.PlayerId.ToString()       },
-                    { "steamid",                    ev.Player.SteamId                   },
+                    { "steamid",                    ev.Player.GetParsedUserID()                   },
                     { "class",                      ev.Player.TeamRole.Role.ToString()  },
                     { "team",                       ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -1251,7 +1253,7 @@ namespace SCPDiscord.EventListeners
                     { "ipaddress",                  ev.Player.IpAddress                 },
                     { "name",                       ev.Player.Name                      },
                     { "playerid",                   ev.Player.PlayerId.ToString()       },
-                    { "steamid",                    ev.Player.SteamId                   },
+                    { "steamid",                    ev.Player.GetParsedUserID()                   },
                     { "class",                      ev.Player.TeamRole.Role.ToString()  },
                     { "team",                       ev.Player.TeamRole.Team.ToString()  }
                 };
@@ -1268,7 +1270,7 @@ namespace SCPDiscord.EventListeners
 			        { "ipaddress",                  ev.Player.IpAddress                 },
 			        { "name",                       ev.Player.Name                      },
 			        { "playerid",                   ev.Player.PlayerId.ToString()       },
-			        { "steamid",                    ev.Player.SteamId                   },
+			        { "steamid",                    ev.Player.GetParsedUserID()                   },
 			        { "class",                      ev.Player.TeamRole.Role.ToString()  },
 			        { "team",                       ev.Player.TeamRole.Team.ToString()  }
 		        };

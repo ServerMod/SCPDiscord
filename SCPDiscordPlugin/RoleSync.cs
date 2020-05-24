@@ -46,23 +46,23 @@ namespace SCPDiscord
             File.WriteAllText(FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json", builder.ToString());
         }
 
-        public void SendRoleQuery(string steamID)
+        public void SendRoleQuery(string userID)
         {
-            if (!syncedPlayers.ContainsKey(steamID))
+            if (!syncedPlayers.ContainsKey(userID))
             {
                 return;
             }
-            NetworkSystem.QueueMessage("rolequery " + steamID + " " + syncedPlayers[steamID]);
+            NetworkSystem.QueueMessage("rolequery " + userID + " " + syncedPlayers[userID]);
         }
 
-        public void ReceiveQueryResponse(string steamID, string jsonString)
+        public void ReceiveQueryResponse(string userID, string jsonString)
         {
 	        try
 	        {
 		        Player player;
 		        try
 	            {
-					player = plugin.Server.GetPlayers(steamID)?.First();
+					player = plugin.Server.GetPlayers(userID)?.First();
 	            }
 	            catch (NullReferenceException e)
 	            {
@@ -83,10 +83,11 @@ namespace SCPDiscord
 					{
 						Dictionary<string, string> variables = new Dictionary<string, string>
 						{
-							{ "ipaddress",    player.IpAddress                 },
-							{ "name",         player.Name                      },
-							{ "playerid",     player.PlayerId.ToString()       },
-							{ "steamid",      player.SteamId                   }
+							{ "ipaddress",    player.IpAddress            },
+							{ "name",         player.Name                 },
+							{ "playerid",     player.PlayerId.ToString()  },
+							{ "userid",       player.UserId               },
+							{ "steamid",      player.GetParsedUserID()    }
 						};
 						foreach (string unparsedCommand in keyValuePair.Value)
 						{

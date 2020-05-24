@@ -53,7 +53,7 @@ namespace SCPDiscord.EventListeners
             {
                 { "ipaddress", ev.Player.IpAddress           },
                 { "name", ev.Player.Name                     },
-                { "steamid", ev.Player.SteamId               },
+                { "steamid", ev.Player.GetParsedUserID()               },
                 { "playerid", ev.Player.PlayerId.ToString()  }
             };
             this.plugin.SendMessage(Config.GetArray("channels.onplayerleave"), "round.onplayerleave", variables);
