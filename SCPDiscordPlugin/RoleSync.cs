@@ -46,13 +46,13 @@ namespace SCPDiscord
             File.WriteAllText(FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json", builder.ToString());
         }
 
-        public void SendRoleQuery(string userID)
+        public void SendRoleQuery(Player player)
         {
-            if (!syncedPlayers.ContainsKey(userID))
+            if (player.UserIdType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserId))
             {
                 return;
             }
-            NetworkSystem.QueueMessage("rolequery " + userID + " " + syncedPlayers[userID]);
+            NetworkSystem.QueueMessage("rolequery " + player.GetParsedUserID() + " " + syncedPlayers[player.UserId]);
         }
 
         public void ReceiveQueryResponse(string userID, string jsonString)
@@ -113,14 +113,14 @@ namespace SCPDiscord
 
         public string AddPlayer(string steamID, string discordID)
         {
-            if (syncedPlayers.ContainsKey(steamID))
+            if (syncedPlayers.ContainsKey(steamID + "@steam"))
             {
-                return "SteamID is already linked to a Discord account";
+                return "SteamID is already linked to a Discord account. You will have to remove it first.";
             }
 
             if (syncedPlayers.ContainsValue(discordID))
             {
-                return "Discord user ID is already linked to a Steam account";
+                return "Discord user ID is already linked to a Steam account. You will have to remove it first.";
             }
 
             string response = "";
@@ -129,7 +129,7 @@ namespace SCPDiscord
                 return response;
             }
 
-            syncedPlayers.Add(steamID, discordID);
+            syncedPlayers.Add(steamID + "@steam", discordID);
             SavePlayers();
             return "Successfully linked accounts.";
         }

@@ -222,7 +222,7 @@ namespace SCPDiscord
                             }
                             else if (words[0] == "roleresponse")
                             {
-                                plugin.roleSync.ReceiveQueryResponse(words[1], MergeString(words.Skip(2).ToArray()));
+                                plugin.roleSync.ReceiveQueryResponse(words[1] + "@steam", MergeString(words.Skip(2).ToArray()));
                             }
                             plugin.Verbose("From discord: " + messages[0]);
 

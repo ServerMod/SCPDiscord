@@ -101,7 +101,7 @@ namespace SCPDiscord
         {
 	        public void OnPlayerJoin(PlayerJoinEvent ev)
 	        {
-		        plugin.roleSync.SendRoleQuery(ev.Player.UserId);
+		        plugin.roleSync.SendRoleQuery(ev.Player);
 	        }
         }
 
