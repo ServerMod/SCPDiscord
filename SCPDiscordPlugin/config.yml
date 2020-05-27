@@ -31,21 +31,22 @@ settings:
 # Sets commands which are run whenever someone with a synced Discord rank joins the server, only the highest one in the list that matches the player is executed
 # Valid variables:
 # steamid
+# userid
 # playerid
 # name
 # ipadress
 # Turn on debug above to see console feedback when the commands are used
 rolesync:
     - "add-role-id-here":
-        - "scperms_givetemprank moderator <var:steamid>" # If you have no need for a permissions plugin you can also set their vanilla rank using the "scpd_grantvanillarank" command
+        - "scperms_givetemprank moderator <var:userid>" # If you have no need for a permissions plugin you can also set their vanilla rank using the "scpd_grantvanillarank" command
         - "pbc <var:playerid> 3 Moderator role synced from Discord."
-        - "scpd_grantreservedslot <var:steamid>"
+        - "scpd_grantreservedslot <var:userid>"
     - "add-another-role-id-here":
-        - "scperms_givetemprank donator <var:steamid>"
+        - "scperms_givetemprank donator <var:userid>"
         - "pbc <var:playerid> 3 Donator role synced from Discord."
-        - "scpd_grantreservedslot <var:steamid>"
+        - "scpd_grantreservedslot <var:userid>"
     - "add-everyone-role-id-here":
-        - "scpd_removereservedslot <var:steamid>"
+        - "scpd_removereservedslot <var:userid>"
 
 # Name your channels here, this name is used in the channels section below. The left value is a name of your choice and the right is a channel id you want it to represent.
 aliases: 
