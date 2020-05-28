@@ -190,8 +190,8 @@ namespace SCPDiscord.EventListeners
                 { "ipaddress",    ev.Player.IpAddress                   },
                 { "name",         ev.Player.Name                        },
                 { "playerid",     ev.Player.PlayerId.ToString()         },
-                { "steamid",      ev.Player.GetParsedUserID()                     },
-                { "class",        ev.Player.TeamRole.Role.ToString()    },
+				{ "steamid",      ev.Player.GetParsedUserID() ?? ev.Player.UserId },
+				{ "class",        ev.Player.TeamRole.Role.ToString()    },
                 { "team",         ev.Player.TeamRole.Team.ToString()    }
             };
             this.plugin.SendMessage(Config.GetArray("channels.onplayerdropitem"), "player.onplayerdropitem", variables);
@@ -204,12 +204,12 @@ namespace SCPDiscord.EventListeners
         {
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "ipaddress",    ev.Player.IpAddress                   },
-                { "name",         ev.Player.Name                        },
-                { "playerid",     ev.Player.PlayerId.ToString()         },
-                { "steamid",      ev.Player.GetParsedUserID()                     },
-                { "class",        ev.Player.TeamRole.Role.ToString()    },
-                { "team",         ev.Player.TeamRole.Team.ToString()    }
+                { "ipaddress",    ev.Player.IpAddress                             },
+                { "name",         ev.Player.Name                                  },
+                { "playerid",     ev.Player.PlayerId.ToString()	                  },
+                { "steamid",      ev.Player.GetParsedUserID() ?? ev.Player.UserId },
+                { "class",        ev.Player.TeamRole.Role.ToString()              },
+                { "team",         ev.Player.TeamRole.Team.ToString()              }
             };
             this.plugin.SendMessage(Config.GetArray("channels.onplayerjoin"), "player.onplayerjoin", variables);
         }
