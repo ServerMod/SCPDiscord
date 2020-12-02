@@ -28,6 +28,7 @@ namespace SCPDiscord.Commands
 			SCPDiscord.plugin.Info("Reloading plugin...");
 			SCPDiscord.plugin.LoadConfig();
 			Language.Reload();
+			SCPDiscord.plugin.maxPlayers = SCPDiscord.plugin.GetConfigInt("max_players");
 			SCPDiscord.plugin.roleSync.Reload();
 			if (NetworkSystem.IsConnected())
 			{
