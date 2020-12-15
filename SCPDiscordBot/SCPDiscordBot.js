@@ -1,10 +1,10 @@
 "use strict";
-const packageInfo = require("./package.json");
-console.log("Initializing SCPDiscord Bot version " + packageInfo.version);
-console.log("Config loading...");
-const fs = require("fs");
-const yaml = require("yaml");
-const file = fs.readFileSync("./config.yml", "utf8");
+const packageInfo = require("./package.json")
+console.log("Initializing SCPDiscord Bot version " + packageInfo.version)
+console.log("Config loading...")
+const fs = require("fs")
+const yaml = require("yaml")
+const file = fs.readFileSync("./config.yml", "utf8")
 const {
 	token,
 	prefix,
@@ -17,40 +17,40 @@ const {
 	delay,
 	permissions,
 	serverID
-} = yaml.parse(file);
-console.log("Config loaded.");
+} = yaml.parse(file)
+console.log("Config loaded.")
 
-var connectedToDiscord = false;
-const discord = require("discord.js");
-const discordClient = new discord.Client({ autoReconnect: true });
+var connectedToDiscord = false
+const discord = require("discord.js")
+const discordClient = new discord.Client({ autoReconnect: true })
 
-var messageQueue = {};
+var messageQueue = {}
 
-var sockets = [];
-var tcpServer = require("net").createServer();
+var sockets = []
+var tcpServer = require("net").createServer()
 
 // Discord functions
 function setChannelTopic(channelID, topic)
 {
-	const verifiedChannel = discordClient.channels.get(channelID);
+	const verifiedChannel = discordClient.channels.get(channelID)
 	if (verifiedChannel != null)
 	{
 		if (verifiedChannel.manageable)
 		{
 			if (verbose)
 			{
-				console.log("Changed to topic: " + topic);
+				console.log("Changed to topic: " + topic)
 			}
-			verifiedChannel.setTopic(topic);
+			verifiedChannel.setTopic(topic)
 		}
 		else if (verbose)
 		{
-			console.warn("No permission to change channel topic.");
+			console.warn("No permission to change channel topic.")
 		}
 	}
 	else if (verbose)
 	{
-		console.warn("Could not set channel topic, channel not found: " + channelID);
+		console.warn("Could not set channel topic, channel not found: " + channelID)
 	}
 }
 
@@ -58,7 +58,7 @@ function hasPermission(member, command)
 {
 	if (member.hasPermission("ADMINISTRATOR"))
 	{
-		return true;
+		return true
 	}
 
 	const permissionRoles = Object.keys(permissions);
@@ -70,33 +70,33 @@ function hasPermission(member, command)
 		{
 			if (permissions[roleID].includes(command))
 			{
-				return true;
+				return true
 			}
 		}
 	}
-	return false;
+	return false
 }
 
 function syncRoleCommand(message, args)
 {
-	var output = "command " + message.channel.id + " " + message.author.tag.replace(/ /g, "_") + " syncrole ";
+	var output = "command " + message.channel.id + " " + message.author.tag.replace(/ /g, "_") + " syncrole "
 	if (args.length < 1)
 	{
-		sendMessage(message.channel, "```diff\n- Missing arguments.```");
-		return;
+		sendMessage(message.channel, "```diff\n- Missing arguments.```")
+		return
 	}
 
 	if (args[0].length !== 17 || isNaN(args[0]))
 	{
-		sendMessage(message.channel, "```diff\n- Not a valid SteamID64.```");
-		return;
+		sendMessage(message.channel, "```diff\n- Not a valid SteamID64.```")
+		return
 	}
-	output += args[0];
-	output += " ";
-	output += message.member.id;
+	output += args[0]
+	output += " "
+	output += message.member.id
 	sockets.forEach((socket) =>
 	{
-		socket.write(output + "\n");
+		socket.write(output + "\n")
 	});
 }
 
@@ -104,7 +104,7 @@ function unsyncRoleCommand(message)
 {
 	sockets.forEach((socket) =>
 	{
-		socket.write("command " + message.channel.id + " " + message.author.tag.replace(/ /g, "_") + " unsyncrole " + message.member.id + "\n");
+		socket.write("command " + message.channel.id + " " + message.author.tag.replace(/ /g, "_") + " unsyncrole " + message.member.id + "\n")
 	});
 }
 
@@ -116,96 +116,96 @@ function sendMessage(channel, message)
 		setTimeout(() => channel.send(message), delay);
 		if (verbose)
 		{
-			console.log("Sent: '" + message + "' to channel '#" + channel.name + "'.");
+			console.log("Sent: '" + message + "' to channel '#" + channel.name + "'.")
 		}
 	}
 	else if (verbose)
 	{
-		console.warn("Channel not found for message: " + message);
+		console.warn("Channel not found for message: " + message)
 	}
 }
 // Connection event
 tcpServer.on("connection", (socket) =>
 {
-	sockets.push(socket);
+	sockets.push(socket)
 
-	socket.setKeepAlive(true, 1000);
+	socket.setKeepAlive(true, 1000)
 
-	socket.setEncoding("utf8");
+	socket.setEncoding("utf8")
 
-	console.log("Plugin connected.");
+	console.log("Plugin connected.")
 
 	// Messages from the plugin
 	socket.on("data", (data) =>
 	{
 		if (discordClient == null)
 		{
-			console.log("Received " + data + " but Discord client was null.");
-			return;
+			console.log("Received " + data + " but Discord client was null.")
+			return
 		}
 
 		if (!connectedToDiscord)
 		{
-			console.log("Received " + data + " but was not connected to Discord yet.");
-			return;
+			console.log("Received " + data + " but was not connected to Discord yet.")
+			return
 		}
 
-		var messages = data.split("\u0000");
+		var messages = data.split("\u0000")
 
 		messages.forEach(
 			function(packet)
 			{
 				if (packet.slice(0, 12) === "channeltopic")
 				{
-					const channel = packet.slice(12, 30);
-					setChannelTopic(channel, packet.slice(30));
+					const channel = packet.slice(12, 30)
+					setChannelTopic(channel, packet.slice(30))
 				}
 				else if (packet.slice(0, 11) === "botactivity" && discordClient.user != null)
 				{
 					if (packet.slice(11)[0] === "0")
 					{
-						discordClient.user.setStatus("idle");
+						discordClient.user.setStatus("idle")
 					}
 					else
 					{
-						discordClient.user.setStatus("available");
+						discordClient.user.setStatus("available")
 					}
 
 					discordClient.user.setActivity(
 						packet.slice(11),
 						{
 							type: "PLAYING"
-						});
+						})
 
 					if (verbose)
 					{
-						console.warn("Set activity to " + packet.slice(11));
+						console.warn("Set activity to " + packet.slice(11))
 					}
 				}
 				else if (packet.slice(0, 9) === "rolequery" && discordClient.user != null)
 				{
-					const words = packet.split(" ");
-					const steamID = words[1];
-					const discordID = words[2];
-					const server = discordClient.guilds.get(serverID);
-					const member = server.members.get(discordID);
+					const words = packet.split(" ")
+					const steamID = words[1]
+					const discordID = words[2]
+					const server = discordClient.guilds.get(serverID)
+					const member = server.members.get(discordID)
 
 					if (member != null)
 					{
-						socket.write("roleresponse " + steamID + " " + JSON.stringify(member.roles.keyArray()));
+						socket.write("roleresponse " + steamID + " " + JSON.stringify(member.roles.keyArray()))
 					}
 					else
 					{
 						console.log(
 							"Tried to sync the role of "
 							+ words[1]
-							+ " but they were not found on the discord server.");
+							+ " but they were not found on the discord server.")
 					}
 				}
 				else
 				{
-					const destinationChannel = packet.slice(0, 18);
-					const message = packet.slice(18);
+					const destinationChannel = packet.slice(0, 18)
+					const message = packet.slice(18)
 					if (message !== "")
 					{
 						// If this channel has not been used yet it must be initialized
