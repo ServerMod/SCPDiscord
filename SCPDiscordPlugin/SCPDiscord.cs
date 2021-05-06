@@ -16,6 +16,7 @@ using SCPDiscord.EventListeners;
 using Smod2.EventHandlers;
 using Smod2.Piping;
 using YamlDotNet.Core;
+using SCPDiscord.Interface;
 
 namespace SCPDiscord
 {
@@ -24,7 +25,7 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "1.4.0-Pre-D",
+        version = "1.5.0",
         SmodMajor = 3,
         SmodMinor = 8,
         SmodRevision = 0
@@ -42,7 +43,9 @@ namespace SCPDiscord
 
         public bool shutdown;
 
-        public int maxPlayers = 20;
+        private int maxPlayers = 20;
+        private readonly Stopwatch maxPlayersCacheTimer = new Stopwatch();
+
 
         public override void Register()
         {
@@ -55,8 +58,8 @@ namespace SCPDiscord
             AddEventHandlers(new TickCounter(), Priority.Highest);
             AddEventHandlers(new SyncPlayerRole(), Priority.Highest);
 
-            AddConfig(new Smod2.Config.ConfigSetting("max_players", 20, true, "Gets the max players without reserved slots."));
 
+            AddConfig(new Smod2.Config.ConfigSetting("max_players", 20, true, "Gets the max players without reserved slots."));
             AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config_global", false, true, "Whether or not the config should be placed in the global config directory."));
             AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_rolesync_global", true, true, "Whether or not the rolesync file should be placed in the global config directory."));
             AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_languages_global", true, true, "Whether or not the languages should be placed in the global config directory."));
@@ -93,7 +96,7 @@ namespace SCPDiscord
 
             new Thread(() => new StartNetworkSystem(plugin)).Start();
 
-            this.maxPlayers = GetConfigInt("max_players");
+            GetMaxPlayers();
             Info("SCPDiscord " + this.Details.version + " enabled.");
         }
 
@@ -104,6 +107,17 @@ namespace SCPDiscord
 		        plugin.roleSync.SendRoleQuery(ev.Player);
 	        }
         }
+
+        public int GetMaxPlayers()
+		{
+            if(maxPlayersCacheTimer.ElapsedMilliseconds > 10000 || !maxPlayersCacheTimer.IsRunning)
+			{
+                maxPlayers = GetConfigInt("max_players");
+                maxPlayersCacheTimer.Reset();
+                maxPlayersCacheTimer.Start();
+            }
+            return maxPlayers;
+		}
 
 		/// <summary>
 		/// Makes sure all plugin files exist.
@@ -249,16 +263,32 @@ namespace SCPDiscord
             {
                 if (Config.GetDict("aliases").ContainsKey(channel))
                 {
-                    NetworkSystem.QueueMessage(Config.GetDict("aliases")[channel] + message);
+                    MessageWrapper wrapper = new MessageWrapper
+                    {
+                        ChatMessage = new ChatMessage
+                        {
+                            ChannelID = Config.GetDict("aliases")[channel],
+                            Content = message
+                        }
+                    };
+                    NetworkSystem.QueueMessage(wrapper);
                 }
             }
 
             return true;
         }
 		[PipeMethod]
-		public bool SendStringByID(string channelID, string message)
+		public bool SendStringByID(ulong channelID, string message)
 		{
-			NetworkSystem.QueueMessage(channelID + message);
+            MessageWrapper wrapper = new MessageWrapper
+            {
+                ChatMessage = new ChatMessage
+                {
+                    ChannelID = channelID,
+                    Content = message
+                }
+            };
+            NetworkSystem.QueueMessage(wrapper);
 			return true;
 		}
 
@@ -290,7 +320,7 @@ namespace SCPDiscord
 		/// <param name="messagePath">The language node of the message to send.</param>
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
 		[PipeMethod]
-		public bool SendMessageByID(string channelID, string messagePath, Dictionary<string, string> variables = null)
+		public bool SendMessageByID(ulong channelID, string messagePath, Dictionary<string, string> variables = null)
         {
 	        new Thread(() => new ProcessMessageAsync(channelID, messagePath, variables)).Start();
             return true;

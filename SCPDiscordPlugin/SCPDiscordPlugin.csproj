@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SCPDiscord</RootNamespace>
     <AssemblyName>SCPDiscord</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Protobuf">
+      <HintPath>lib\Google.Protobuf.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -51,6 +54,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -68,6 +72,10 @@
     <Compile Include="EventListeners\EnvironmentEventListener.cs" />
     <Compile Include="EventListeners\PlayerEventListener.cs" />
     <Compile Include="Commands\GrantReservedSlotCommand.cs" />
+    <Compile Include="Interface\BotActivity.cs" />
+    <Compile Include="Interface\ChannelTopic.cs" />
+    <Compile Include="Interface\ChatMessage.cs" />
+    <Compile Include="Interface\MessageWrapper.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="NetworkSystem.cs" />
     <Compile Include="EventListeners\RoundEventListener.cs" />
@@ -103,6 +111,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="config.yml" />
     <None Include="Languages\english-emote.yml" />
     <None Include="Languages\english.yml" />
@@ -129,14 +138,19 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /y "SCPDiscord.dll" "C:\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\sm_plugins\"
+    <PostBuildEvent>dir
+copy /y "SCPDiscord.dll" "D:\servers\scpsl\sm_plugins\"
 
-mkdir "C:\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\sm_plugins\dependencies"
 
-copy /y "YamlDotNet.dll" "C:\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\sm_plugins\dependencies\"
+mkdir "D:\servers\scpsl\sm_plugins\dependencies"
 
-copy /y "Newtonsoft.Json.dll" "C:\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\sm_plugins\dependencies\"
 
-del "C:\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\sm_plugins\SCPDiscord-lite.dll"</PostBuildEvent>
+copy /y "YamlDotNet.dll" "D:\servers\scpsl\sm_plugins\dependencies\"
+
+
+copy /y "Newtonsoft.Json.dll" "D:\servers\scpsl\sm_plugins\dependencies\"
+
+
+del "D:\servers\scpsl\sm_plugins\SCPDiscord-lite.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -153,9 +153,9 @@ namespace SCPDiscord
             { "channels.onsetntfunitname",          new string[]{ } },
         };
 
-        private static readonly Dictionary<string, Dictionary<string, string>> configDicts = new Dictionary<string, Dictionary<string, string>>
+        private static readonly Dictionary<string, Dictionary<string, ulong>> configDicts = new Dictionary<string, Dictionary<string, ulong>>
         {
-            { "aliases", new Dictionary<string, string>() }
+            { "aliases", new Dictionary<string, ulong>() }
         };
 
 		internal static void Reload(SCPDiscord plugin)
@@ -255,11 +255,11 @@ namespace SCPDiscord
             }
 
             // Read config dictionaries
-            foreach (KeyValuePair<string, Dictionary<string, string>> node in configDicts.ToList())
+            foreach (KeyValuePair<string, Dictionary<string, ulong>> node in configDicts.ToList())
             {
                 try
                 {
-					configDicts[node.Key] = json.SelectToken(node.Key).Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+					configDicts[node.Key] = json.SelectToken(node.Key).Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<ulong>());
                 }
                 catch (ArgumentNullException)
                 {
@@ -311,7 +311,7 @@ namespace SCPDiscord
             return configArrays[node];
         }
 
-        public static Dictionary<string, string> GetDict(string node)
+        public static Dictionary<string, ulong> GetDict(string node)
         {
             return configDicts[node];
         }
@@ -336,7 +336,7 @@ namespace SCPDiscord
             configArrays[key] = value;
         }
 
-        public static void SetDict(string key, Dictionary<string, string> value)
+        public static void SetDict(string key, Dictionary<string, ulong> value)
         {
             configDicts[key] = value;
         }
@@ -380,15 +380,11 @@ namespace SCPDiscord
             }
 
             sb.Append("------------ Config dictionaries ------------\n");
-            foreach (KeyValuePair<string, Dictionary<string, string>> node in configDicts)
+            foreach (KeyValuePair<string, Dictionary<string, ulong>> node in configDicts)
             {
                 sb.Append(node.Key + ":\n");
-                foreach (KeyValuePair<string, string> subNode in node.Value)
+                foreach (KeyValuePair<string, ulong> subNode in node.Value)
                 {
-                    if (!Regex.IsMatch(subNode.Value, @"^\d+$"))
-                    {
-                        sb.Append("WARNING: Invalid channel ID: " + subNode.Value + "!\n");
-                    }
                     sb.Append("    " + subNode.Key + ": " + subNode.Value + "\n");
                 }
             }
