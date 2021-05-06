@@ -70,7 +70,7 @@ namespace SCPDiscord
                                             {
                                                 { "command", messages[0] }
                                             };
-                                            plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
+                                            //plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
                                         }
                                         break;
 
@@ -86,7 +86,7 @@ namespace SCPDiscord
                                             {
                                                 { "command", messages[0] }
                                             };
-                                            plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
+                                            //plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
                                         }
                                         break;
 
@@ -106,7 +106,7 @@ namespace SCPDiscord
                                             {
                                                 { "command", messages[0] }
                                             };
-                                            plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
+                                            //plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
                                         }
                                         break;
 
@@ -117,15 +117,15 @@ namespace SCPDiscord
                                             message += player.Name.PadRight(35) + "<" + player.UserId + ">" + "\n";
                                         }
                                         message += "```";
-                                        NetworkSystem.QueueMessage(channel + message);
+                                        //NetworkSystem.QueueMessage(channel + message);
                                         break;
 
                                     case "exit":
-                                        plugin.SendMessageByID(channel, "botresponses.exit");
+                                        //plugin.SendMessageByID(channel, "botresponses.exit");
                                         break;
 
                                     case "help":
-                                        plugin.SendMessageByID(channel, "botresponses.help");
+                                        //plugin.SendMessageByID(channel, "botresponses.help");
                                         break;
 
                                     case "hidetag":
@@ -141,7 +141,7 @@ namespace SCPDiscord
                                                 {
                                                     { "feedback", response }
                                                 };
-                                                plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
+                                                //plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
                                             }
                                             else
                                             {
@@ -149,12 +149,12 @@ namespace SCPDiscord
                                                 {
                                                     { "command", command }
                                                 };
-                                                plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
+                                                //plugin.SendMessageByID(channel, "botresponses.missingarguments", variables);
                                             }
                                         }
                                         else
                                         {
-                                            plugin.SendMessageByID(channel, "botresponses.toggletag.notinstalled");
+                                            //plugin.SendMessageByID(channel, "botresponses.toggletag.notinstalled");
                                         }
                                         break;
 
@@ -170,11 +170,11 @@ namespace SCPDiscord
                                             {
                                                 { "feedback", response }
                                             };
-                                            plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
+                                            //plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
                                         }
                                         else
                                         {
-                                            plugin.SendMessageByID(channel, "botresponses.vpnshield.notinstalled");
+                                            //plugin.SendMessageByID(channel, "botresponses.vpnshield.notinstalled");
                                         }
                                         break;
 
@@ -196,19 +196,19 @@ namespace SCPDiscord
 											{
 												{ "feedback", response }
 											};
-											plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
+											//plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
 										}
 										else
 										{
-											plugin.SendMessageByID(channel, "botresponses.scpermissions.notinstalled");
+											//plugin.SendMessageByID(channel, "botresponses.scpermissions.notinstalled");
 										}
 										break;
                                     case "syncrole":
-                                        NetworkSystem.QueueMessage(channel + plugin.roleSync.AddPlayer(arguments[0], arguments[1]));
+                                        //NetworkSystem.QueueMessage(channel + plugin.roleSync.AddPlayer(arguments[0], arguments[1]));
                                         break;
 
                                     case "unsyncrole":
-                                        NetworkSystem.QueueMessage(channel + plugin.roleSync.RemovePlayer(arguments[0]));
+                                        //NetworkSystem.QueueMessage(channel + plugin.roleSync.RemovePlayer(arguments[0]));
                                         break;
                                     default:
                                         response = plugin.ConsoleCommand(plugin.PluginManager.Server, command, arguments);
@@ -216,7 +216,7 @@ namespace SCPDiscord
                                         {
                                             { "feedback", response }
                                         };
-                                        plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
+                                        //plugin.SendMessageByID(channel, "botresponses.consolecommandfeedback", variables);
                                         break;
                                 }
                             }
@@ -254,7 +254,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessageByID(channelID, "botresponses.invalidsteamid", variables);
+                //plugin.SendMessageByID(channelID, "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -276,7 +276,7 @@ namespace SCPDiscord
                 {
                     { "duration", duration }
                 };
-                plugin.SendMessageByID(channelID, "botresponses.invalidduration", variables);
+                //plugin.SendMessageByID(channelID, "botresponses.invalidduration", variables);
                 return;
             }
 
@@ -328,7 +328,7 @@ namespace SCPDiscord
                 {
                     { "steamidorip", steamIDOrIP }
                 };
-                plugin.SendMessageByID(channelID, "botresponses.invalidsteamidorip", variables);
+                //plugin.SendMessageByID(channelID, "botresponses.invalidsteamidorip", variables);
                 return;
             }
 
@@ -382,7 +382,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessageByID(channelID, "botresponses.invalidsteamid", variables);
+                //plugin.SendMessageByID(channelID, "botresponses.invalidsteamid", variables);
                 return;
             }
 
@@ -399,7 +399,7 @@ namespace SCPDiscord
                     { "steamid", steamID },
                     { "admintag", adminTag }
                 };
-                plugin.SendMessageByID(channelID, "botresponses.playerkicked", variables);
+                //plugin.SendMessageByID(channelID, "botresponses.playerkicked", variables);
             }
             else
             {
@@ -407,7 +407,7 @@ namespace SCPDiscord
                 {
                     { "steamid", steamID }
                 };
-                plugin.SendMessageByID(channelID, "botresponses.playernotfound", variables);
+                //plugin.SendMessageByID(channelID, "botresponses.playernotfound", variables);
             }
         }
 
@@ -431,7 +431,7 @@ namespace SCPDiscord
                 { "reason", reason },
 				{ "admintag", adminTag}
             };
-            plugin.SendMessageByID(channelID, "botresponses.kickall", variables);
+            //plugin.SendMessageByID(channelID, "botresponses.kickall", variables);
         }
 
 		/// <summary>

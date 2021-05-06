@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package SCPDiscord.Interface;
+
+message UnsyncRoleCommand
+{
+	uint64 ChannelID = 1;
+	uint64 DiscordID = 2;
+	string DiscordTag = 3;
+}

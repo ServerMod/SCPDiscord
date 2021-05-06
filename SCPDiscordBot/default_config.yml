@@ -1,29 +1,42 @@
-﻿# The bot token from https://discordapp.com/developers/
-token: "add-your-token-here"
+﻿bot:
+    # The bot token from https://discord.com/developers/applications
+    token: "add-your-token-here"
 
-# Prefix for discord commands
-prefix: "+"
+    # You need to enter your server id here to use role syncing, this will also show your server's roleIDs on startup
+    server-id: "add-server-id-here"
 
-# Port to listen on, this has to be the same as the "bot port" in the plugin config and all bots you run have to have different ports or they will clash.
-listeningPort: 8888
+    # Prefix for discord commands
+    prefix: "+"
 
-# Host to listen on, localhost by default. In case you want server to listen on 0.0.0.0, make sure your firewall rules are correct
-listeningHost: "127.0.0.1"
+    # Channel to post the bot status messages in
+    status-channels: [ "add-channel-id-here", "add-channel-id-here" ]
 
-# Channel to post the bot status messages in
-statusChannels: [ "add-channel-id-here", "add-channel-id-here" ]
+    # The channels where bot commands can be used
+    command-channels: [ "add-channel-id-here", "add-channel-id-here" ]
 
-# The channels where bot commands can be used
-commandChannels: [ "add-channel-id-here", "add-channel-id-here" ]
+    # Decides what messages are shown in console
+    # Possible values are: Critical, Error, Warning, Information, Debug.
+    log-level: "Information"
 
-# Log more messages to the console, useful for debugging
-verbose: false
+    # Sets the type of activity for the bot to display in its presence status when the server is offline
+    # Possible values are: Playing, Streaming, ListeningTo, Watching, Competing
+    presence-type: "Watching"
 
-# Message cooldown, number of milliseconds to wait between sending messages. Use this if your server sends too many messages for the bot to keep up. (Bot will get delayed if it hits more than 5 messages per 5 seconds)
-cooldown: 1000
+    # Sets the activity text shown in the bot's status
+    presence-text: "for server startup..."
 
-# Message cooldown in milliseconds, use this if you want to keep players from ghosting by looking at the Discord channel while they play.
-delay: 0
+    # Message cooldown, number of milliseconds to wait between sending messages. Use this if your server sends too many messages for the bot to keep up. (Bot will get delayed if it hits more than 5 messages per 5 seconds)
+    message-cooldown: 1000
+
+    # Message cooldown in milliseconds, use this if you want to keep players from ghosting by looking at the Discord channel while they play.
+    message-delay: 0
+
+plugin:
+    # Host to listen on, localhost by default. In case you want server to listen on 0.0.0.0, make sure your firewall rules are correct
+    address: "127.0.0.1"
+
+    # Port to listen on, this has to be the same as the "bot port" in the plugin config and all bots you run have to have different ports or they will clash.
+    port: 8888
 
 # Set permissions for discord roles here, the list names are the names of the discord roles and the list items are the first word of a command. Discord admins have access to all commands.
 permissions:
@@ -46,6 +59,3 @@ permissions:
         - vs_disable
         - scpd_reload
         - scpd_unsync
-
-# You need to enter your server id here to use role syncing, this will also show your server's roleIDs on startup
-serverID: "add-server-id-here"

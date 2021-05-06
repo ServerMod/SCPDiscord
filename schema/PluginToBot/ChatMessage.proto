@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package SCPDiscord.Interface;
+
+message ChatMessage
+{
+	uint64 channelID = 1;
+	string content = 2;
+}

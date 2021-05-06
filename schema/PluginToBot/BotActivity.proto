@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package SCPDiscord.Interface;
+
+message BotActivity
+{
+	enum Status {
+		OFFLINE = 0;
+		ONLINE = 1;
+		IDLE = 2;
+		DO_NOT_DISTURB = 3;
+		INVISIBLE = 4;
+	}
+	
+	enum Activity {
+		PLAYING = 0;
+		STREAMING = 1;
+		LISTENING_TO = 2;
+		WATCHING = 3;
+		CUSTOM = 4;
+		COMPETING = 5;
+	}
+	
+	Status statusType = 1;
+	Activity activityType = 2;
+	string activityText = 3;
+}
