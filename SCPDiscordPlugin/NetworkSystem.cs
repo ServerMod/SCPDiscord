@@ -39,6 +39,8 @@ namespace SCPDiscord
 		private static Stopwatch activityUpdateTimer = new Stopwatch();
 		private static Stopwatch topicUpdateTimer = new Stopwatch();
 
+		private static Thread messageThread;
+
 		public static void Run(SCPDiscord pl)
 		{
 			plugin = pl;
@@ -46,9 +48,6 @@ namespace SCPDiscord
 			{
 				Thread.Sleep(1000);
 			}
-
-			Thread messageThread = new Thread(() => new BotListener(plugin));
-			messageThread.Start();
 
 			while (!plugin.shutdown)
 			{
@@ -123,12 +122,16 @@ namespace SCPDiscord
 				{
 					if(socket != null && socket.IsBound)
 					{
-						socket.Shutdown(SocketShutdown.Both);
+						//socket.Shutdown(SocketShutdown.Both);
+						messageThread?.Abort();
 						socket.Close();
 					}
 					plugin.Verbose("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
 					socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 					socket.Connect(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
+					messageThread = new Thread(() => new BotListener(plugin));
+					messageThread.Start();
+
 					networkStream = new NetworkStream(socket);
 
 					plugin.Info("Connected to Discord bot.");
