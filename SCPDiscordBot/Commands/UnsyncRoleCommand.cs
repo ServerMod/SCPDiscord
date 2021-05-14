@@ -16,7 +16,7 @@ namespace SCPDiscord.Commands
 	{
 		[Command("unsyncrole")]
 		[Cooldown(1, 5, CooldownBucketType.User)]
-		public async Task OnExecute(CommandContext command, ulong SteamID)
+		public async Task OnExecute(CommandContext command)
 		{
 			// Check if the user has permission to use this command.
 			if (!ConfigParser.HasPermission(command.Member, "unsyncrole"))
@@ -31,12 +31,17 @@ namespace SCPDiscord.Commands
 				return;
 			}
 
-			DiscordEmbed response = new DiscordEmbedBuilder
+			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
-				Color = DiscordColor.Green,
-				Description = "Account synced, " + command.Member.Mention + "!"
+				UnsyncRoleCommand = new Interface.UnsyncRoleCommand
+				{
+					ChannelID = command.Channel.Id,
+					DiscordID = command.Member.Id,
+					DiscordTag = command.Member.Username
+				}
 			};
-			await command.RespondAsync(response);
+			NetworkSystem.SendMessage(message);
+			Logger.Debug("Sending unsyncrole request to plugin for " + command.Member.Username + "#" + command.Member.Discriminator, LogID.Discord);
 		}
 	}
 }

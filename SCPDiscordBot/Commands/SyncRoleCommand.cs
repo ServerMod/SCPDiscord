@@ -1,10 +1,6 @@
 ﻿using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SCPDiscord.Commands
@@ -13,7 +9,7 @@ namespace SCPDiscord.Commands
 	{
 		[Command("syncrole")]
 		[Cooldown(1, 5, CooldownBucketType.User)]
-		public async Task OnExecute(CommandContext command, ulong SteamID)
+		public async Task OnExecute(CommandContext command, ulong steamID)
 		{
 			// Check if the user has permission to use this command.
 			if (!ConfigParser.HasPermission(command.Member, "syncrole"))
@@ -28,12 +24,29 @@ namespace SCPDiscord.Commands
 				return;
 			}
 
-			DiscordEmbed response = new DiscordEmbedBuilder
+			if(steamID.ToString().Length != 17)
 			{
-				Color = DiscordColor.Green,
-				Description = "Account synced, " + command.Member.Mention + "!"
+				DiscordEmbed error = new DiscordEmbedBuilder
+				{
+					Color = DiscordColor.Red,
+					Description = "That SteamID doesn't seem to be the right length."
+				};
+				await command.RespondAsync(error);
+				return;
+			}
+
+			Interface.MessageWrapper message = new Interface.MessageWrapper
+			{
+				SyncRoleCommand = new Interface.SyncRoleCommand
+				{
+					ChannelID = command.Channel.Id,
+					DiscordID = command.Member.Id,
+					DiscordTag = command.Member.Username,
+					SteamID = steamID
+				}
 			};
-			await command.RespondAsync(response);
+			NetworkSystem.SendMessage(message);
+			Logger.Debug("Sending syncrole request to plugin for " + command.Member.Username + "#" + command.Member.Discriminator, LogID.Discord);
 		}
 	}
 }

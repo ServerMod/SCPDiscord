@@ -88,7 +88,7 @@ namespace SCPDiscord
 		/// <returns></returns>
 		public static bool HasPermission(DiscordMember member, string permission)
 		{
-			return false; //member.Roles.Any(role => permissions.ContainsKey(role.Id) && permissions[role.Id].Any(id => id.StartsWith(permission)));
+			return true; //member.Roles.Any(role => permissions.ContainsKey(role.Id) && permissions[role.Id].Any(id => id.StartsWith(permission)));
 		}
 	}
 }

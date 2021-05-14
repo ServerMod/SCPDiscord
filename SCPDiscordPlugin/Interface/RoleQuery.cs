@@ -25,12 +25,12 @@ namespace SCPDiscord.Interface {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChtQbHVnaW5Ub0JvdC9Sb2xlUXVlcnkucHJvdG8SFFNDUERpc2NvcmQuSW50",
-            "ZXJmYWNlIkUKCVJvbGVRdWVyeRIPCgdzdGVhbUlEGAEgASgEEhEKCWRpc2Nv",
-            "cmRJRBgCIAEoBBIUCgxhY3Rpdml0eVRleHQYAyABKAliBnByb3RvMw=="));
+            "ZXJmYWNlIi8KCVJvbGVRdWVyeRIPCgdzdGVhbUlEGAEgASgJEhEKCWRpc2Nv",
+            "cmRJRBgCIAEoBGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.RoleQuery), global::SCPDiscord.Interface.RoleQuery.Parser, new[]{ "SteamID", "DiscordID", "ActivityText" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.RoleQuery), global::SCPDiscord.Interface.RoleQuery.Parser, new[]{ "SteamID", "DiscordID" }, null, null, null, null)
           }));
     }
     #endregion
@@ -68,7 +68,6 @@ namespace SCPDiscord.Interface {
     public RoleQuery(RoleQuery other) : this() {
       steamID_ = other.steamID_;
       discordID_ = other.discordID_;
-      activityText_ = other.activityText_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -79,12 +78,12 @@ namespace SCPDiscord.Interface {
 
     /// <summary>Field number for the "steamID" field.</summary>
     public const int SteamIDFieldNumber = 1;
-    private ulong steamID_;
+    private string steamID_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ulong SteamID {
+    public string SteamID {
       get { return steamID_; }
       set {
-        steamID_ = value;
+        steamID_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -96,17 +95,6 @@ namespace SCPDiscord.Interface {
       get { return discordID_; }
       set {
         discordID_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "activityText" field.</summary>
-    public const int ActivityTextFieldNumber = 3;
-    private string activityText_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string ActivityText {
-      get { return activityText_; }
-      set {
-        activityText_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -125,16 +113,14 @@ namespace SCPDiscord.Interface {
       }
       if (SteamID != other.SteamID) return false;
       if (DiscordID != other.DiscordID) return false;
-      if (ActivityText != other.ActivityText) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (SteamID != 0UL) hash ^= SteamID.GetHashCode();
+      if (SteamID.Length != 0) hash ^= SteamID.GetHashCode();
       if (DiscordID != 0UL) hash ^= DiscordID.GetHashCode();
-      if (ActivityText.Length != 0) hash ^= ActivityText.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -151,17 +137,13 @@ namespace SCPDiscord.Interface {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (SteamID != 0UL) {
-        output.WriteRawTag(8);
-        output.WriteUInt64(SteamID);
+      if (SteamID.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(SteamID);
       }
       if (DiscordID != 0UL) {
         output.WriteRawTag(16);
         output.WriteUInt64(DiscordID);
-      }
-      if (ActivityText.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(ActivityText);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -172,17 +154,13 @@ namespace SCPDiscord.Interface {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (SteamID != 0UL) {
-        output.WriteRawTag(8);
-        output.WriteUInt64(SteamID);
+      if (SteamID.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(SteamID);
       }
       if (DiscordID != 0UL) {
         output.WriteRawTag(16);
         output.WriteUInt64(DiscordID);
-      }
-      if (ActivityText.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(ActivityText);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -193,14 +171,11 @@ namespace SCPDiscord.Interface {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (SteamID != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(SteamID);
+      if (SteamID.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SteamID);
       }
       if (DiscordID != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(DiscordID);
-      }
-      if (ActivityText.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ActivityText);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -213,14 +188,11 @@ namespace SCPDiscord.Interface {
       if (other == null) {
         return;
       }
-      if (other.SteamID != 0UL) {
+      if (other.SteamID.Length != 0) {
         SteamID = other.SteamID;
       }
       if (other.DiscordID != 0UL) {
         DiscordID = other.DiscordID;
-      }
-      if (other.ActivityText.Length != 0) {
-        ActivityText = other.ActivityText;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -236,16 +208,12 @@ namespace SCPDiscord.Interface {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            SteamID = input.ReadUInt64();
+          case 10: {
+            SteamID = input.ReadString();
             break;
           }
           case 16: {
             DiscordID = input.ReadUInt64();
-            break;
-          }
-          case 26: {
-            ActivityText = input.ReadString();
             break;
           }
         }
@@ -262,16 +230,12 @@ namespace SCPDiscord.Interface {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            SteamID = input.ReadUInt64();
+          case 10: {
+            SteamID = input.ReadString();
             break;
           }
           case 16: {
             DiscordID = input.ReadUInt64();
-            break;
-          }
-          case 26: {
-            ActivityText = input.ReadString();
             break;
           }
         }

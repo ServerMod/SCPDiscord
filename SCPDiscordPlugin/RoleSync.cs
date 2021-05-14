@@ -8,17 +8,19 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using SCPDiscord.Interface;
 
 namespace SCPDiscord
 {
 	public class RoleSync
 	{
-		private Dictionary<ulong, ulong> syncedPlayers = new Dictionary<ulong, ulong>();
+		private Dictionary<string, ulong> syncedPlayers = new Dictionary<string, ulong>();
 
 		// This variable is set when the config reloads instead of when the role system reloads as the config has to be read to get the info anyway
-		public Dictionary<string, string[]> roleDictionary = new Dictionary<string, string[]>();
+		public Dictionary<ulong, string[]> roleDictionary = new Dictionary<ulong, string[]>();
 
 		private readonly SCPDiscord plugin;
+
 		public RoleSync(SCPDiscord plugin)
 		{
 			this.plugin = plugin;
@@ -29,7 +31,7 @@ namespace SCPDiscord
 		public void Reload()
 		{
 			plugin.SetUpFileSystem();
-			syncedPlayers = JArray.Parse(File.ReadAllText(FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json")).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+			syncedPlayers = JArray.Parse(File.ReadAllText(FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json")).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<ulong>());
 			plugin.Info("Successfully loaded config '" + FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json'.");
 		}
 
@@ -38,7 +40,7 @@ namespace SCPDiscord
 			// Save the state to file
 			StringBuilder builder = new StringBuilder();
 			builder.Append("[\n");
-			foreach (KeyValuePair<string, string> player in syncedPlayers)
+			foreach (KeyValuePair<string, ulong> player in syncedPlayers)
 			{
 				builder.Append("    {\"" + player.Key + "\": \"" + player.Value + "\"},\n");
 			}
@@ -52,11 +54,20 @@ namespace SCPDiscord
 			{
 				return;
 			}
-			plugin.Info("RoleSync system not yet implemented.");
-			//NetworkSystem.QueueMessage("rolequery " + player.GetParsedUserID() + " " + syncedPlayers[player.UserId]);
+
+			MessageWrapper message = new MessageWrapper
+			{
+				RoleQuery = new RoleQuery
+				{
+					SteamID = player.UserId,
+					DiscordID = syncedPlayers[player.UserId]
+				}
+			};
+
+			NetworkSystem.QueueMessage(message);
 		}
 
-		public void ReceiveQueryResponse(string userID, string jsonString)
+		public void ReceiveQueryResponse(string userID, List<ulong> roleIDs)
 		{
 			try
 			{
@@ -77,10 +88,9 @@ namespace SCPDiscord
 					return;
 				}
 
-				List<string> roles = JArray.Parse(jsonString).Values<string>().ToList();
-				foreach (KeyValuePair<string, string[]> keyValuePair in this.roleDictionary)
+				foreach (KeyValuePair<ulong, string[]> keyValuePair in this.roleDictionary)
 				{
-					if (roles.Contains(keyValuePair.Key))
+					if (roleIDs.Contains(keyValuePair.Key))
 					{
 						Dictionary<string, string> variables = new Dictionary<string, string>
 						{
@@ -112,7 +122,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public string AddPlayer(string steamID, string discordID)
+		public string AddPlayer(string steamID, ulong discordID)
 		{
 			if (syncedPlayers.ContainsKey(steamID + "@steam"))
 			{
@@ -212,11 +222,11 @@ namespace SCPDiscord
 			return true;
 		}
 
-		public string RemovePlayer(string discordID)
+		public string RemovePlayer(ulong discordID)
 		{
 			try
 			{
-				KeyValuePair<string, string> player = syncedPlayers.First(kvp => kvp.Value == discordID);
+				KeyValuePair<string, ulong> player = syncedPlayers.First(kvp => kvp.Value == discordID);
 				syncedPlayers.Remove(player.Key);
 				SavePlayers();
 				return "Discord user ID link has been removed.";

@@ -4,6 +4,9 @@ using System.Net.Sockets;
 using System.Threading;
 using SCPDiscord.Interface;
 using DSharpPlus.Entities;
+using Google.Protobuf;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace SCPDiscord
 {
@@ -20,9 +23,10 @@ namespace SCPDiscord
 	{
         private static Socket clientSocket = null;
         private static Socket listenerSocket = null;
-        private static NetworkStream networkStream = null;
+        private static NetworkStream readStream = null;
+		private static NetworkStream writeStream = null;
 
-        private static bool shutdown = false;
+		private static bool shutdown = false;
 
         public static void Init()
 		{
@@ -84,7 +88,8 @@ namespace SCPDiscord
                         DiscordAPI.SetDisconnectedActivity();
 						Logger.Log("Listening on " + ConfigParser.config.plugin.address + ":" + ConfigParser.config.plugin.port, LogID.Network);
 						clientSocket = listenerSocket.Accept();
-						networkStream = new NetworkStream(clientSocket, true);
+						readStream = new NetworkStream(clientSocket, true);
+						writeStream = new NetworkStream(clientSocket, false);
 						Logger.Log("Plugin connected.", LogID.Network);
 					}
 					Thread.Sleep(1000);
@@ -101,7 +106,7 @@ namespace SCPDiscord
             MessageWrapper wrapper;
             try
 			{
-                wrapper = MessageWrapper.Parser.ParseDelimitedFrom(networkStream);
+                wrapper = MessageWrapper.Parser.ParseDelimitedFrom(readStream);
 			}
             catch(Exception e)
 			{
@@ -109,35 +114,40 @@ namespace SCPDiscord
                 return;
 			}
 
+            Logger.Debug("Incoming packet: " + JsonFormatter.Default.Format(wrapper), LogID.Network);
+
 			switch (wrapper.MessageCase)
 			{
-                case MessageWrapper.MessageOneofCase.BotActivity:
-				{
-                    DiscordAPI.SetActivity(wrapper.BotActivity.ActivityText, (ActivityType)wrapper.BotActivity.ActivityType, (UserStatus)wrapper.BotActivity.StatusType);
-                    Logger.Debug("Parsed: " + wrapper.ToString(), LogID.Network);
-                    break;
-				}
-                case MessageWrapper.MessageOneofCase.ChannelTopic:
-				{
-                    DiscordAPI.SetChannelTopic(wrapper.ChannelTopic.ChannelID, wrapper.ChannelTopic.TopicText);
-                    Logger.Debug("Parsed: " + wrapper.ToString(), LogID.Network);
-                    break;
-				}
-                case MessageWrapper.MessageOneofCase.ChatMessage:
-                {
-                    await DiscordAPI.SendMessage(wrapper.ChatMessage.ChannelID, wrapper.ChatMessage.Content);
-                    Logger.Debug("Parsed: " + wrapper.ToString(), LogID.Network);
-                    break;
-                }
-                default:
-				{
-                    Logger.Warn("Unknown package received: " + wrapper.ToString(), LogID.Network);
-                    break;
-				}
-			}
-        }
+				case MessageWrapper.MessageOneofCase.BotActivity:
+					DiscordAPI.SetActivity(wrapper.BotActivity.ActivityText, (ActivityType)wrapper.BotActivity.ActivityType, (UserStatus)wrapper.BotActivity.StatusType);
+					break;
+				case MessageWrapper.MessageOneofCase.ChannelTopic:
+					DiscordAPI.SetChannelTopic(wrapper.ChannelTopic.ChannelID, wrapper.ChannelTopic.TopicText);
+					break;
+				case MessageWrapper.MessageOneofCase.ChatMessage:
+					await DiscordAPI.SendMessage(wrapper.ChatMessage.ChannelID, wrapper.ChatMessage.Content);
+					break;
+				case MessageWrapper.MessageOneofCase.RoleQuery:
 
-        public static void ShutDown()
+					break;
+				case MessageWrapper.MessageOneofCase.SyncRoleCommand:
+				case MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
+				case MessageWrapper.MessageOneofCase.ConsoleCommand:
+				case MessageWrapper.MessageOneofCase.RoleResponse:
+					Logger.Warn("Recieved packet meant for plugin: " + JsonFormatter.Default.Format(wrapper), LogID.Network);
+					break;
+				default:
+					Logger.Warn("Unknown packet received: " + JsonFormatter.Default.Format(wrapper), LogID.Network);
+					break;
+			}
+		}
+
+		public static void SendMessage(MessageWrapper message)
+		{
+			message.WriteDelimitedTo(writeStream);
+		}
+
+		public static void ShutDown()
 		{
             shutdown = true;
 		}
@@ -160,5 +170,5 @@ namespace SCPDiscord
                 return false;
             }
         }
-    }
+	}
 }

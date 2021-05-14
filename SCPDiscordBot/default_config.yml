@@ -3,16 +3,16 @@
     token: "add-your-token-here"
 
     # You need to enter your server id here to use role syncing, this will also show your server's roleIDs on startup
-    server-id: "add-server-id-here"
+    server-id: 000000000000000000
 
     # Prefix for discord commands
     prefix: "+"
 
     # Channel to post the bot status messages in
-    status-channels: [ "add-channel-id-here", "add-channel-id-here" ]
+    status-channels: [ 000000000000000000, 000000000000000000 ]
 
     # The channels where bot commands can be used
-    command-channels: [ "add-channel-id-here", "add-channel-id-here" ]
+    command-channels: [ 000000000000000000, 000000000000000000 ]
 
     # Decides what messages are shown in console
     # Possible values are: Critical, Error, Warning, Information, Debug.

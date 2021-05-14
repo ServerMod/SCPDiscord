@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package SCPDiscord.Interface;
+
+message ListCommand
+{
+	uint64 ChannelID = 1;
+}
