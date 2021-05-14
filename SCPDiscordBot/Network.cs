@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -21,8 +23,7 @@ namespace SCPDiscord
 	{
         private static Socket clientSocket = null;
         private static Socket listenerSocket = null;
-        private static NetworkStream readStream = null;
-		private static NetworkStream writeStream = null;
+        private static NetworkStream networkStream = null;
 
 		private static bool shutdown = false;
 
@@ -86,8 +87,7 @@ namespace SCPDiscord
                         DiscordAPI.SetDisconnectedActivity();
 						Logger.Log("Listening on " + ConfigParser.config.plugin.address + ":" + ConfigParser.config.plugin.port, LogID.Network);
 						clientSocket = listenerSocket.Accept();
-						readStream = new NetworkStream(clientSocket, true);
-						writeStream = new NetworkStream(clientSocket, false);
+						networkStream = new NetworkStream(clientSocket, true);
 						Logger.Log("Plugin connected.", LogID.Network);
 					}
 					Thread.Sleep(1000);
@@ -99,16 +99,16 @@ namespace SCPDiscord
 			}
 		}
 
-        private static async void Update()
+		private static async void Update()
 		{
             MessageWrapper wrapper;
             try
 			{
-                wrapper = MessageWrapper.Parser.ParseDelimitedFrom(readStream);
+                wrapper = MessageWrapper.Parser.ParseDelimitedFrom(networkStream);
 			}
-            catch(Exception e)
+            catch(Exception)
 			{
-                Logger.Error("Couldnt parse incoming package!\n" + e.ToString() , LogID.Network);
+				Logger.Error("Couldn't parse incoming packet!", LogID.Network);
                 return;
 			}
 
@@ -142,7 +142,7 @@ namespace SCPDiscord
 
 		public static void SendMessage(MessageWrapper message)
 		{
-			message.WriteDelimitedTo(writeStream);
+			message.WriteDelimitedTo(networkStream);
 		}
 
 		public static void ShutDown()

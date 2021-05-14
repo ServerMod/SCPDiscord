@@ -115,6 +115,7 @@ namespace SCPDiscord
 		private static void Connect()
 		{
 			plugin.Verbose("Attempting Bot Connection...");
+			plugin.Verbose("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
 
 			while(!IsConnected())
 			{
@@ -126,7 +127,7 @@ namespace SCPDiscord
 						messageThread?.Abort();
 						socket.Close();
 					}
-					plugin.Verbose("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
+					
 					socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 					socket.Connect(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
 					messageThread = new Thread(() => new BotListener(plugin));
@@ -139,7 +140,7 @@ namespace SCPDiscord
 				}
 				catch (SocketException e)
 				{
-					plugin.VerboseError("Error occured while connecting to discord bot server: " + e.Message);
+					plugin.VerboseError("Error occured while connecting to discord bot server: " + e.Message.Trim());
 					plugin.DebugError(e.ToString());
 					Thread.Sleep(5000);
 				}
