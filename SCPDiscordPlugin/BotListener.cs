@@ -16,7 +16,7 @@ namespace SCPDiscord
 		public BotListener(SCPDiscord plugin)
 		{
 			this.plugin = plugin;
-			while (!plugin.shutdown)
+			while (true)
 			{
 				try
 				{
@@ -30,7 +30,12 @@ namespace SCPDiscord
 						}
 						catch (Exception e)
 						{
-							plugin.Error("Couldnt parse incoming packet!\n" + e.ToString());
+							if (e is IOException)
+								plugin.Error("Connection to bot lost.");
+							
+							else
+								plugin.Error("Couldnt parse incoming packet!\n" + e.ToString());
+
 							return;
 						}
 
@@ -301,23 +306,6 @@ namespace SCPDiscord
 				{ "admintag", adminTag}
 			};
 			plugin.SendMessageByID(channelID, "botresponses.kickall", variables);
-		}
-
-		/// <summary>
-		/// Merges an array of strings into a sentence.
-		/// </summary>
-		/// <param name="input">The string array to merge.</param>
-		/// <returns>The output sentence.</returns>
-		private static string MergeString(string[] input)
-		{
-			StringBuilder output = new StringBuilder();
-			foreach(string word in input)
-			{
-				output.Append(word);
-				output.Append(' ');
-			}
-			
-			return output.ToString().Trim();
 		}
 
 		/// <summary>
