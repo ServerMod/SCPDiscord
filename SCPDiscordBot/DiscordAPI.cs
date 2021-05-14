@@ -64,12 +64,12 @@ namespace SCPDiscord
 				// Handle hidetag/showtag differently but prepending the command with "console_"
 				instance.commands.RegisterCommands<Commands.SyncRoleCommand>();
 				instance.commands.RegisterCommands<Commands.UnsyncRoleCommand>();
+				instance.commands.RegisterCommands<Commands.ServerCommand>();
 
 				Logger.Log("Hooking events...", LogID.Discord);
 				instance.discordClient.Ready += instance.OnReady;
 				instance.discordClient.GuildAvailable += instance.OnGuildAvailable;
 				instance.discordClient.ClientErrored += instance.OnClientError;
-				instance.discordClient.MessageCreated += instance.OnMessageCreated;
 				instance.discordClient.SocketClosed += instance.OnSocketClosed;
 				instance.discordClient.SocketErrored += instance.OnSocketError;
 
@@ -150,7 +150,7 @@ namespace SCPDiscord
 			}
 			catch (Exception)
 			{
-				Logger.Error("Could not find text channel with the ID '" + channelID + "'", LogID.Discord);
+				Logger.Error("Could not send message in text channel with the ID '" + channelID + "'", LogID.Discord);
 			}
 		}
 
@@ -172,7 +172,7 @@ namespace SCPDiscord
 			}
 			catch (Exception)
 			{
-				Logger.Error("Could not find text channel with the ID '" + channelID + "'", LogID.Discord);
+				Logger.Error("Could not send message in text channel with the ID '" + channelID + "'", LogID.Discord);
 			}
 		}
 
@@ -287,16 +287,6 @@ namespace SCPDiscord
 					return Task.CompletedTask;
 				}
 			}
-		}
-
-		public async Task OnMessageCreated(DiscordClient client, MessageCreateEventArgs e)
-		{
-			if (e.Author.IsBot)
-			{
-				return;
-			}
-
-			// Check for custom commands
 		}
 
 		private string ParseFailedCheck(CheckBaseAttribute attr)

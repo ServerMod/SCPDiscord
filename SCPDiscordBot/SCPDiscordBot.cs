@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using DSharpPlus;
 
 namespace SCPDiscord
 {
