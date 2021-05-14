@@ -41,9 +41,11 @@ namespace SCPDiscord
 							case MessageWrapper.MessageOneofCase.SyncRoleCommand:
 								plugin.SendStringByID(data.SyncRoleCommand.ChannelID, plugin.roleSync.AddPlayer(data.SyncRoleCommand.SteamID.ToString(), data.SyncRoleCommand.DiscordID));
 								break;
+
 							case MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
 								plugin.SendStringByID(data.UnsyncRoleCommand.ChannelID, plugin.roleSync.RemovePlayer(data.UnsyncRoleCommand.DiscordID));
 								break;
+
 							case MessageWrapper.MessageOneofCase.ConsoleCommand:
 								string[] words = data.ConsoleCommand.Command.Split(' ');
 								string response = plugin.ConsoleCommand(plugin.PluginManager.Server, words[0], words.Skip(1).ToArray());
@@ -53,21 +55,27 @@ namespace SCPDiscord
 								};
 								plugin.SendMessageByID(data.ConsoleCommand.ChannelID, "botresponses.consolecommandfeedback", variables);
 								break;
+
 							case MessageWrapper.MessageOneofCase.RoleResponse:
 								plugin.roleSync.ReceiveQueryResponse(data.RoleResponse.SteamID + "@steam", data.RoleResponse.RoleIDs.ToList());
 								break;
+
 							case MessageWrapper.MessageOneofCase.BanCommand:
 								BanCommand(data.BanCommand.ChannelID, data.BanCommand.SteamID.ToString(), data.BanCommand.Duration, data.BanCommand.Reason, data.BanCommand.AdminTag);
 								break;
+
 							case MessageWrapper.MessageOneofCase.UnbanCommand:
 								UnbanCommand(data.UnbanCommand.ChannelID, data.UnbanCommand.SteamIDOrIP);
 								break;
+
 							case MessageWrapper.MessageOneofCase.KickCommand:
 								KickCommand(data.KickCommand.ChannelID, data.KickCommand.SteamID.ToString(), data.KickCommand.Reason, data.KickCommand.AdminTag);
 								break;
+
 							case MessageWrapper.MessageOneofCase.KickallCommand:
 								KickallCommand(data.KickallCommand.ChannelID, data.KickallCommand.Reason, data.KickallCommand.AdminTag);
 								break;
+
 							case MessageWrapper.MessageOneofCase.ListCommand:
 								var reply = "```md\n# Players online (" + (plugin.Server.NumPlayers - 1) + "):\n";
 								foreach (Player player in plugin.Server.GetPlayers())
@@ -77,17 +85,17 @@ namespace SCPDiscord
 								reply += "```";
 								plugin.SendStringByID(data.ListCommand.ChannelID, reply);
 								break;
+
 							case MessageWrapper.MessageOneofCase.BotActivity:
 							case MessageWrapper.MessageOneofCase.ChannelTopic:
 							case MessageWrapper.MessageOneofCase.ChatMessage:
 							case MessageWrapper.MessageOneofCase.RoleQuery:
-								plugin.Warn("Recieved packet meant for plugin: " + Google.Protobuf.JsonFormatter.Default.Format(data));
+								plugin.Warn("Recieved packet meant for bot: " + Google.Protobuf.JsonFormatter.Default.Format(data));
 								break;
+
 							default:
-							{
 								plugin.Warn("Unknown packet received: " + Google.Protobuf.JsonFormatter.Default.Format(data));
 								break;
-							}
 						}
 					}
 					Thread.Sleep(1000);
