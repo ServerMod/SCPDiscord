@@ -141,7 +141,10 @@ namespace SCPDiscord
 				DiscordChannel channel = await GetClient().GetChannelAsync(channelID);
 				try
 				{
-					await channel.SendMessageAsync(message);
+					foreach(string content in SplitString(message, 2000))
+					{
+						await channel.SendMessageAsync(content);
+					}
 				}
 				catch (UnauthorizedException)
 				{
@@ -173,6 +176,14 @@ namespace SCPDiscord
 			catch (Exception)
 			{
 				Logger.Error("Could not send message in text channel with the ID '" + channelID + "'", LogID.Discord);
+			}
+		}
+
+		private static IEnumerable<string> SplitString(string str, int size)
+		{
+			for (int i = 0; i < str.Length; i += size)
+			{
+				yield return str.Substring(i, Math.Min(size, str.Length - i));
 			}
 		}
 
