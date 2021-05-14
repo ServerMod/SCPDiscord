@@ -25,12 +25,12 @@ namespace SCPDiscord.Commands
 				}
 			}
 
-			if (args.Length > 0)
+			if (args.Length > 0 && ulong.TryParse(args[0], out ulong discordID))
 			{
-				return new[] { SCPDiscord.plugin.roleSync.RemovePlayer(args[0]) };
+				return new[] { SCPDiscord.plugin.roleSync.RemovePlayer(discordID) };
 			}
 
-			return new[] { "Not enough arguments." };
+			return new[] { "Invalid arguments." };
 		}
 	}
 }

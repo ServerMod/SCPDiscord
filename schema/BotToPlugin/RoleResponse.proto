@@ -4,7 +4,7 @@ package SCPDiscord.Interface;
 
 message RoleResponse
 {
-	uint64 SteamID = 1;
+	string SteamID = 1;
 	uint64 DiscordID = 2;
 	repeated uint64 RoleIDs = 3;
 }

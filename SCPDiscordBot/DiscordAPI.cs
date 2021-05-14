@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DSharpPlus;
@@ -7,7 +8,6 @@ using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.CommandsNext.Exceptions;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
-using SCPDiscord.Commands;
 using Microsoft.Extensions.Logging;
 using DSharpPlus.Exceptions;
 
@@ -61,8 +61,9 @@ namespace SCPDiscord
 					StringPrefixes = new[] { ConfigParser.config.bot.prefix }
 				});
 
-				instance.commands.RegisterCommands<SyncRoleCommand>();
-				instance.commands.RegisterCommands<UnsyncRoleCommand>();
+				// Handle hidetag/showtag differently but prepending the command with "console_"
+				instance.commands.RegisterCommands<Commands.SyncRoleCommand>();
+				instance.commands.RegisterCommands<Commands.UnsyncRoleCommand>();
 
 				Logger.Log("Hooking events...", LogID.Discord);
 				instance.discordClient.Ready += instance.OnReady;
@@ -175,6 +176,36 @@ namespace SCPDiscord
 			}
 		}
 
+		public static async void GetPlayerRoles(ulong userID, string steamID)
+		{
+			if(ConfigParser.config.bot.serverId == 0)
+			{
+				Logger.Warn("Plugin attempted to use role sync, but no server ID was set in the config. Ignoring request...", LogID.Discord);
+				return;
+			}
+
+			try
+			{
+				DiscordGuild guild = await GetClient().GetGuildAsync(ConfigParser.config.bot.serverId);
+				DiscordMember member = await guild.GetMemberAsync(userID);
+
+				Interface.MessageWrapper message = new Interface.MessageWrapper
+				{
+					RoleResponse = new Interface.RoleResponse
+					{
+						DiscordID = userID,
+						SteamID = steamID
+					}
+				};
+				message.RoleResponse.RoleIDs.AddRange(member.Roles.Select(role => role.Id));
+				NetworkSystem.SendMessage(message);
+			}
+			catch(Exception)
+			{
+				Logger.Warn("Couldn't find discord server or server member for role syncing requested by plugin. Discord ID: " + userID.ToString() + " SteamID: " + steamID, LogID.Discord);
+			}
+		}
+
 		public async Task OnReady(DiscordClient client, ReadyEventArgs e)
 		{
 			instance.connected = true;
@@ -228,9 +259,9 @@ namespace SCPDiscord
 		{
 			switch (e.Exception)
 			{
-				case CommandNotFoundException _:
+				case CommandNotFoundException:
 					return Task.CompletedTask;
-				case ChecksFailedException _:
+				case ChecksFailedException:
 				{
 					foreach (CheckBaseAttribute attr in ((ChecksFailedException)e.Exception).FailedChecks)
 					{
@@ -270,23 +301,16 @@ namespace SCPDiscord
 
 		private string ParseFailedCheck(CheckBaseAttribute attr)
 		{
-			switch (attr)
+			return attr switch
 			{
-				case CooldownAttribute _:
-					return "You cannot use do that so often!";
-				case RequireOwnerAttribute _:
-					return "Only the server owner can use that command!";
-				case RequirePermissionsAttribute _:
-					return "You don't have permission to do that!";
-				case RequireRolesAttribute _:
-					return "You do not have a required role!";
-				case RequireUserPermissionsAttribute _:
-					return "You don't have permission to do that!";
-				case RequireNsfwAttribute _:
-					return "This command can only be used in an NSFW channel!";
-				default:
-					return "Unknown Discord API error occured, please try again later.";
-			}
+				CooldownAttribute => "You cannot use do that so often!",
+				RequireOwnerAttribute => "Only the server owner can use that command!",
+				RequirePermissionsAttribute => "You don't have permission to do that!",
+				RequireRolesAttribute => "You do not have a required role!",
+				RequireUserPermissionsAttribute => "You don't have permission to do that!",
+				RequireNsfwAttribute => "This command can only be used in an NSFW channel!",
+				_ => "Unknown Discord API error occured, please try again later.",
+			};
 		}
 	}
 }

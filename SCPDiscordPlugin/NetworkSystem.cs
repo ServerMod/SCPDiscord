@@ -33,11 +33,12 @@ namespace SCPDiscord
 		private const int TOPIC_UPDATE_RATE_MS = 5 * 60 * 1000; // Every 5 min
 		private const int ACTIVITY_UPDATE_RATE_MS = 5000;
 		private static Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-		private static NetworkStream networkStream = null;
+		public static NetworkStream networkStream = null;
 		private static readonly List<MessageWrapper> messageQueue = new List<MessageWrapper>();
 		private static SCPDiscord plugin;
 		private static Stopwatch activityUpdateTimer = new Stopwatch();
 		private static Stopwatch topicUpdateTimer = new Stopwatch();
+
 		public static void Run(SCPDiscord pl)
 		{
 			plugin = pl;
@@ -72,42 +73,9 @@ namespace SCPDiscord
 
 		private static void Update()
 		{
-			if (activityUpdateTimer.ElapsedMilliseconds >= ACTIVITY_UPDATE_RATE_MS || !activityUpdateTimer.IsRunning)
-			{
-				activityUpdateTimer.Reset();
-				activityUpdateTimer.Start();
-				// Update player count
-				if (Config.GetBool("settings.playercount"))
-				{
-					MessageWrapper wrapper = new MessageWrapper
-					{
-						BotActivity = new BotActivity
-						{
-							StatusType = plugin.PluginManager.Server.NumPlayers <= 1 ? BotActivity.Types.Status.Idle : BotActivity.Types.Status.Online,
-							ActivityType = BotActivity.Types.Activity.Playing,
-							ActivityText = Math.Max(0, plugin.Server.NumPlayers - 1) + " / " + plugin.GetMaxPlayers()
-						}
-					};
+			RefreshBotStatus();
 
-					QueueMessage(wrapper);
-				}
-			}
-
-			if (topicUpdateTimer.ElapsedMilliseconds >= TOPIC_UPDATE_RATE_MS || !topicUpdateTimer.IsRunning)
-			{
-				topicUpdateTimer.Reset();
-				topicUpdateTimer.Start();
-				float tps = TickCounter.Reset() / (TOPIC_UPDATE_RATE_MS / 1000.0f);
-
-				// Update channel topic
-				foreach (string channel in Config.GetArray("channels.topic"))
-				{
-					if (Config.GetDict("aliases").ContainsKey(channel))
-					{
-						RefreshChannelTopic(Config.GetDict("aliases")[channel], tps);
-					}
-				}
-			}
+			RefreshChannelTopics();
 
 			// Send all messages
 			for (int i = 0; i < messageQueue.Count; i++)
@@ -376,20 +344,47 @@ namespace SCPDiscord
 			input = input.Replace("~", "\\~");
 			return input;
 		}
-		
-		public static int Receive(byte[] data)
-		{
-			return socket.Receive(data);
-		}
 		/// ///////////////////////////////////////////////
 
-		/// Channel topic refreshing //////////////////////
-		private static void RefreshChannelTopic(ulong channelID, float tps)
+		/// Status refreshing //////////////////////
+		 
+		private static void RefreshBotStatus()
 		{
+			if (activityUpdateTimer.ElapsedMilliseconds < ACTIVITY_UPDATE_RATE_MS && activityUpdateTimer.IsRunning) return;
+			
+			activityUpdateTimer.Reset();
+			activityUpdateTimer.Start();
 
-			Dictionary<string, string> variables = new Dictionary<string, string>();
+			// Update player count
+			if (Config.GetBool("settings.playercount"))
+			{
+				MessageWrapper wrapper = new MessageWrapper
+				{
+					BotActivity = new BotActivity
+					{
+						StatusType = plugin.PluginManager.Server.NumPlayers <= 1 ? BotActivity.Types.Status.Idle : BotActivity.Types.Status.Online,
+						ActivityType = BotActivity.Types.Activity.Playing,
+						ActivityText = Math.Max(0, plugin.Server.NumPlayers - 1) + " / " + plugin.GetMaxPlayers()
+					}
+				};
+
+				QueueMessage(wrapper);
+			}
+		}
+
+		private static void RefreshChannelTopics()
+		{
+			if (topicUpdateTimer.ElapsedMilliseconds < TOPIC_UPDATE_RATE_MS && topicUpdateTimer.IsRunning) return;
+
 			try
 			{
+				topicUpdateTimer.Reset();
+				topicUpdateTimer.Start();
+
+				Dictionary<string, string> variables = new Dictionary<string, string>();
+
+				float tps = TickCounter.Reset() / (TOPIC_UPDATE_RATE_MS / 1000.0f);
+
 				Server server = plugin.PluginManager.Server;
 				Dictionary<string, string> serverVariables;
 				if (server != null)
@@ -427,7 +422,7 @@ namespace SCPDiscord
 						{ "decontaminated",     (server?.Map != null && server.Map.LCZDecontaminated) + ""   }
 					};
 				}
-				catch(Exception e)
+				catch (Exception e)
 				{
 					plugin.DebugError(e.ToString());
 				}
@@ -493,7 +488,25 @@ namespace SCPDiscord
 					variables.Add(entry.Key, entry.Value);
 				}
 
+				// Update channel topics
+				foreach (string channel in Config.GetArray("channels.topic"))
+				{
+					if (Config.GetDict("aliases").ContainsKey(channel))
+					{
+						RefreshChannelTopic(Config.GetDict("aliases")[channel], variables);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				plugin.DebugError(e.ToString());
+			}
+		}
 
+		private static void RefreshChannelTopic(ulong channelID, Dictionary<string, string> variables)
+		{
+			try
+			{
 				string topic = Language.GetString("topic.message");
 
 				topic = topic.Replace("\n", "");

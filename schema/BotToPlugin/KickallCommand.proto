@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package SCPDiscord.Interface;
+
+message KickallCommand
+{
+	uint64 ChannelID = 1;
+	string Reason = 2;
+	string AdminTag = 3;
+}

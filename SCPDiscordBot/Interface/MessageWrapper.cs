@@ -28,25 +28,35 @@ namespace SCPDiscord.Interface {
             "GiBCb3RUb1BsdWdpbi9Db25zb2xlQ29tbWFuZC5wcm90bxoeQm90VG9QbHVn",
             "aW4vUm9sZVJlc3BvbnNlLnByb3RvGiFCb3RUb1BsdWdpbi9TeW5jUm9sZUNv",
             "bW1hbmQucHJvdG8aI0JvdFRvUGx1Z2luL1Vuc3luY1JvbGVDb21tYW5kLnBy",
-            "b3RvGh1QbHVnaW5Ub0JvdC9Cb3RBY3Rpdml0eS5wcm90bxoeUGx1Z2luVG9C",
-            "b3QvQ2hhbm5lbFRvcGljLnByb3RvGh1QbHVnaW5Ub0JvdC9DaGF0TWVzc2Fn",
-            "ZS5wcm90bxobUGx1Z2luVG9Cb3QvUm9sZVF1ZXJ5LnByb3RvIoUECg5NZXNz",
-            "YWdlV3JhcHBlchI4Cgtib3RBY3Rpdml0eRgBIAEoCzIhLlNDUERpc2NvcmQu",
-            "SW50ZXJmYWNlLkJvdEFjdGl2aXR5SAASOgoMY2hhbm5lbFRvcGljGAIgASgL",
-            "MiIuU0NQRGlzY29yZC5JbnRlcmZhY2UuQ2hhbm5lbFRvcGljSAASOAoLY2hh",
-            "dE1lc3NhZ2UYAyABKAsyIS5TQ1BEaXNjb3JkLkludGVyZmFjZS5DaGF0TWVz",
-            "c2FnZUgAEjQKCXJvbGVRdWVyeRgEIAEoCzIfLlNDUERpc2NvcmQuSW50ZXJm",
-            "YWNlLlJvbGVRdWVyeUgAEkAKD3N5bmNSb2xlQ29tbWFuZBgFIAEoCzIlLlND",
-            "UERpc2NvcmQuSW50ZXJmYWNlLlN5bmNSb2xlQ29tbWFuZEgAEkQKEXVuc3lu",
-            "Y1JvbGVDb21tYW5kGAYgASgLMicuU0NQRGlzY29yZC5JbnRlcmZhY2UuVW5z",
-            "eW5jUm9sZUNvbW1hbmRIABI+Cg5jb25zb2xlQ29tbWFuZBgHIAEoCzIkLlND",
-            "UERpc2NvcmQuSW50ZXJmYWNlLkNvbnNvbGVDb21tYW5kSAASOgoMcm9sZVJl",
-            "c3BvbnNlGAggASgLMiIuU0NQRGlzY29yZC5JbnRlcmZhY2UuUm9sZVJlc3Bv",
-            "bnNlSABCCQoHbWVzc2FnZWIGcHJvdG8z"));
+            "b3RvGhxCb3RUb1BsdWdpbi9CYW5Db21tYW5kLnByb3RvGh5Cb3RUb1BsdWdp",
+            "bi9VbmJhbkNvbW1hbmQucHJvdG8aHUJvdFRvUGx1Z2luL0tpY2tDb21tYW5k",
+            "LnByb3RvGiBCb3RUb1BsdWdpbi9LaWNrYWxsQ29tbWFuZC5wcm90bxodQm90",
+            "VG9QbHVnaW4vTGlzdENvbW1hbmQucHJvdG8aHVBsdWdpblRvQm90L0JvdEFj",
+            "dGl2aXR5LnByb3RvGh5QbHVnaW5Ub0JvdC9DaGFubmVsVG9waWMucHJvdG8a",
+            "HVBsdWdpblRvQm90L0NoYXRNZXNzYWdlLnByb3RvGhtQbHVnaW5Ub0JvdC9S",
+            "b2xlUXVlcnkucHJvdG8irQYKDk1lc3NhZ2VXcmFwcGVyEjgKC2JvdEFjdGl2",
+            "aXR5GAEgASgLMiEuU0NQRGlzY29yZC5JbnRlcmZhY2UuQm90QWN0aXZpdHlI",
+            "ABI6CgxjaGFubmVsVG9waWMYAiABKAsyIi5TQ1BEaXNjb3JkLkludGVyZmFj",
+            "ZS5DaGFubmVsVG9waWNIABI4CgtjaGF0TWVzc2FnZRgDIAEoCzIhLlNDUERp",
+            "c2NvcmQuSW50ZXJmYWNlLkNoYXRNZXNzYWdlSAASNAoJcm9sZVF1ZXJ5GAQg",
+            "ASgLMh8uU0NQRGlzY29yZC5JbnRlcmZhY2UuUm9sZVF1ZXJ5SAASQAoPc3lu",
+            "Y1JvbGVDb21tYW5kGAUgASgLMiUuU0NQRGlzY29yZC5JbnRlcmZhY2UuU3lu",
+            "Y1JvbGVDb21tYW5kSAASRAoRdW5zeW5jUm9sZUNvbW1hbmQYBiABKAsyJy5T",
+            "Q1BEaXNjb3JkLkludGVyZmFjZS5VbnN5bmNSb2xlQ29tbWFuZEgAEj4KDmNv",
+            "bnNvbGVDb21tYW5kGAcgASgLMiQuU0NQRGlzY29yZC5JbnRlcmZhY2UuQ29u",
+            "c29sZUNvbW1hbmRIABI6Cgxyb2xlUmVzcG9uc2UYCCABKAsyIi5TQ1BEaXNj",
+            "b3JkLkludGVyZmFjZS5Sb2xlUmVzcG9uc2VIABI2CgpCYW5Db21tYW5kGAkg",
+            "ASgLMiAuU0NQRGlzY29yZC5JbnRlcmZhY2UuQmFuQ29tbWFuZEgAEjoKDFVu",
+            "YmFuQ29tbWFuZBgKIAEoCzIiLlNDUERpc2NvcmQuSW50ZXJmYWNlLlVuYmFu",
+            "Q29tbWFuZEgAEjgKC0tpY2tDb21tYW5kGAsgASgLMiEuU0NQRGlzY29yZC5J",
+            "bnRlcmZhY2UuS2lja0NvbW1hbmRIABI+Cg5LaWNrYWxsQ29tbWFuZBgMIAEo",
+            "CzIkLlNDUERpc2NvcmQuSW50ZXJmYWNlLktpY2thbGxDb21tYW5kSAASOAoL",
+            "TGlzdENvbW1hbmQYDSABKAsyIS5TQ1BEaXNjb3JkLkludGVyZmFjZS5MaXN0",
+            "Q29tbWFuZEgAQgkKB21lc3NhZ2ViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::SCPDiscord.Interface.ConsoleCommandReflection.Descriptor, global::SCPDiscord.Interface.RoleResponseReflection.Descriptor, global::SCPDiscord.Interface.SyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.UnsyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.BotActivityReflection.Descriptor, global::SCPDiscord.Interface.ChannelTopicReflection.Descriptor, global::SCPDiscord.Interface.ChatMessageReflection.Descriptor, global::SCPDiscord.Interface.RoleQueryReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::SCPDiscord.Interface.ConsoleCommandReflection.Descriptor, global::SCPDiscord.Interface.RoleResponseReflection.Descriptor, global::SCPDiscord.Interface.SyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.UnsyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.BanCommandReflection.Descriptor, global::SCPDiscord.Interface.UnbanCommandReflection.Descriptor, global::SCPDiscord.Interface.KickCommandReflection.Descriptor, global::SCPDiscord.Interface.KickallCommandReflection.Descriptor, global::SCPDiscord.Interface.ListCommandReflection.Descriptor, global::SCPDiscord.Interface.BotActivityReflection.Descriptor, global::SCPDiscord.Interface.ChannelTopicReflection.Descriptor, global::SCPDiscord.Interface.ChatMessageReflection.Descriptor, global::SCPDiscord.Interface.RoleQueryReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.MessageWrapper), global::SCPDiscord.Interface.MessageWrapper.Parser, new[]{ "BotActivity", "ChannelTopic", "ChatMessage", "RoleQuery", "SyncRoleCommand", "UnsyncRoleCommand", "ConsoleCommand", "RoleResponse" }, new[]{ "Message" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.MessageWrapper), global::SCPDiscord.Interface.MessageWrapper.Parser, new[]{ "BotActivity", "ChannelTopic", "ChatMessage", "RoleQuery", "SyncRoleCommand", "UnsyncRoleCommand", "ConsoleCommand", "RoleResponse", "BanCommand", "UnbanCommand", "KickCommand", "KickallCommand", "ListCommand" }, new[]{ "Message" }, null, null, null)
           }));
     }
     #endregion
@@ -106,6 +116,21 @@ namespace SCPDiscord.Interface {
           break;
         case MessageOneofCase.RoleResponse:
           RoleResponse = other.RoleResponse.Clone();
+          break;
+        case MessageOneofCase.BanCommand:
+          BanCommand = other.BanCommand.Clone();
+          break;
+        case MessageOneofCase.UnbanCommand:
+          UnbanCommand = other.UnbanCommand.Clone();
+          break;
+        case MessageOneofCase.KickCommand:
+          KickCommand = other.KickCommand.Clone();
+          break;
+        case MessageOneofCase.KickallCommand:
+          KickallCommand = other.KickallCommand.Clone();
+          break;
+        case MessageOneofCase.ListCommand:
+          ListCommand = other.ListCommand.Clone();
           break;
       }
 
@@ -205,6 +230,61 @@ namespace SCPDiscord.Interface {
       }
     }
 
+    /// <summary>Field number for the "BanCommand" field.</summary>
+    public const int BanCommandFieldNumber = 9;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::SCPDiscord.Interface.BanCommand BanCommand {
+      get { return messageCase_ == MessageOneofCase.BanCommand ? (global::SCPDiscord.Interface.BanCommand) message_ : null; }
+      set {
+        message_ = value;
+        messageCase_ = value == null ? MessageOneofCase.None : MessageOneofCase.BanCommand;
+      }
+    }
+
+    /// <summary>Field number for the "UnbanCommand" field.</summary>
+    public const int UnbanCommandFieldNumber = 10;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::SCPDiscord.Interface.UnbanCommand UnbanCommand {
+      get { return messageCase_ == MessageOneofCase.UnbanCommand ? (global::SCPDiscord.Interface.UnbanCommand) message_ : null; }
+      set {
+        message_ = value;
+        messageCase_ = value == null ? MessageOneofCase.None : MessageOneofCase.UnbanCommand;
+      }
+    }
+
+    /// <summary>Field number for the "KickCommand" field.</summary>
+    public const int KickCommandFieldNumber = 11;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::SCPDiscord.Interface.KickCommand KickCommand {
+      get { return messageCase_ == MessageOneofCase.KickCommand ? (global::SCPDiscord.Interface.KickCommand) message_ : null; }
+      set {
+        message_ = value;
+        messageCase_ = value == null ? MessageOneofCase.None : MessageOneofCase.KickCommand;
+      }
+    }
+
+    /// <summary>Field number for the "KickallCommand" field.</summary>
+    public const int KickallCommandFieldNumber = 12;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::SCPDiscord.Interface.KickallCommand KickallCommand {
+      get { return messageCase_ == MessageOneofCase.KickallCommand ? (global::SCPDiscord.Interface.KickallCommand) message_ : null; }
+      set {
+        message_ = value;
+        messageCase_ = value == null ? MessageOneofCase.None : MessageOneofCase.KickallCommand;
+      }
+    }
+
+    /// <summary>Field number for the "ListCommand" field.</summary>
+    public const int ListCommandFieldNumber = 13;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::SCPDiscord.Interface.ListCommand ListCommand {
+      get { return messageCase_ == MessageOneofCase.ListCommand ? (global::SCPDiscord.Interface.ListCommand) message_ : null; }
+      set {
+        message_ = value;
+        messageCase_ = value == null ? MessageOneofCase.None : MessageOneofCase.ListCommand;
+      }
+    }
+
     private object message_;
     /// <summary>Enum of possible cases for the "message" oneof.</summary>
     public enum MessageOneofCase {
@@ -217,6 +297,11 @@ namespace SCPDiscord.Interface {
       UnsyncRoleCommand = 6,
       ConsoleCommand = 7,
       RoleResponse = 8,
+      BanCommand = 9,
+      UnbanCommand = 10,
+      KickCommand = 11,
+      KickallCommand = 12,
+      ListCommand = 13,
     }
     private MessageOneofCase messageCase_ = MessageOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -251,6 +336,11 @@ namespace SCPDiscord.Interface {
       if (!object.Equals(UnsyncRoleCommand, other.UnsyncRoleCommand)) return false;
       if (!object.Equals(ConsoleCommand, other.ConsoleCommand)) return false;
       if (!object.Equals(RoleResponse, other.RoleResponse)) return false;
+      if (!object.Equals(BanCommand, other.BanCommand)) return false;
+      if (!object.Equals(UnbanCommand, other.UnbanCommand)) return false;
+      if (!object.Equals(KickCommand, other.KickCommand)) return false;
+      if (!object.Equals(KickallCommand, other.KickallCommand)) return false;
+      if (!object.Equals(ListCommand, other.ListCommand)) return false;
       if (MessageCase != other.MessageCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -266,6 +356,11 @@ namespace SCPDiscord.Interface {
       if (messageCase_ == MessageOneofCase.UnsyncRoleCommand) hash ^= UnsyncRoleCommand.GetHashCode();
       if (messageCase_ == MessageOneofCase.ConsoleCommand) hash ^= ConsoleCommand.GetHashCode();
       if (messageCase_ == MessageOneofCase.RoleResponse) hash ^= RoleResponse.GetHashCode();
+      if (messageCase_ == MessageOneofCase.BanCommand) hash ^= BanCommand.GetHashCode();
+      if (messageCase_ == MessageOneofCase.UnbanCommand) hash ^= UnbanCommand.GetHashCode();
+      if (messageCase_ == MessageOneofCase.KickCommand) hash ^= KickCommand.GetHashCode();
+      if (messageCase_ == MessageOneofCase.KickallCommand) hash ^= KickallCommand.GetHashCode();
+      if (messageCase_ == MessageOneofCase.ListCommand) hash ^= ListCommand.GetHashCode();
       hash ^= (int) messageCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -315,6 +410,26 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(66);
         output.WriteMessage(RoleResponse);
       }
+      if (messageCase_ == MessageOneofCase.BanCommand) {
+        output.WriteRawTag(74);
+        output.WriteMessage(BanCommand);
+      }
+      if (messageCase_ == MessageOneofCase.UnbanCommand) {
+        output.WriteRawTag(82);
+        output.WriteMessage(UnbanCommand);
+      }
+      if (messageCase_ == MessageOneofCase.KickCommand) {
+        output.WriteRawTag(90);
+        output.WriteMessage(KickCommand);
+      }
+      if (messageCase_ == MessageOneofCase.KickallCommand) {
+        output.WriteRawTag(98);
+        output.WriteMessage(KickallCommand);
+      }
+      if (messageCase_ == MessageOneofCase.ListCommand) {
+        output.WriteRawTag(106);
+        output.WriteMessage(ListCommand);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -356,6 +471,26 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(66);
         output.WriteMessage(RoleResponse);
       }
+      if (messageCase_ == MessageOneofCase.BanCommand) {
+        output.WriteRawTag(74);
+        output.WriteMessage(BanCommand);
+      }
+      if (messageCase_ == MessageOneofCase.UnbanCommand) {
+        output.WriteRawTag(82);
+        output.WriteMessage(UnbanCommand);
+      }
+      if (messageCase_ == MessageOneofCase.KickCommand) {
+        output.WriteRawTag(90);
+        output.WriteMessage(KickCommand);
+      }
+      if (messageCase_ == MessageOneofCase.KickallCommand) {
+        output.WriteRawTag(98);
+        output.WriteMessage(KickallCommand);
+      }
+      if (messageCase_ == MessageOneofCase.ListCommand) {
+        output.WriteRawTag(106);
+        output.WriteMessage(ListCommand);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -388,6 +523,21 @@ namespace SCPDiscord.Interface {
       }
       if (messageCase_ == MessageOneofCase.RoleResponse) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(RoleResponse);
+      }
+      if (messageCase_ == MessageOneofCase.BanCommand) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(BanCommand);
+      }
+      if (messageCase_ == MessageOneofCase.UnbanCommand) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(UnbanCommand);
+      }
+      if (messageCase_ == MessageOneofCase.KickCommand) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(KickCommand);
+      }
+      if (messageCase_ == MessageOneofCase.KickallCommand) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(KickallCommand);
+      }
+      if (messageCase_ == MessageOneofCase.ListCommand) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ListCommand);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -448,6 +598,36 @@ namespace SCPDiscord.Interface {
             RoleResponse = new global::SCPDiscord.Interface.RoleResponse();
           }
           RoleResponse.MergeFrom(other.RoleResponse);
+          break;
+        case MessageOneofCase.BanCommand:
+          if (BanCommand == null) {
+            BanCommand = new global::SCPDiscord.Interface.BanCommand();
+          }
+          BanCommand.MergeFrom(other.BanCommand);
+          break;
+        case MessageOneofCase.UnbanCommand:
+          if (UnbanCommand == null) {
+            UnbanCommand = new global::SCPDiscord.Interface.UnbanCommand();
+          }
+          UnbanCommand.MergeFrom(other.UnbanCommand);
+          break;
+        case MessageOneofCase.KickCommand:
+          if (KickCommand == null) {
+            KickCommand = new global::SCPDiscord.Interface.KickCommand();
+          }
+          KickCommand.MergeFrom(other.KickCommand);
+          break;
+        case MessageOneofCase.KickallCommand:
+          if (KickallCommand == null) {
+            KickallCommand = new global::SCPDiscord.Interface.KickallCommand();
+          }
+          KickallCommand.MergeFrom(other.KickallCommand);
+          break;
+        case MessageOneofCase.ListCommand:
+          if (ListCommand == null) {
+            ListCommand = new global::SCPDiscord.Interface.ListCommand();
+          }
+          ListCommand.MergeFrom(other.ListCommand);
           break;
       }
 
@@ -537,6 +717,51 @@ namespace SCPDiscord.Interface {
             RoleResponse = subBuilder;
             break;
           }
+          case 74: {
+            global::SCPDiscord.Interface.BanCommand subBuilder = new global::SCPDiscord.Interface.BanCommand();
+            if (messageCase_ == MessageOneofCase.BanCommand) {
+              subBuilder.MergeFrom(BanCommand);
+            }
+            input.ReadMessage(subBuilder);
+            BanCommand = subBuilder;
+            break;
+          }
+          case 82: {
+            global::SCPDiscord.Interface.UnbanCommand subBuilder = new global::SCPDiscord.Interface.UnbanCommand();
+            if (messageCase_ == MessageOneofCase.UnbanCommand) {
+              subBuilder.MergeFrom(UnbanCommand);
+            }
+            input.ReadMessage(subBuilder);
+            UnbanCommand = subBuilder;
+            break;
+          }
+          case 90: {
+            global::SCPDiscord.Interface.KickCommand subBuilder = new global::SCPDiscord.Interface.KickCommand();
+            if (messageCase_ == MessageOneofCase.KickCommand) {
+              subBuilder.MergeFrom(KickCommand);
+            }
+            input.ReadMessage(subBuilder);
+            KickCommand = subBuilder;
+            break;
+          }
+          case 98: {
+            global::SCPDiscord.Interface.KickallCommand subBuilder = new global::SCPDiscord.Interface.KickallCommand();
+            if (messageCase_ == MessageOneofCase.KickallCommand) {
+              subBuilder.MergeFrom(KickallCommand);
+            }
+            input.ReadMessage(subBuilder);
+            KickallCommand = subBuilder;
+            break;
+          }
+          case 106: {
+            global::SCPDiscord.Interface.ListCommand subBuilder = new global::SCPDiscord.Interface.ListCommand();
+            if (messageCase_ == MessageOneofCase.ListCommand) {
+              subBuilder.MergeFrom(ListCommand);
+            }
+            input.ReadMessage(subBuilder);
+            ListCommand = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -621,6 +846,51 @@ namespace SCPDiscord.Interface {
             }
             input.ReadMessage(subBuilder);
             RoleResponse = subBuilder;
+            break;
+          }
+          case 74: {
+            global::SCPDiscord.Interface.BanCommand subBuilder = new global::SCPDiscord.Interface.BanCommand();
+            if (messageCase_ == MessageOneofCase.BanCommand) {
+              subBuilder.MergeFrom(BanCommand);
+            }
+            input.ReadMessage(subBuilder);
+            BanCommand = subBuilder;
+            break;
+          }
+          case 82: {
+            global::SCPDiscord.Interface.UnbanCommand subBuilder = new global::SCPDiscord.Interface.UnbanCommand();
+            if (messageCase_ == MessageOneofCase.UnbanCommand) {
+              subBuilder.MergeFrom(UnbanCommand);
+            }
+            input.ReadMessage(subBuilder);
+            UnbanCommand = subBuilder;
+            break;
+          }
+          case 90: {
+            global::SCPDiscord.Interface.KickCommand subBuilder = new global::SCPDiscord.Interface.KickCommand();
+            if (messageCase_ == MessageOneofCase.KickCommand) {
+              subBuilder.MergeFrom(KickCommand);
+            }
+            input.ReadMessage(subBuilder);
+            KickCommand = subBuilder;
+            break;
+          }
+          case 98: {
+            global::SCPDiscord.Interface.KickallCommand subBuilder = new global::SCPDiscord.Interface.KickallCommand();
+            if (messageCase_ == MessageOneofCase.KickallCommand) {
+              subBuilder.MergeFrom(KickallCommand);
+            }
+            input.ReadMessage(subBuilder);
+            KickallCommand = subBuilder;
+            break;
+          }
+          case 106: {
+            global::SCPDiscord.Interface.ListCommand subBuilder = new global::SCPDiscord.Interface.ListCommand();
+            if (messageCase_ == MessageOneofCase.ListCommand) {
+              subBuilder.MergeFrom(ListCommand);
+            }
+            input.ReadMessage(subBuilder);
+            ListCommand = subBuilder;
             break;
           }
         }
