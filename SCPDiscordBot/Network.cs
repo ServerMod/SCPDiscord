@@ -5,8 +5,6 @@ using System.Threading;
 using SCPDiscord.Interface;
 using DSharpPlus.Entities;
 using Google.Protobuf;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace SCPDiscord
 {

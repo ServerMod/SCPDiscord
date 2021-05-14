@@ -5,14 +5,14 @@ using DSharpPlus.Entities;
 
 namespace SCPDiscord.Commands
 {
-	public class UnsyncRoleCommand : BaseCommandModule
+	public class ServerCommand : BaseCommandModule
 	{
-		[Command("unsyncrole")]
+		[Command("server")]
 		[Cooldown(1, 5, CooldownBucketType.User)]
-		public async Task OnExecute(CommandContext command)
+		public async Task OnExecute(CommandContext command, string serverCommand)
 		{
 			// Check if the user has permission to use this command.
-			if (!ConfigParser.HasPermission(command.Member, "unsyncrole"))
+			if (!ConfigParser.HasPermission(command.Member, "server"))
 			{
 				DiscordEmbed error = new DiscordEmbedBuilder
 				{
@@ -20,21 +20,21 @@ namespace SCPDiscord.Commands
 					Description = "You do not have permission to use this command."
 				};
 				await command.RespondAsync(error);
-				Logger.Log(command.Member.Username + "#" + command.Member.Discriminator + " tried to use the unsyncrole command but did not have permission.", LogID.Command);
+				Logger.Log(command.Member.Username + "#" + command.Member.Discriminator + " tried to use the server command but did not have permission.", LogID.Command);
 				return;
 			}
 
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
-				UnsyncRoleCommand = new Interface.UnsyncRoleCommand
+				ConsoleCommand = new Interface.ConsoleCommand
 				{
 					ChannelID = command.Channel.Id,
 					DiscordID = command.Member.Id,
-					DiscordTag = command.Member.Username
+					Command = serverCommand
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending unsyncrole request to plugin for " + command.Member.Username + "#" + command.Member.Discriminator, LogID.Discord);
+			Logger.Debug("Sending server command request to plugin for " + command.Member.Username + "#" + command.Member.Discriminator, LogID.Discord);
 		}
 	}
 }

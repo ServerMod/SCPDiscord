@@ -20,7 +20,7 @@ namespace SCPDiscord.Commands
 					Description = "You do not have permission to use this command."
 				};
 				await command.RespondAsync(error);
-				Logger.Log("User tried to use the syncrole command but did not have permission.", LogID.Command);
+				Logger.Log(command.Member.Username + "#" + command.Member.Discriminator + " tried to use the syncrole command but did not have permission.", LogID.Command);
 				return;
 			}
 

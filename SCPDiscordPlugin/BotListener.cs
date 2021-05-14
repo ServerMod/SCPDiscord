@@ -18,10 +18,10 @@ namespace SCPDiscord
 			this.plugin = plugin;
 			while (!plugin.shutdown)
 			{
-				//Listen for connections
-				if (NetworkSystem.IsConnected())
+				try
 				{
-					try
+					//Listen for connections
+					if (NetworkSystem.IsConnected())
 					{
 						MessageWrapper data;
 						try
@@ -90,12 +90,12 @@ namespace SCPDiscord
 							}
 						}
 					}
-					catch (Exception ex)
-					{
-						plugin.Error("BotListener Error: " + ex);
-					}
+					Thread.Sleep(1000);
 				}
-				Thread.Sleep(1000);
+				catch (Exception ex)
+				{
+					plugin.Error("BotListener Error: " + ex);
+				}
 			}
 		}
 
@@ -137,7 +137,7 @@ namespace SCPDiscord
 				{
 					{ "duration", duration }
 				};
-				//plugin.SendMessageByID(channelID, "botresponses.invalidduration", variables);
+				plugin.SendMessageByID(channelID, "botresponses.invalidduration", variables);
 				return;
 			}
 
@@ -321,12 +321,12 @@ namespace SCPDiscord
 		private static DateTime ParseBanDuration(string duration, ref string humanReadableDuration)
 		{
 			//Check if the amount is a number
-			if (!int.TryParse(new string(duration.Where(Char.IsDigit).ToArray()), out int amount))
+			if (!int.TryParse(new string(duration.Where(char.IsDigit).ToArray()), out int amount))
 			{
 				return DateTime.MinValue;
 			}
 
-			char unit = duration.Where(Char.IsLetter).ToArray()[0];
+			char unit = duration.Where(char.IsLetter).ToArray()[0];
 			TimeSpan timeSpanDuration = new TimeSpan();
 			
 			// Parse time into a TimeSpan duration and string
@@ -338,7 +338,7 @@ namespace SCPDiscord
 			else if (unit == 'm')
 			{
 				humanReadableDuration = amount + " minute";
-				timeSpanDuration = new TimeSpan(0,0,amount,0);
+				timeSpanDuration = new TimeSpan(0, 0, amount, 0);
 			}
 			else if (unit == 'h')
 			{
