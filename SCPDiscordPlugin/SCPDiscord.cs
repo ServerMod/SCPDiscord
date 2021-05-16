@@ -25,10 +25,10 @@ namespace SCPDiscord
         name = "SCPDiscord",
         description = "SCP:SL - Discord bridge.",
         id = "karlofduty.scpdiscord",
-        version = "1.5.0",
+        version = "2.0.0",
         SmodMajor = 3,
-        SmodMinor = 8,
-        SmodRevision = 0
+        SmodMinor = 9,
+        SmodRevision = 10
     )]
 
     public class SCPDiscord : Plugin
