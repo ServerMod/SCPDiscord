@@ -9,10 +9,10 @@
     prefix: "+"
 
     # Channel to post the bot status messages in
-    status-channels: [ 000000000000000000, 000000000000000000 ]
+    status-channels: [ 000000000000000000, 111111111111111111 ]
 
     # The channels where bot commands can be used
-    command-channels: [ 000000000000000000, 000000000000000000 ]
+    command-channels: [ 000000000000000000, 111111111111111111 ]
 
     # Decides what messages are shown in console
     # Possible values are: Critical, Error, Warning, Information, Debug.
@@ -38,24 +38,27 @@ plugin:
     # Port to listen on, this has to be the same as the "bot port" in the plugin config and all bots you run have to have different ports or they will clash.
     port: 8888
 
-# Set permissions for discord roles here, the list names are the names of the discord roles and the list items are the first word of a command. Discord admins have access to all commands.
+# Set permissions for discord roles here.
+# The dictionary defines the role ids and the commands they have access to.
+# If a role has access to "server aabbcc" all users with that role will be able 
+# to use the command "+server aabbcc" but also any command starting with it such as "+server aabbccdd"
 permissions:
-    "add-role-id-1-here": # An everyone role example
+    000000000000000000: # An everyone role example
         - list
-    "add-role-id-2-here": # A donator role example
+    111111111111111111: # A donator role example
         - vs_whitelist
         - syncrole
         - unsyncrole
-    "add-role-id-3-here": # A moderator example
+    222222222222222222: # A moderator example
         - syncrole
         - ban
         - unban
         - kick
-        - roundrestart
-        - hidetag
-        - showtag
-        - vs_reload
-        - vs_enable
-        - vs_disable
-        - scpd_reload
-        - scpd_unsync
+        - server roundrestart
+        - server hidetag
+        - server showtag
+        - server vs_reload
+        - server vs_enable
+        - server vs_disable
+        - server scpd_reload
+        - server scpd_unsync

@@ -80,15 +80,9 @@ namespace SCPDiscord
 			Logger.Debug("plugin.port: " + config.plugin.port, LogID.Config);
 		}
 
-		/// <summary>
-		/// Checks whether a user has a specific permission.
-		/// </summary>
-		/// <param name="member">The Discord user to check.</param>
-		/// <param name="permission">The permission name to check.</param>
-		/// <returns></returns>
 		public static bool HasPermission(DiscordMember member, string permission)
 		{
-			return true; //member.Roles.Any(role => permissions.ContainsKey(role.Id) && permissions[role.Id].Any(id => id.StartsWith(permission)));
+			return member.Roles.Any(role => config.permissions.ContainsKey(role.Id) && config.permissions[role.Id].Any(node => node.StartsWith(permission)));
 		}
 	}
 }
