@@ -272,6 +272,18 @@ namespace SCPDiscord
 			{
 				case CommandNotFoundException:
 					return Task.CompletedTask;
+
+				case ArgumentException:
+				{
+					DiscordEmbed error = new DiscordEmbedBuilder
+					{
+						Color = DiscordColor.Red,
+						Description = "Invalid arguments."
+					};
+					e.Context?.Channel?.SendMessageAsync(error);
+					return Task.CompletedTask;
+				}
+
 				case ChecksFailedException:
 				{
 					foreach (CheckBaseAttribute attr in ((ChecksFailedException)e.Exception).FailedChecks)
