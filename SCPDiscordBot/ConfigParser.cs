@@ -78,11 +78,22 @@ namespace SCPDiscord
 
 			Logger.Debug("plugin.address: " + config.plugin.address, LogID.Config);
 			Logger.Debug("plugin.port: " + config.plugin.port, LogID.Config);
+
+			Logger.Debug("permissions:", LogID.Config);
+			foreach(KeyValuePair<ulong, string[]> role in config.permissions)
+			{
+				Logger.Debug("  " + role.Key + ":", LogID.Config);
+				foreach(string permission in role.Value)
+				{
+					Logger.Debug("    " + permission, LogID.Config);
+				}
+			}
+
 		}
 
 		public static bool HasPermission(DiscordMember member, string permission)
 		{
-			return member.Roles.Any(role => config.permissions.ContainsKey(role.Id) && config.permissions[role.Id].Any(node => node.StartsWith(permission)));
+			return member.Roles.Any(role => config.permissions.ContainsKey(role.Id) && config.permissions[role.Id].Any(node => permission.StartsWith(node)));
 		}
 	}
 }
