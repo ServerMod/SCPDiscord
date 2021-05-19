@@ -65,6 +65,7 @@ namespace SCPDiscord
 				instance.commands.RegisterCommands<Commands.SyncRoleCommand>();
 				instance.commands.RegisterCommands<Commands.UnsyncRoleCommand>();
 				instance.commands.RegisterCommands<Commands.ServerCommand>();
+				instance.commands.RegisterCommands<Commands.ListCommand>();
 
 				Logger.Log("Hooking events...", LogID.Discord);
 				instance.discordClient.Ready += instance.OnReady;
