@@ -54,6 +54,7 @@ permissions:
         - ban
         - unban
         - kick
+        - kickall
         - server roundrestart
         - server hidetag
         - server showtag
