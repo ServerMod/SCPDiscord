@@ -61,11 +61,11 @@ namespace SCPDiscord
 					StringPrefixes = new[] { ConfigParser.config.bot.prefix }
 				});
 
-				// Handle hidetag/showtag differently but prepending the command with "console_"
 				instance.commands.RegisterCommands<Commands.SyncRoleCommand>();
 				instance.commands.RegisterCommands<Commands.UnsyncRoleCommand>();
 				instance.commands.RegisterCommands<Commands.ServerCommand>();
 				instance.commands.RegisterCommands<Commands.ListCommand>();
+				instance.commands.RegisterCommands<Commands.KickAllCommand>();
 
 				Logger.Log("Hooking events...", LogID.Discord);
 				instance.discordClient.Ready += instance.OnReady;

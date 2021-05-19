@@ -9,7 +9,7 @@ namespace SCPDiscord.Commands
 	{
 		[Command("server")]
 		[Cooldown(1, 5, CooldownBucketType.User)]
-		public async Task OnExecute(CommandContext command, [RemainingText] string serverCommand)
+		public async Task OnExecute(CommandContext command, [RemainingText] string serverCommand = "")
 		{
 			// Check if the user has permission to use this command.
 			if (!ConfigParser.HasPermission(command.Member, "server " + serverCommand))
