@@ -88,7 +88,6 @@ namespace SCPDiscord
 					Logger.Debug("    " + permission, LogID.Config);
 				}
 			}
-
 		}
 
 		public static bool HasPermission(DiscordMember member, string permission)
