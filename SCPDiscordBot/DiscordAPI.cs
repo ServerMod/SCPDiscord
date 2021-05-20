@@ -67,6 +67,7 @@ namespace SCPDiscord
 				instance.commands.RegisterCommands<Commands.ListCommand>();
 				instance.commands.RegisterCommands<Commands.KickAllCommand>();
 				instance.commands.RegisterCommands<Commands.KickCommand>();
+				instance.commands.RegisterCommands<Commands.BanCommand>();
 
 				Logger.Log("Hooking events...", LogID.Discord);
 				instance.discordClient.Ready += instance.OnReady;
