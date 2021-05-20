@@ -26,7 +26,7 @@ namespace SCPDiscord.Interface {
           string.Concat(
             "ChxCb3RUb1BsdWdpbi9CYW5Db21tYW5kLnByb3RvEhRTQ1BEaXNjb3JkLklu",
             "dGVyZmFjZSJkCgpCYW5Db21tYW5kEhEKCUNoYW5uZWxJRBgBIAEoBBIPCgdT",
-            "dGVhbUlEGAIgASgEEhAKCER1cmF0aW9uGAMgASgJEg4KBlJlYXNvbhgEIAEo",
+            "dGVhbUlEGAIgASgJEhAKCER1cmF0aW9uGAMgASgJEg4KBlJlYXNvbhgEIAEo",
             "CRIQCghBZG1pblRhZxgFIAEoCWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
@@ -93,12 +93,12 @@ namespace SCPDiscord.Interface {
 
     /// <summary>Field number for the "SteamID" field.</summary>
     public const int SteamIDFieldNumber = 2;
-    private ulong steamID_;
+    private string steamID_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ulong SteamID {
+    public string SteamID {
       get { return steamID_; }
       set {
-        steamID_ = value;
+        steamID_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -160,7 +160,7 @@ namespace SCPDiscord.Interface {
     public override int GetHashCode() {
       int hash = 1;
       if (ChannelID != 0UL) hash ^= ChannelID.GetHashCode();
-      if (SteamID != 0UL) hash ^= SteamID.GetHashCode();
+      if (SteamID.Length != 0) hash ^= SteamID.GetHashCode();
       if (Duration.Length != 0) hash ^= Duration.GetHashCode();
       if (Reason.Length != 0) hash ^= Reason.GetHashCode();
       if (AdminTag.Length != 0) hash ^= AdminTag.GetHashCode();
@@ -184,9 +184,9 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(8);
         output.WriteUInt64(ChannelID);
       }
-      if (SteamID != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(SteamID);
+      if (SteamID.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(SteamID);
       }
       if (Duration.Length != 0) {
         output.WriteRawTag(26);
@@ -213,9 +213,9 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(8);
         output.WriteUInt64(ChannelID);
       }
-      if (SteamID != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(SteamID);
+      if (SteamID.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(SteamID);
       }
       if (Duration.Length != 0) {
         output.WriteRawTag(26);
@@ -241,8 +241,8 @@ namespace SCPDiscord.Interface {
       if (ChannelID != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ChannelID);
       }
-      if (SteamID != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(SteamID);
+      if (SteamID.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SteamID);
       }
       if (Duration.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Duration);
@@ -267,7 +267,7 @@ namespace SCPDiscord.Interface {
       if (other.ChannelID != 0UL) {
         ChannelID = other.ChannelID;
       }
-      if (other.SteamID != 0UL) {
+      if (other.SteamID.Length != 0) {
         SteamID = other.SteamID;
       }
       if (other.Duration.Length != 0) {
@@ -297,8 +297,8 @@ namespace SCPDiscord.Interface {
             ChannelID = input.ReadUInt64();
             break;
           }
-          case 16: {
-            SteamID = input.ReadUInt64();
+          case 18: {
+            SteamID = input.ReadString();
             break;
           }
           case 26: {
@@ -331,8 +331,8 @@ namespace SCPDiscord.Interface {
             ChannelID = input.ReadUInt64();
             break;
           }
-          case 16: {
-            SteamID = input.ReadUInt64();
+          case 18: {
+            SteamID = input.ReadString();
             break;
           }
           case 26: {

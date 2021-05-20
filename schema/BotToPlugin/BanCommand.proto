@@ -5,7 +5,7 @@ package SCPDiscord.Interface;
 message BanCommand
 {
 	uint64 ChannelID = 1;
-	uint64 SteamID = 2;
+	string SteamID = 2;
 	string Duration = 3;
 	string Reason = 4;
 	string AdminTag = 5;
