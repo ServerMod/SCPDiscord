@@ -2,26 +2,25 @@ pipeline {
   agent any
   stages {
     stage('Dependencies') {
+      steps {
+        sh 'nuget restore SCPDiscord.sln'
+      }
+    }
+    stage('Build') {
       parallel {
         stage('Plugin') {
           steps {
-            sh 'nuget restore SCPDiscord.sln'
+            sh 'msbuild SCPDiscordPlugin/SCPDiscordPlugin.csproj -restore -p:PostBuildEvent='
           }
         }
         stage('Bot') {
           steps {
             dir(path: 'SCPDiscordBot') {
-              sh 'npm install discord.js'
-              sh 'npm install yaml'
+              sh 'dotnet build --output bin/ --configuration Release --runtime linux-x64'
+              sh 'warp-packer --arch linux-x64 --input_dir bin --exec SCPDiscordBot --output ../SCPDiscordBot'
             }
-
           }
         }
-      }
-    }
-    stage('Build') {
-      steps {
-        sh 'msbuild SCPDiscordPlugin/SCPDiscordPlugin.csproj -restore -p:PostBuildEvent='
       }
     }
     stage('Setup Output Dir') {
@@ -41,12 +40,20 @@ pipeline {
             sh 'mv SCPDiscordPlugin/bin/Newtonsoft.Json.dll SCPDiscord/Plugin/dependencies'
           }
         }
-        stage('Bot') {
+        stage('Linux Bot') {
           steps {
-            sh 'mv SCPDiscordBot/default_config.yml SCPDiscord/Bot/config.yml'
-            sh 'mv SCPDiscordBot/node_modules SCPDiscord/Bot/node_modules'
-            sh 'mv SCPDiscordBot/package.json SCPDiscord/Bot/'
-            sh 'mv SCPDiscordBot/SCPDiscordBot.js SCPDiscord/Bot/'
+            dir(path: 'SCPDiscordBot') {
+              sh 'dotnet build --output bin/linux-x64 --configuration Release --runtime linux-x64'
+              sh 'warp-packer --arch linux-x64 --input_dir bin/linux-x64 --exec SCPDiscordBot --output ../SCPDiscordBot'
+            }
+          }
+        }
+        stage('Windows Bot') {
+          steps {
+            dir(path: 'SCPDiscordBot') {
+              sh 'dotnet build --output bin/win-x64 --configuration Release --runtime win-x64'
+              sh 'warp-packer --arch windows-x64 --input_dir bin/win-x64 --exec SCPDiscordBot.exe --output ../SCPDiscordBot.exe'
+            }
           }
         }
       }
