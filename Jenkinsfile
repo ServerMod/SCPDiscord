@@ -13,11 +13,17 @@ pipeline {
             sh 'msbuild SCPDiscordPlugin/SCPDiscordPlugin.csproj -restore -p:PostBuildEvent='
           }
         }
-        stage('Bot') {
+        stage('Linux Bot') {
           steps {
             dir(path: 'SCPDiscordBot') {
-              sh 'dotnet build --output bin/ --configuration Release --runtime linux-x64'
-              sh 'warp-packer --arch linux-x64 --input_dir bin --exec SCPDiscordBot --output ../SCPDiscordBot'
+              sh 'dotnet build --output bin/linux-x64 --configuration Release --runtime linux-x64'
+            }
+          }
+        }
+        stage('Windows Bot') {
+          steps {
+            dir(path: 'SCPDiscordBot') {
+              sh 'dotnet build --output bin/win-x64 --configuration Release --runtime win-x64'
             }
           }
         }
@@ -43,16 +49,14 @@ pipeline {
         stage('Linux Bot') {
           steps {
             dir(path: 'SCPDiscordBot') {
-              sh 'dotnet build --output bin/linux-x64 --configuration Release --runtime linux-x64'
-              sh 'warp-packer --arch linux-x64 --input_dir bin/linux-x64 --exec SCPDiscordBot --output ../SCPDiscordBot'
+              sh 'warp-packer --arch linux-x64 --input_dir bin/linux-x64 --exec SCPDiscordBot --output ../SCPDiscord/Bot/SCPDiscordBot'
             }
           }
         }
         stage('Windows Bot') {
           steps {
             dir(path: 'SCPDiscordBot') {
-              sh 'dotnet build --output bin/win-x64 --configuration Release --runtime win-x64'
-              sh 'warp-packer --arch windows-x64 --input_dir bin/win-x64 --exec SCPDiscordBot.exe --output ../SCPDiscordBot.exe'
+              sh 'warp-packer --arch windows-x64 --input_dir bin/win-x64 --exec SCPDiscordBot.exe --output ../SCPDiscord/Bot/SCPDiscordBot.exe'
             }
           }
         }
