@@ -16,7 +16,7 @@ SCPDiscord links features from your SCP:SL server console to Discord channels, s
 
 * The ability to completely customise every single message from the plugin and use different languages. More info [here](https://github.com/KarlOfDuty/SCPDiscord/wiki/Languages).
 
-* Player count is displayed in the bot activity field. The bot's status changes from dnd when the scp server is on but the bot server is on, away when there are no players on a server and online when a server has players.
+* Player count is displayed in the bot activity field. The bot's status changes from dnd when the scp server is off but the bot server is on, away when there are no players on a server and online when a server has players.
 
 * An auto-updating channel topic with information such as number of players, server uptime, ip and gameplay information.
 
