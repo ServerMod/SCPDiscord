@@ -106,7 +106,24 @@ namespace SCPDiscord
 
 		public static bool HasPermission(DiscordMember member, string permission)
 		{
-			return member.Roles.Any(role => config.permissions.ContainsKey(role.Id) && config.permissions[role.Id].Any(node => permission.StartsWith(node)));
+			foreach (DiscordRole role in member.Roles)
+			{
+				Logger.Log("ID: " + role.Id + " Name: " + role.Name, LogID.Config);
+			}
+
+			// If a specific role is allowed to use the command
+			if (member.Roles.Any(role => config.permissions.ContainsKey(role.Id) && config.permissions[role.Id].Any(node => permission.StartsWith(node))))
+			{
+				return true;
+			}
+
+			// If everyone is allowed to use the command
+			if (config.permissions.ContainsKey(0) && config.permissions[0].Any(node => permission.StartsWith(node)))
+			{
+				return true;
+			}
+
+			return false;
 		}
 
 		public static bool IsCommandChannel(ulong channelID)
