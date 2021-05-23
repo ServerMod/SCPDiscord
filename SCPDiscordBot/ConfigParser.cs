@@ -23,8 +23,6 @@ namespace SCPDiscord
 			public string logLevel = "Information";
 			public string presenceType = "Watching";
 			public string presenceText = "for server startup...";
-			public int messageCooldown = 1000;
-			public int messageDelay = 0;
 		}
 		public Bot bot;
 
@@ -73,8 +71,6 @@ namespace SCPDiscord
 			Logger.Debug("bot.log-level: " + config.bot.logLevel, LogID.Config);
 			Logger.Debug("bot.presence-type: " + config.bot.presenceType, LogID.Config);
 			Logger.Debug("bot.presence-text: " + config.bot.presenceText, LogID.Config);
-			Logger.Debug("bot.message-cooldown: " + config.bot.messageCooldown, LogID.Config);
-			Logger.Debug("bot.message-delay: " + config.bot.messageDelay, LogID.Config);
 
 			Logger.Debug("plugin.address: " + config.plugin.address, LogID.Config);
 			Logger.Debug("plugin.port: " + config.plugin.port, LogID.Config);

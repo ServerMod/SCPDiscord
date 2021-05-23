@@ -25,12 +25,6 @@
     # Sets the activity text shown in the bot's status.
     presence-text: "for server startup..."
 
-    # Message cooldown, number of milliseconds to wait between sending messages. Use this if your server sends too many messages for the bot to keep up. (Bot will get delayed if it hits more than 5 messages per 5 seconds)
-    message-cooldown: 1000
-
-    # Message cooldown in milliseconds, use this if you want to keep players from ghosting by looking at the Discord channel while they play.
-    message-delay: 0
-
 plugin:
     # Host to listen on, localhost by default. In case you want server to listen on 0.0.0.0, make sure your firewall rules are correct.
     address: "127.0.0.1"
