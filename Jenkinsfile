@@ -46,17 +46,12 @@ pipeline {
             sh 'mv SCPDiscordPlugin/bin/Newtonsoft.Json.dll SCPDiscord/Plugin/dependencies'
           }
         }
-        stage('Linux Bot') {
+        stage('Bot') {
           steps {
             dir(path: 'SCPDiscordBot') {
               sh 'warp-packer --arch linux-x64 --input_dir bin/linux-x64 --exec SCPDiscordBot --output ../SCPDiscord/Bot/SCPDiscordBot'
-            }
-          }
-        }
-        stage('Windows Bot') {
-          steps {
-            dir(path: 'SCPDiscordBot') {
               sh 'warp-packer --arch windows-x64 --input_dir bin/win-x64 --exec SCPDiscordBot.exe --output ../SCPDiscord/Bot/SCPDiscordBot.exe'
+              sh 'cp default_config.yml ../SCPDiscord/Bot/config.yml'
             }
           }
         }
