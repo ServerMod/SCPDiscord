@@ -1,5 +1,3 @@
-using System.Linq;
-using Smod2.API;
 using Smod2.Commands;
 
 namespace SCPDiscord.Commands

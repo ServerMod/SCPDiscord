@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace SCPDiscord
@@ -30,7 +30,7 @@ namespace SCPDiscord
 			{
 				DiscordAPI.GetClient().Logger.Log(LogLevel.Debug, eventIDs[logID], Message);
 			}
-			catch(NullReferenceException)
+			catch (NullReferenceException)
 			{
 				Console.WriteLine("[DEBUG] " + Message);
 			}

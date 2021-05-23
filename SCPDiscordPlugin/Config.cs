@@ -1,11 +1,9 @@
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
 namespace SCPDiscord
@@ -31,7 +29,7 @@ namespace SCPDiscord
 			{ "settings.configvalidation",  true    },
 			{ "settings.rolesync",          false   }
 		};
-		
+
 		private static readonly Dictionary<string, int> configInts = new Dictionary<string, int>
 		{
 			{ "bot.port", 8888 }
@@ -111,7 +109,7 @@ namespace SCPDiscord
 			{ "channels.onplayerdie.default",       new string[]{ } },
 			{ "channels.onplayerdie.friendlyfire",  new string[]{ } },
 			{ "channels.onplayerdie.nokiller",      new string[]{ } },
-			{ "channels.onplayerdropallitems",		new string[]{ } },
+			{ "channels.onplayerdropallitems",      new string[]{ } },
 			{ "channels.onplayerdropitem",          new string[]{ } },
 			{ "channels.onplayerhurt.default",      new string[]{ } },
 			{ "channels.onplayerhurt.friendlyfire", new string[]{ } },
@@ -169,7 +167,7 @@ namespace SCPDiscord
 			// Converts the FileStream into a YAML Dictionary object
 			IDeserializer deserializer = new DeserializerBuilder().Build();
 			object yamlObject = deserializer.Deserialize(new StreamReader(stream));
-			
+
 			// Converts the YAML Dictionary into JSON String
 			ISerializer serializer = new SerializerBuilder()
 				.JsonCompatible()

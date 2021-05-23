@@ -1,3 +1,6 @@
+using Google.Protobuf;
+using SCPDiscord.EventListeners;
+using SCPDiscord.Interface;
 using Smod2.API;
 using System;
 using System.Collections.Generic;
@@ -5,9 +8,6 @@ using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
-using SCPDiscord.EventListeners;
-using SCPDiscord.Interface;
-using Google.Protobuf;
 
 namespace SCPDiscord
 {
@@ -44,7 +44,7 @@ namespace SCPDiscord
 		public static void Run(SCPDiscord pl)
 		{
 			plugin = pl;
-			while(!Config.ready || !Language.ready)
+			while (!Config.ready || !Language.ready)
 			{
 				Thread.Sleep(1000);
 			}
@@ -53,7 +53,7 @@ namespace SCPDiscord
 			{
 				try
 				{
-					if(IsConnected())
+					if (IsConnected())
 					{
 						Update();
 					}
@@ -63,7 +63,7 @@ namespace SCPDiscord
 					}
 					Thread.Sleep(1000);
 				}
-				catch(Exception e)
+				catch (Exception e)
 				{
 					plugin.Error("Network error caught, if this happens a lot try using the 'scpd_rc' command." + e);
 				}
@@ -79,14 +79,14 @@ namespace SCPDiscord
 			// Send all messages
 			for (int i = 0; i < messageQueue.Count; i++)
 			{
-				if(SendMessage(messageQueue[i]))
+				if (SendMessage(messageQueue[i]))
 				{
 					messageQueue.RemoveAt(i);
 					i--;
 				}
 			}
 
-			if(messageQueue.Count != 0)
+			if (messageQueue.Count != 0)
 			{
 				plugin.VerboseWarn("Could not send all messages.");
 			}
@@ -95,7 +95,7 @@ namespace SCPDiscord
 		/// Connection functions //////////////////////////
 		public static bool IsConnected()
 		{
-			if(socket == null)
+			if (socket == null)
 			{
 				return false;
 			}
@@ -117,17 +117,17 @@ namespace SCPDiscord
 			plugin.Verbose("Attempting Bot Connection...");
 			plugin.Verbose("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
 
-			while(!IsConnected())
+			while (!IsConnected())
 			{
 				try
 				{
-					if(socket != null && socket.IsBound)
+					if (socket != null && socket.IsBound)
 					{
 						//socket.Shutdown(SocketShutdown.Both);
 						messageThread?.Abort();
 						socket.Close();
 					}
-					
+
 					socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 					socket.Connect(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
 					messageThread = new Thread(() => new BotListener(plugin));
@@ -238,7 +238,7 @@ namespace SCPDiscord
 			{
 				message = "[" + DateTime.Now.ToString(Config.GetString("settings.timestamp")) + "]: " + message;
 			}
-			
+
 			// Re-add newlines
 			message = message.Replace("\\n", "\n");
 
@@ -350,11 +350,11 @@ namespace SCPDiscord
 		/// ///////////////////////////////////////////////
 
 		/// Status refreshing //////////////////////
-		 
+
 		private static void RefreshBotStatus()
 		{
 			if (activityUpdateTimer.ElapsedMilliseconds < ACTIVITY_UPDATE_RATE_MS && activityUpdateTimer.IsRunning) return;
-			
+
 			activityUpdateTimer.Reset();
 			activityUpdateTimer.Start();
 

@@ -1,55 +1,53 @@
-﻿using System;
-using System.Linq;
-using System.Text;
+﻿using DSharpPlus.Entities;
+using Google.Protobuf;
+using SCPDiscord.Interface;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using SCPDiscord.Interface;
-using DSharpPlus.Entities;
-using Google.Protobuf;
 
 namespace SCPDiscord
 {
-    // Separate class to run the thread
-    public class StartNetworkSystem
-    {
-        public StartNetworkSystem()
-        {
-            NetworkSystem.Init();
-        }
-    }
-
-    public static class NetworkSystem // TODO: Make singleton, improve shutdown logic
+	// Separate class to run the thread
+	public class StartNetworkSystem
 	{
-        private static Socket clientSocket = null;
-        private static Socket listenerSocket = null;
-        private static NetworkStream networkStream = null;
+		public StartNetworkSystem()
+		{
+			NetworkSystem.Init();
+		}
+	}
+
+	public static class NetworkSystem // TODO: Make singleton, improve shutdown logic
+	{
+		private static Socket clientSocket = null;
+		private static Socket listenerSocket = null;
+		private static NetworkStream networkStream = null;
 
 		private static bool shutdown = false;
 
-        public static void Init()
+		public static void Init()
 		{
-            shutdown = false;
+			shutdown = false;
 
-            if (listenerSocket != null)
-            {
-                listenerSocket.Shutdown(SocketShutdown.Both);
-                listenerSocket.Close();
-            }
+			if (listenerSocket != null)
+			{
+				listenerSocket.Shutdown(SocketShutdown.Both);
+				listenerSocket.Close();
+			}
 
-            if (clientSocket != null)
-            {
-                clientSocket.Shutdown(SocketShutdown.Both);
-                clientSocket.Close();
-            }
+			if (clientSocket != null)
+			{
+				clientSocket.Shutdown(SocketShutdown.Both);
+				clientSocket.Close();
+			}
 
-            while (!ConfigParser.loaded)
+			while (!ConfigParser.loaded)
 			{
 				Thread.Sleep(1000);
 			}
 
-            IPEndPoint listenerEndpoint;
-            IPAddress ipAddress;
+			IPEndPoint listenerEndpoint;
+			IPAddress ipAddress;
 
 			if (ConfigParser.config.plugin.address == "0.0.0.0")
 			{
@@ -84,7 +82,7 @@ namespace SCPDiscord
 					}
 					else
 					{
-                        DiscordAPI.SetDisconnectedActivity();
+						DiscordAPI.SetDisconnectedActivity();
 						Logger.Log("Listening on " + ConfigParser.config.plugin.address + ":" + ConfigParser.config.plugin.port, LogID.Network);
 						clientSocket = listenerSocket.Accept();
 						networkStream = new NetworkStream(clientSocket, true);
@@ -101,18 +99,18 @@ namespace SCPDiscord
 
 		private static async void Update()
 		{
-            MessageWrapper wrapper;
-            try
+			MessageWrapper wrapper;
+			try
 			{
-                wrapper = MessageWrapper.Parser.ParseDelimitedFrom(networkStream);
+				wrapper = MessageWrapper.Parser.ParseDelimitedFrom(networkStream);
 			}
-            catch(Exception)
+			catch (Exception)
 			{
 				Logger.Error("Couldn't parse incoming packet!", LogID.Network);
-                return;
+				return;
 			}
 
-            Logger.Debug("Incoming packet: " + JsonFormatter.Default.Format(wrapper), LogID.Network);
+			Logger.Debug("Incoming packet: " + JsonFormatter.Default.Format(wrapper), LogID.Network);
 
 			switch (wrapper.MessageCase)
 			{
@@ -147,26 +145,26 @@ namespace SCPDiscord
 
 		public static void ShutDown()
 		{
-            shutdown = true;
+			shutdown = true;
 		}
 
-        public static bool IsConnected()
-        {
-            if (clientSocket == null)
-            {
-                return false;
-            }
+		public static bool IsConnected()
+		{
+			if (clientSocket == null)
+			{
+				return false;
+			}
 
-            try
-            {
-                return !((clientSocket.Poll(1000, SelectMode.SelectRead) && (clientSocket.Available == 0)) || !clientSocket.Connected);
-            }
-            catch (ObjectDisposedException e)
-            {
-                Logger.Error("TCP client was unexpectedly closed.", LogID.Network);
-                Logger.Debug(e.ToString(), LogID.Network);
-                return false;
-            }
-        }
+			try
+			{
+				return !((clientSocket.Poll(1000, SelectMode.SelectRead) && (clientSocket.Available == 0)) || !clientSocket.Connected);
+			}
+			catch (ObjectDisposedException e)
+			{
+				Logger.Error("TCP client was unexpectedly closed.", LogID.Network);
+				Logger.Debug(e.ToString(), LogID.Network);
+				return false;
+			}
+		}
 	}
 }

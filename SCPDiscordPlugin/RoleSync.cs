@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using SCPDiscord.Interface;
 using Smod2.API;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,6 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using SCPDiscord.Interface;
 
 namespace SCPDiscord
 {
@@ -110,7 +110,7 @@ namespace SCPDiscord
 							}
 							plugin.Debug(this.plugin.ConsoleCommand(null, command.Split(' ')[0], command.Split(' ').Skip(1).ToArray()));
 						}
-						
+
 						plugin.Verbose("Synced " + player.Name);
 						return;
 					}
@@ -231,11 +231,11 @@ namespace SCPDiscord
 				SavePlayers();
 				return "Discord user ID link has been removed.";
 			}
-			catch(InvalidOperationException)
+			catch (InvalidOperationException)
 			{
 				return "Discord user ID is not linked to a Steam account";
 			}
-			
+
 		}
 	}
 }

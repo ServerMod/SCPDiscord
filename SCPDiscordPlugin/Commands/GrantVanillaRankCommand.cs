@@ -1,7 +1,7 @@
-using System;
-using System.Linq;
 using Smod2.API;
 using Smod2.Commands;
+using System;
+using System.Linq;
 
 namespace SCPDiscord.Commands
 {
@@ -37,7 +37,7 @@ namespace SCPDiscord.Commands
 				Player player = SCPDiscord.plugin.Server.GetPlayers(args[0]).First();
 				player.SetRank(null, null, args[1]);
 				return new[] { "Player rank updated." };
-				
+
 			}
 			catch (InvalidOperationException)
 			{

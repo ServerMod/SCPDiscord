@@ -1,15 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DSharpPlus;
+﻿using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.CommandsNext.Exceptions;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
-using Microsoft.Extensions.Logging;
 using DSharpPlus.Exceptions;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SCPDiscord
 {
@@ -84,7 +84,7 @@ namespace SCPDiscord
 				Logger.Log("Connecting to Discord...", LogID.Discord);
 				await instance.discordClient.ConnectAsync();
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				Logger.Error(e.ToString(), LogID.Discord);
 			}
@@ -109,7 +109,7 @@ namespace SCPDiscord
 
 		public static void SetActivity(string activityText, ActivityType activityType, UserStatus status)
 		{
-			if(instance.connected)
+			if (instance.connected)
 				GetClient()?.UpdateStatusAsync(new DiscordActivity(activityText, activityType), status);
 		}
 
@@ -144,7 +144,7 @@ namespace SCPDiscord
 				DiscordChannel channel = await GetClient().GetChannelAsync(channelID);
 				try
 				{
-					foreach(string content in SplitString(message, 2000))
+					foreach (string content in SplitString(message, 2000))
 					{
 						await channel.SendMessageAsync(content);
 					}
@@ -192,7 +192,7 @@ namespace SCPDiscord
 
 		public static async void GetPlayerRoles(ulong userID, string steamID)
 		{
-			if(ConfigParser.config.bot.serverId == 0)
+			if (ConfigParser.config.bot.serverId == 0)
 			{
 				Logger.Warn("Plugin attempted to use role sync, but no server ID was set in the config. Ignoring request...", LogID.Discord);
 				return;
@@ -214,7 +214,7 @@ namespace SCPDiscord
 				message.RoleResponse.RoleIDs.AddRange(member.Roles.Select(role => role.Id));
 				NetworkSystem.SendMessage(message);
 			}
-			catch(Exception)
+			catch (Exception)
 			{
 				Logger.Warn("Couldn't find discord server or server member for role syncing requested by plugin. Discord ID: " + userID.ToString() + " SteamID: " + steamID, LogID.Discord);
 			}
@@ -226,7 +226,7 @@ namespace SCPDiscord
 			Logger.Log("Connected to Discord.", LogID.Discord);
 			SetDisconnectedActivity();
 
-			foreach(ulong channelID in ConfigParser.config.bot.statusChannels)
+			foreach (ulong channelID in ConfigParser.config.bot.statusChannels)
 			{
 				DiscordEmbed message = new DiscordEmbedBuilder
 				{

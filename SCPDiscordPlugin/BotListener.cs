@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
 
 namespace SCPDiscord
@@ -32,7 +31,7 @@ namespace SCPDiscord
 						{
 							if (e is IOException)
 								plugin.Error("Connection to bot lost.");
-							
+
 							else
 								plugin.Error("Couldnt parse incoming packet!\n" + e.ToString());
 
@@ -40,7 +39,7 @@ namespace SCPDiscord
 						}
 
 						plugin.Debug("Incoming packet: " + Google.Protobuf.JsonFormatter.Default.Format(data));
-						
+
 						switch (data.MessageCase)
 						{
 							case MessageWrapper.MessageOneofCase.SyncRoleCommand:
@@ -54,7 +53,7 @@ namespace SCPDiscord
 							case MessageWrapper.MessageOneofCase.ConsoleCommand:
 								string[] words = data.ConsoleCommand.Command.Split(' ');
 								string response = plugin.ConsoleCommand(plugin.PluginManager.Server, words[0], words.Skip(1).ToArray());
-								Dictionary<string, string>  variables = new Dictionary<string, string>
+								Dictionary<string, string> variables = new Dictionary<string, string>
 								{
 									{ "feedback", response }
 								};
@@ -139,7 +138,7 @@ namespace SCPDiscord
 			{
 				endTime = ParseBanDuration(duration, ref humanReadableDuration);
 			}
-			catch(IndexOutOfRangeException)
+			catch (IndexOutOfRangeException)
 			{
 				endTime = DateTime.MinValue;
 			}
@@ -155,16 +154,16 @@ namespace SCPDiscord
 			}
 
 			string name = "";
-			if(!plugin.GetPlayerName(steamID, ref name))
+			if (!plugin.GetPlayerName(steamID, ref name))
 			{
 				name = "Offline player";
 			}
 
 			//Semicolons are separators in the ban file so cannot be part of strings
-			name = name.Replace(";","");
-			reason = reason.Replace(";","");
+			name = name.Replace(";", "");
+			reason = reason.Replace(";", "");
 
-			if(reason == "")
+			if (reason == "")
 			{
 				reason = "No reason provided.";
 			}
@@ -292,7 +291,7 @@ namespace SCPDiscord
 		/// <param name="reason">Reason displayed to kicked players</param>
 		private void KickallCommand(ulong channelID, string reason, string adminTag)
 		{
-			if(reason == "")
+			if (reason == "")
 			{
 				reason = "All players kicked by Admin";
 			}
@@ -324,7 +323,7 @@ namespace SCPDiscord
 
 			char unit = duration.Where(char.IsLetter).ToArray()[0];
 			TimeSpan timeSpanDuration = new TimeSpan();
-			
+
 			// Parse time into a TimeSpan duration and string
 			if (unit == 's')
 			{
