@@ -106,11 +106,6 @@ namespace SCPDiscord
 
 		public static bool HasPermission(DiscordMember member, string permission)
 		{
-			foreach (DiscordRole role in member.Roles)
-			{
-				Logger.Log("ID: " + role.Id + " Name: " + role.Name, LogID.Config);
-			}
-
 			// If a specific role is allowed to use the command
 			if (member.Roles.Any(role => config.permissions.ContainsKey(role.Id) && config.permissions[role.Id].Any(node => permission.StartsWith(node))))
 			{
