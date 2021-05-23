@@ -1,6 +1,5 @@
 ﻿using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
-using DSharpPlus.Entities;
 using System.Threading.Tasks;
 
 namespace SCPDiscord.Commands
@@ -12,19 +11,7 @@ namespace SCPDiscord.Commands
 		public async Task OnExecute(CommandContext command, string steamID, string duration, [RemainingText] string reason = "")
 		{
 			if (!ConfigParser.IsCommandChannel(command.Channel.Id)) return;
-
-			// Check if the user has permission to use this command.
-			if (!ConfigParser.HasPermission(command.Member, "ban"))
-			{
-				DiscordEmbed error = new DiscordEmbedBuilder
-				{
-					Color = DiscordColor.Red,
-					Description = "You do not have permission to use this command."
-				};
-				await command.RespondAsync(error);
-				Logger.Log(command.Member.Username + "#" + command.Member.Discriminator + " tried to use the ban command but did not have permission.", LogID.Command);
-				return;
-			}
+			if (!ConfigParser.ValidatePermission(command)) return;
 
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
@@ -38,7 +25,7 @@ namespace SCPDiscord.Commands
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending ban request to plugin for " + command.Member.Username + "#" + command.Member.Discriminator, LogID.Discord);
+			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member.Username + "#" + command.Member.Discriminator, LogID.Discord);
 		}
 	}
 }

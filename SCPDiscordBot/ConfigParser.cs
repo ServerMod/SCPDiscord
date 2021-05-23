@@ -1,11 +1,11 @@
-﻿using System;
+﻿using DSharpPlus.CommandsNext;
+using DSharpPlus.Entities;
+using SCPDiscordBot.Properties;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using DSharpPlus.Entities;
-using Newtonsoft.Json.Linq;
-using SCPDiscordBot.Properties;
+using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -80,14 +80,28 @@ namespace SCPDiscord
 			Logger.Debug("plugin.port: " + config.plugin.port, LogID.Config);
 
 			Logger.Debug("permissions:", LogID.Config);
-			foreach(KeyValuePair<ulong, string[]> role in config.permissions)
+			foreach (KeyValuePair<ulong, string[]> role in config.permissions)
 			{
 				Logger.Debug("  " + role.Key + ":", LogID.Config);
-				foreach(string permission in role.Value)
+				foreach (string permission in role.Value)
 				{
 					Logger.Debug("    " + permission, LogID.Config);
 				}
 			}
+		}
+
+		public static bool ValidatePermission(CommandContext command)
+		{
+			if (HasPermission(command.Member, command.Message.Content.Substring(config.bot.prefix.Length))) return true;
+
+			DiscordEmbed deniedMessage = new DiscordEmbedBuilder
+			{
+				Color = DiscordColor.Red,
+				Description = "You do not have permission to do that!"
+			};
+			Task.Run(async () => await command.RespondAsync(deniedMessage));
+			Logger.Log(command.Member.Username + "#" + command.Member.Discriminator + " tried to use '" + command.Message.Content + "' but did not have permission.", LogID.Command);
+			return false;
 		}
 
 		public static bool HasPermission(DiscordMember member, string permission)
