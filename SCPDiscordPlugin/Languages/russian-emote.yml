@@ -125,7 +125,7 @@ global_regex: [
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
-final_regex: ["discord\\.gg":"","http":"","www\\.":""]
+final_regex: ["discord\\.gg":"","http":"","www\\.":"", "<@":"<", "<@!":"<!"]
 
 round:
     onroundstart:
@@ -997,20 +997,8 @@ admin:
         # successful - bool
         message: ":keyboard:```fix\nАдминистратор <var:name> (<var:steamid>) использовал команду '<var:query>'```"
         regex: []
-    onauthcheck:
-        # allow - bool
-        # authtype - AuthType
-        # deniedmessage - string
-        # ipaddress - string
-        # name - string
-        # playerid - string
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: ":closed_lock_with_key:Игрок <var:name> (<var:steamid>) checkaccess:<var:allowed>."
-        regex: ["checkaccess:True":"получил доступ к админ панели", "checkaccess:Talse":"пытался получить доступ к админ панели, но запрос был отклонён"]
     onban:
-      # allowban - bool
+        # allowban - bool
         # duration - int
         # reason - string
         # result - string
@@ -1020,22 +1008,17 @@ admin:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        # adminipaddress - string
-        # adminname - string
-        # adminplayerid - int
-        # adminsteamid - string
-        # adminclass - Role
-        # adminteam - Team
+        # issuer - string
         admin:
             ban:
-                message: ":no_entry:```diff\n- Игрок: <var:playername> [Steam ID: <var:playersteamid>] [IP: <var:playeripaddress>]\n- Продолжительность бана: <var:duration> минут\n- Админиcтратор: <var:issuer>\n- Причина: <var:reason>```"
+                message: ":no_entry:```diff\n- Игрок: <var:playername> [Steam ID: <var:playersteamid>] [IP: <var:playeripaddress>]\n- Продолжительность бана: <var:duration>\n- Админиcтратор: <var:issuer>\n- Причина: <var:reason>```"
                 regex: []
             kick:
                 message: ":no_entry:```diff\n- Игрок: <var:playername> [Steam ID: <var:playersteamid>] [IP: <var:playeripaddress>]\n- Был кикнут\n- Админиcтратор: <var:issuer>\n- Причина: <var:reason>```"
                 regex: []
         console:
             ban:
-                message: ":no_entry:```diff\n- Игрок: <var:playername> [Steam ID: <var:playersteamid>] [IP: <var:playeripaddress>]\n- Продолжительность бана: <var:duration> минут\n- Админиcтратор: Консоль сервера\n- Причина: <var:reason>```"
+                message: ":no_entry:```diff\n- Игрок: <var:playername> [Steam ID: <var:playersteamid>] [IP: <var:playeripaddress>]\n- Продолжительность бана: <var:duration>\n- Админиcтратор: Консоль сервера\n- Причина: <var:reason>```"
                 regex: []
             kick:
                 message: ":no_entry:```diff\n- Игрок: <var:playername> [Steam ID: <var:playersteamid>] [IP: <var:playeripaddress>]\n- Был кикнут\n- Админиcтратор: Консоль сервера\n- Причина: <var:reason>```"
