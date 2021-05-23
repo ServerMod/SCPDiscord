@@ -109,6 +109,7 @@
     <Compile Include="Commands\UnsyncCommand.cs" />
     <Compile Include="Commands\VerboseCommand.cs" />
     <Compile Include="Commands\ValidateCommand.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

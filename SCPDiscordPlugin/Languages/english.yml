@@ -997,18 +997,6 @@ admin:
         # successful - bool
         message: "Admin <var:name> (<var:steamid>) executed command '<var:query>'"
         regex: []
-    onauthcheck:
-        # allow - bool
-        # authtype - AuthType
-        # deniedmessage - string
-        # ipaddress - string
-        # name - string
-        # playerid - string
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: "<var:name> (<var:steamid>) checkaccess<var:allowed>."
-        regex: ["checkaccesstrue":"was allowed access to the admin panel", "checkaccessfalse":"tried to get access to the admin panel but was denied"]
     onban:
         # allowban - bool
         # duration - int
@@ -1020,22 +1008,17 @@ admin:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        # adminipaddress - string
-        # adminname - string
-        # adminplayerid - int
-        # adminsteamid - string
-        # adminclass - Role
-        # adminteam - Team
+        # issuer - string
         admin:
             ban:
-                message: "Player <var:playername> (<var:playersteamid>) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes. Reason: <var:reason>"
+                message: "Player <var:playername> (<var:playersteamid>) was banned by <var:issuer> for `<var:duration>`. Reason: <var:reason>"
                 regex: []
             kick:
-                message: "Player <var:playername> (<var:playersteamid>) was kicked by <var:adminname> (<var:adminsteamid>). Reason: <var:reason>"
+                message: "Player <var:playername> (<var:playersteamid>) was kicked by <var:issuer>. Reason: <var:reason>"
                 regex: []
         console:
             ban:
-                message: "Player <var:playername> (<var:playersteamid>) was banned by Skynet for <var:duration> minutes. Reason: <var:reason>"
+                message: "Player <var:playername> (<var:playersteamid>) was banned by Skynet for `<var:duration>`. Reason: <var:reason>"
                 regex: []
             kick:
                 message: "Player <var:playername> (<var:playersteamid>) was kicked by Skynet. Reason: <var:reason>"
