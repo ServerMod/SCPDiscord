@@ -13,16 +13,10 @@ pipeline {
             sh 'msbuild SCPDiscordPlugin/SCPDiscordPlugin.csproj -restore -p:PostBuildEvent='
           }
         }
-        stage('Linux Bot') {
+        stage('Bot') {
           steps {
             dir(path: 'SCPDiscordBot') {
               sh 'dotnet build --output bin/linux-x64 --configuration Release --runtime linux-x64'
-            }
-          }
-        }
-        stage('Windows Bot') {
-          steps {
-            dir(path: 'SCPDiscordBot') {
               sh 'dotnet build --output bin/win-x64 --configuration Release --runtime win-x64'
             }
           }
