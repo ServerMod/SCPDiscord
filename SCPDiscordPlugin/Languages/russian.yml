@@ -19,7 +19,7 @@ global_regex: [
     "SCP_":"SCP-",
     "SCP-049_2":"SCP-049-2",
     "SCP-939_":"SCP-939-",
-    "SCP-939-89":"SCP-939-109",
+    "SCP-939-89":"SCP-939-89",
     "SCP_079":"SCP-079",
     "CLASSD":"Сотрудник Класса-D",
     "SPECTATOR":"Наблюдатель",
@@ -136,7 +136,15 @@ round:
         message: "Игрок пытается подключиться..."
         regex: []
     ondisconnect:
-        message: "Игрок отключился."
+        # ipaddress - string
+        message: "Игрок вышел."
+        regex: []
+    onplayerleave:
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        message: "Игрок <var:name> (<var:steamid>) отключился от сервера."
         regex: []
     oncheckroundend:
         message: "Проверяем, закончился ли раунд..."
@@ -251,17 +259,17 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "<var:playername> (<var:playersteamid>) был ранен игроком <var:attackername> (<var:attackersteamid>) используя <var:damagetype> (<var:damage> HP)."
+            message: "Игрок <var:playername> (<var:playersteamid>) был ранен игроком <var:attackername> (<var:attackersteamid>) используя <var:damagetype> (<var:damage> HP)."
             regex: []
         friendlyfire:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) был атакован союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>) используя <var:damagetype> (<var:damage> HP).**"
+            message: "**Игрок <var:playerteam> <var:playername> (<var:playersteamid>) был атакован союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>) используя <var:damagetype> (<var:damage> HP).**"
             regex: []
         # Not currently used
         #self:
-        #    message: "<var:playername> (<var:playersteamid>) нанёс себе урон с помощью <var:damagetype> (<var:damage> HP)."
+        #    message: "Игрок <var:playername> (<var:playersteamid>) нанёс себе урон с помощью <var:damagetype> (<var:damage> HP)."
         #    regex: []
         noattacker: 
-            message: "<var:playername> (<var:playersteamid>) получил <var:damage> HP урона с помощью <var:damagetype>."
+            message: "Игрок <var:playername> (<var:playersteamid>) получил <var:damage> HP урона с помощью <var:damagetype>."
             regex: []
     onplayerdie:
         # spawnragdoll - bool
@@ -279,17 +287,17 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "<var:playername> (<var:playersteamid>) был убит игроком <var:attackername> (<var:attackersteamid>) используя <var:damagetype>."
+            message: "Игрок <var:playername> (<var:playersteamid>) был убит игроком <var:attackername> (<var:attackersteamid>) используя <var:damagetype>."
             regex: []
         friendlyfire:
-            message: "```diff\n- <var:playerteam> <var:playername> (<var:playersteamid>) был убит союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>) с помощью <var:damagetype>.```"
+            message: "```diff\n- Игрок <var:playerteam> <var:playername> (<var:playersteamid>) был убит союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>) с помощью <var:damagetype>.```"
             regex: []
         # Not currently used
         #self:
-        #    message: "<var:playername> (<var:playersteamid>) убил себя с помощью <var:damagetype>."
+        #    message: "Игрок <var:playername> (<var:playersteamid>) убил себя с помощью <var:damagetype>."
         #    regex: []
         nokiller:
-            message: "<var:playername> (<var:playersteamid>) убит с помощью <var:damagetype>."
+            message: "Игрок <var:playername> (<var:playersteamid>) убит с помощью <var:damagetype>."
             regex: []
     onplayerpickupitem:
         # item - Item
@@ -299,7 +307,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) поднял <var:item>."
+        message: "Игрок <var:name> (<var:steamid>) поднял <var:item>."
         regex: []
     onplayerdropitem:
         # item - Item
@@ -309,7 +317,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) сбросил <var:item>."
+        message: "Игрок <var:name> (<var:steamid>) сбросил <var:item>."
         regex: []
     onplayerjoin:
         # ipaddress - string
@@ -318,7 +326,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "**<var:name> (<var:steamid>) присоединился к игре.**"
+        message: "**Игрок <var:name> (<var:steamid>) присоединился к игре.**"
         regex: []
     onnicknameset:
         # nickname - string
@@ -337,7 +345,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) присоединился к команде <var:team>."
+        message: "Игрок <var:name> (<var:steamid>) присоединился к команде <var:team>."
         regex: []
     onsetrole:
         # ipaddress - string
@@ -369,7 +377,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) заспавнился за <var:class>."
+        message: "Игрок <var:name> (<var:steamid>) заспавнился за <var:class>."
         regex: []
     ondooraccess:
         # doorname - string
@@ -384,10 +392,10 @@ player:
         # class - Role
         # team - Team
         allowed:
-            message: "<var:name> (<var:steamid>) isopen:<var:open> дверь (<var:doorname>) requiring the permission (<var:permission>)."
+            message: "Игрок <var:name> (<var:steamid>) isopen:<var:open> дверь (<var:doorname>) requiring the permission (<var:permission>)."
             regex: ["isopen:True":"закрыл", "isopen:False":"открыл", "requiring the permission":"требующую уровень допуска"]
         denied:
-            message: "<var:name> (<var:steamid>) попробовал isopen:<var:open> дверь (<var:doorname>) requiring the permission (<var:permission>)."
+            message: "Игрок <var:name> (<var:steamid>) попробовал isopen:<var:open> дверь (<var:doorname>) requiring the permission (<var:permission>)."
             regex: ["isopen:True":"закрыть", "isopen:False":"открыть","requiring the permission":"требующую уровень допуска"]
     onintercom:
         # This is not recommended to use outside of debugging
@@ -419,7 +427,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) сбежал из карманного измерения SCP-106."
+        message: "Игрок <var:name> (<var:steamid>) сбежал из карманного измерения SCP-106."
         regex: []
     onpocketdimensionenter:
         # damage - int
@@ -435,7 +443,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "<var:playername> (<var:playersteamid>) попал в карманное измерение, ему помог SCP-106 <var:attackername> (<var:attackersteamid>)."
+        message: "Игрок <var:playername> (<var:playersteamid>) попал в карманное измерение, ему помог SCP-106 <var:attackername> (<var:attackersteamid>)."
         regex: []
     onpocketdimensiondie:
         # ipaddress - string
@@ -444,7 +452,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) потерян в карманном измерении SCP-106."
+        message: "Игрок <var:name> (<var:steamid>) потерян в карманном измерении SCP-106."
         regex: []
     onthrowgrenade:
         # type - GrenadeType
@@ -471,7 +479,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "<var:playername> (<var:playersteamid>) был вылечен SCP-049."
+        message: "Игрок <var:playername> (<var:playersteamid>) был вылечен SCP-049."
         regex: []
     onspawnragdoll:
         # ipaddress - string
@@ -490,7 +498,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) был пожертвован ради восстановления условий содержания SCP-106."
+        message: "Игрок <var:name> (<var:steamid>) был пожертвован ради восстановления условий содержания SCP-106."
         regex: []
     oncontain106:
         # activatecontainment - bool
@@ -500,7 +508,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) запустил протокол сдерживания SCP-106."
+        message: "Игрок <var:name> (<var:steamid>) запустил протокол сдерживания SCP-106."
         regex: []
     onmedkituse:
         # recoveredamount - int
@@ -510,7 +518,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) использовал аптечку и подлечил себя на <var:recoveredhealth> HP."
+        message: "Игрок <var:name> (<var:steamid>) использовал аптечку и подлечил себя на <var:recoveredhealth> HP."
         regex: []
     onshoot:
         # weapon - DamageType
@@ -527,13 +535,13 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "<var:attackername> (<var:attackersteamid>) подстрелил <var:playername> (<var:playersteamid>) из <var:weapon>."
+            message: "Игрок <var:attackername> (<var:attackersteamid>) подстрелил <var:playername> (<var:playersteamid>) из <var:weapon>."
             regex: []
         notarget:
-            message: "<var:attackername> (<var:attackersteamid>) выстрелил в никуда из <var:weapon>."
+            message: "Игрок <var:attackername> (<var:attackersteamid>) выстрелил в никуда из <var:weapon>."
             regex: []
         friendlyfire:
-            message: "**<var:playerteam> <var:playername> (<var:playersteamid>) подстрелил союзника <var:attackerteam> <var:attackername> (<var:attackersteamid>) используя <var:weapon>.**"
+            message: "**Игрок <var:playerteam> <var:playername> (<var:playersteamid>) подстрелил союзника <var:attackerteam> <var:attackername> (<var:attackersteamid>) используя <var:weapon>.**"
             regex: []
     on106createportal:
         # ipaddress - string
@@ -542,7 +550,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) открыл межпространственный портал."
+        message: "Игрок <var:name> (<var:steamid>) открыл межпространственный портал."
         regex: []
     on106teleport:
         # ipaddress - string
@@ -551,7 +559,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) переместился через межпространственный портал."
+        message: "Игрок <var:name> (<var:steamid>) переместился через межпространственный портал."
         regex: []
     onelevatoruse:
         # elevatorname - ElevatorType
@@ -561,7 +569,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) воспользовался лифтом <var:elevatorname>."
+        message: "Игрок <var:name> (<var:steamid>) воспользовался лифтом <var:elevatorname>."
         regex: []
     onhandcuff:
         # cuffed - bool
@@ -578,10 +586,10 @@ player:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) был switchcuffed:<var:cuffed> игроком <var:playerclass> <var:playername> (<var:playersteamid>)."
+            message: "Игрок <var:targetclass> <var:targetname> (<var:targetsteamid>) был switchcuffed:<var:cuffed> игроком <var:playerclass> <var:playername> (<var:playersteamid>)."
             regex: ["switchcuffed:True":"связан","switchcuffed:False":"развязан"]
         nootherplayer:
-            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) был switchcuffed:<var:cuffed>."
+            message: "Игрок <var:targetclass> <var:targetname> (<var:targetsteamid>) был switchcuffed:<var:cuffed>."
             regex: ["switchcuffed:True":"связан","switchcuffed:False":"развязан"]
     onplayertriggertesla:
         # ipaddress - string
@@ -591,10 +599,10 @@ player:
         # class - Role
         # team - Team
         default:
-            message: "<var:team> <var:name> (<var:steamid>) активировал ворота Тесла."
+            message: "Игрок <var:team> <var:name> (<var:steamid>) активировал ворота Тесла."
             regex: []
         ignored:
-            message: "<var:team> <var:name> (<var:steamid>) прошел через ворота Тесла и при этом не активировал их."
+            message: "Игрок <var:team> <var:name> (<var:steamid>) прошел через ворота Тесла и при этом не активировал их."
             regex: []
     onscp914changeknob:
         # setting - KnobSetting
@@ -604,7 +612,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) повернул тумблер SCP-914 в положение \"<var:setting>\"."
+        message: "Игрок <var:name> (<var:steamid>) повернул тумблер SCP-914 в положение \"<var:setting>\"."
         regex: []
     onplayerradioswitch:
         # setting - RadioStatus
@@ -614,7 +622,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) переключил своё радио на <var:setting>."
+        message: "Игрок <var:name> (<var:steamid>) переключил своё радио на <var:setting>."
         regex: []
     onmakenoise: 
         # ipaddress - string
@@ -623,7 +631,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) шумит!"
+        message: "Игрок <var:name> (<var:steamid>) шумит!"
         regex: []
     onrecallzombie:
         # allowrecall - bool
@@ -639,7 +647,7 @@ player:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        message: "<var:targetname> (<var:targetsteamid>) был вылечен от чумы и стал SCP-049-2 благодаря доктору <var:playername> (<var:playersteamid>)"
+        message: "Игрок <var:targetname> (<var:targetsteamid>) был вылечен от чумы и стал SCP-049-2 благодаря доктору <var:playername> (<var:playersteamid>)"
         regex: []
     oncallcommand:
         # command
@@ -653,19 +661,19 @@ player:
         message: "Игрок <var:name> (<var:steamid>) использовал команду `<var:command>`. Результат: <var:returnmessage>"
         regex: []
     onreload:
-        # weapon
-        # normalmaxclipsize
-        # ammoremoved
-        # clipammocountafterreload
-        # currentammototal
-        # currentclipammocount
-        # ipaddress
-        # name
-        # playerid
-        # steamid
-        # class
-        # team
-        message: "<var:name> (<var:steamid>) перезарядил свой <var:weapon>."
+        # weapon - WeaponType
+        # normalmaxclipsize - int
+        # ammoremoved - int
+        # clipammocountafterreload - int
+        # currentammototal - int
+        # currentclipammocount - int
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "Игрок <var:name> (<var:steamid>) перезарядил свой <var:weapon>."
         regex: []
     ongrenadeexplosion:
         # ipaddress
@@ -705,7 +713,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) разблокировал дверь генератора в <var:room>."
+        message: "Игрок <var:name> (<var:steamid>) разблокировал дверь генератора в <var:room>."
         regex: [
             "Micro-HID":"комнате Micro-HID",
             "nuke":"бункере Боеголовки «Альфа»",
@@ -730,7 +738,7 @@ player:
         # class - Role
         # team - Team
         closed:
-            message: "<var:name> (<var:steamid>) закрыл дверь генератора в <var:room>."
+            message: "Игрок <var:name> (<var:steamid>) закрыл дверь генератора в <var:room>."
             regex: [
             "Micro-HID":"комнате Micro-HID",
             "nuke":"бункере Боеголовки «Альфа»",
@@ -741,7 +749,7 @@ player:
             "SCP-173":"комнате содержания SCP-173",
             "SCP-939":"комнате содержания SCP-939" ]
         opened:
-            message: "<var:name> (<var:steamid>) открыл дверь генератора в <var:room>."
+            message: "Игрок <var:name> (<var:steamid>) открыл дверь генератора в <var:room>."
             regex: [
             "Micro-HID":"комнате Micro-HID",
             "nuke":"бункере Боеголовки «Альфа»",
@@ -765,7 +773,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) активировал генератор в <var:room>."
+        message: "Игрок <var:name> (<var:steamid>) активировал генератор в <var:room>."
         regex: [
             "Micro-HID":"комнате Micro-HID",
             "nuke":"бункере Боеголовки «Альфа»",
@@ -789,7 +797,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) вытащил планшет из генератора в <var:room>."
+        message: "Игрок <var:name> (<var:steamid>) вытащил планшет из генератора в <var:room>."
         regex: [
             "Micro-HID":"комнате Micro-HID",
             "nuke":"бункере Боеголовки «Альфа»",
@@ -966,6 +974,15 @@ player:
         # team - Team
         message: "SCP-079, <var:name> (<var:steamid>) перешёл на другой этаж."
         regex: []
+    onplayerdropallitems:
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "Игрок <var:name> (<var:steamid>) выбросил все свои вещи."
+        regex: []
 admin:
     onadminquery:
         # ipaddress - string
@@ -978,7 +995,7 @@ admin:
         # output - string
         # query - string
         # successful - bool
-        message: "```diff\n+ Администратор <var:name> (<var:steamid>) использовал команду '<var:query>'```"
+        message: "```fix\nАдминистратор <var:name> (<var:steamid>) использовал команду '<var:query>'```"
         regex: []
     onauthcheck:
         # allow - bool
@@ -990,7 +1007,7 @@ admin:
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) checkaccess:<var:allowed>."
+        message: "Игрок <var:name> (<var:steamid>) checkaccess:<var:allowed>."
         regex: ["checkaccess:True":"получил доступ к админ панели", "checkaccess:Talse":"пытался получить доступ к админ панели, но запрос был отклонён"]
     onban:
         # allowban - bool
@@ -1011,17 +1028,17 @@ admin:
         # adminteam - Team
         admin:
             ban:
-                message: "```diff\n- Игрок <var:playername> (<var:playersteamid>) был забанен администратором <var:adminname> (<var:adminsteamid>) на <var:duration> минут. Причина: <var:reason>```"
+                message: "```diff\n- Игрок: <var:playername> [Steam ID: <var:playersteamid>] [IP: <var:playeripaddress>]\n- Продолжительность бана: <var:duration> минут\n- Админиcтратор: <var:issuer>\n- Причина: <var:reason>```"
                 regex: []
             kick:
-                message: "```diff\n- Игрок <var:playername> (<var:playersteamid>) был кикнут администратором <var:adminname> (<var:adminsteamid>). Причина: <var:reason>```"
+                message: "```diff\n- Игрок: <var:playername> [Steam ID: <var:playersteamid>] [IP: <var:playeripaddress>]\n- Был кикнут\n- Админиcтратор: <var:issuer>\n- Причина: <var:reason>```"
                 regex: []
         console:
             ban:
-                message: "```diff\n- Игрок <var:playername> (<var:playersteamid>) был забанен сервером на <var:duration> минут. Причина: <var:reason>```"
+                message: "```diff\n- Игрок: <var:playername> [Steam ID: <var:playersteamid>] [IP: <var:playeripaddress>]\n- Продолжительность бана: <var:duration> минут\n- Админиcтратор: Консоль сервера\n- Причина: <var:reason>```"
                 regex: []
             kick:
-                message: "```diff\n- Игрок <var:playername> (<var:playersteamid>) был кикнут сервером. Причина: <var:reason>```"
+                message: "```diff\n- Игрок: <var:playername> [Steam ID: <var:playersteamid>] [IP: <var:playeripaddress>]\n- Был кикнут\n- Админиcтратор: Консоль сервера\n- Причина: <var:reason>```"
                 regex: []
     
 team:
@@ -1079,7 +1096,7 @@ botmessages:
         message: "```diff\n+ SCP:SL сервер подключён.```"
         regex: []
     reconnectedtobot:
-        message: "```diff\n+ SCP:SL сервер переподключён.```"
+        message: "```fix\nSCP:SL сервер переподключён.```"
         regex: []
 
 botresponses:
