@@ -74,7 +74,6 @@ namespace SCPDiscord
 				instance.discordClient.Ready += instance.OnReady;
 				instance.discordClient.GuildAvailable += instance.OnGuildAvailable;
 				instance.discordClient.ClientErrored += instance.OnClientError;
-				instance.discordClient.SocketClosed += instance.OnSocketClosed;
 				instance.discordClient.SocketErrored += instance.OnSocketError;
 
 				Logger.Log("Hooking command events...", LogID.Discord);
@@ -238,15 +237,9 @@ namespace SCPDiscord
 			}
 		}
 
-		public Task OnSocketClosed(DiscordClient client, SocketCloseEventArgs e)
-		{
-			Reset();
-			return Task.CompletedTask;
-		}
-
 		public Task OnSocketError(DiscordClient client, SocketErrorEventArgs e)
 		{
-			Logger.Error("Discord client error: " + e.Exception.ToString(), LogID.Discord);
+			Logger.Debug("Discord socket error: " + e.Exception.ToString(), LogID.Discord);
 			return Task.CompletedTask;
 		}
 
