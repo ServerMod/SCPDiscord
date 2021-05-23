@@ -11,6 +11,8 @@ namespace SCPDiscord.Commands
 		[Cooldown(1, 5, CooldownBucketType.User)]
 		public async Task OnExecute(CommandContext command)
 		{
+			if (!ConfigParser.IsCommandChannel(command.Channel.Id)) return;
+
 			// Check if the user has permission to use this command.
 			if (!ConfigParser.HasPermission(command.Member, "unsyncrole"))
 			{

@@ -94,5 +94,15 @@ namespace SCPDiscord
 		{
 			return member.Roles.Any(role => config.permissions.ContainsKey(role.Id) && config.permissions[role.Id].Any(node => permission.StartsWith(node)));
 		}
+
+		public static bool IsCommandChannel(ulong channelID)
+		{
+			return config.bot.commandChannels.Any(id => id == channelID);
+		}
+
+		public static bool IsStatusChannel(ulong channelID)
+		{
+			return config.bot.statusChannels.Any(id => id == channelID);
+		}
 	}
 }
