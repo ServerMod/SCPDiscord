@@ -30,6 +30,7 @@ global_regex: [
     "NTF_LIEUTENANT":"MTF Lieutenant",
     "NTF_COMMANDER":"MTF Commander",
     "ZOMBIE":"Zombie",
+    "TUTORIAL":"Tutorial",
 
     # Teams
     "CHAOS_INSURGENCY":"Chaos Insurgency",
@@ -53,7 +54,11 @@ global_regex: [
     "TESLA":"tesla energy",
     "WALL":"getting crushed",
     "FLYING":"anticheat",
+    "FLYING_DETECTION":"anticheat",
     "RAGDOLLLESS":"RAGDOLLLESS",
+    "BLEEDING":"bleeding",
+    "POISONED":"poisoned",
+    "ASPHYXIATION":"asphyxiation",
 
     # Items
     "JANITOR_KEYCARD":"Janitor keycard",
@@ -68,25 +73,56 @@ global_regex: [
     "FACILITY_MANAGER_KEYCARD":"Facility Manager keycard",
     "CHAOS_INSURGENCY_DEVICE":"Chaos Insurgency device",
     "O5_LEVEL_KEYCARD":"O5 keycard",
+
+    "KEYCARD_JANITOR":"Janitor keycard",
+    "KEYCARD_SCIENTIST":"Scientist keycard",
+    "KEYCARD_SCIENTIST_MAJOR":"Major Scientist keycard",
+    "KEYCARD_ZONE_MANAGER":"Zone Manager keycard",
+    "KEYCARD_GUARD":"Guard keycard",
+    "KEYCARD_SENIOR_GUARD":"Senior Guard keycard",
+    "KEYCARD_CONTAINMENT_ENGINEER":"Containment Engineer keycard",
+    "KEYCARD_NTF_LIEUTENANT":"MTF Lieutenant keycard",
+    "KEYCARD_NTF_COMMANDER":"MTF Commander keycard",
+    "KEYCARD_FACILITY_MANAGER":"Facility Manager keycard",
+    "KEYCARD_CHAOS_INSURGENCY":"Chaos Insurgency device",
+    "KEYCARD_O5":"O5 keycard",
+
     "RADIO":"radio",
     "COM15":"COM-15",
+    "GUN_COM15":"COM-15",
     "MEDKIT":"medkit",
     "FLASHLIGHT":"flashlight",
     "MICROHID":"Micro-HID",
+    "MICRO_HID":"Micro-HID",
+    "SCP500":"SCP-500",
+    "SCP207":"SCP-207",
     "COIN":"coin",
     "CUP":"cup",
     "WEAPON_MANAGER_TABLET":"weapon manager tablet",
     "E11_STANDARD_RIFLE":"Epsilon-11 SR",
+    "GUN_E11_SR":"Epsilon-11 SR",
     "P90":"P90",
+    "GUN_PROJECT90":"P90",
     "DROPPED_5":"5.56mm ammo",
-    "MP4":"MP4",
+    "AMMO556":"5.56mm ammo",
+    "GUN_MP7":"MP7",
     "LOGICER":"Logicer",
+    "GUN_LOGICER":"Logicer",
     "FRAG_GRENADE":"grenade",
+    "GRENADE_FRAG":"grenade",
     "FLASHBANG":"flashbang",
+    "GRENADE_FLASH":"flashbang",
     "DISARMER":"disarmer",
     "DROPPED_7":"7.62mm ammo",
-    "FRAG":"grenade",
+    "AMMO762":"7.62mm ammo",
     "DROPPED_9":"9mm ammo",
+    "DROPPED_9":"9mm ammo",
+    "GUN_USP":"USP",
+    "GRENADE":"grenade",
+    "SCP018":"SCP-018",
+    "SCP268":"SCP-268",
+    "ADRENALINE":"adrenaline",
+    "PAINKILLERS":"painkillers",
 
     # 914 settings
     "ROUGH":"rough",
@@ -96,32 +132,57 @@ global_regex: [
     "FINE":"fine",
 
     # Room names
-    "WC00":"the restrooms",
-    "SCP_914":"SCP-914 containment",
-    "AIRLOCK_00":"an airlock",
-    "AIRLOCK_01":"an airlock",
-    "CHECKPOINT_A":"LCZ checkpoint A",
-    "CHECKPOINT_B":"LCZ checkpoint B",
-    "HCZ_ARMORY":"the HCZ armory",
-    "SERVER_ROOM":"the server room",
-    "SCP_012":"SCP-012 containment",
-    "SCP_372":"SCP-372 containment",
-    "ENTRANCE_CHECKPOINT":"the entrance zone checkpoint",
-    "TESLA_GATE":"a tesla gate",
-    "PC_SMALL":"the small office",
-    "PC_LARGE":"the large office",
-    "GATE_A":"gate A",
-    "GATE_B":"gate B",
-    "CAFE":"the classroom",
-    "INTERCOM":"the intercom room",
-    "DR_L":"an entrance zone corridor",
-    "STRAIGHT":"a corridor",
-    "CURVE":"a corridor",
-    "T_INTERSECTION":"a T-intersection",
-    "X_INTERSECTION":"a cross intersection",
-    "LCZ_ARMORY":"the LHZ armory",
-    "CLASS_D_CELLS":"D-class cells",
-    "CUBICLES":"an office"
+    "LCZ_012":"SCP-012 containment",
+    "LCZ_173":"SCP-173 containment",
+    "LCZ_372":"SCP-372 containment",
+    "LCZ_914":"SCP-914 containment",
+    "LCZ_AIRLOCK":"an airlock",
+    "LCZ_ARMORY":"LCZ armory",
+    "LCZ_CAFE":"the LCZ cafeteria",
+    "LCZ_CHECKPOINT_A":"LCZ checkpoint A",
+    "LCZ_CHECKPOINT_B":"LCZ checkpoint B",
+    "LCZ_CLASSD_SPAWN":"D-class cells",
+    "LCZ_4_WAY_INTERSECTION":"an LCZ X-intersection",
+    "LCZ_3_WAY_INTERSECTION":"an LCZ T-intersection",
+    "LCZ_CURVE":"an LCZ corridor",
+    "LCZ_PLANTS":"the biolab",
+    "LCZ_STRAIGHT":"an LCZ corridor",
+    "LCZ_TOILETS":"LCZ toilets",
+    "HCZ_049":"SCP-049 containment",
+    "HCZ_079":"SCP-079 containment",
+    "HCZ_106":"SCP-106 containment",
+    "HCZ_096":"SCP-096 containment",
+    "HCZ_939":"SCP-939 containment",
+    "HCZ_CHECKPOINT_A":"HCZ checkpoint A",
+    "HCZ_CHECKPOINT_B":"HCZ checkpoint B",
+    "HCZ_4_WAY_INTERSECTION":"an HCZ intersection",
+    "HCZ_3_WAY_INTERSECTION":"an HCZ intersection",
+    "HCZ_CURVE":"an HCZ corridor",
+    "HCZ_STRAIGHT":"an HCZ corridor",
+    "HCZ_EZ_CHECKPOINT":"entrance zone checkpoint",
+    "HCZ_HID":"the Micro-HID storage",
+    "HCZ_NUKE":"the nuke silo",
+    "HCZ_SERVER":"the server room",
+    "HCZ_TARMORY":"the HCZ armory",
+    "HCZ_TESLA":"a tesla gate corridor",
+    "EZ_STRAIGHT":"an entrance zone corridor",
+    "EZ_CAFETERIA":"the entrance zone cafeteria",
+    "EZ_CHEF":"an entrance zone intersection",
+    "EZ_GATE_A":"gate B",
+    "EZ_GATE_B":"gate B",
+    "EZ_4_WAY_INTERSECTION":"an entrance zone intersection",
+    "EZ_3_WAY_INTERSECTION":"an entrance zone intersection",
+    "EZ_CURVE":"an entrance zone corridor",
+    "EZ_COLLAPSEDTUNNEL":"a collapsed tunnel",
+    "EZ_REDGATE":"a locked gate room",
+    "EZ_INTERCOM":"the intercom room",
+    "EZ_PC_LARGE":"an office",
+    "EZ_PC_SMALL":"an office",
+    "EZ_SHELTER":"the area outside the shelter",
+    "EZ_SMALLSTRAIGHT":"an entrance zone corridor",
+    "EZ_SMALLSTRAIGHT2":"an entrance zone corridor",
+    "EZ_UPSTAIRS":"entrance zone stairs",
+    "SURFACE":"the outside area",
     ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
@@ -716,13 +777,7 @@ player:
         message: "<var:name> (<var:steamid>) unlocked a generator in <var:room>."
         regex: [
             "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
+            "nuke":"the nuke silo" ]
     ongeneratoraccess:
         # engaged - bool
         # hastablet - bool
@@ -741,24 +796,12 @@ player:
             message: "<var:name> (<var:steamid>) closed a generator in <var:room>."
             regex: [
                 "Micro-HID":"the Micro-HID room",
-                "nuke":"the nuke silo",
-                "SCP-049":"SCP-049 containment",
-                "SCP-079":"SCP-079 containment",
-                "SCP-096":"SCP-096 containment",
-                "SCP-106":"SCP-106 containment",
-                "SCP-173":"SCP-173 containment",
-                "SCP-939":"SCP-939 containment" ]
+                "nuke":"the nuke silo" ]
         opened:
             message: "<var:name> (<var:steamid>) opened a generator in <var:room>."
             regex: [
                 "Micro-HID":"the Micro-HID room",
-                "nuke":"the nuke silo",
-                "SCP-049":"SCP-049 containment",
-                "SCP-079":"SCP-079 containment",
-                "SCP-096":"SCP-096 containment",
-                "SCP-106":"SCP-106 containment",
-                "SCP-173":"SCP-173 containment",
-                "SCP-939":"SCP-939 containment" ]
+                "nuke":"the nuke silo" ]
     ongeneratorinserttablet:
         # engaged - bool
         # hastablet - bool
@@ -776,13 +819,7 @@ player:
         message: "<var:name> (<var:steamid>) activated the generator in <var:room>."
         regex: [
             "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
+            "nuke":"the nuke silo" ]
     ongeneratorejecttablet:
         # engaged - bool
         # hastablet - bool
@@ -800,13 +837,7 @@ player:
         message: "<var:name> (<var:steamid>) ejected a tablet from the generator in <var:room>."
         regex: [
             "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
+            "nuke":"the nuke silo" ]
     on079door:
         # open - bool
         # door - string
@@ -917,13 +948,7 @@ player:
         message: "<var:name> (<var:steamid>) started speaking in <var:room>."
         regex: [
             "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
+            "nuke":"the nuke silo" ]
     on079stopspeaker:
         # room - RoomType
         # apdrain - float
@@ -936,13 +961,7 @@ player:
         message: "<var:name> (<var:steamid>) stopped speaking in <var:room>."
         regex: [
             "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
+            "nuke":"the nuke silo" ]
     on079lockdown:
         # room - RoomType
         # apdrain - float
@@ -955,13 +974,7 @@ player:
         message: "<var:name> (<var:steamid>) has locked down <var:room>."
         regex: [
             "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
+            "nuke":"the nuke silo" ]
     on079elevatorteleport:
         # elevator - ElevatorType
         # status - ElevatorStatus
