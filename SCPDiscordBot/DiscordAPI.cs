@@ -272,6 +272,7 @@ namespace SCPDiscord
 
 				case ArgumentException:
 				{
+					if (!ConfigParser.IsCommandChannel(e.Context.Channel.Id)) return Task.CompletedTask;
 					DiscordEmbed error = new DiscordEmbedBuilder
 					{
 						Color = DiscordColor.Red,
@@ -283,6 +284,7 @@ namespace SCPDiscord
 
 				case ChecksFailedException:
 				{
+					if (!ConfigParser.IsCommandChannel(e.Context.Channel.Id)) return Task.CompletedTask;
 					foreach (CheckBaseAttribute attr in ((ChecksFailedException)e.Exception).FailedChecks)
 					{
 						DiscordEmbed error = new DiscordEmbedBuilder
@@ -298,6 +300,7 @@ namespace SCPDiscord
 				default:
 				{
 					Logger.Error($"Exception occured: {e.Exception.GetType()}: {e.Exception}", LogID.Discord);
+					if (!ConfigParser.IsCommandChannel(e.Context.Channel.Id)) return Task.CompletedTask;
 					DiscordEmbed error = new DiscordEmbedBuilder
 					{
 						Color = DiscordColor.Red,
