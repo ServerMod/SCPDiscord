@@ -5,6 +5,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Linq;
 
 namespace SCPDiscord
 {
@@ -52,22 +53,31 @@ namespace SCPDiscord
 			if (ConfigParser.config.plugin.address == "0.0.0.0")
 			{
 				ipAddress = IPAddress.Any;
-				listenerEndpoint = new IPEndPoint(ipAddress, ConfigParser.config.plugin.port);
-
 			}
 			else if (ConfigParser.config.plugin.address == "::0")
 			{
 				ipAddress = IPAddress.IPv6Any;
-				listenerEndpoint = new IPEndPoint(ipAddress, ConfigParser.config.plugin.port);
+			}
+			else if (IPAddress.TryParse(ConfigParser.config.plugin.address, out IPAddress parsedIP))
+			{
+				ipAddress = parsedIP;
 			}
 			else
 			{
 				IPHostEntry ipHostInfo = Dns.GetHostEntry(ConfigParser.config.plugin.address);
-				ipAddress = ipHostInfo.AddressList[0];
-				listenerEndpoint = new IPEndPoint(ipAddress, ConfigParser.config.plugin.port);
+
+				// Use an IPv4 address if available
+				if(ipHostInfo.AddressList.Any(ip => ip.AddressFamily == AddressFamily.InterNetwork))
+				{
+					ipAddress = ipHostInfo.AddressList.First(ip => ip.AddressFamily == AddressFamily.InterNetwork);
+				}
+				else
+				{
+					ipAddress = ipHostInfo.AddressList[0];
+				}
 			}
 
-
+			listenerEndpoint = new IPEndPoint(ipAddress, ConfigParser.config.plugin.port);
 			listenerSocket = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 			listenerSocket.Bind(listenerEndpoint);
 			listenerSocket.Listen(10);
@@ -83,7 +93,7 @@ namespace SCPDiscord
 					else
 					{
 						DiscordAPI.SetDisconnectedActivity();
-						Logger.Log("Listening on " + ConfigParser.config.plugin.address + ":" + ConfigParser.config.plugin.port, LogID.Network);
+						Logger.Log("Listening on " + ipAddress.ToString() + ":" + ConfigParser.config.plugin.port, LogID.Network);
 						clientSocket = listenerSocket.Accept();
 						networkStream = new NetworkStream(clientSocket, true);
 						Logger.Log("Plugin connected.", LogID.Network);

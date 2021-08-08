@@ -26,7 +26,8 @@
     presence-text: "for server startup..."
 
 plugin:
-    # Host to listen on, localhost by default. In case you want server to listen on 0.0.0.0, make sure your firewall rules are correct.
+    # Host to listen on, localhost by default. Try changing this to "0.0.0.0" (all addresses available) if the plugin isn't able to connect, some windows setups don't seem to work with a set address to listen on.
+    # In case you want server to listen on something other than "127.0.0.1", make sure your firewall rules are correct so any outside connections are blocked to the port.
     address: "127.0.0.1"
 
     # Port to listen on, this has to be the same as the "bot port" in the plugin config and all bots you run have to have different ports or they will clash.
