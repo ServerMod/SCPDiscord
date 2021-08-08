@@ -33,10 +33,10 @@ plugin:
     # Port to listen on, this has to be the same as the "bot port" in the plugin config and all bots you run have to have different ports or they will clash.
     port: 8888
 
-# Set permissions for discord roles here. (Use 0 to allow anyone to use the command)
-# The dictionary defines the role ids and the commands they have access to.
-# If a role has access to "server aabbcc" all users with that role will be able 
-# to use the command "+server aabbcc" but also any command starting with it such as "+server aabbccdd"
+# Set permissions for discord roles here.
+# The permissions are sorted by discord role ids, and the permissions are regex patterns.
+# One of the regex patterns associated with one of your roles must match the command you are using for it to be allowed.
+# For instance, if you want to allow someone to use the command "test" but not the command "test test" you can use the permission "test$". The "$" signifies the point where the string ends in regex.
 permissions:
     000000000000000000: # An everyone role example
         - list

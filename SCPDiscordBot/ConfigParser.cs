@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -103,13 +104,13 @@ namespace SCPDiscord
 		public static bool HasPermission(DiscordMember member, string permission)
 		{
 			// If a specific role is allowed to use the command
-			if (member.Roles.Any(role => config.permissions.ContainsKey(role.Id) && config.permissions[role.Id].Any(node => permission.StartsWith(node))))
+			if (member.Roles.Any(role => config.permissions.ContainsKey(role.Id) && config.permissions[role.Id].Any(node => Regex.IsMatch(permission, "^" + node, RegexOptions.IgnoreCase | RegexOptions.Singleline))))
 			{
 				return true;
 			}
 
 			// If everyone is allowed to use the command
-			if (config.permissions.ContainsKey(0) && config.permissions[0].Any(node => permission.StartsWith(node)))
+			if (config.permissions.ContainsKey(0) && config.permissions[0].Any(node => Regex.IsMatch(permission, node, RegexOptions.IgnoreCase | RegexOptions.Singleline)))
 			{
 				return true;
 			}
