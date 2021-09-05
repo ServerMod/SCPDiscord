@@ -192,6 +192,8 @@ namespace SCPDiscord
 
 		public static async void GetPlayerRoles(ulong userID, string steamID)
 		{
+			if (!instance.connected) return;
+
 			if (ConfigParser.config.bot.serverId == 0)
 			{
 				Logger.Warn("Plugin attempted to use role sync, but no server ID was set in the config. Ignoring request...", LogID.Discord);

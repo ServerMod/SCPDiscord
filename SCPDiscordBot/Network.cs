@@ -134,7 +134,7 @@ namespace SCPDiscord
 					await DiscordAPI.SendMessage(wrapper.ChatMessage.ChannelID, wrapper.ChatMessage.Content);
 					break;
 				case MessageWrapper.MessageOneofCase.RoleQuery:
-
+					DiscordAPI.GetPlayerRoles(wrapper.RoleQuery.DiscordID, wrapper.RoleQuery.SteamID);
 					break;
 				case MessageWrapper.MessageOneofCase.SyncRoleCommand:
 				case MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
