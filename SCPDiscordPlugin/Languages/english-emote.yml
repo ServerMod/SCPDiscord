@@ -116,7 +116,7 @@ global_regex: [
     "DROPPED_7":"7.62mm ammo",
     "AMMO762":"7.62mm ammo",
     "DROPPED_9":"9mm ammo",
-    "DROPPED_9":"9mm ammo",
+    "AMMO9MM":"9mm ammo",
     "GUN_USP":"USP",
     "GRENADE":"grenade",
     "SCP018":"SCP-018",
