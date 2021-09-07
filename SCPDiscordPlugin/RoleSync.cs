@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using SCPDiscord.Interface;
 using Smod2.API;
 using System;
@@ -72,9 +72,10 @@ namespace SCPDiscord
 			try
 			{
 				Player player;
-				try
-				{
-					player = plugin.Server.GetPlayers(userID)?.First();
+				try {
+					plugin.Debug("Syncing User: " + userID);
+					plugin.Debug("Player found on server: " + plugin.Server.GetPlayers(userID).Any());
+					player = plugin.Server.GetPlayers(userID)?.FirstOrDefault();
 				}
 				catch (NullReferenceException e)
 				{
@@ -88,8 +89,9 @@ namespace SCPDiscord
 					return;
 				}
 
-				foreach (KeyValuePair<ulong, string[]> keyValuePair in this.roleDictionary)
+				foreach (KeyValuePair<ulong, string[]> keyValuePair in roleDictionary)
 				{
+					plugin.Debug("User has discord role " + keyValuePair.Key + ": " + roleIDs.Contains(keyValuePair.Key));
 					if (roleIDs.Contains(keyValuePair.Key))
 					{
 						Dictionary<string, string> variables = new Dictionary<string, string>
@@ -108,17 +110,18 @@ namespace SCPDiscord
 							{
 								command = command.Replace("<var:" + variable.Key + ">", variable.Value);
 							}
-							plugin.Debug(this.plugin.ConsoleCommand(null, command.Split(' ')[0], command.Split(' ').Skip(1).ToArray()));
+							plugin.Debug("Running rolesync command: " + command);
+							plugin.Debug("Command response: " + plugin.ConsoleCommand(null, command.Split(' ')[0], command.Split(' ').Skip(1).ToArray()));
 						}
 
-						plugin.Verbose("Synced " + player.Name);
+						plugin.Verbose("Synced " + player.Name + " (" + player.UserId + ") with Discord role id " + keyValuePair.Key);
 						return;
 					}
 				}
 			}
 			catch (InvalidOperationException)
 			{
-				this.plugin.Warn("Tried to run commands on a player who is not on the server anymore.");
+				plugin.Warn("Tried to run commands on a player who is not on the server anymore.");
 			}
 		}
 
