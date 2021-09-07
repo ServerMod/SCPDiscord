@@ -61,7 +61,7 @@ namespace SCPDiscord
 								break;
 
 							case MessageWrapper.MessageOneofCase.RoleResponse:
-								plugin.roleSync.ReceiveQueryResponse(data.RoleResponse.SteamID + "@steam", data.RoleResponse.RoleIDs.ToList());
+								plugin.roleSync.ReceiveQueryResponse(data.RoleResponse.SteamID, data.RoleResponse.RoleIDs.ToList());
 								break;
 
 							case MessageWrapper.MessageOneofCase.BanCommand:
