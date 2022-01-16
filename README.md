@@ -1,7 +1,5 @@
 # SCPDiscord [![Build Status](https://jenkins.karlofduty.com/job/SCPDiscord/job/master/badge/icon)](https://jenkins.karlofduty.com/blue/organizations/jenkins/SCPDiscord/activity) [![Release](https://img.shields.io/github/release/KarlofDuty/SCPDiscord.svg)](https://github.com/KarlOfDuty/SCPDiscord/releases) [![Downloads](https://img.shields.io/github/downloads/KarlOfDuty/SCPDiscord/total.svg)](https://github.com/KarlOfDuty/SCPDiscord/releases) [![Discord Server](https://img.shields.io/discord/430468637183442945.svg?label=discord)](https://discord.gg/C5qMvkj) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/8144e5bff03c4912b08fd189b4b7f668)](https://www.codacy.com/manual/xkaess22/SCPDiscord?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=KarlOfDuty/SCPDiscord&amp;utm_campaign=Badge_Grade)
 
-# This plugin has been archived as the smod api has been abandoned :(
-
 SCPDiscord links features from your SCP:SL server console to Discord channels, such as printing out server events to Discord and using server commands through Discord. It is incredibly customisable as you can read more about below.
 
 ## Features:
