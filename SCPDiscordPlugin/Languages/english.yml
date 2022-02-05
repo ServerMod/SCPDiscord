@@ -762,7 +762,7 @@ player:
         regex: []
     ongeneratorunlock:
         # engaged - bool
-        # hastablet - bool
+        # activating - bool
         # locked - bool
         # open - bool
         # room - RoomType
@@ -780,7 +780,7 @@ player:
             "nuke":"the nuke silo" ]
     ongeneratoraccess:
         # engaged - bool
-        # hastablet - bool
+        # activating - bool
         # locked - bool
         # open - bool
         # room - RoomType
@@ -802,9 +802,9 @@ player:
             regex: [
                 "Micro-HID":"the Micro-HID room",
                 "nuke":"the nuke silo" ]
-    ongeneratorinserttablet:
+    ongeneratorleverused:
         # engaged - bool
-        # hastablet - bool
+        # activating - bool
         # locked - bool
         # open - bool
         # room - RoomType
@@ -817,24 +817,6 @@ player:
         # class - Role
         # team - Team
         message: "<var:name> (<var:steamid>) activated the generator in <var:room>."
-        regex: [
-            "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo" ]
-    ongeneratorejecttablet:
-        # engaged - bool
-        # hastablet - bool
-        # locked - bool
-        # open - bool
-        # room - RoomType
-        # starttime - float
-        # timeleft - float
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: "<var:name> (<var:steamid>) ejected a tablet from the generator in <var:room>."
         regex: [
             "Micro-HID":"the Micro-HID room",
             "nuke":"the nuke silo" ]

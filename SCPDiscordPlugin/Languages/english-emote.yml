@@ -761,7 +761,7 @@ player:
         regex: []
     ongeneratorunlock:
         # engaged - bool
-        # hastablet - bool
+        # activating - bool
         # locked - bool
         # open - bool
         # room - RoomType
@@ -785,7 +785,7 @@ player:
             "SCP-939":"SCP-939 containment" ]
     ongeneratoraccess:
         # engaged - bool
-        # hastablet - bool
+        # activating - bool
         # locked - bool
         # open - bool
         # room - RoomType
@@ -819,9 +819,9 @@ player:
                 "SCP-106":"SCP-106 containment",
                 "SCP-173":"SCP-173 containment",
                 "SCP-939":"SCP-939 containment" ]
-    ongeneratorinserttablet:
+    ongeneratorleverused:
         # engaged - bool
-        # hastablet - bool
+        # activating - bool
         # locked - bool
         # open - bool
         # room - RoomType
@@ -833,31 +833,7 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        message: ":iphone: <var:name> (<var:steamid>) activated the generator in <var:room>."
-        regex: [
-            "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo",
-            "SCP-049":"SCP-049 containment",
-            "SCP-079":"SCP-079 containment",
-            "SCP-096":"SCP-096 containment",
-            "SCP-106":"SCP-106 containment",
-            "SCP-173":"SCP-173 containment",
-            "SCP-939":"SCP-939 containment" ]
-    ongeneratorejecttablet:
-        # engaged - bool
-        # hastablet - bool
-        # locked - bool
-        # open - bool
-        # room - RoomType
-        # starttime - float
-        # timeleft - float
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: ":iphone: <var:name> (<var:steamid>) ejected a tablet from the generator in <var:room>."
+        message: ":electric_plug: <var:name> (<var:steamid>) activated the generator in <var:room>."
         regex: [
             "Micro-HID":"the Micro-HID room",
             "nuke":"the nuke silo",

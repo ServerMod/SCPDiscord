@@ -51,10 +51,10 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "ipaddress", ev.Player.IpAddress           },
+				{ "ipaddress", ev.Player.IPAddress           },
 				{ "name", ev.Player.Name                     },
 				{ "steamid", ev.Player.GetParsedUserID()               },
-				{ "playerid", ev.Player.PlayerId.ToString()  }
+				{ "playerid", ev.Player.PlayerID.ToString()  }
 			};
 			this.plugin.SendMessage(Config.GetArray("channels.onplayerleave"), "round.onplayerleave", variables);
 		}

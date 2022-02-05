@@ -269,10 +269,10 @@ namespace SCPDiscord
 		{
 			switch (e.Exception)
 			{
-				case CommandNotFoundException:
+				case CommandNotFoundException ex:
 					return Task.CompletedTask;
 
-				case ArgumentException:
+				case ArgumentException ex:
 				{
 					if (!ConfigParser.IsCommandChannel(e.Context.Channel.Id)) return Task.CompletedTask;
 					DiscordEmbed error = new DiscordEmbedBuilder
@@ -284,10 +284,10 @@ namespace SCPDiscord
 					return Task.CompletedTask;
 				}
 
-				case ChecksFailedException:
+				case ChecksFailedException ex:
 				{
 					if (!ConfigParser.IsCommandChannel(e.Context.Channel.Id)) return Task.CompletedTask;
-					foreach (CheckBaseAttribute attr in ((ChecksFailedException)e.Exception).FailedChecks)
+					foreach (CheckBaseAttribute attr in ex.FailedChecks)
 					{
 						DiscordEmbed error = new DiscordEmbedBuilder
 						{
@@ -318,12 +318,12 @@ namespace SCPDiscord
 		{
 			return attr switch
 			{
-				CooldownAttribute => "You cannot use do that so often!",
-				RequireOwnerAttribute => "Only the server owner can use that command!",
-				RequirePermissionsAttribute => "You don't have permission to do that!",
-				RequireRolesAttribute => "You do not have a required role!",
-				RequireUserPermissionsAttribute => "You don't have permission to do that!",
-				RequireNsfwAttribute => "This command can only be used in an NSFW channel!",
+				CooldownAttribute _ => "You cannot use do that so often!",
+				RequireOwnerAttribute _ => "Only the server owner can use that command!",
+				RequirePermissionsAttribute _ => "You don't have permission to do that!",
+				RequireRolesAttribute _ => "You do not have a required role!",
+				RequireUserPermissionsAttribute _ => "You don't have permission to do that!",
+				RequireNsfwAttribute _ => "This command can only be used in an NSFW channel!",
 				_ => "Unknown Discord API error occured, please try again later.",
 			};
 		}

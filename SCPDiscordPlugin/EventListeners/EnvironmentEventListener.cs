@@ -49,12 +49,12 @@ namespace SCPDiscord.EventListeners
 				{ "isresumed",      ev.IsResumed.ToString()                 },
 				{ "timeleft",       ev.TimeLeft.ToString()                  },
 				{ "opendoorsafter", ev.OpenDoorsAfter.ToString()            },
-				{ "ipaddress",      ev.Activator.IpAddress                  },
+				{ "ipaddress",      ev.Activator.IPAddress                  },
 				{ "name",           ev.Activator.Name                       },
-				{ "playerid",       ev.Activator.PlayerId.ToString()        },
+				{ "playerid",       ev.Activator.PlayerID.ToString()        },
 				{ "steamid",        ev.Activator.GetParsedUserID()          },
-				{ "class",          ev.Activator.TeamRole.Role.ToString()   },
-				{ "team",           ev.Activator.TeamRole.Team.ToString()   }
+				{ "class",          ev.Activator.PlayerRole.RoleID.ToString()     },
+				{ "team",           ev.Activator.PlayerRole.Team.ToString()   }
 			};
 
 			if (ev.IsResumed)
@@ -85,12 +85,12 @@ namespace SCPDiscord.EventListeners
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
 					{ "timeleft",       ev.TimeLeft.ToString()                  },
-					{ "ipaddress",      ev.Activator.IpAddress                  },
+					{ "ipaddress",      ev.Activator.IPAddress                  },
 					{ "name",           ev.Activator.Name                       },
-					{ "playerid",       ev.Activator.PlayerId.ToString()        },
+					{ "playerid",       ev.Activator.PlayerID.ToString()        },
 					{ "steamid",        ev.Activator.GetParsedUserID()          },
-					{ "class",          ev.Activator.TeamRole.Role.ToString()   },
-					{ "team",           ev.Activator.TeamRole.Team.ToString()   }
+					{ "class",          ev.Activator.PlayerRole.RoleID.ToString()   },
+					{ "team",           ev.Activator.PlayerRole.Team.ToString()   }
 				};
 				this.plugin.SendMessage(Config.GetArray("channels.onstopcountdown.default"), "environment.onstopcountdown.default", variables);
 			}

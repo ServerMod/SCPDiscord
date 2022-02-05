@@ -8,7 +8,7 @@ namespace SCPDiscord
 {
     public static class Utilities
 	{
-        public static string SecondsToCompoundTime(int seconds)
+        public static string SecondsToCompoundTime(long seconds)
         {
             if (seconds < 0) throw new ArgumentOutOfRangeException(nameof(seconds));
             if (seconds == 0) return "0 sec";

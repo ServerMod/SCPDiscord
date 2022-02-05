@@ -144,24 +144,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\Assembly-CSharp.dll" />
+    <Content Include="lib\Google.Protobuf.dll" />
     <Content Include="lib\Smod2.dll" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
+  <!--<PropertyGroup>
     <PostBuildEvent>dir
-copy /y "SCPDiscord.dll" "D:\servers\scpsl\sm_plugins\"
+      copy /y "SCPDiscord.dll" "D:\servers\scpsl\sm_plugins\"
 
 
-mkdir "D:\servers\scpsl\sm_plugins\dependencies"
+      mkdir "D:\servers\scpsl\sm_plugins\dependencies"
 
 
-copy /y "YamlDotNet.dll" "D:\servers\scpsl\sm_plugins\dependencies\"
+      copy /y "YamlDotNet.dll" "D:\servers\scpsl\sm_plugins\dependencies\"
 
 
-copy /y "Newtonsoft.Json.dll" "D:\servers\scpsl\sm_plugins\dependencies\"
+      copy /y "Newtonsoft.Json.dll" "D:\servers\scpsl\sm_plugins\dependencies\"
 
 
-del "D:\servers\scpsl\sm_plugins\SCPDiscord-lite.dll"</PostBuildEvent>
-  </PropertyGroup>
+      del "D:\servers\scpsl\sm_plugins\SCPDiscord-lite.dll"</PostBuildEvent>
+  </PropertyGroup>-->
 </Project>

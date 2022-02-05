@@ -50,7 +50,7 @@ namespace SCPDiscord
 
 		public void SendRoleQuery(Player player)
 		{
-			if (player.UserIdType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserId))
+			if (player.UserIDType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserID))
 			{
 				return;
 			}
@@ -59,8 +59,8 @@ namespace SCPDiscord
 			{
 				RoleQuery = new RoleQuery
 				{
-					SteamID = player.UserId,
-					DiscordID = syncedPlayers[player.UserId]
+					SteamID = player.UserID,
+					DiscordID = syncedPlayers[player.UserID]
 				}
 			};
 
@@ -96,10 +96,10 @@ namespace SCPDiscord
 					{
 						Dictionary<string, string> variables = new Dictionary<string, string>
 						{
-							{ "ipaddress",    player.IpAddress            },
+							{ "ipaddress",    player.IPAddress            },
 							{ "name",         player.Name                 },
-							{ "playerid",     player.PlayerId.ToString()  },
-							{ "userid",       player.UserId               },
+							{ "playerid",     player.PlayerID.ToString()  },
+							{ "userid",       player.UserID               },
 							{ "steamid",      player.GetParsedUserID()    }
 						};
 						foreach (string unparsedCommand in keyValuePair.Value)
@@ -114,7 +114,7 @@ namespace SCPDiscord
 							plugin.Debug("Command response: " + plugin.ConsoleCommand(null, command.Split(' ')[0], command.Split(' ').Skip(1).ToArray()));
 						}
 
-						plugin.Verbose("Synced " + player.Name + " (" + player.UserId + ") with Discord role id " + keyValuePair.Key);
+						plugin.Verbose("Synced " + player.Name + " (" + player.UserID + ") with Discord role id " + keyValuePair.Key);
 						return;
 					}
 				}

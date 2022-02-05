@@ -4,25 +4,13 @@ using System.Collections.Generic;
 
 namespace SCPDiscord.EventListeners
 {
-	class TeamEventListener : IEventHandlerTeamRespawn, IEventHandlerSetRoleMaxHP, IEventHandlerDecideTeamRespawnQueue, IEventHandlerSetSCPConfig, IEventHandlerSetNTFUnitName
+	class TeamEventListener : IEventHandlerTeamRespawn, IEventHandlerSetRoleMaxHP, IEventHandlerSetSCPConfig, IEventHandlerSetMTFUnitName
 	{
 		private readonly SCPDiscord plugin;
 
 		public TeamEventListener(SCPDiscord plugin)
 		{
 			this.plugin = plugin;
-		}
-
-		/// <summary>
-		/// Called at the start, when the team respawn queue is being read. This happens BEFORE it fills it to full with filler_team_id.
-		/// </summary>
-		public void OnDecideTeamRespawnQueue(DecideRespawnQueueEvent ev)
-		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "teams", ev.Teams.ToString() },
-			};
-			this.plugin.SendMessage(Config.GetArray("channels.ondecideteamrespawnqueue"), "team.ondecideteamrespawnqueue", variables);
 		}
 
 		/// <summary>
@@ -88,7 +76,7 @@ namespace SCPDiscord.EventListeners
 		/// <summary>
 		/// Called when the name of NTF unit is about to be set. This happens when NTF units respawn.
 		/// <summary>
-		public void OnSetNTFUnitName(SetNTFUnitNameEvent ev)
+		public void OnSetMTFUnitName(SetMTFUnitNameEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
