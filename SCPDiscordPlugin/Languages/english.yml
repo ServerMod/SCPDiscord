@@ -571,15 +571,20 @@ player:
         # team - Team
         message: "<var:name> (<var:steamid>) has initiated SCP-106 recall protocol."
         regex: []
-    onmedkituse:
-        # recoveredamount - int
+    onmedicaluse:
+        # health - float
+        # artificialhealth - float
+        # healthregenamount -float
+        # healthregenspeedmultiplier - float
+        # stamina - float
+        # medicalitem - string
         # ipaddress - string
         # name - string
         # playerid - int
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) used a medkit and healed <var:recoveredhealth>."
+        message: "<var:name> (<var:steamid>) used <var:medicalitem> and healed <var:health> + <var:artificialhealth> with <var:healthregenamount> regeneration and granting <var:stamina> stamina."
         regex: []
     onshoot:
         # weapon - DamageType
@@ -1170,5 +1175,5 @@ topic:
     # scpstart - int
     # zombies - int
     # tps - float
-    message: "Players online: <var:players>/<var:maxplayers>. Round has lasted <var:roundduration> minutes. Active SCP: <var:scpalive>. Warhead switchdetonation<var:warheaddetonated> been detonated. Uptime: <var:uptime> minutes. IP: <var:ip>:<var:port> TPS: <var:tps>"
+    message: "Players online: <var:players>/<var:maxplayers>. Uptime: <var:uptime> minutes. IP: <var:ip>:<var:port> TPS: <var:tps>"
     regex: [ "switchdetonationTrue":"has", "switchdetonationFalse":"has not", " 1 minutes":" 1 minute" ]

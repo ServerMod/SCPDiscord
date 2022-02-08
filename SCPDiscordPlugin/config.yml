@@ -122,7 +122,7 @@ channels:
     onspawnragdoll: []
     onlure: [ "default" ]
     oncontain106: [ "default" ]
-    onmedkituse: [ "default" ]
+    onmedicaluse: [ "default" ]
     onshoot:
         default: []
         friendlyfire: []
@@ -148,8 +148,7 @@ channels:
     ongeneratoraccess:
         closed: []
         opened: []
-    ongeneratorinserttablet: []
-    ongeneratorejecttablet: []
+    ongeneratorleverused: [ "default" ]
     on079door:
         closed: []
         opened: []

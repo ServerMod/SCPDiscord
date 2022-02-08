@@ -550,10 +550,10 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "amounthealth",           ev.Health.ToString()               },
-				{ "amountartificial",       ev.ArtificialHealth.ToString()     },
-				{ "amountregen",            ev.HealthRegenAmount.ToString()    },
-				{ "regenspeedmultiplier",   ev.HealthRegenSpeedMultiplier.ToString() },
+				{ "health",                 ev.Health.ToString()               },
+				{ "artificialhealth",       ev.ArtificialHealth.ToString()     },
+				{ "healthregenamount",            ev.HealthRegenAmount.ToString()    },
+				{ "healthregenspeedmultiplier",   ev.HealthRegenSpeedMultiplier.ToString() },
 				{ "stamina",                ev.Stamina.ToString()              },
 				{ "medicalitem",            ev.MedicalItem.ToString()          },
 				{ "ipaddress",              ev.Player.IPAddress                },
@@ -563,7 +563,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.PlayerRole.RoleID.ToString() },
 				{ "team",                   ev.Player.PlayerRole.Team.ToString() }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onmedkituse"), "player.onmedkituse", variables);
+			this.plugin.SendMessage(Config.GetArray("channels.onmedicaluse"), "player.onmedicaluse", variables);
 		}
 		
 		/// <summary>
@@ -895,7 +895,6 @@ namespace SCPDiscord.EventListeners
 					{ "engaged",                    ev.Generator.IsEngaged.ToString()       },
 					{ "activating",                 ev.Generator.IsActivating.ToString()    },
 					{ "locked",                     (!ev.Generator.IsUnlocked).ToString()   },
-					{ "engaged",                    ev.Generator.IsEngaged.ToString()       },
 					{ "open",                       ev.Generator.IsOpen.ToString()          },
 					{ "room",                       ev.Generator.Room.RoomType.ToString()   },
 					{ "starttime",                  ev.Generator.ActivationTime.ToString()  },
