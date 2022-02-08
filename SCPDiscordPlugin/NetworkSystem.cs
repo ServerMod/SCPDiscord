@@ -30,7 +30,7 @@ namespace SCPDiscord
 
 	public static class NetworkSystem
 	{
-		private const int TOPIC_UPDATE_RATE_MS = 5 * 60 * 1000; // Every 5 min
+		private const int TOPIC_UPDATE_RATE_MS = 10 * 60 * 1000; // Every 5 min
 		private const int ACTIVITY_UPDATE_RATE_MS = 10000;
 		private static Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 		public static NetworkStream networkStream = null;
