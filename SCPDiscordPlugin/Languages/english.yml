@@ -9,13 +9,13 @@
 
 # Executed after variables have been inserted but before the message specific regex replacement and before player names have been added on all messages.
 global_regex: [
-
-    # Fix formatting issues
+  
+  # Fix formatting issues
     "::ffff:":"",
-    " \\(\\)":"", 
+    " \\(\\)":"",
     "''":"",
-
-    # Classes and Teams
+  
+  # Classes and Teams
     "SCP_":"SCP-",
     "SCP-049_2":"SCP-049-2",
     "SCP-939_":"SCP-939-",
@@ -36,16 +36,16 @@ global_regex: [
     "CHAOS_REPRESSOR":"CI Repressor",
     "CHAOS_MARAUDER":"CI Marauder",
     "CHAOS_INSURGENCY":"Chaos Insurgency",
-
-    # Elevators
+  
+  # Elevators
     "GATE_A":"Gate A",
     "GATE_B":"Gate B",
     "LIFT_A":"Lift A",
     "LIFT_B":"Lift B",
     "SCP-049_CHAMBER":"SCP-049 Containment Chamber",
     "WARHEAD_ROOM":"the warhead room",
-
-    # Non-weapon damage types
+  
+  # Non-weapon damage types
     "WARHEAD":"the alpha warhead",
     "FALLING":"fall damage",
     "RECONTAINED":"re-containment",
@@ -62,8 +62,8 @@ global_regex: [
     "SEVERED_HANDS":"bleeding from where their hands used to be",
     "UNKNOWN_FIREARM":"getting shot",
     "HYPOTHERMIA":"hypothermia",
-
-    # Items
+  
+  # Items
     "KEYCARD_JANITOR":"Janitor keycard",
     "KEYCARD_SCIENTIST":"Scientist keycard",
     "KEYCARD_RESEARCH_COORDINATOR":"Research Coordinator keycard",
@@ -96,7 +96,7 @@ global_regex: [
     "LOGICER":"Logicer",
     "GRENADE_HE":"grenade",
     "GRENADE_FLASH":"flashbang",
-    "AMMO_44_CAL":".44 ammo"
+    "AMMO_44_CAL":".44 ammo",
     "AMMO_762_X39":"7.62mm ammo",
     "AMMO_9_X19":"9mm ammo",
     "GUN_COM18":"COM-18",
@@ -107,7 +107,7 @@ global_regex: [
     "ADRENALINE":"adrenaline",
     "PAINKILLERS":"painkillers",
     "COIN":"coin",
-    
+
     "ARMOR_LIGHT":"light armour",
     "ARMOR_COMBAT":"combat armour",
     "ARMOR_HEAVY":"heavy armour",
@@ -118,16 +118,16 @@ global_regex: [
     "SHOTGUN":"shotgun",
     "SCP330":"SCP-330",
     "SCP2176":"SCP-2176",
-    
-    # 914 settings
+  
+  # 914 settings
     "ROUGH":"rough",
     "COARSE":"coarse",
     "ONE_TO_ONE":"1:1",
     "VERY_FINE":"very fine",
     "FINE":"fine",
-
-    # Room names
-    "UNNAMED":"an unnamed room"
+  
+  # Room names
+    "UNNAMED":"an unnamed room",
     "LCZ_012":"SCP-012 containment",
     "LCZ173":"SCP-173 containment", # Remove when fixed
     "LCZ_173":"SCP-173 containment",
@@ -141,7 +141,7 @@ global_regex: [
     "LCZ_CHECKPOINT_B":"LCZ checkpoint B",
     "LCZ_CLASS_D_SPAWN":"D-class cells",
     "LCZ_TOILETS":"LCZ toilets",
-                  
+
     "HCZ_049":"SCP-049 containment",
     "HCZ_079":"SCP-079 containment",
     "HCZ_106":"SCP-106 containment",
@@ -155,7 +155,7 @@ global_regex: [
     "HCZ_SERVERS":"the server room",
     "HCZ_ARMORY":"the HCZ armory",
     "HCZ_TESLA":"a tesla gate corridor",
-                  
+
     "EZ_GATE_A":"gate B",
     "EZ_GATE_B":"gate B",
     "EZ_COLLAPSED_TUNNEL":"a collapsed tunnel",
@@ -167,7 +167,7 @@ global_regex: [
     "EZ_EVAC_SHELTER":"the evac shelter",
     "OUTSIDE":"the outside area",
     "POCKET":"the pocket dimension"
-    ]
+]
 
 # Executes on the final version of the message, this is the only regex that affects player names
 final_regex: ["discord\\.gg":"","http":"","www\\.":"", "<@":"<", "<@!":"<!"]
