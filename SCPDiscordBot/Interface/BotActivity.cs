@@ -52,19 +52,23 @@ namespace SCPDiscord.Interface {
     private static readonly pb::MessageParser<BotActivity> _parser = new pb::MessageParser<BotActivity>(() => new BotActivity());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<BotActivity> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
       get { return global::SCPDiscord.Interface.BotActivityReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BotActivity() {
       OnConstruction();
     }
@@ -72,6 +76,7 @@ namespace SCPDiscord.Interface {
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BotActivity(BotActivity other) : this() {
       statusType_ = other.statusType_;
       activityType_ = other.activityType_;
@@ -80,6 +85,7 @@ namespace SCPDiscord.Interface {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BotActivity Clone() {
       return new BotActivity(this);
     }
@@ -88,6 +94,7 @@ namespace SCPDiscord.Interface {
     public const int StatusTypeFieldNumber = 1;
     private global::SCPDiscord.Interface.BotActivity.Types.Status statusType_ = global::SCPDiscord.Interface.BotActivity.Types.Status.Offline;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.BotActivity.Types.Status StatusType {
       get { return statusType_; }
       set {
@@ -99,6 +106,7 @@ namespace SCPDiscord.Interface {
     public const int ActivityTypeFieldNumber = 2;
     private global::SCPDiscord.Interface.BotActivity.Types.Activity activityType_ = global::SCPDiscord.Interface.BotActivity.Types.Activity.Playing;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.BotActivity.Types.Activity ActivityType {
       get { return activityType_; }
       set {
@@ -110,6 +118,7 @@ namespace SCPDiscord.Interface {
     public const int ActivityTextFieldNumber = 3;
     private string activityText_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string ActivityText {
       get { return activityText_; }
       set {
@@ -118,11 +127,13 @@ namespace SCPDiscord.Interface {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
       return Equals(other as BotActivity);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public bool Equals(BotActivity other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -137,6 +148,7 @@ namespace SCPDiscord.Interface {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
       if (StatusType != global::SCPDiscord.Interface.BotActivity.Types.Status.Offline) hash ^= StatusType.GetHashCode();
@@ -149,11 +161,13 @@ namespace SCPDiscord.Interface {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void WriteTo(pb::CodedOutputStream output) {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
@@ -178,6 +192,7 @@ namespace SCPDiscord.Interface {
 
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       if (StatusType != global::SCPDiscord.Interface.BotActivity.Types.Status.Offline) {
         output.WriteRawTag(8);
@@ -198,6 +213,7 @@ namespace SCPDiscord.Interface {
     #endif
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
       if (StatusType != global::SCPDiscord.Interface.BotActivity.Types.Status.Offline) {
@@ -216,6 +232,7 @@ namespace SCPDiscord.Interface {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(BotActivity other) {
       if (other == null) {
         return;
@@ -233,6 +250,7 @@ namespace SCPDiscord.Interface {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(pb::CodedInputStream input) {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       input.ReadRawMessage(this);
@@ -262,6 +280,7 @@ namespace SCPDiscord.Interface {
 
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -289,6 +308,7 @@ namespace SCPDiscord.Interface {
     #region Nested types
     /// <summary>Container for nested types declared in the BotActivity message type.</summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static partial class Types {
       public enum Status {
         [pbr::OriginalName("OFFLINE")] Offline = 0,

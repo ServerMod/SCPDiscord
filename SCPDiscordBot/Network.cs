@@ -127,9 +127,6 @@ namespace SCPDiscord
 				case MessageWrapper.MessageOneofCase.BotActivity:
 					DiscordAPI.SetActivity(wrapper.BotActivity.ActivityText, (ActivityType)wrapper.BotActivity.ActivityType, (UserStatus)wrapper.BotActivity.StatusType);
 					break;
-				case MessageWrapper.MessageOneofCase.ChannelTopic:
-					DiscordAPI.SetChannelTopic(wrapper.ChannelTopic.ChannelID, wrapper.ChannelTopic.TopicText);
-					break;
 				case MessageWrapper.MessageOneofCase.ChatMessage:
 					await DiscordAPI.SendMessage(wrapper.ChatMessage.ChannelID, wrapper.ChatMessage.Content);
 					break;

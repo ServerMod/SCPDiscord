@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package SCPDiscord.Interface;
-
-message ChannelTopic
-{
-	uint64 channelID = 1;
-	string topicText = 2;
-}

@@ -91,7 +91,6 @@ namespace SCPDiscord
 								break;
 
 							case MessageWrapper.MessageOneofCase.BotActivity:
-							case MessageWrapper.MessageOneofCase.ChannelTopic:
 							case MessageWrapper.MessageOneofCase.ChatMessage:
 							case MessageWrapper.MessageOneofCase.RoleQuery:
 								plugin.Warn("Recieved packet meant for bot: " + Google.Protobuf.JsonFormatter.Default.Format(data));

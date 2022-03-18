@@ -39,7 +39,6 @@ namespace SCPDiscord
 		{
 			// Bot messages
 			{ "channels.statusmessages",            new string[]{ } },
-			{ "channels.topic",                     new string[]{ } },
 
 			// Round events
 			{ "channels.oncheckroundend",           new string[]{ } },

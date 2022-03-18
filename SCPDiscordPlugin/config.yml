@@ -9,7 +9,7 @@ bot:
 
 settings:
     # The language is the same as the name of the language file you want to use.
-    # Included language files: english (default), russian, french, polish, italian, finnish, englishemote, russianemote, frenchemote, polish-emote, finnishemote
+    # Included language files: english (default), russian, french, polish, italian, finnish, english-emote, russian-emote, french-emote, polish-emote, finnish-emote
     language: "english"
     # Whether or not to show this server's player count in the bot's activity.
     # Set to false to disable.
@@ -61,9 +61,6 @@ aliases:
 channels:
     # Bot messages
     statusmessages: [ "default", "staff" ]
-
-    # Channel topic updater
-    topic: [ "default", "staff" ]
 
     # Round events
     onroundstart: []

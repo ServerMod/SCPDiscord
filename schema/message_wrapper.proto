@@ -11,7 +11,6 @@ import "BotToPlugin/KickallCommand.proto";
 import "BotToPlugin/ListCommand.proto";
 
 import "PluginToBot/BotActivity.proto";
-import "PluginToBot/ChannelTopic.proto";
 import "PluginToBot/ChatMessage.proto";
 import "PluginToBot/RoleQuery.proto";
 
@@ -21,7 +20,7 @@ message MessageWrapper
 {
 	oneof message {
 		BotActivity botActivity = 1;
-		ChannelTopic channelTopic = 2;
+		//ChannelTopic channelTopic = 2; // No longer exists
 		ChatMessage chatMessage = 3;
 		RoleQuery roleQuery = 4;
 		SyncRoleCommand syncRoleCommand = 5;

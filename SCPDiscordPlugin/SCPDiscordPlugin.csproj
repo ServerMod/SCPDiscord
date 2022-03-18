@@ -74,7 +74,6 @@
     <Compile Include="Commands\GrantReservedSlotCommand.cs" />
     <Compile Include="Interface\BanCommand.cs" />
     <Compile Include="Interface\BotActivity.cs" />
-    <Compile Include="Interface\ChannelTopic.cs" />
     <Compile Include="Interface\ChatMessage.cs" />
     <Compile Include="Interface\ConsoleCommand.cs" />
     <Compile Include="Interface\KickallCommand.cs" />
@@ -105,7 +104,6 @@
     <Compile Include="RoleSync.cs" />
     <Compile Include="SCPDiscord.cs" />
     <Compile Include="EventListeners\TeamEventListener.cs" />
-    <Compile Include="EventListeners\TickCounter.cs" />
     <Compile Include="Commands\UnsyncCommand.cs" />
     <Compile Include="Commands\VerboseCommand.cs" />
     <Compile Include="Commands\ValidateCommand.cs" />

@@ -113,28 +113,6 @@ namespace SCPDiscord
 				GetClient()?.UpdateStatusAsync(new DiscordActivity(activityText, activityType), status);
 		}
 
-		public static async void SetChannelTopic(ulong channelID, string channelTopic)
-		{
-			if (!instance.connected) return;
-
-			try
-			{
-				DiscordChannel channel = await GetClient().GetChannelAsync(channelID);
-				try
-				{
-					await channel.ModifyAsync(modification => modification.Topic = channelTopic);
-				}
-				catch (UnauthorizedException)
-				{
-					Logger.Error("No permissions to set channel topic on '" + channel.Name + "'", LogID.Discord);
-				}
-			}
-			catch (Exception)
-			{
-				Logger.Error("Could not find text channel with the ID '" + channelID + "'", LogID.Discord);
-			}
-		}
-
 		public static async Task SendMessage(ulong channelID, string message)
 		{
 			if (!instance.connected) return;

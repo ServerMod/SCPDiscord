@@ -161,8 +161,6 @@ namespace SCPDiscord
 			"botresponses.toggletag.notinstalled",
 			"botresponses.vpnshield.notinstalled",
 			"botresponses.scpermissions.notinstalled",
-
-			"topic"
 		};
 
 		public static void Reload()

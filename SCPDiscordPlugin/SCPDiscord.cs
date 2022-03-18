@@ -55,7 +55,6 @@ namespace SCPDiscord
 			AddEventHandlers(new AdminEventListener(this), Priority.LAST);
 			AddEventHandlers(new EnvironmentEventListener(this), Priority.LAST);
 			AddEventHandlers(new TeamEventListener(this), Priority.LAST);
-			AddEventHandlers(new TickCounter(), Priority.LAST);
 			AddEventHandlers(new SyncPlayerRole(), Priority.LAST);
 
 

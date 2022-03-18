@@ -1190,31 +1190,3 @@ botresponses:
         # feedback - string
         message: "```fix\n> <var:feedback>```"
         regex: []
-topic:
-    # players - int
-    # maxplayers - int
-    # ip - string
-    # port - int
-    # isvisible - bool
-    # isverified - bool
-    # uptime - int
-    # warheaddetonated - bool
-    # decontaminated - bool
-    # roundduration - int
-    # dclassalive - int
-    # dclassdead - int
-    # dclassescaped -int
-    # dclassstart - int
-    # mtfalive - int
-    # scientistsalive - int
-    # scientistsdead - int
-    # scientistsescaped - int
-    # scientistsstart - int
-    # scpalive - int
-    # scpdead - int
-    # scpkills - int
-    # scpstart - int
-    # zombies - int
-    # tps - float
-    message: "Players online: <var:players>/<var:maxplayers>. Uptime: <var:uptime> minutes. IP: <var:ip>:<var:port> TPS: <var:tps>"
-    regex: [ "switchdetonationTrue":"has", "switchdetonationFalse":"has not", " 1 minutes":" 1 minute" ]

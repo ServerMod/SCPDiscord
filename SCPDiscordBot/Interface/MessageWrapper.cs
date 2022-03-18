@@ -32,31 +32,29 @@ namespace SCPDiscord.Interface {
             "bi9VbmJhbkNvbW1hbmQucHJvdG8aHUJvdFRvUGx1Z2luL0tpY2tDb21tYW5k",
             "LnByb3RvGiBCb3RUb1BsdWdpbi9LaWNrYWxsQ29tbWFuZC5wcm90bxodQm90",
             "VG9QbHVnaW4vTGlzdENvbW1hbmQucHJvdG8aHVBsdWdpblRvQm90L0JvdEFj",
-            "dGl2aXR5LnByb3RvGh5QbHVnaW5Ub0JvdC9DaGFubmVsVG9waWMucHJvdG8a",
-            "HVBsdWdpblRvQm90L0NoYXRNZXNzYWdlLnByb3RvGhtQbHVnaW5Ub0JvdC9S",
-            "b2xlUXVlcnkucHJvdG8irQYKDk1lc3NhZ2VXcmFwcGVyEjgKC2JvdEFjdGl2",
-            "aXR5GAEgASgLMiEuU0NQRGlzY29yZC5JbnRlcmZhY2UuQm90QWN0aXZpdHlI",
-            "ABI6CgxjaGFubmVsVG9waWMYAiABKAsyIi5TQ1BEaXNjb3JkLkludGVyZmFj",
-            "ZS5DaGFubmVsVG9waWNIABI4CgtjaGF0TWVzc2FnZRgDIAEoCzIhLlNDUERp",
-            "c2NvcmQuSW50ZXJmYWNlLkNoYXRNZXNzYWdlSAASNAoJcm9sZVF1ZXJ5GAQg",
-            "ASgLMh8uU0NQRGlzY29yZC5JbnRlcmZhY2UuUm9sZVF1ZXJ5SAASQAoPc3lu",
-            "Y1JvbGVDb21tYW5kGAUgASgLMiUuU0NQRGlzY29yZC5JbnRlcmZhY2UuU3lu",
-            "Y1JvbGVDb21tYW5kSAASRAoRdW5zeW5jUm9sZUNvbW1hbmQYBiABKAsyJy5T",
-            "Q1BEaXNjb3JkLkludGVyZmFjZS5VbnN5bmNSb2xlQ29tbWFuZEgAEj4KDmNv",
-            "bnNvbGVDb21tYW5kGAcgASgLMiQuU0NQRGlzY29yZC5JbnRlcmZhY2UuQ29u",
-            "c29sZUNvbW1hbmRIABI6Cgxyb2xlUmVzcG9uc2UYCCABKAsyIi5TQ1BEaXNj",
-            "b3JkLkludGVyZmFjZS5Sb2xlUmVzcG9uc2VIABI2CgpCYW5Db21tYW5kGAkg",
-            "ASgLMiAuU0NQRGlzY29yZC5JbnRlcmZhY2UuQmFuQ29tbWFuZEgAEjoKDFVu",
-            "YmFuQ29tbWFuZBgKIAEoCzIiLlNDUERpc2NvcmQuSW50ZXJmYWNlLlVuYmFu",
-            "Q29tbWFuZEgAEjgKC0tpY2tDb21tYW5kGAsgASgLMiEuU0NQRGlzY29yZC5J",
-            "bnRlcmZhY2UuS2lja0NvbW1hbmRIABI+Cg5LaWNrYWxsQ29tbWFuZBgMIAEo",
-            "CzIkLlNDUERpc2NvcmQuSW50ZXJmYWNlLktpY2thbGxDb21tYW5kSAASOAoL",
-            "TGlzdENvbW1hbmQYDSABKAsyIS5TQ1BEaXNjb3JkLkludGVyZmFjZS5MaXN0",
-            "Q29tbWFuZEgAQgkKB21lc3NhZ2ViBnByb3RvMw=="));
+            "dGl2aXR5LnByb3RvGh1QbHVnaW5Ub0JvdC9DaGF0TWVzc2FnZS5wcm90bxob",
+            "UGx1Z2luVG9Cb3QvUm9sZVF1ZXJ5LnByb3RvIvEFCg5NZXNzYWdlV3JhcHBl",
+            "chI4Cgtib3RBY3Rpdml0eRgBIAEoCzIhLlNDUERpc2NvcmQuSW50ZXJmYWNl",
+            "LkJvdEFjdGl2aXR5SAASOAoLY2hhdE1lc3NhZ2UYAyABKAsyIS5TQ1BEaXNj",
+            "b3JkLkludGVyZmFjZS5DaGF0TWVzc2FnZUgAEjQKCXJvbGVRdWVyeRgEIAEo",
+            "CzIfLlNDUERpc2NvcmQuSW50ZXJmYWNlLlJvbGVRdWVyeUgAEkAKD3N5bmNS",
+            "b2xlQ29tbWFuZBgFIAEoCzIlLlNDUERpc2NvcmQuSW50ZXJmYWNlLlN5bmNS",
+            "b2xlQ29tbWFuZEgAEkQKEXVuc3luY1JvbGVDb21tYW5kGAYgASgLMicuU0NQ",
+            "RGlzY29yZC5JbnRlcmZhY2UuVW5zeW5jUm9sZUNvbW1hbmRIABI+Cg5jb25z",
+            "b2xlQ29tbWFuZBgHIAEoCzIkLlNDUERpc2NvcmQuSW50ZXJmYWNlLkNvbnNv",
+            "bGVDb21tYW5kSAASOgoMcm9sZVJlc3BvbnNlGAggASgLMiIuU0NQRGlzY29y",
+            "ZC5JbnRlcmZhY2UuUm9sZVJlc3BvbnNlSAASNgoKQmFuQ29tbWFuZBgJIAEo",
+            "CzIgLlNDUERpc2NvcmQuSW50ZXJmYWNlLkJhbkNvbW1hbmRIABI6CgxVbmJh",
+            "bkNvbW1hbmQYCiABKAsyIi5TQ1BEaXNjb3JkLkludGVyZmFjZS5VbmJhbkNv",
+            "bW1hbmRIABI4CgtLaWNrQ29tbWFuZBgLIAEoCzIhLlNDUERpc2NvcmQuSW50",
+            "ZXJmYWNlLktpY2tDb21tYW5kSAASPgoOS2lja2FsbENvbW1hbmQYDCABKAsy",
+            "JC5TQ1BEaXNjb3JkLkludGVyZmFjZS5LaWNrYWxsQ29tbWFuZEgAEjgKC0xp",
+            "c3RDb21tYW5kGA0gASgLMiEuU0NQRGlzY29yZC5JbnRlcmZhY2UuTGlzdENv",
+            "bW1hbmRIAEIJCgdtZXNzYWdlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::SCPDiscord.Interface.ConsoleCommandReflection.Descriptor, global::SCPDiscord.Interface.RoleResponseReflection.Descriptor, global::SCPDiscord.Interface.SyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.UnsyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.BanCommandReflection.Descriptor, global::SCPDiscord.Interface.UnbanCommandReflection.Descriptor, global::SCPDiscord.Interface.KickCommandReflection.Descriptor, global::SCPDiscord.Interface.KickallCommandReflection.Descriptor, global::SCPDiscord.Interface.ListCommandReflection.Descriptor, global::SCPDiscord.Interface.BotActivityReflection.Descriptor, global::SCPDiscord.Interface.ChannelTopicReflection.Descriptor, global::SCPDiscord.Interface.ChatMessageReflection.Descriptor, global::SCPDiscord.Interface.RoleQueryReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::SCPDiscord.Interface.ConsoleCommandReflection.Descriptor, global::SCPDiscord.Interface.RoleResponseReflection.Descriptor, global::SCPDiscord.Interface.SyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.UnsyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.BanCommandReflection.Descriptor, global::SCPDiscord.Interface.UnbanCommandReflection.Descriptor, global::SCPDiscord.Interface.KickCommandReflection.Descriptor, global::SCPDiscord.Interface.KickallCommandReflection.Descriptor, global::SCPDiscord.Interface.ListCommandReflection.Descriptor, global::SCPDiscord.Interface.BotActivityReflection.Descriptor, global::SCPDiscord.Interface.ChatMessageReflection.Descriptor, global::SCPDiscord.Interface.RoleQueryReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.MessageWrapper), global::SCPDiscord.Interface.MessageWrapper.Parser, new[]{ "BotActivity", "ChannelTopic", "ChatMessage", "RoleQuery", "SyncRoleCommand", "UnsyncRoleCommand", "ConsoleCommand", "RoleResponse", "BanCommand", "UnbanCommand", "KickCommand", "KickallCommand", "ListCommand" }, new[]{ "Message" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.MessageWrapper), global::SCPDiscord.Interface.MessageWrapper.Parser, new[]{ "BotActivity", "ChatMessage", "RoleQuery", "SyncRoleCommand", "UnsyncRoleCommand", "ConsoleCommand", "RoleResponse", "BanCommand", "UnbanCommand", "KickCommand", "KickallCommand", "ListCommand" }, new[]{ "Message" }, null, null, null)
           }));
     }
     #endregion
@@ -71,19 +69,23 @@ namespace SCPDiscord.Interface {
     private static readonly pb::MessageParser<MessageWrapper> _parser = new pb::MessageParser<MessageWrapper>(() => new MessageWrapper());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<MessageWrapper> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
       get { return global::SCPDiscord.Interface.MessageWrapperReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     pbr::MessageDescriptor pb::IMessage.Descriptor {
       get { return Descriptor; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public MessageWrapper() {
       OnConstruction();
     }
@@ -91,13 +93,11 @@ namespace SCPDiscord.Interface {
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public MessageWrapper(MessageWrapper other) : this() {
       switch (other.MessageCase) {
         case MessageOneofCase.BotActivity:
           BotActivity = other.BotActivity.Clone();
-          break;
-        case MessageOneofCase.ChannelTopic:
-          ChannelTopic = other.ChannelTopic.Clone();
           break;
         case MessageOneofCase.ChatMessage:
           ChatMessage = other.ChatMessage.Clone();
@@ -138,6 +138,7 @@ namespace SCPDiscord.Interface {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public MessageWrapper Clone() {
       return new MessageWrapper(this);
     }
@@ -145,6 +146,7 @@ namespace SCPDiscord.Interface {
     /// <summary>Field number for the "botActivity" field.</summary>
     public const int BotActivityFieldNumber = 1;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.BotActivity BotActivity {
       get { return messageCase_ == MessageOneofCase.BotActivity ? (global::SCPDiscord.Interface.BotActivity) message_ : null; }
       set {
@@ -153,20 +155,13 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "channelTopic" field.</summary>
-    public const int ChannelTopicFieldNumber = 2;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::SCPDiscord.Interface.ChannelTopic ChannelTopic {
-      get { return messageCase_ == MessageOneofCase.ChannelTopic ? (global::SCPDiscord.Interface.ChannelTopic) message_ : null; }
-      set {
-        message_ = value;
-        messageCase_ = value == null ? MessageOneofCase.None : MessageOneofCase.ChannelTopic;
-      }
-    }
-
     /// <summary>Field number for the "chatMessage" field.</summary>
     public const int ChatMessageFieldNumber = 3;
+    /// <summary>
+    ///ChannelTopic channelTopic = 2; // No longer exists
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.ChatMessage ChatMessage {
       get { return messageCase_ == MessageOneofCase.ChatMessage ? (global::SCPDiscord.Interface.ChatMessage) message_ : null; }
       set {
@@ -178,6 +173,7 @@ namespace SCPDiscord.Interface {
     /// <summary>Field number for the "roleQuery" field.</summary>
     public const int RoleQueryFieldNumber = 4;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.RoleQuery RoleQuery {
       get { return messageCase_ == MessageOneofCase.RoleQuery ? (global::SCPDiscord.Interface.RoleQuery) message_ : null; }
       set {
@@ -189,6 +185,7 @@ namespace SCPDiscord.Interface {
     /// <summary>Field number for the "syncRoleCommand" field.</summary>
     public const int SyncRoleCommandFieldNumber = 5;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.SyncRoleCommand SyncRoleCommand {
       get { return messageCase_ == MessageOneofCase.SyncRoleCommand ? (global::SCPDiscord.Interface.SyncRoleCommand) message_ : null; }
       set {
@@ -200,6 +197,7 @@ namespace SCPDiscord.Interface {
     /// <summary>Field number for the "unsyncRoleCommand" field.</summary>
     public const int UnsyncRoleCommandFieldNumber = 6;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.UnsyncRoleCommand UnsyncRoleCommand {
       get { return messageCase_ == MessageOneofCase.UnsyncRoleCommand ? (global::SCPDiscord.Interface.UnsyncRoleCommand) message_ : null; }
       set {
@@ -211,6 +209,7 @@ namespace SCPDiscord.Interface {
     /// <summary>Field number for the "consoleCommand" field.</summary>
     public const int ConsoleCommandFieldNumber = 7;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.ConsoleCommand ConsoleCommand {
       get { return messageCase_ == MessageOneofCase.ConsoleCommand ? (global::SCPDiscord.Interface.ConsoleCommand) message_ : null; }
       set {
@@ -222,6 +221,7 @@ namespace SCPDiscord.Interface {
     /// <summary>Field number for the "roleResponse" field.</summary>
     public const int RoleResponseFieldNumber = 8;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.RoleResponse RoleResponse {
       get { return messageCase_ == MessageOneofCase.RoleResponse ? (global::SCPDiscord.Interface.RoleResponse) message_ : null; }
       set {
@@ -233,6 +233,7 @@ namespace SCPDiscord.Interface {
     /// <summary>Field number for the "BanCommand" field.</summary>
     public const int BanCommandFieldNumber = 9;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.BanCommand BanCommand {
       get { return messageCase_ == MessageOneofCase.BanCommand ? (global::SCPDiscord.Interface.BanCommand) message_ : null; }
       set {
@@ -244,6 +245,7 @@ namespace SCPDiscord.Interface {
     /// <summary>Field number for the "UnbanCommand" field.</summary>
     public const int UnbanCommandFieldNumber = 10;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.UnbanCommand UnbanCommand {
       get { return messageCase_ == MessageOneofCase.UnbanCommand ? (global::SCPDiscord.Interface.UnbanCommand) message_ : null; }
       set {
@@ -255,6 +257,7 @@ namespace SCPDiscord.Interface {
     /// <summary>Field number for the "KickCommand" field.</summary>
     public const int KickCommandFieldNumber = 11;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.KickCommand KickCommand {
       get { return messageCase_ == MessageOneofCase.KickCommand ? (global::SCPDiscord.Interface.KickCommand) message_ : null; }
       set {
@@ -266,6 +269,7 @@ namespace SCPDiscord.Interface {
     /// <summary>Field number for the "KickallCommand" field.</summary>
     public const int KickallCommandFieldNumber = 12;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.KickallCommand KickallCommand {
       get { return messageCase_ == MessageOneofCase.KickallCommand ? (global::SCPDiscord.Interface.KickallCommand) message_ : null; }
       set {
@@ -277,6 +281,7 @@ namespace SCPDiscord.Interface {
     /// <summary>Field number for the "ListCommand" field.</summary>
     public const int ListCommandFieldNumber = 13;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SCPDiscord.Interface.ListCommand ListCommand {
       get { return messageCase_ == MessageOneofCase.ListCommand ? (global::SCPDiscord.Interface.ListCommand) message_ : null; }
       set {
@@ -290,7 +295,6 @@ namespace SCPDiscord.Interface {
     public enum MessageOneofCase {
       None = 0,
       BotActivity = 1,
-      ChannelTopic = 2,
       ChatMessage = 3,
       RoleQuery = 4,
       SyncRoleCommand = 5,
@@ -305,22 +309,26 @@ namespace SCPDiscord.Interface {
     }
     private MessageOneofCase messageCase_ = MessageOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public MessageOneofCase MessageCase {
       get { return messageCase_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void ClearMessage() {
       messageCase_ = MessageOneofCase.None;
       message_ = null;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
       return Equals(other as MessageWrapper);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public bool Equals(MessageWrapper other) {
       if (ReferenceEquals(other, null)) {
         return false;
@@ -329,7 +337,6 @@ namespace SCPDiscord.Interface {
         return true;
       }
       if (!object.Equals(BotActivity, other.BotActivity)) return false;
-      if (!object.Equals(ChannelTopic, other.ChannelTopic)) return false;
       if (!object.Equals(ChatMessage, other.ChatMessage)) return false;
       if (!object.Equals(RoleQuery, other.RoleQuery)) return false;
       if (!object.Equals(SyncRoleCommand, other.SyncRoleCommand)) return false;
@@ -346,10 +353,10 @@ namespace SCPDiscord.Interface {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
       if (messageCase_ == MessageOneofCase.BotActivity) hash ^= BotActivity.GetHashCode();
-      if (messageCase_ == MessageOneofCase.ChannelTopic) hash ^= ChannelTopic.GetHashCode();
       if (messageCase_ == MessageOneofCase.ChatMessage) hash ^= ChatMessage.GetHashCode();
       if (messageCase_ == MessageOneofCase.RoleQuery) hash ^= RoleQuery.GetHashCode();
       if (messageCase_ == MessageOneofCase.SyncRoleCommand) hash ^= SyncRoleCommand.GetHashCode();
@@ -369,11 +376,13 @@ namespace SCPDiscord.Interface {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override string ToString() {
       return pb::JsonFormatter.ToDiagnosticString(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void WriteTo(pb::CodedOutputStream output) {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
@@ -381,10 +390,6 @@ namespace SCPDiscord.Interface {
       if (messageCase_ == MessageOneofCase.BotActivity) {
         output.WriteRawTag(10);
         output.WriteMessage(BotActivity);
-      }
-      if (messageCase_ == MessageOneofCase.ChannelTopic) {
-        output.WriteRawTag(18);
-        output.WriteMessage(ChannelTopic);
       }
       if (messageCase_ == MessageOneofCase.ChatMessage) {
         output.WriteRawTag(26);
@@ -438,14 +443,11 @@ namespace SCPDiscord.Interface {
 
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       if (messageCase_ == MessageOneofCase.BotActivity) {
         output.WriteRawTag(10);
         output.WriteMessage(BotActivity);
-      }
-      if (messageCase_ == MessageOneofCase.ChannelTopic) {
-        output.WriteRawTag(18);
-        output.WriteMessage(ChannelTopic);
       }
       if (messageCase_ == MessageOneofCase.ChatMessage) {
         output.WriteRawTag(26);
@@ -498,13 +500,11 @@ namespace SCPDiscord.Interface {
     #endif
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
       if (messageCase_ == MessageOneofCase.BotActivity) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(BotActivity);
-      }
-      if (messageCase_ == MessageOneofCase.ChannelTopic) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChannelTopic);
       }
       if (messageCase_ == MessageOneofCase.ChatMessage) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChatMessage);
@@ -546,6 +546,7 @@ namespace SCPDiscord.Interface {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(MessageWrapper other) {
       if (other == null) {
         return;
@@ -556,12 +557,6 @@ namespace SCPDiscord.Interface {
             BotActivity = new global::SCPDiscord.Interface.BotActivity();
           }
           BotActivity.MergeFrom(other.BotActivity);
-          break;
-        case MessageOneofCase.ChannelTopic:
-          if (ChannelTopic == null) {
-            ChannelTopic = new global::SCPDiscord.Interface.ChannelTopic();
-          }
-          ChannelTopic.MergeFrom(other.ChannelTopic);
           break;
         case MessageOneofCase.ChatMessage:
           if (ChatMessage == null) {
@@ -635,6 +630,7 @@ namespace SCPDiscord.Interface {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(pb::CodedInputStream input) {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       input.ReadRawMessage(this);
@@ -652,15 +648,6 @@ namespace SCPDiscord.Interface {
             }
             input.ReadMessage(subBuilder);
             BotActivity = subBuilder;
-            break;
-          }
-          case 18: {
-            global::SCPDiscord.Interface.ChannelTopic subBuilder = new global::SCPDiscord.Interface.ChannelTopic();
-            if (messageCase_ == MessageOneofCase.ChannelTopic) {
-              subBuilder.MergeFrom(ChannelTopic);
-            }
-            input.ReadMessage(subBuilder);
-            ChannelTopic = subBuilder;
             break;
           }
           case 26: {
@@ -769,6 +756,7 @@ namespace SCPDiscord.Interface {
 
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -783,15 +771,6 @@ namespace SCPDiscord.Interface {
             }
             input.ReadMessage(subBuilder);
             BotActivity = subBuilder;
-            break;
-          }
-          case 18: {
-            global::SCPDiscord.Interface.ChannelTopic subBuilder = new global::SCPDiscord.Interface.ChannelTopic();
-            if (messageCase_ == MessageOneofCase.ChannelTopic) {
-              subBuilder.MergeFrom(ChannelTopic);
-            }
-            input.ReadMessage(subBuilder);
-            ChannelTopic = subBuilder;
             break;
           }
           case 26: {
