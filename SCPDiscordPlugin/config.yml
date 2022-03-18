@@ -9,7 +9,7 @@ bot:
 
 settings:
     # The language is the same as the name of the language file you want to use.
-    # Included language files: english (default), russian, french, polish, italian, englishemote, russianemote, frenchemote
+    # Included language files: english (default), russian, french, polish, italian, finnish, englishemote, russianemote, frenchemote, polish-emote, finnishemote
     language: "english"
     # Whether or not to show this server's player count in the bot's activity.
     # Set to false to disable.
@@ -27,6 +27,9 @@ settings:
     configvalidation: false
     # Whether or not to use the rolesync system
     rolesync: true
+    # Show that this server is using SCPDiscord using invisible text on Kigen's server list (https://kigen.co/scpsl/browser.php?table=y)
+    # This is just used to count how many servers are running the plugin, but you may hide your server by setting this to false:
+    metrics: true
 
 # Sets commands which are run whenever someone with a synced Discord rank joins the server, only the highest one in the list that matches the player is executed
 # Valid variables:
@@ -88,7 +91,6 @@ channels:
     onsummonvehicle: 
         chaos: [ "default" ]
         mtf: [ "default" ]
-
     
     # Player events
     onplayerhurt:
@@ -179,7 +181,6 @@ channels:
         console: 
             kick: [ "default", "staff" ]
             ban: [ "default", "staff" ]
-
 
     # Team events
     ondecideteamrespawnqueue: []
