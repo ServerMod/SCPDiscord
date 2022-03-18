@@ -9,77 +9,67 @@
 
 # Executed after variables have been inserted but before the message specific regex replacement and before player names have been added on all messages.
 global_regex: [
-
-    # Fix formatting issues
+  
+  # Fix formatting issues
     "::ffff:":"",
-    " \\(\\)":"", 
+    " \\(\\)":"",
     "''":"",
-
-    # Classes
+  
+  # Classes and Teams
     "SCP_":"SCP-",
     "SCP-049_2":"SCP-049-2",
     "SCP-939_":"SCP-939-",
     "SCP-939-89":"SCP-939-109",
-    "SCP_079":"SCP-079",
     "CLASSD":"D-Class",
+    "D_CLASS":"D-Class",
     "SPECTATOR":"Spectator",
     "SCIENTIST":"Scientist",
     "FACILITY_GUARD":"Facility Guard",
-    "NTF_CADET":"MTF Cadet",
-    "NTF_SCIENTIST":"MTF Scientist",
-    "NTF_LIEUTENANT":"MTF Lieutenant",
-    "NTF_COMMANDER":"MTF Commander",
     "ZOMBIE":"Zombie",
     "TUTORIAL":"Tutorial",
-
-    # Teams
+    "MTF_SERGEANT":"MTF Sergeant",
+    "MTF_CAPTAIN":"MTF Captain",
+    "MTF_PRIVATE":"MTF Private",
+    "MTF_SPECIALIST":"MTF Specialist",
+    "CHAOS_CONSCRIPT":"CI Conscript",
+    "CHAOS_RIFLEMAN":"CI Rifleman",
+    "CHAOS_REPRESSOR":"CI Repressor",
+    "CHAOS_MARAUDER":"CI Marauder",
     "CHAOS_INSURGENCY":"Chaos Insurgency",
-    "NINETAILFOX":"MTF",
-
-    # Elevators
-    "GateA":"Gate A",
-    "GateB":"Gate B",
-    "LiftA":"Lift A",
-    "LiftB":"Lift B",
-    "SCP049Chamber":"SCP-049 Containment Chamber",
-    "WarheadRoom":"the warhead room",
-
-    # Non-weapon damage types
-    "NUKE":"nuke",
-    "FALLDOWN":"fall damage",
-    "CONTAIN":"containment",
-    "DECONT":"LCZ decontamination",
-    "LURE":"the femur breaker",
-    "POCKET":"the pocket dimension",
+  
+  # Elevators
+    "GATE_A":"Gate A",
+    "GATE_B":"Gate B",
+    "LIFT_A":"Lift A",
+    "LIFT_B":"Lift B",
+    "SCP-049_CHAMBER":"SCP-049 Containment Chamber",
+    "WARHEAD_ROOM":"the warhead room",
+  
+  # Non-weapon damage types
+    "WARHEAD":"the alpha warhead",
+    "FALLING":"fall damage",
+    "RECONTAINED":"re-containment",
+    "DECONTAMINATION":"LCZ decontamination",
+    "FEMUR_BREAKER":"the femur breaker",
+    "POCKET_DECAY":"the pocket dimension",
     "TESLA":"tesla energy",
-    "WALL":"getting crushed",
-    "FLYING":"anticheat",
-    "FLYING_DETECTION":"anticheat",
-    "RAGDOLLLESS":"RAGDOLLLESS",
+    "CRUSHED":"getting crushed",
+    "FRIENDLY_FIRE_PUNISHMENT":"friendly fire punishment",
     "BLEEDING":"bleeding",
-    "POISONED":"poisoned",
-    "ASPHYXIATION":"asphyxiation",
-
-    # Items
-    "JANITOR_KEYCARD":"Janitor keycard",
-    "SCIENTIST_KEYCARD":"Scientist keycard",
-    "MAJOR_SCIENTIST_KEYCARD":"Major Scientist keycard",
-    "ZONE_MANAGER_KEYCARD":"Zone Manager keycard",
-    "GUARD_KEYCARD":"Guard keycard",
-    "SENIOR_GUARD_KEYCARD":"Senior Guard keycard",
-    "CONTAINMENT_ENGINEER_KEYCARD":"Containment Engineer keycard",
-    "MTF_LIEUTENANT_KEYCARD":"MTF Lieutenant keycard",
-    "MTF_COMMANDER_KEYCARD":"MTF Commander keycard",
-    "FACILITY_MANAGER_KEYCARD":"Facility Manager keycard",
-    "CHAOS_INSURGENCY_DEVICE":"Chaos Insurgency device",
-    "O5_LEVEL_KEYCARD":"O5 keycard",
-
+    "POISON":"poison",
+    "ASPHYXIATED":"asphyxiation",
+    "EXPLOSION":"an explosion",
+    "SEVERED_HANDS":"bleeding from where their hands used to be",
+    "UNKNOWN_FIREARM":"getting shot",
+    "HYPOTHERMIA":"hypothermia",
+  
+  # Items
     "KEYCARD_JANITOR":"Janitor keycard",
     "KEYCARD_SCIENTIST":"Scientist keycard",
-    "KEYCARD_SCIENTIST_MAJOR":"Major Scientist keycard",
+    "KEYCARD_RESEARCH_COORDINATOR":"Research Coordinator keycard",
     "KEYCARD_ZONE_MANAGER":"Zone Manager keycard",
     "KEYCARD_GUARD":"Guard keycard",
-    "KEYCARD_SENIOR_GUARD":"Senior Guard keycard",
+    "KEYCARD_NTF_OFFICER":"MTF Officer keycard",
     "KEYCARD_CONTAINMENT_ENGINEER":"Containment Engineer keycard",
     "KEYCARD_NTF_LIEUTENANT":"MTF Lieutenant keycard",
     "KEYCARD_NTF_COMMANDER":"MTF Commander keycard",
@@ -88,66 +78,70 @@ global_regex: [
     "KEYCARD_O5":"O5 keycard",
 
     "RADIO":"radio",
-    "COM15":"COM-15",
     "GUN_COM15":"COM-15",
+    "COM15":"COM-15",
     "MEDKIT":"medkit",
     "FLASHLIGHT":"flashlight",
-    "MICROHID":"Micro-HID",
     "MICRO_HID":"Micro-HID",
     "SCP500":"SCP-500",
     "SCP207":"SCP-207",
-    "COIN":"coin",
-    "CUP":"cup",
-    "WEAPON_MANAGER_TABLET":"weapon manager tablet",
-    "E11_STANDARD_RIFLE":"Epsilon-11 SR",
+    "AMMO_12_GAUGE":"12 Gauge ammo",
     "GUN_E11_SR":"Epsilon-11 SR",
-    "P90":"P90",
-    "GUN_PROJECT90":"P90",
-    "DROPPED_5":"5.56mm ammo",
-    "AMMO556":"5.56mm ammo",
-    "GUN_MP7":"MP7",
-    "LOGICER":"Logicer",
+    "E11_SR":"Epsilon-11 SR",
+    "GUN_CROSSVEC":"Crossvec",
+    "CROSSVEC":"Crossvec",
+    "AMMO_556_X45":"5.56mm ammo",
+    "GUN_FSP9":"FSP9",
     "GUN_LOGICER":"Logicer",
-    "FRAG_GRENADE":"grenade",
-    "GRENADE_FRAG":"grenade",
-    "FLASHBANG":"flashbang",
+    "LOGICER":"Logicer",
+    "GRENADE_HE":"grenade",
     "GRENADE_FLASH":"flashbang",
-    "DISARMER":"disarmer",
-    "DROPPED_7":"7.62mm ammo",
-    "AMMO762":"7.62mm ammo",
-    "DROPPED_9":"9mm ammo",
-    "AMMO9MM":"9mm ammo",
-    "GUN_USP":"USP",
-    "GRENADE":"grenade",
+    "AMMO_44_CAL":".44 ammo"
+        "AMMO_762_X39":"7.62mm ammo",
+    "AMMO_9_X19":"9mm ammo",
+    "GUN_COM18":"COM-18",
+    "COM18":"COM-18",
+
     "SCP018":"SCP-018",
     "SCP268":"SCP-268",
     "ADRENALINE":"adrenaline",
     "PAINKILLERS":"painkillers",
-
-    # 914 settings
+    "COIN":"coin",
+    
+    "ARMOR_LIGHT":"light armour",
+    "ARMOR_COMBAT":"combat armour",
+    "ARMOR_HEAVY":"heavy armour",
+    "GUN_REVOLVER":"revolver",
+    "REVOLVER":"revolver",
+    "GUN_AK":"AK",
+    "GUN_SHOTGUN":"shotgun",
+    "SHOTGUN":"shotgun",
+    "SCP330":"SCP-330",
+    "SCP2176":"SCP-2176",
+  
+  # 914 settings
     "ROUGH":"rough",
     "COARSE":"coarse",
     "ONE_TO_ONE":"1:1",
     "VERY_FINE":"very fine",
     "FINE":"fine",
-
-    # Room names
-    "LCZ_012":"SCP-012 containment",
+  
+  # Room names
+    "UNNAMED":"an unnamed room"
+        "LCZ_012":"SCP-012 containment",
+    "LCZ173":"SCP-173 containment", # Remove when fixed
     "LCZ_173":"SCP-173 containment",
-    "LCZ_372":"SCP-372 containment",
+    "LCZ_GLASS_ROOM":"SCP-372 containment",
     "LCZ_914":"SCP-914 containment",
+    "LCZ_GREENHOUSE":"the LCZ greenhouse",
     "LCZ_AIRLOCK":"an airlock",
-    "LCZ_ARMORY":"LCZ armory",
-    "LCZ_CAFE":"the LCZ cafeteria",
+    "LCZ_ARMORY":"the LCZ armory",
+    "LCZ_COMPUTER_ROOM":"the LCZ computer room",
     "LCZ_CHECKPOINT_A":"LCZ checkpoint A",
     "LCZ_CHECKPOINT_B":"LCZ checkpoint B",
-    "LCZ_CLASSD_SPAWN":"D-class cells",
-    "LCZ_4_WAY_INTERSECTION":"an LCZ X-intersection",
-    "LCZ_3_WAY_INTERSECTION":"an LCZ T-intersection",
-    "LCZ_CURVE":"an LCZ corridor",
-    "LCZ_PLANTS":"the biolab",
-    "LCZ_STRAIGHT":"an LCZ corridor",
+    "LCZ_CLASS_D_SPAWN":"D-class cells",
     "LCZ_TOILETS":"LCZ toilets",
+    
     "HCZ_049":"SCP-049 containment",
     "HCZ_079":"SCP-079 containment",
     "HCZ_106":"SCP-106 containment",
@@ -155,35 +149,25 @@ global_regex: [
     "HCZ_939":"SCP-939 containment",
     "HCZ_CHECKPOINT_A":"HCZ checkpoint A",
     "HCZ_CHECKPOINT_B":"HCZ checkpoint B",
-    "HCZ_4_WAY_INTERSECTION":"an HCZ intersection",
-    "HCZ_3_WAY_INTERSECTION":"an HCZ intersection",
-    "HCZ_CURVE":"an HCZ corridor",
-    "HCZ_STRAIGHT":"an HCZ corridor",
-    "HCZ_EZ_CHECKPOINT":"entrance zone checkpoint",
-    "HCZ_HID":"the Micro-HID storage",
-    "HCZ_NUKE":"the nuke silo",
-    "HCZ_SERVER":"the server room",
-    "HCZ_TARMORY":"the HCZ armory",
+    "HCZ_CHECKPOINT_TO_ENTRANCE_ZONE":"entrance zone checkpoint",
+    "HCZ_MICRO_HID":"the Micro-HID armory",
+    "HCZ_WARHEAD":"the warhead silo",
+    "HCZ_SERVERS":"the server room",
+    "HCZ_ARMORY":"the HCZ armory",
     "HCZ_TESLA":"a tesla gate corridor",
-    "EZ_STRAIGHT":"an entrance zone corridor",
-    "EZ_CAFETERIA":"the entrance zone cafeteria",
-    "EZ_CHEF":"an entrance zone intersection",
+    
     "EZ_GATE_A":"gate B",
     "EZ_GATE_B":"gate B",
-    "EZ_4_WAY_INTERSECTION":"an entrance zone intersection",
-    "EZ_3_WAY_INTERSECTION":"an entrance zone intersection",
-    "EZ_CURVE":"an entrance zone corridor",
-    "EZ_COLLAPSEDTUNNEL":"a collapsed tunnel",
-    "EZ_REDGATE":"a locked gate room",
+    "EZ_COLLAPSED_TUNNEL":"a collapsed tunnel",
+    "EZ_RED_ROOM":"a locked gate room",
     "EZ_INTERCOM":"the intercom room",
-    "EZ_PC_LARGE":"an office",
-    "EZ_PC_SMALL":"an office",
-    "EZ_SHELTER":"the area outside the shelter",
-    "EZ_SMALLSTRAIGHT":"an entrance zone corridor",
-    "EZ_SMALLSTRAIGHT2":"an entrance zone corridor",
-    "EZ_UPSTAIRS":"entrance zone stairs",
-    "SURFACE":"the outside area",
-    ]
+    "EZ_OFFICE_STORIED":"an office",
+    "EZ_OFFICE_LARGE":"an office",
+    "EZ_OFFICE_SMALL":"an office",
+    "EZ_EVAC_SHELTER":"the evac shelter",
+    "OUTSIDE":"the outside area",
+    "POCKET":"the pocket dimension"
+]
 
 # Executes on the final version of the message, this is the only regex that affects player names
 final_regex: ["discord\\.gg":"","http":"","www\\.":""]
@@ -320,17 +304,17 @@ player:
         # playerteam - Team
         default:
             message: ":red_circle: <var:playername> (<var:playersteamid>) was hurt by <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp)."
-            regex: []
+            regex: ["using UNKNOWN":"using unknown means"]
         friendlyfire:
             message: ":red_circle: **<var:playerteam> <var:playername> (<var:playersteamid>) was attacked by teammate <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp).**"
-            regex: []
+            regex: ["using UNKNOWN":"using unknown means"]
         # Not currently used
         #self:
         #    message: "<var:playername> (<var:playersteamid>) hurt themselves with <var:damagetype> (<var:damage> hp)."
         #    regex: []
         noattacker: 
             message: ":red_circle: <var:playername> (<var:playersteamid>) took <var:damage> damage by <var:damagetype>."
-            regex: []
+            regex: ["damage by UNKNOWN":"damage from unknown causes"]
     onplayerdie:
         # spawnragdoll - bool
         # damagetype - DamageType
@@ -348,17 +332,17 @@ player:
         # playerteam - Team
         default:
             message: ":skull: <var:playername> (<var:playersteamid>) was killed by <var:attackername> (<var:attackersteamid>) using <var:damagetype>."
-            regex: []
+            regex: ["using UNKNOWN":"using unknown means"]
         friendlyfire:
             message: ":skull: **<var:playerteam> <var:playername> (<var:playersteamid>) was teamkilled by <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype>.**"
-            regex: []
+            regex: ["using UNKNOWN":"using unknown means"]
         # Not currently used
         #self:
         #    message: "<var:playername> (<var:playersteamid>) killed themselves using <var:damagetype>."
         #    regex: []
         nokiller:
             message: ":skull: <var:playername> (<var:playersteamid>) died by <var:damagetype>."
-            regex: []
+            regex: ["died by UNKNOWN":"died in an unknown way"]
     onplayerpickupitem:
         # item - Item
         # ipaddress - string

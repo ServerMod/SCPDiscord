@@ -142,13 +142,13 @@ namespace SCPDiscord.EventListeners
 				{ "attackeripaddress",  ev.Killer.IPAddress                 },
 				{ "attackername",       ev.Killer.Name                      },
 				{ "attackerplayerid",   ev.Killer.PlayerID.ToString()       },
-				{ "attackersteamid",    ev.Killer.GetParsedUserID()                   },
+				{ "attackersteamid",    ev.Killer.GetParsedUserID()         },
 				{ "attackerclass",      ev.Killer.PlayerRole.RoleID.ToString()  },
 				{ "attackerteam",       ev.Killer.PlayerRole.Team.ToString()  },
 				{ "playeripaddress",    ev.Player.IPAddress                 },
 				{ "playername",         ev.Player.Name                      },
 				{ "playerplayerid",     ev.Player.PlayerID.ToString()       },
-				{ "playersteamid",      ev.Player.GetParsedUserID()                   },
+				{ "playersteamid",      ev.Player.GetParsedUserID()         },
 				{ "playerclass",        ev.Player.PlayerRole.RoleID.ToString()  },
 				{ "playerteam",         ev.Player.PlayerRole.Team.ToString()  }
 			};
