@@ -61,6 +61,10 @@ namespace SCPDiscord
 			"environment.ondecontaminate",
 			"environment.onsummonvehicle.chaos",
 			"environment.onsummonvehicle.mtf",
+			"environment.ongeneratorfinish",
+			"environment.onscpdeathannouncement",
+			"environment.oncassiecustomannouncement",
+			"environment.oncassieteamannouncement",
 
 			"player.onplayerhurt.noattacker",
 			"player.onplayerhurt.friendlyfire",

@@ -88,6 +88,10 @@ channels:
     onsummonvehicle: 
         chaos: [ "default" ]
         mtf: [ "default" ]
+    ongeneratorfinish: [ "default" ]
+    onscpdeathannouncement: []
+    oncassiecustomannouncement: []
+    oncassieteamannouncement: []
     
     # Player events
     onplayerhurt:

@@ -24,7 +24,7 @@ namespace SCPDiscord
 		{
 			{ "settings.playercount",       true    },
 			{ "settings.verbose",           true    },
-			{ "settings.debug",             true   },
+			{ "settings.debug",             true    },
 			{ "settings.metrics",           true    },
 			{ "settings.configvalidation",  true    },
 			{ "settings.rolesync",          false   }
@@ -63,6 +63,10 @@ namespace SCPDiscord
 			{ "channels.onstopcountdown.noplayer",  new string[]{ } },
 			{ "channels.onsummonvehicle.chaos",     new string[]{ } },
 			{ "channels.onsummonvehicle.mtf",       new string[]{ } },
+			{ "channels.ongeneratorfinish",         new string[]{ } },
+			{ "channels.onscpdeathannouncement",    new string[]{ } },
+			{ "channels.oncassiecustomannouncement", new string[]{ } },
+			{ "channels.oncassieteamannouncement",  new string[]{ } },
 
 			// Player events
 			{ "channels.on079addexp",               new string[]{ } },

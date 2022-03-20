@@ -129,22 +129,52 @@ namespace SCPDiscord.EventListeners
 
 		public void OnGeneratorFinish(GeneratorFinishEvent ev)
 		{
-			this.plugin.VerboseError("Event not yet implemented");
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "room", ev.Generator.Room.RoomType.ToString() }
+			};
+			this.plugin.SendMessage(Config.GetArray("channels.ongeneratorfinish"), "environment.ongeneratorfinish", variables);
 		}
 
 		public void OnScpDeathAnnouncement(ScpDeathAnnouncementEvent ev)
 		{
-			this.plugin.VerboseError("Event not yet implemented");
+			if (!ev.ShouldPlay) return;
+			
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "ipaddress",      ev.DeadPlayer.IPAddress                    },
+				{ "name",           ev.DeadPlayer.Name                         },
+				{ "playerid",       ev.DeadPlayer.PlayerID.ToString()          },
+				{ "steamid",        ev.DeadPlayer.GetParsedUserID()            },
+				{ "class",          ev.DeadPlayer.PlayerRole.RoleID.ToString() },
+				{ "team",           ev.DeadPlayer.PlayerRole.Team.ToString()   }
+			};
+			this.plugin.SendMessage(Config.GetArray("channels.onscpdeathannouncement"), "environment.onscpdeathannouncement", variables);
 		}
 
 		public void OnCassieCustomAnnouncement(CassieCustomAnnouncementEvent ev)
 		{
-			this.plugin.VerboseError("Event not yet implemented");
+			if (!ev.Allow) return;
+			
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "words", ev.Words }
+			};
+			
+			this.plugin.SendMessage(Config.GetArray("channels.oncassiecustomannouncement"), "environment.oncassiecustomannouncement", variables);
 		}
 
 		public void OnCassieTeamAnnouncement(CassieTeamAnnouncementEvent ev)
 		{
-			this.plugin.VerboseError("Event not yet implemented");
+			if (!ev.Allow) return;
+			
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "cassieunitname", ev.CassieUnitName },
+				{ "scpsleft", ev.SCPsLeft.ToString()  }
+			};
+			
+			this.plugin.SendMessage(Config.GetArray("channels.oncassieteamannouncement"), "environment.oncassieteamannouncement", variables);
 		}
 	}
 }

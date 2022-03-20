@@ -286,6 +286,28 @@ environment:
         mtf:
             message: "**MTF helicopter is in visual range of the site, preparing to land.**"
             regex: []
+    ongeneratorfinish:
+        # room
+        message: "Generator has finished charging up in <var:room>"
+        regex: [ ]
+    onscpdeathannouncement:
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: "<var:class> has been recontained or neutralized."
+        regex: [ ]
+    oncassiecustomannouncement:
+        # words
+        message: "C.A.S.S.I.E Announcement: <var:words>"
+        regex: [ ]
+    oncassieteamannouncement:
+        # cassieunitname
+        # scpsleft
+        message: "**MTF <var:cassieunitname> has entered the facility.**"
+        regex: [ ]
 
 player:
     onplayerhurt:
@@ -1009,7 +1031,7 @@ team:
         # players - List<Player>
         # spawnchaos - bool
         mtf:
-            message: "**Mobile TaskForce Epsilon-11 designated Nine-Tailed Fox has entered the facility.**"
+            message: "**Mobile Task Force Epsilon-11 designated Nine-Tailed Fox has entered the facility.**"
             regex: []
         ci:
             message: "**Facility incursion detected, intruders identified as members of hostile GOI \"Chaos Insurgency\".**"
