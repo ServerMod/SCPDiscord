@@ -8,7 +8,7 @@ namespace SCPDiscord.EventListeners
 	internal class PlayerEventListener : IEventHandlerPlayerJoin, IEventHandlerPlayerDie, IEventHandlerSpawn, IEventHandlerPlayerHurt, IEventHandlerPlayerPickupItem,
 		IEventHandlerPlayerDropItem, IEventHandlerNicknameSet, IEventHandlerInitialAssignTeam, IEventHandlerSetRole, IEventHandlerCheckEscape, IEventHandlerDoorAccess,
 		IEventHandlerIntercom, IEventHandlerIntercomCooldownCheck, IEventHandlerPocketDimensionExit, IEventHandlerPocketDimensionEnter, IEventHandlerPocketDimensionDie,
-		IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerSpawnRagdoll, IEventHandlerLure, IEventHandlerContain106, IEventHandlerMedicalUse,
+		IEventHandlerThrowGrenade, IEventHandlerInfected, IEventHandlerSpawnRagdoll, IEventHandlerLure, IEventHandlerContain106, IEventHandlerConsumableUse,
 		IEventHandler106CreatePortal, IEventHandler106Teleport, IEventHandlerElevatorUse, IEventHandlerHandcuffed, IEventHandlerPlayerTriggerTesla, IEventHandlerSCP914ChangeKnob,
 		IEventHandlerRadioSwitch, IEventHandlerMakeNoise, IEventHandlerRecallZombie, IEventHandlerCallCommand, IEventHandlerReload, IEventHandlerGrenadeExplosion, IEventHandlerGrenadeHitPlayer,
 		IEventHandlerGeneratorUnlock, IEventHandlerGeneratorAccess, IEventHandlerGeneratorLeverUsed, IEventHandler079Door, IEventHandler079Lock,
@@ -546,7 +546,7 @@ namespace SCPDiscord.EventListeners
 		/// <summary>
 		/// Called when a player uses Medkit
 		/// </summary>
-		public void OnMedicalUse(PlayerMedicalUseEvent ev)
+		public void OnConsumableUse(PlayerConsumableUseEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
@@ -555,7 +555,7 @@ namespace SCPDiscord.EventListeners
 				{ "healthregenamount",            ev.HealthRegenAmount.ToString()    },
 				{ "healthregenspeedmultiplier",   ev.HealthRegenSpeedMultiplier.ToString() },
 				{ "stamina",                ev.Stamina.ToString()              },
-				{ "medicalitem",            ev.MedicalItem.ToString()          },
+				{ "medicalitem",            ev.ConsumableItem.ToString()       },
 				{ "ipaddress",              ev.Player.IPAddress                },
 				{ "name",                   ev.Player.Name                     },
 				{ "playerid",               ev.Player.PlayerID.ToString()      },
