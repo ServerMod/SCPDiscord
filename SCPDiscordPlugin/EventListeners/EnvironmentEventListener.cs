@@ -131,7 +131,13 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "room", ev.Generator.Room.RoomType.ToString() }
+				{ "room",           ev.Generator.Room.RoomType.ToString()            },
+				{ "ipaddress",      ev.ActivatingPlayer.IPAddress                    },
+				{ "name",           ev.ActivatingPlayer.Name                         },
+				{ "playerid",       ev.ActivatingPlayer.PlayerID.ToString()          },
+				{ "steamid",        ev.ActivatingPlayer.GetParsedUserID()            },
+				{ "class",          ev.ActivatingPlayer.PlayerRole.RoleID.ToString() },
+				{ "team",           ev.ActivatingPlayer.PlayerRole.Team.ToString()   }
 			};
 			this.plugin.SendMessage(Config.GetArray("channels.ongeneratorfinish"), "environment.ongeneratorfinish", variables);
 		}

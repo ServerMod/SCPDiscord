@@ -288,7 +288,13 @@ environment:
             regex: []
     ongeneratorfinish:
         # room
-        message: "Generator has finished charging up in <var:room>"
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: "Generator in <var:room> has been activated by <var:name> (<var:steamid>)."
         regex: [ ]
     onscpdeathannouncement:
         # ipaddress
