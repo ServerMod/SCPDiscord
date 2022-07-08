@@ -23,12 +23,12 @@ namespace SCPDiscord.EventListeners
 			}
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "ipaddress",      ev.Admin.IPAddress                  },
+				{ "ipaddress",      ev.Admin.IpAddress                  },
 				{ "name",           ev.Admin.Name                       },
-				{ "playerid",       ev.Admin.PlayerID.ToString()        },
+				{ "playerid",       ev.Admin.PlayerId.ToString()        },
 				{ "steamid",        ev.Admin.GetParsedUserID()          },
-				{ "class",          ev.Admin.PlayerRole.RoleID.ToString()     },
-				{ "team",           ev.Admin.PlayerRole.Team.ToString()   },
+				{ "class",          ev.Admin.TeamRole.Role.ToString()     },
+				{ "team",           ev.Admin.TeamRole.Team.ToString()   },
 				{ "handled",        ev.Handled.ToString()               },
 				{ "output",         ev.Output                           },
 				{ "query",          ev.Query                            },
@@ -46,12 +46,12 @@ namespace SCPDiscord.EventListeners
 				{ "duration",               Utilities.SecondsToCompoundTime(ev.Duration)  },
 				{ "reason",                 ev.Reason                           },
 				{ "result",                 ev.Result                           },
-				{ "playeripaddress",        ev.Player.IPAddress                 },
+				{ "playeripaddress",        ev.Player.IpAddress                 },
 				{ "playername",             ev.Player.Name                      },
-				{ "playerplayerid",         ev.Player.PlayerID.ToString()       },
+				{ "playerplayerid",         ev.Player.PlayerId.ToString()       },
 				{ "playersteamid",          ev.Player.GetParsedUserID()         },
-				{ "playerclass",            ev.Player.PlayerRole.RoleID.ToString()    },
-				{ "playerteam",             ev.Player.PlayerRole.Team.ToString()  },
+				{ "playerclass",            ev.Player.TeamRole.Role.ToString()    },
+				{ "playerteam",             ev.Player.TeamRole.Team.ToString()  },
 				{ "issuer",                 ev.Issuer                           }
 			};
 			if (ev.Issuer != "Server")

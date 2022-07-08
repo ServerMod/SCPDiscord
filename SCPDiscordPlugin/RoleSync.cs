@@ -50,7 +50,7 @@ namespace SCPDiscord
 
 		public void SendRoleQuery(Player player)
 		{
-			if (player.UserIDType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserID))
+			if (player.UserIdType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserId))
 			{
 				return;
 			}
@@ -59,23 +59,23 @@ namespace SCPDiscord
 			{
 				RoleQuery = new RoleQuery
 				{
-					SteamID = player.UserID,
-					DiscordID = syncedPlayers[player.UserID]
+					SteamID = player.UserId,
+					DiscordID = syncedPlayers[player.UserId]
 				}
 			};
 
 			NetworkSystem.QueueMessage(message);
 		}
 
-		public void ReceiveQueryResponse(string userID, List<ulong> roleIDs)
+		public void ReceiveQueryResponse(string UserId, List<ulong> roleIDs)
 		{
 			try
 			{
 				Player player;
 				try {
-					plugin.Debug("Syncing User: " + userID);
-					plugin.Debug("Player found on server: " + plugin.Server.GetPlayers(userID).Any());
-					player = plugin.Server.GetPlayers(userID)?.FirstOrDefault();
+					plugin.Debug("Syncing User: " + UserId);
+					plugin.Debug("Player found on server: " + plugin.Server.GetPlayers(UserId).Any());
+					player = plugin.Server.GetPlayers(UserId)?.FirstOrDefault();
 				}
 				catch (NullReferenceException e)
 				{
@@ -96,10 +96,10 @@ namespace SCPDiscord
 					{
 						Dictionary<string, string> variables = new Dictionary<string, string>
 						{
-							{ "ipaddress",    player.IPAddress            },
+							{ "ipaddress",    player.IpAddress            },
 							{ "name",         player.Name                 },
-							{ "playerid",     player.PlayerID.ToString()  },
-							{ "userid",       player.UserID               },
+							{ "playerid",     player.PlayerId.ToString()  },
+							{ "UserId",       player.UserId               },
 							{ "steamid",      player.GetParsedUserID()    }
 						};
 						foreach (string unparsedCommand in keyValuePair.Value)
@@ -114,7 +114,7 @@ namespace SCPDiscord
 							plugin.Debug("Command response: " + plugin.ConsoleCommand(null, command.Split(' ')[0], command.Split(' ').Skip(1).ToArray()));
 						}
 
-						plugin.Verbose("Synced " + player.Name + " (" + player.UserID + ") with Discord role id " + keyValuePair.Key);
+						plugin.Verbose("Synced " + player.Name + " (" + player.UserId + ") with Discord role id " + keyValuePair.Key);
 						return;
 					}
 				}

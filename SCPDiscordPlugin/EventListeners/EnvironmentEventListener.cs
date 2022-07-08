@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace SCPDiscord.EventListeners
 {
 	internal class EnvironmentEventListener : IEventHandlerSCP914Activate, IEventHandlerWarheadStartCountdown, IEventHandlerWarheadStopCountdown,
-		IEventHandlerWarheadDetonate, IEventHandlerLCZDecontaminate, IEventHandlerSummonVehicle, IEventHandlerGeneratorFinish, IEventHandlerScpDeathAnnouncement, IEventHandlerCassieCustomAnnouncement, IEventHandlerCassieTeamAnnouncement
+		IEventHandlerWarheadDetonate, IEventHandlerLCZDecontaminate, IEventHandlerSummonVehicle, /*IEventHandlerGeneratorFinish,*/ IEventHandlerScpDeathAnnouncement, IEventHandlerCassieCustomAnnouncement, IEventHandlerCassieTeamAnnouncement
 	{
 		private readonly SCPDiscord plugin;
 
@@ -49,12 +49,12 @@ namespace SCPDiscord.EventListeners
 				{ "isresumed",      ev.IsResumed.ToString()                 },
 				{ "timeleft",       ev.TimeLeft.ToString()                  },
 				{ "opendoorsafter", ev.OpenDoorsAfter.ToString()            },
-				{ "ipaddress",      ev.Activator.IPAddress                  },
+				{ "ipaddress",      ev.Activator.IpAddress                  },
 				{ "name",           ev.Activator.Name                       },
-				{ "playerid",       ev.Activator.PlayerID.ToString()        },
+				{ "playerid",       ev.Activator.PlayerId.ToString()        },
 				{ "steamid",        ev.Activator.GetParsedUserID()          },
-				{ "class",          ev.Activator.PlayerRole.RoleID.ToString()     },
-				{ "team",           ev.Activator.PlayerRole.Team.ToString()   }
+				{ "class",          ev.Activator.TeamRole.Role.ToString()     },
+				{ "team",           ev.Activator.TeamRole.Team.ToString()   }
 			};
 
 			if (ev.IsResumed)
@@ -85,12 +85,12 @@ namespace SCPDiscord.EventListeners
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
 					{ "timeleft",       ev.TimeLeft.ToString()                  },
-					{ "ipaddress",      ev.Activator.IPAddress                  },
+					{ "ipaddress",      ev.Activator.IpAddress                  },
 					{ "name",           ev.Activator.Name                       },
-					{ "playerid",       ev.Activator.PlayerID.ToString()        },
+					{ "playerid",       ev.Activator.PlayerId.ToString()        },
 					{ "steamid",        ev.Activator.GetParsedUserID()          },
-					{ "class",          ev.Activator.PlayerRole.RoleID.ToString()   },
-					{ "team",           ev.Activator.PlayerRole.Team.ToString()   }
+					{ "class",          ev.Activator.TeamRole.Role.ToString()   },
+					{ "team",           ev.Activator.TeamRole.Team.ToString()   }
 				};
 				this.plugin.SendMessage(Config.GetArray("channels.onstopcountdown.default"), "environment.onstopcountdown.default", variables);
 			}
@@ -127,20 +127,20 @@ namespace SCPDiscord.EventListeners
 			}
 		}
 
-		public void OnGeneratorFinish(GeneratorFinishEvent ev)
+		/*public void OnGeneratorFinish(GeneratorFinishEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "room",           ev.Generator.Room.RoomType.ToString()            },
-				{ "ipaddress",      ev.ActivatingPlayer.IPAddress                    },
+				{ "ipaddress",      ev.ActivatingPlayer.IpAddress                    },
 				{ "name",           ev.ActivatingPlayer.Name                         },
-				{ "playerid",       ev.ActivatingPlayer.PlayerID.ToString()          },
+				{ "playerid",       ev.ActivatingPlayer.PlayerId.ToString()          },
 				{ "steamid",        ev.ActivatingPlayer.GetParsedUserID()            },
-				{ "class",          ev.ActivatingPlayer.PlayerRole.RoleID.ToString() },
-				{ "team",           ev.ActivatingPlayer.PlayerRole.Team.ToString()   }
+				{ "class",          ev.ActivatingPlayer.TeamRole.Role.ToString() },
+				{ "team",           ev.ActivatingPlayer.TeamRole.Team.ToString()   }
 			};
 			this.plugin.SendMessage(Config.GetArray("channels.ongeneratorfinish"), "environment.ongeneratorfinish", variables);
-		}
+		}*/
 
 		public void OnScpDeathAnnouncement(ScpDeathAnnouncementEvent ev)
 		{
@@ -148,12 +148,12 @@ namespace SCPDiscord.EventListeners
 			
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "ipaddress",      ev.DeadPlayer.IPAddress                    },
+				{ "ipaddress",      ev.DeadPlayer.IpAddress                    },
 				{ "name",           ev.DeadPlayer.Name                         },
-				{ "playerid",       ev.DeadPlayer.PlayerID.ToString()          },
+				{ "playerid",       ev.DeadPlayer.PlayerId.ToString()          },
 				{ "steamid",        ev.DeadPlayer.GetParsedUserID()            },
-				{ "class",          ev.DeadPlayer.PlayerRole.RoleID.ToString() },
-				{ "team",           ev.DeadPlayer.PlayerRole.Team.ToString()   }
+				{ "class",          ev.DeadPlayer.TeamRole.Role.ToString() },
+				{ "team",           ev.DeadPlayer.TeamRole.Team.ToString()   }
 			};
 			this.plugin.SendMessage(Config.GetArray("channels.onscpdeathannouncement"), "environment.onscpdeathannouncement", variables);
 		}
@@ -176,7 +176,7 @@ namespace SCPDiscord.EventListeners
 			
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "cassieunitname", ev.CassieUnitName },
+				{ "cassieunitname", ev.NatoLetter.ToString() + "-" + ev.NatoNumber },
 				{ "scpsleft", ev.SCPsLeft.ToString()  }
 			};
 			

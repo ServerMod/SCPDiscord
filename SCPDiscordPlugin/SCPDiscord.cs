@@ -25,10 +25,10 @@ namespace SCPDiscord
 		name = "SCPDiscord",
 		description = "SCP:SL - Discord bridge.",
 		id = "karlofduty.scpdiscord",
-		version = "2.0.4",
+		version = "2.0.4-3.9.10",
 		SmodMajor = 3,
-		SmodMinor = 10,
-		SmodRevision = 1
+		SmodMinor = 9,
+		SmodRevision = 10
 	)]
 
 	public class SCPDiscord : Plugin
@@ -50,12 +50,12 @@ namespace SCPDiscord
 		public override void Register()
 		{
 			// Event handlers
-			AddEventHandlers(new RoundEventListener(this), Priority.LAST);
-			AddEventHandlers(new PlayerEventListener(this), Priority.LAST);
-			AddEventHandlers(new AdminEventListener(this), Priority.LAST);
-			AddEventHandlers(new EnvironmentEventListener(this), Priority.LAST);
-			AddEventHandlers(new TeamEventListener(this), Priority.LAST);
-			AddEventHandlers(new SyncPlayerRole(), Priority.LAST);
+			AddEventHandlers(new RoundEventListener(this), Priority.Lowest);
+			AddEventHandlers(new PlayerEventListener(this), Priority.Lowest);
+			AddEventHandlers(new AdminEventListener(this), Priority.Lowest);
+			AddEventHandlers(new EnvironmentEventListener(this), Priority.Lowest);
+			AddEventHandlers(new TeamEventListener(this), Priority.Lowest);
+			AddEventHandlers(new SyncPlayerRole(), Priority.Lowest);
 
 
 			AddConfig(new Smod2.Config.ConfigSetting("max_players", 20, true, "Gets the max players without reserved slots."));

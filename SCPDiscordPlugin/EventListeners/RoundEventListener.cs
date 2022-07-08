@@ -51,10 +51,10 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "ipaddress", ev.Player.IPAddress           },
+				{ "ipaddress", ev.Player.IpAddress           },
 				{ "name", ev.Player.Name                     },
 				{ "steamid", ev.Player.GetParsedUserID()               },
-				{ "playerid", ev.Player.PlayerID.ToString()  }
+				{ "playerid", ev.Player.PlayerId.ToString()  }
 			};
 			this.plugin.SendMessage(Config.GetArray("channels.onplayerleave"), "round.onplayerleave", variables);
 		}
@@ -78,11 +78,11 @@ namespace SCPDiscord.EventListeners
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
 					{ "duration",          (ev.Round.Duration/60).ToString()            },
-					{ "dclassalive",        ev.Round.Stats.DClassAlive.ToString()       },
-					{ "dclassdead",         ev.Round.Stats.DClassDead.ToString()        },
-					{ "dclassescaped",      ev.Round.Stats.DClassEscaped.ToString()     },
-					{ "dclassstart",        ev.Round.Stats.DClassStart.ToString()       },
-					{ "mtfalive",           ev.Round.Stats.MTFAlive.ToString()          },
+					{ "dclassalive",        ev.Round.Stats.ClassDAlive.ToString()       },
+					{ "dclassdead",         ev.Round.Stats.ClassDDead.ToString()        },
+					{ "dclassescaped",      ev.Round.Stats.ClassDEscaped.ToString()     },
+					{ "dclassstart",        ev.Round.Stats.ClassDStart.ToString()       },
+					{ "mtfalive",           ev.Round.Stats.NTFAlive.ToString()          },
 					{ "scientistsalive",    ev.Round.Stats.ScientistsAlive.ToString()   },
 					{ "scientistsdead",     ev.Round.Stats.ScientistsDead.ToString()    },
 					{ "scientistsescaped",  ev.Round.Stats.ScientistsEscaped.ToString() },

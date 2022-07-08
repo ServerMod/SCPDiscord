@@ -84,7 +84,7 @@ namespace SCPDiscord
 								var reply = "```md\n# Players online (" + (plugin.Server.NumPlayers - 1) + "):\n";
 								foreach (Player player in plugin.Server.GetPlayers())
 								{
-									reply += player.Name.PadRight(35) + "<" + player.UserID + ">" + "\n";
+									reply += player.Name.PadRight(35) + "<" + player.UserId + ">" + "\n";
 								}
 								reply += "```";
 								plugin.SendStringByID(data.ListCommand.ChannelID, reply);
