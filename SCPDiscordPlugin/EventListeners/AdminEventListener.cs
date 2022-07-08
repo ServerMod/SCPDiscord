@@ -21,21 +21,45 @@ namespace SCPDiscord.EventListeners
 			{
 				return;
 			}
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "ipaddress",      ev.Admin.IpAddress                  },
-				{ "name",           ev.Admin.Name                       },
-				{ "playerid",       ev.Admin.PlayerId.ToString()        },
-				{ "steamid",        ev.Admin.GetParsedUserID()          },
-				{ "class",          ev.Admin.TeamRole.Role.ToString()     },
-				{ "team",           ev.Admin.TeamRole.Team.ToString()   },
-				{ "handled",        ev.Handled.ToString()               },
-				{ "output",         ev.Output                           },
-				{ "query",          ev.Query                            },
-				{ "successful",     ev.Successful.ToString()            }
-			};
 
-			this.plugin.SendMessage(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);
+			if (ev.Admin == null)
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "ipaddress",      "-"                  },
+					{ "name",           "Server console"                       },
+					{ "playerid",       "-"        },
+					{ "steamid",        "-"          },
+					{ "class",          "-"     },
+					{ "team",           "-"   },
+					{ "handled",        ev.Handled.ToString()               },
+					{ "output",         ev.Output                           },
+					{ "query",          ev.Query                            },
+					{ "successful",     ev.Successful.ToString()            }
+				};
+
+				this.plugin.SendMessage(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);				
+			}
+			else
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "ipaddress",      ev.Admin.IpAddress                  },
+					{ "name",           ev.Admin.Name                       },
+					{ "playerid",       ev.Admin.PlayerId.ToString()        },
+					{ "steamid",        ev.Admin.GetParsedUserID()          },
+					{ "class",          ev.Admin.TeamRole.Role.ToString()     },
+					{ "team",           ev.Admin.TeamRole.Team.ToString()   },
+					{ "handled",        ev.Handled.ToString()               },
+					{ "output",         ev.Output                           },
+					{ "query",          ev.Query                            },
+					{ "successful",     ev.Successful.ToString()            }
+				};
+
+				this.plugin.SendMessage(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);
+			}
+			
+
 		}
 
 		public void OnBan(BanEvent ev)
