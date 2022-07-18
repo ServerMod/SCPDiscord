@@ -51,7 +51,7 @@ namespace SCPDiscord
 								break;
 
 							case MessageWrapper.MessageOneofCase.ConsoleCommand:
-								plugin.sync.ScheduleConsoleCommand(data.ConsoleCommand);
+								plugin.sync.ScheduleDiscordCommand(data.ConsoleCommand);
 								break;
 
 							case MessageWrapper.MessageOneofCase.RoleResponse:
