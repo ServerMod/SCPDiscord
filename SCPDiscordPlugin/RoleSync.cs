@@ -111,7 +111,7 @@ namespace SCPDiscord
 								command = command.Replace("<var:" + variable.Key + ">", variable.Value);
 							}
 							plugin.Debug("Running rolesync command: " + command);
-							plugin.Debug("Command response: " + plugin.ConsoleCommand(null, command.Split(' ')[0], command.Split(' ').Skip(1).ToArray()));
+							plugin.sync.ScheduleRoleSyncCommand(command);
 						}
 
 						plugin.Verbose("Synced " + player.Name + " (" + player.UserId + ") with Discord role id " + keyValuePair.Key);
