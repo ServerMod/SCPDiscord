@@ -33,7 +33,7 @@ namespace SCPDiscord
 								plugin.Error("Connection to bot lost.");
 
 							else
-								plugin.Error("Couldnt parse incoming packet!\n" + e.ToString());
+								plugin.Error("Couldn't parse incoming packet!\n" + e.ToString());
 
 							return;
 						}
@@ -51,13 +51,7 @@ namespace SCPDiscord
 								break;
 
 							case MessageWrapper.MessageOneofCase.ConsoleCommand:
-								string[] words = data.ConsoleCommand.Command.Split(' ');
-								string response = plugin.ConsoleCommand(plugin.PluginManager.Server, words[0], words.Skip(1).ToArray());
-								Dictionary<string, string> variables = new Dictionary<string, string>
-								{
-									{ "feedback", response }
-								};
-								plugin.SendMessageByID(data.ConsoleCommand.ChannelID, "botresponses.consolecommandfeedback", variables);
+								plugin.sync.ScheduleConsoleCommand(data.ConsoleCommand);
 								break;
 
 							case MessageWrapper.MessageOneofCase.RoleResponse:

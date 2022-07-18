@@ -1,7 +1,5 @@
 using Google.Protobuf;
-using SCPDiscord.EventListeners;
 using SCPDiscord.Interface;
-using Smod2.API;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -172,7 +170,7 @@ namespace SCPDiscord
 		{
 			if (message == null)
 			{
-				plugin.Error("Tried to send message but it was null.");
+				plugin.Error("Tried to send message but it was null. " + new StackTrace());
 				return true;
 			}
 

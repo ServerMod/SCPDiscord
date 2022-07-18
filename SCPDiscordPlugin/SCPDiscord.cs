@@ -25,7 +25,7 @@ namespace SCPDiscord
 		name = "SCPDiscord",
 		description = "SCP:SL - Discord bridge.",
 		id = "karlofduty.scpdiscord",
-		version = "2.0.4-3.9.10",
+		version = "2.0.5-3.9.10",
 		SmodMajor = 3,
 		SmodMinor = 9,
 		SmodRevision = 10
@@ -34,6 +34,8 @@ namespace SCPDiscord
 	public class SCPDiscord : Plugin
 	{
 		public readonly Stopwatch serverStartTime = new Stopwatch();
+
+		internal SynchronousExecutor sync;
 
 		internal static SCPDiscord plugin;
 
@@ -57,6 +59,8 @@ namespace SCPDiscord
 			AddEventHandlers(new TeamEventListener(this), Priority.Lowest);
 			AddEventHandlers(new SyncPlayerRole(), Priority.Lowest);
 
+			sync = new SynchronousExecutor(this);
+			AddEventHandlers(sync, Priority.NORMAL);
 
 			AddConfig(new Smod2.Config.ConfigSetting("max_players", 20, true, "Gets the max players without reserved slots."));
 			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config_global", false, true, "Whether or not the config should be placed in the global config directory."));
@@ -84,15 +88,15 @@ namespace SCPDiscord
 			AddCommand("scpd_grantvanillarank", new GrantVanillaRankCommand());
 
 			SetUpFileSystem();
-			this.roleSync = new RoleSync(this);
+			roleSync = new RoleSync(this);
 			LoadConfig();
 			if (this.Server.Port == Config.GetInt("bot.port"))
 			{
-				this.Error("ERROR: Server is running on the same port as the plugin, aborting...");
-				this.Disable();
+				Error("ERROR: Server is running on the same port as the plugin, aborting...");
+				Disable();
 			}
 			Language.Reload();
-
+			
 			new Thread(() => new StartNetworkSystem(plugin)).Start();
 
 			GetMaxPlayers();
@@ -140,13 +144,13 @@ namespace SCPDiscord
 
 			if (!File.Exists(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml"))
 			{
-				this.Info("Config file '" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' does not exist, creating...");
+				Info("Config file '" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' does not exist, creating...");
 				File.WriteAllText(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml", Encoding.UTF8.GetString(Resources.config));
 			}
 
 			if (!File.Exists(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json"))
 			{
-				plugin.Info("Config file rolesync.json does not exist, creating...");
+				Info("Config file rolesync.json does not exist, creating...");
 				File.WriteAllText(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json", "[]");
 			}
 		}
@@ -159,27 +163,27 @@ namespace SCPDiscord
 			try
 			{
 				Config.Reload(plugin);
-				this.Info("Successfully loaded config '" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml'.");
+				Info("Successfully loaded config '" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml'.");
 			}
 			catch (Exception e)
 			{
 				if (e is DirectoryNotFoundException)
 				{
-					this.Error("Config directory not found.");
+					Error("Config directory not found.");
 				}
 				else if (e is UnauthorizedAccessException)
 				{
-					this.Error("Primary language file access denied.");
+					Error("Primary language file access denied.");
 				}
 				else if (e is FileNotFoundException)
 				{
-					this.Error("'" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' was not found.");
+					Error("'" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' was not found.");
 				}
 				else if (e is JsonReaderException || e is YamlException)
 				{
-					this.Error("'" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' formatting error.");
+					Error("'" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' formatting error.");
 				}
-				this.Error("Error reading config file '" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml'. Aborting startup." + e);
+				Error("Error reading config file '" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml'. Aborting startup." + e);
 				Disable();
 			}
 		}
@@ -193,7 +197,7 @@ namespace SCPDiscord
 		{
 			shutdown = true;
 			NetworkSystem.Disconnect();
-			this.Info("SCPDiscord disabled.");
+			Info("SCPDiscord disabled.");
 		}
 
 		/// <summary>
@@ -204,7 +208,7 @@ namespace SCPDiscord
 		{
 			if (Config.GetBool("settings.verbose"))
 			{
-				plugin.Info(message);
+				Info(message);
 			}
 		}
 
@@ -212,7 +216,7 @@ namespace SCPDiscord
 		{
 			if (Config.GetBool("settings.verbose"))
 			{
-				plugin.Warn(message);
+				Warn(message);
 			}
 		}
 
@@ -220,7 +224,7 @@ namespace SCPDiscord
 		{
 			if (Config.GetBool("settings.verbose"))
 			{
-				plugin.Error(message);
+				Error(message);
 			}
 		}
 
@@ -228,7 +232,7 @@ namespace SCPDiscord
 		{
 			if (Config.GetBool("settings.debug"))
 			{
-				plugin.Info(message);
+				Info(message);
 			}
 		}
 
@@ -236,7 +240,7 @@ namespace SCPDiscord
 		{
 			if (Config.GetBool("settings.debug"))
 			{
-				plugin.Warn(message);
+				Warn(message);
 			}
 		}
 
@@ -244,7 +248,7 @@ namespace SCPDiscord
 		{
 			if (Config.GetBool("settings.debug"))
 			{
-				plugin.Error(message);
+				Error(message);
 			}
 		}
 

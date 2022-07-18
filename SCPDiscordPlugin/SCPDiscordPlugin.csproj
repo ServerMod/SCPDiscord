@@ -107,6 +107,7 @@
     <Compile Include="Commands\UnsyncCommand.cs" />
     <Compile Include="Commands\VerboseCommand.cs" />
     <Compile Include="Commands\ValidateCommand.cs" />
+    <Compile Include="SynchronousExecutor.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
