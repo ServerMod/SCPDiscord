@@ -43,7 +43,7 @@ namespace SCPDiscord
 						switch (data.MessageCase)
 						{
 							case MessageWrapper.MessageOneofCase.SyncRoleCommand:
-								plugin.SendStringByID(data.SyncRoleCommand.ChannelID, plugin.roleSync.AddPlayer(data.SyncRoleCommand.SteamID.ToString(), data.SyncRoleCommand.DiscordID));
+								plugin.SendStringByID(data.SyncRoleCommand.ChannelID, plugin.roleSync.AddPlayer(data.SyncRoleCommand.SteamIDOrIP, data.SyncRoleCommand.DiscordID));
 								break;
 
 							case MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
@@ -55,11 +55,11 @@ namespace SCPDiscord
 								break;
 
 							case MessageWrapper.MessageOneofCase.RoleResponse:
-								plugin.roleSync.ReceiveQueryResponse(data.RoleResponse.SteamID, data.RoleResponse.RoleIDs.ToList());
+								plugin.roleSync.ReceiveQueryResponse(data.RoleResponse.SteamIDOrIP, data.RoleResponse.RoleIDs.ToList());
 								break;
 
 							case MessageWrapper.MessageOneofCase.BanCommand:
-								BanCommand(data.BanCommand.ChannelID, data.BanCommand.SteamID.ToString(), data.BanCommand.Duration, data.BanCommand.Reason, data.BanCommand.AdminTag);
+								BanCommand(data.BanCommand.ChannelID, data.BanCommand.SteamID, data.BanCommand.Duration, data.BanCommand.Reason, data.BanCommand.AdminTag);
 								break;
 
 							case MessageWrapper.MessageOneofCase.UnbanCommand:
@@ -67,7 +67,7 @@ namespace SCPDiscord
 								break;
 
 							case MessageWrapper.MessageOneofCase.KickCommand:
-								KickCommand(data.KickCommand.ChannelID, data.KickCommand.SteamID.ToString(), data.KickCommand.Reason, data.KickCommand.AdminTag);
+								KickCommand(data.KickCommand.ChannelID, data.KickCommand.SteamID, data.KickCommand.Reason, data.KickCommand.AdminTag);
 								break;
 
 							case MessageWrapper.MessageOneofCase.KickallCommand:
@@ -90,6 +90,7 @@ namespace SCPDiscord
 								plugin.Warn("Recieved packet meant for bot: " + Google.Protobuf.JsonFormatter.Default.Format(data));
 								break;
 
+							case MessageWrapper.MessageOneofCase.None:
 							default:
 								plugin.Warn("Unknown packet received: " + Google.Protobuf.JsonFormatter.Default.Format(data));
 								break;

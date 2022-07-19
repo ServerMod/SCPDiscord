@@ -61,7 +61,8 @@ namespace SCPDiscord
 					StringPrefixes = new[] { ConfigParser.config.bot.prefix }
 				});
 
-				instance.commands.RegisterCommands<Commands.SyncRoleCommand>();
+				instance.commands.RegisterCommands<Commands.SyncSteamIDCommand>();
+				instance.commands.RegisterCommands<Commands.SyncIPCommand>();
 				instance.commands.RegisterCommands<Commands.UnsyncRoleCommand>();
 				instance.commands.RegisterCommands<Commands.ServerCommand>();
 				instance.commands.RegisterCommands<Commands.ListCommand>();
@@ -188,7 +189,7 @@ namespace SCPDiscord
 					RoleResponse = new Interface.RoleResponse
 					{
 						DiscordID = userID,
-						SteamID = steamID
+						SteamIDOrIP = steamID
 					}
 				};
 				message.RoleResponse.RoleIDs.AddRange(member.Roles.Select(role => role.Id));
@@ -196,7 +197,7 @@ namespace SCPDiscord
 			}
 			catch (Exception)
 			{
-				Logger.Warn("Couldn't find discord server or server member for role syncing requested by plugin. Discord ID: " + userID.ToString() + " SteamID: " + steamID, LogID.Discord);
+				Logger.Warn("Couldn't find discord server or server member for role syncing requested by plugin. Discord ID: " + userID + " SteamID/IP: " + steamID, LogID.Discord);
 			}
 		}
 

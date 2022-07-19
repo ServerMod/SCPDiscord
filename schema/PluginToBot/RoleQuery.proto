@@ -4,6 +4,6 @@ package SCPDiscord.Interface;
 
 message RoleQuery
 {
-	string steamID = 1;
-	uint64 discordID = 2;
+	string SteamIDOrIP = 1;
+	uint64 DiscordID = 2;
 }
