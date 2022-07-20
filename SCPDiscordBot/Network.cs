@@ -93,16 +93,16 @@ namespace SCPDiscord
 					else
 					{
 						DiscordAPI.SetDisconnectedActivity();
-						Logger.Log("Listening on " + ipAddress.ToString() + ":" + ConfigParser.config.plugin.port, LogID.Network);
+						Logger.Log("Listening on " + ipAddress.ToString() + ":" + ConfigParser.config.plugin.port, LogID.NETWORK);
 						clientSocket = listenerSocket.Accept();
 						networkStream = new NetworkStream(clientSocket, true);
-						Logger.Log("Plugin connected.", LogID.Network);
+						Logger.Log("Plugin connected.", LogID.NETWORK);
 					}
 					Thread.Sleep(1000);
 				}
 				catch (Exception e)
 				{
-					Logger.Error("Network error caught, if this happens a lot try using the 'scpd_rc' command." + e, LogID.Network);
+					Logger.Error("Network error caught, if this happens a lot try using the 'scpd_rc' command." + e, LogID.NETWORK);
 				}
 			}
 		}
@@ -116,11 +116,11 @@ namespace SCPDiscord
 			}
 			catch (Exception)
 			{
-				Logger.Error("Couldn't parse incoming packet!", LogID.Network);
+				Logger.Error("Couldn't parse incoming packet!", LogID.NETWORK);
 				return;
 			}
 
-			Logger.Debug("Incoming packet: " + JsonFormatter.Default.Format(wrapper), LogID.Network);
+			Logger.Debug("Incoming packet: " + JsonFormatter.Default.Format(wrapper), LogID.NETWORK);
 
 			switch (wrapper.MessageCase)
 			{
@@ -137,10 +137,10 @@ namespace SCPDiscord
 				case MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
 				case MessageWrapper.MessageOneofCase.ConsoleCommand:
 				case MessageWrapper.MessageOneofCase.RoleResponse:
-					Logger.Warn("Recieved packet meant for plugin: " + JsonFormatter.Default.Format(wrapper), LogID.Network);
+					Logger.Warn("Recieved packet meant for plugin: " + JsonFormatter.Default.Format(wrapper), LogID.NETWORK);
 					break;
 				default:
-					Logger.Warn("Unknown packet received: " + JsonFormatter.Default.Format(wrapper), LogID.Network);
+					Logger.Warn("Unknown packet received: " + JsonFormatter.Default.Format(wrapper), LogID.NETWORK);
 					break;
 			}
 		}
@@ -168,8 +168,8 @@ namespace SCPDiscord
 			}
 			catch (ObjectDisposedException e)
 			{
-				Logger.Error("TCP client was unexpectedly closed.", LogID.Network);
-				Logger.Debug(e.ToString(), LogID.Network);
+				Logger.Error("TCP client was unexpectedly closed.", LogID.NETWORK);
+				Logger.Debug(e.ToString(), LogID.NETWORK);
 				return false;
 			}
 		}
