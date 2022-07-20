@@ -71,7 +71,7 @@ namespace SCPDiscord
 								break;
 
 							case MessageWrapper.MessageOneofCase.KickallCommand:
-								KickallCommand(data.KickallCommand.ChannelID, data.KickallCommand.Reason, data.KickallCommand.AdminTag);
+								KickAllCommand(data.KickallCommand.ChannelID, data.KickallCommand.Reason, data.KickallCommand.AdminTag);
 								break;
 
 							case MessageWrapper.MessageOneofCase.ListCommand:
@@ -87,7 +87,7 @@ namespace SCPDiscord
 							case MessageWrapper.MessageOneofCase.BotActivity:
 							case MessageWrapper.MessageOneofCase.ChatMessage:
 							case MessageWrapper.MessageOneofCase.RoleQuery:
-								plugin.Warn("Recieved packet meant for bot: " + Google.Protobuf.JsonFormatter.Default.Format(data));
+								plugin.Warn("Received packet meant for bot: " + Google.Protobuf.JsonFormatter.Default.Format(data));
 								break;
 
 							case MessageWrapper.MessageOneofCase.None:
@@ -112,6 +112,7 @@ namespace SCPDiscord
 		/// <param name="steamID">SteamID of player to be banned.</param>
 		/// <param name="duration">Duration of ban expressed as xu where x is a number and u is a character representing a unit of time.</param>
 		/// <param name="reason">Optional reason for the ban.</param>
+		/// <param name="adminTag">Discord tag of the user who created the ban.</param>
 		private void BanCommand(ulong channelID, string steamID, string duration, string reason, string adminTag)
 		{
 			// Perform very basic SteamID validation.
@@ -240,6 +241,7 @@ namespace SCPDiscord
 		/// <param name="channelID">Channel ID for response message.</param>
 		/// <param name="steamID">SteamID of player to be kicked.</param>
 		/// <param name="reason">The kick reason.</param>
+		/// <param name="adminTag">Discord tag of the user who kicked the player.</param>
 		private void KickCommand(ulong channelID, string steamID, string reason, string adminTag)
 		{
 			//Perform very basic SteamID validation
@@ -283,7 +285,8 @@ namespace SCPDiscord
 		/// </summary>
 		/// <param name="channelID">The channel to send the message in</param>
 		/// <param name="reason">Reason displayed to kicked players</param>
-		private void KickallCommand(ulong channelID, string reason, string adminTag)
+		/// <param name="adminTag">Discord tag of the user who created kicked the players.</param>
+		private void KickAllCommand(ulong channelID, string reason, string adminTag)
 		{
 			if (reason == "")
 			{
