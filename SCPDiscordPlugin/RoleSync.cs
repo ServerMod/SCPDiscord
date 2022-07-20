@@ -14,7 +14,6 @@ namespace SCPDiscord
 {
 	public class RoleSync
 	{
-		private bool onlineMode = true;
 		private Dictionary<string, ulong> syncedPlayers = new Dictionary<string, ulong>();
 
 		// This variable is set when the config reloads instead of when the role system reloads as the config has to be read to get the info anyway
@@ -32,7 +31,6 @@ namespace SCPDiscord
 		public void Reload()
 		{
 			plugin.SetUpFileSystem();
-			onlineMode = plugin.GetConfigBool("online_mode");
 			syncedPlayers = JArray.Parse(File.ReadAllText(FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json")).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<ulong>());
 			plugin.Info("Successfully loaded config '" + FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json'.");
 		}
@@ -52,7 +50,7 @@ namespace SCPDiscord
 
 		public void SendRoleQuery(Player player)
 		{
-			if (onlineMode)
+			if (plugin.GetConfigBool("online_mode"))
 			{
 				if (player.UserIDType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserID))
 				{
@@ -151,7 +149,7 @@ namespace SCPDiscord
 
 		public string AddPlayer(string steamIDOrIP, ulong discordID)
 		{
-			if (onlineMode)
+			if (plugin.GetConfigBool("online_mode"))
 			{
 				plugin.Warn("SERVER IS IN ONLINE MODE");
 				if (syncedPlayers.ContainsKey(steamIDOrIP + "@steam"))
