@@ -185,12 +185,6 @@ namespace SCPDiscord
 					return "Discord user ID is already linked to an IP. You will have to remove it first.";
 				}
 
-				string response = "";
-				if (!CheckSteamAccount(steamIDOrIP, ref response))
-				{
-					return response;
-				}
-
 				syncedPlayers.Add(steamIDOrIP, discordID);
 				SavePlayers();
 				return "Successfully linked accounts.";	
