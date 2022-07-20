@@ -1,25 +1,26 @@
-﻿using DSharpPlus.CommandsNext;
+﻿using System.Text.RegularExpressions;
+using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using System.Threading.Tasks;
 
 namespace SCPDiscord.Commands
 {
-	public class SyncRoleCommand : BaseCommandModule
+	public class SyncIPCommand : BaseCommandModule
 	{
-		[Command("syncrole")]
+		[Command("syncip")]
 		[Cooldown(1, 5, CooldownBucketType.User)]
-		public async Task OnExecute(CommandContext command, ulong steamID)
+		public async Task OnExecute(CommandContext command, string ip)
 		{
 			if (!ConfigParser.IsCommandChannel(command.Channel.Id)) return;
 			if (!ConfigParser.ValidatePermission(command)) return;
 
-			if (steamID.ToString().Length != 17)
+			if (Regex.IsMatch(ip, "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)(\\.(?!$)|$)){4}$"))
 			{
 				DiscordEmbed error = new DiscordEmbedBuilder
 				{
 					Color = DiscordColor.Red,
-					Description = "That SteamID doesn't seem to be the right length."
+					Description = "That IP doesn't seem to be in the right format, it should look something like \"255.255.255.255\"."
 				};
 				await command.RespondAsync(error);
 				return;
@@ -32,7 +33,7 @@ namespace SCPDiscord.Commands
 					ChannelID = command.Channel.Id,
 					DiscordID = command.Member.Id,
 					DiscordTag = command.Member.Username,
-					SteamID = steamID
+					SteamIDOrIP = ip
 				}
 			};
 			NetworkSystem.SendMessage(message);

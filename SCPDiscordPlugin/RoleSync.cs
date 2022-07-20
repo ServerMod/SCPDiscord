@@ -14,6 +14,7 @@ namespace SCPDiscord
 {
 	public class RoleSync
 	{
+		private bool onlineMode = true;
 		private Dictionary<string, ulong> syncedPlayers = new Dictionary<string, ulong>();
 
 		// This variable is set when the config reloads instead of when the role system reloads as the config has to be read to get the info anyway
@@ -31,6 +32,7 @@ namespace SCPDiscord
 		public void Reload()
 		{
 			plugin.SetUpFileSystem();
+			onlineMode = plugin.GetConfigBool("online_mode");
 			syncedPlayers = JArray.Parse(File.ReadAllText(FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json")).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<ulong>());
 			plugin.Info("Successfully loaded config '" + FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json'.");
 		}
@@ -50,21 +52,42 @@ namespace SCPDiscord
 
 		public void SendRoleQuery(Player player)
 		{
-			if (player.UserIdType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserId))
+			if (onlineMode)
 			{
-				return;
-			}
-
-			MessageWrapper message = new MessageWrapper
-			{
-				RoleQuery = new RoleQuery
+				if (player.UserIDType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserID))
 				{
-					SteamID = player.UserId,
-					DiscordID = syncedPlayers[player.UserId]
+					return;
 				}
-			};
 
-			NetworkSystem.QueueMessage(message);
+				MessageWrapper message = new MessageWrapper
+				{
+					RoleQuery = new RoleQuery
+					{
+						SteamIDOrIP = player.UserID,
+						DiscordID = syncedPlayers[player.UserID]
+					}
+				};
+
+				NetworkSystem.QueueMessage(message);				
+			}
+			else
+			{
+				if (!syncedPlayers.ContainsKey(player.IPAddress))
+				{
+					return;
+				}
+
+				MessageWrapper message = new MessageWrapper
+				{
+					RoleQuery = new RoleQuery
+					{
+						SteamIDOrIP = player.IPAddress,
+						DiscordID = syncedPlayers[player.IPAddress]
+					}
+				};
+
+				NetworkSystem.QueueMessage(message);
+			}
 		}
 
 		public void ReceiveQueryResponse(string UserId, List<ulong> roleIDs)
@@ -72,10 +95,11 @@ namespace SCPDiscord
 			try
 			{
 				Player player;
-				try {
-					plugin.Debug("Syncing User: " + UserId);
-					plugin.Debug("Player found on server: " + plugin.Server.GetPlayers(UserId).Any());
-					player = plugin.Server.GetPlayers(UserId)?.FirstOrDefault();
+				try
+				{
+					plugin.Debug("Syncing User: " + userID);
+					plugin.Debug("Player found on server: " + plugin.Server.GetPlayers(userID).Any());
+					player = plugin.Server.GetPlayers(userID)?.FirstOrDefault();
 				}
 				catch (NullReferenceException e)
 				{
@@ -114,7 +138,7 @@ namespace SCPDiscord
 							plugin.sync.ScheduleRoleSyncCommand(command);
 						}
 
-						plugin.Verbose("Synced " + player.Name + " (" + player.UserId + ") with Discord role id " + keyValuePair.Key);
+						plugin.Verbose("Synced " + player.Name + " (" + userID + ") with Discord role id " + keyValuePair.Key);
 						return;
 					}
 				}
@@ -125,27 +149,52 @@ namespace SCPDiscord
 			}
 		}
 
-		public string AddPlayer(string steamID, ulong discordID)
+		public string AddPlayer(string steamIDOrIP, ulong discordID)
 		{
-			if (syncedPlayers.ContainsKey(steamID + "@steam"))
+			if (onlineMode)
 			{
-				return "SteamID is already linked to a Discord account. You will have to remove it first.";
-			}
+				if (syncedPlayers.ContainsKey(steamIDOrIP + "@steam"))
+				{
+					return "SteamID is already linked to a Discord account. You will have to remove it first.";
+				}
 
-			if (syncedPlayers.ContainsValue(discordID))
+				if (syncedPlayers.ContainsValue(discordID))
+				{
+					return "Discord user ID is already linked to a Steam account. You will have to remove it first.";
+				}
+
+				string response = "";
+				if (!CheckSteamAccount(steamIDOrIP, ref response))
+				{
+					return response;
+				}
+
+				syncedPlayers.Add(steamIDOrIP + "@steam", discordID);
+				SavePlayers();
+				return "Successfully linked accounts.";				
+			}
+			else
 			{
-				return "Discord user ID is already linked to a Steam account. You will have to remove it first.";
-			}
+				if (syncedPlayers.ContainsKey(steamIDOrIP))
+				{
+					return "IP is already linked to a Discord account. You will have to remove it first.";
+				}
 
-			string response = "";
-			if (!CheckSteamAccount(steamID, ref response))
-			{
-				return response;
-			}
+				if (syncedPlayers.ContainsValue(discordID))
+				{
+					return "Discord user ID is already linked to an IP. You will have to remove it first.";
+				}
 
-			syncedPlayers.Add(steamID + "@steam", discordID);
-			SavePlayers();
-			return "Successfully linked accounts.";
+				string response = "";
+				if (!CheckSteamAccount(steamIDOrIP, ref response))
+				{
+					return response;
+				}
+
+				syncedPlayers.Add(steamIDOrIP, discordID);
+				SavePlayers();
+				return "Successfully linked accounts.";	
+			}
 		}
 
 		private bool CheckSteamAccount(string steamID, ref string response)
@@ -227,7 +276,7 @@ namespace SCPDiscord
 
 		public string RemovePlayer(ulong discordID)
 		{
-			try
+			try // TODO: FIXME Why do I use an exception for this, 2018 me must have been sleep deprived. 2022 me also happens to be very sleep deprived atm though.
 			{
 				KeyValuePair<string, ulong> player = syncedPlayers.First(kvp => kvp.Value == discordID);
 				syncedPlayers.Remove(player.Key);
@@ -236,7 +285,7 @@ namespace SCPDiscord
 			}
 			catch (InvalidOperationException)
 			{
-				return "Discord user ID is not linked to a Steam account";
+				return "Discord user ID is not linked to a Steam account or IP";
 			}
 
 		}
