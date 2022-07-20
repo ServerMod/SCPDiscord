@@ -45,7 +45,8 @@ permissions:
         - syncrole
         - unsyncrole
     222222222222222222: # A moderator example
-        - syncrole
+        - syncsteamid
+        - unsyncrole
         - ban
         - unban
         - kick
