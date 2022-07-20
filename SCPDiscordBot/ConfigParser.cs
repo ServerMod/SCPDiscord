@@ -34,7 +34,7 @@ namespace SCPDiscord
 		}
 		public Plugin plugin;
 
-		public Dictionary<ulong, string[]> permissions;
+		public Dictionary<ulong, string[]> permissions = new Dictionary<ulong, string[]>();
 	}
 
 	public static class ConfigParser
@@ -97,7 +97,7 @@ namespace SCPDiscord
 				Description = "You do not have permission to do that!"
 			};
 			Task.Run(async () => await command.RespondAsync(deniedMessage));
-			Logger.Log(command.Member.Username + "#" + command.Member.Discriminator + " tried to use '" + command.Message.Content + "' but did not have permission.", LogID.COMMAND);
+			Logger.Log(command.Member?.Username + "#" + command.Member?.Discriminator + " tried to use '" + command.Message.Content + "' but did not have permission.", LogID.COMMAND);
 			return false;
 		}
 

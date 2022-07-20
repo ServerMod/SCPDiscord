@@ -18,12 +18,12 @@ namespace SCPDiscord.Commands
 				ConsoleCommand = new Interface.ConsoleCommand
 				{
 					ChannelID = command.Channel.Id,
-					DiscordID = command.Member.Id,
+					DiscordID = command.Member?.Id ?? 0,
 					Command = serverCommand
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member.Username + "#" + command.Member.Discriminator, LogID.DISCORD);
+			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}
 }

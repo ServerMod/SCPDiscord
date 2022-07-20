@@ -47,7 +47,6 @@ namespace SCPDiscord
 				Thread.Sleep(1000);
 			}
 
-			IPEndPoint listenerEndpoint;
 			IPAddress ipAddress;
 
 			if (ConfigParser.config.plugin.address == "0.0.0.0")
@@ -77,7 +76,7 @@ namespace SCPDiscord
 				}
 			}
 
-			listenerEndpoint = new IPEndPoint(ipAddress, ConfigParser.config.plugin.port);
+			IPEndPoint listenerEndpoint = new IPEndPoint(ipAddress, ConfigParser.config.plugin.port);
 			listenerSocket = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 			listenerSocket.Bind(listenerEndpoint);
 			listenerSocket.Listen(10);
@@ -93,7 +92,7 @@ namespace SCPDiscord
 					else
 					{
 						DiscordAPI.SetDisconnectedActivity();
-						Logger.Log("Listening on " + ipAddress.ToString() + ":" + ConfigParser.config.plugin.port, LogID.NETWORK);
+						Logger.Log("Listening on " + ipAddress + ":" + ConfigParser.config.plugin.port, LogID.NETWORK);
 						clientSocket = listenerSocket.Accept();
 						networkStream = new NetworkStream(clientSocket, true);
 						Logger.Log("Plugin connected.", LogID.NETWORK);
@@ -137,7 +136,7 @@ namespace SCPDiscord
 				case MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
 				case MessageWrapper.MessageOneofCase.ConsoleCommand:
 				case MessageWrapper.MessageOneofCase.RoleResponse:
-					Logger.Warn("Recieved packet meant for plugin: " + JsonFormatter.Default.Format(wrapper), LogID.NETWORK);
+					Logger.Warn("Received packet meant for plugin: " + JsonFormatter.Default.Format(wrapper), LogID.NETWORK);
 					break;
 				default:
 					Logger.Warn("Unknown packet received: " + JsonFormatter.Default.Format(wrapper), LogID.NETWORK);

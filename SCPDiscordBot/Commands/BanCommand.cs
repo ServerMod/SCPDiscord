@@ -20,12 +20,12 @@ namespace SCPDiscord.Commands
 					ChannelID = command.Channel.Id,
 					SteamID = steamID,
 					Duration = duration,
-					AdminTag = command.Member.Username + "#" + command.Member.Discriminator,
+					AdminTag = command.Member?.Username + "#" + command.Member?.Discriminator,
 					Reason = reason
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member.Username + "#" + command.Member.Discriminator, LogID.DISCORD);
+			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}
 }
