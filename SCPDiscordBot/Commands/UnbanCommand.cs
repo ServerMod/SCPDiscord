@@ -22,7 +22,7 @@ namespace SCPDiscord.Commands
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member.Username + "#" + command.Member.Discriminator, LogID.Discord);
+			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member.Username + "#" + command.Member.Discriminator, LogID.DISCORD);
 		}
 	}
 }

@@ -63,26 +63,26 @@ namespace SCPDiscord
 
 		public static void PrintConfig()
 		{
-			Logger.Debug("#### Config settings ####", LogID.Config);
+			Logger.Debug("#### Config settings ####", LogID.CONFIG);
 			// Token skipped
-			Logger.Debug("bot.server-id: " + config.bot.serverId, LogID.Config);
-			Logger.Debug("bot.prefix: " + config.bot.prefix, LogID.Config);
-			Logger.Debug("bot.status-channels: " + string.Join(", ", config.bot.statusChannels), LogID.Config);
-			Logger.Debug("bot.command-channels: " + string.Join(", ", config.bot.commandChannels), LogID.Config);
-			Logger.Debug("bot.log-level: " + config.bot.logLevel, LogID.Config);
-			Logger.Debug("bot.presence-type: " + config.bot.presenceType, LogID.Config);
-			Logger.Debug("bot.presence-text: " + config.bot.presenceText, LogID.Config);
+			Logger.Debug("bot.server-id: " + config.bot.serverId, LogID.CONFIG);
+			Logger.Debug("bot.prefix: " + config.bot.prefix, LogID.CONFIG);
+			Logger.Debug("bot.status-channels: " + string.Join(", ", config.bot.statusChannels), LogID.CONFIG);
+			Logger.Debug("bot.command-channels: " + string.Join(", ", config.bot.commandChannels), LogID.CONFIG);
+			Logger.Debug("bot.log-level: " + config.bot.logLevel, LogID.CONFIG);
+			Logger.Debug("bot.presence-type: " + config.bot.presenceType, LogID.CONFIG);
+			Logger.Debug("bot.presence-text: " + config.bot.presenceText, LogID.CONFIG);
 
-			Logger.Debug("plugin.address: " + config.plugin.address, LogID.Config);
-			Logger.Debug("plugin.port: " + config.plugin.port, LogID.Config);
+			Logger.Debug("plugin.address: " + config.plugin.address, LogID.CONFIG);
+			Logger.Debug("plugin.port: " + config.plugin.port, LogID.CONFIG);
 
-			Logger.Debug("permissions:", LogID.Config);
+			Logger.Debug("permissions:", LogID.CONFIG);
 			foreach (KeyValuePair<ulong, string[]> role in config.permissions)
 			{
-				Logger.Debug("  " + role.Key + ":", LogID.Config);
+				Logger.Debug("  " + role.Key + ":", LogID.CONFIG);
 				foreach (string permission in role.Value)
 				{
-					Logger.Debug("    " + permission, LogID.Config);
+					Logger.Debug("    " + permission, LogID.CONFIG);
 				}
 			}
 		}
@@ -97,7 +97,7 @@ namespace SCPDiscord
 				Description = "You do not have permission to do that!"
 			};
 			Task.Run(async () => await command.RespondAsync(deniedMessage));
-			Logger.Log(command.Member.Username + "#" + command.Member.Discriminator + " tried to use '" + command.Message.Content + "' but did not have permission.", LogID.Command);
+			Logger.Log(command.Member.Username + "#" + command.Member.Discriminator + " tried to use '" + command.Message.Content + "' but did not have permission.", LogID.COMMAND);
 			return false;
 		}
 

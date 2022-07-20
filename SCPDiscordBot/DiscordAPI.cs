@@ -17,28 +17,28 @@ namespace SCPDiscord
 	{
 		public static DiscordAPI instance = null;
 		public bool connected = false;
-		public DiscordClient discordClient = null;
+		public static DiscordClient client = new DiscordClient(new DiscordConfiguration { Token = "DUMMY_TOKEN", TokenType = TokenType.Bot, MinimumLogLevel = LogLevel.Debug });
 		private CommandsNextExtension commands = null;
 
-		public async static Task Reset()
+		public static async Task Reset()
 		{
 			try
 			{
-				Logger.Log("Setting up Discord client...", LogID.Discord);
+				Logger.Log("Setting up Discord client...", LogID.DISCORD);
 
 				instance = new DiscordAPI();
 
 				// Check if token is unset
-				if (ConfigParser.config.bot.token == "<add-token-here>" || ConfigParser.config.bot.token == "")
+				if (ConfigParser.config.bot.token == "add-your-token-here" || ConfigParser.config.bot.token == "")
 				{
-					Logger.Fatal("You need to set your bot token in the config and start the bot again.", LogID.Config);
+					Logger.Fatal("You need to set your bot token in the config and start the bot again.", LogID.CONFIG);
 					throw new ArgumentException("Invalid Discord bot token");
 				}
 
 				// Checking log level
 				if (!Enum.TryParse(ConfigParser.config.bot.logLevel, true, out LogLevel logLevel))
 				{
-					Logger.Warn("Log level '" + ConfigParser.config.bot.logLevel + "' invalid, using 'Information' instead.", LogID.Config);
+					Logger.Warn("Log level '" + ConfigParser.config.bot.logLevel + "' invalid, using 'Information' instead.", LogID.CONFIG);
 					logLevel = LogLevel.Information;
 				}
 
@@ -53,10 +53,10 @@ namespace SCPDiscord
 					LogTimestampFormat = "yyyy-MM-dd HH:mm:ss"
 				};
 
-				instance.discordClient = new DiscordClient(cfg);
+				client = new DiscordClient(cfg);
 
-				Logger.Log("Registering commands...", LogID.Discord);
-				instance.commands = instance.discordClient.UseCommandsNext(new CommandsNextConfiguration
+				Logger.Log("Registering commands...", LogID.DISCORD);
+				instance.commands = client.UseCommandsNext(new CommandsNextConfiguration
 				{
 					StringPrefixes = new[] { ConfigParser.config.bot.prefix }
 				});
@@ -71,29 +71,24 @@ namespace SCPDiscord
 				instance.commands.RegisterCommands<Commands.BanCommand>();
 				instance.commands.RegisterCommands<Commands.UnbanCommand>();
 
-				Logger.Log("Hooking events...", LogID.Discord);
-				instance.discordClient.Ready += instance.OnReady;
-				instance.discordClient.GuildAvailable += instance.OnGuildAvailable;
-				instance.discordClient.ClientErrored += instance.OnClientError;
-				instance.discordClient.SocketErrored += instance.OnSocketError;
+				Logger.Log("Hooking events...", LogID.DISCORD);
+				client.Ready += instance.OnReady;
+				client.GuildAvailable += instance.OnGuildAvailable;
+				client.ClientErrored += instance.OnClientError;
+				client.SocketErrored += instance.OnSocketError;
 
-				Logger.Log("Hooking command events...", LogID.Discord);
+				Logger.Log("Hooking command events...", LogID.DISCORD);
 				instance.commands.CommandErrored += instance.OnCommandError;
 
 				ConfigParser.PrintConfig();
 
-				Logger.Log("Connecting to Discord...", LogID.Discord);
-				await instance.discordClient.ConnectAsync();
+				Logger.Log("Connecting to Discord...", LogID.DISCORD);
+				await client.ConnectAsync();
 			}
 			catch (Exception e)
 			{
-				Logger.Error(e.ToString(), LogID.Discord);
+				Logger.Error(e.ToString(), LogID.DISCORD);
 			}
-		}
-
-		public static DiscordClient GetClient()
-		{
-			return instance.discordClient;
 		}
 
 		public static void SetDisconnectedActivity()
@@ -101,7 +96,7 @@ namespace SCPDiscord
 			// Checking activity type
 			if (!Enum.TryParse(ConfigParser.config.bot.presenceType, true, out ActivityType activityType))
 			{
-				Logger.Warn("Presence type '" + ConfigParser.config.bot.presenceType + "' invalid, using 'Playing' instead.", LogID.Discord);
+				Logger.Warn("Presence type '" + ConfigParser.config.bot.presenceType + "' invalid, using 'Playing' instead.", LogID.DISCORD);
 				activityType = ActivityType.Playing;
 			}
 
@@ -111,7 +106,7 @@ namespace SCPDiscord
 		public static void SetActivity(string activityText, ActivityType activityType, UserStatus status)
 		{
 			if (instance.connected)
-				GetClient()?.UpdateStatusAsync(new DiscordActivity(activityText, activityType), status);
+				client.UpdateStatusAsync(new DiscordActivity(activityText, activityType), status);
 		}
 
 		public static async Task SendMessage(ulong channelID, string message)
@@ -120,7 +115,7 @@ namespace SCPDiscord
 
 			try
 			{
-				DiscordChannel channel = await GetClient().GetChannelAsync(channelID);
+				DiscordChannel channel = await client.GetChannelAsync(channelID);
 				try
 				{
 					foreach (string content in SplitString(message, 2000))
@@ -130,12 +125,12 @@ namespace SCPDiscord
 				}
 				catch (UnauthorizedException)
 				{
-					Logger.Error("No permissions to send message in '" + channel.Name + "'", LogID.Discord);
+					Logger.Error("No permissions to send message in '" + channel.Name + "'", LogID.DISCORD);
 				}
 			}
 			catch (Exception)
 			{
-				Logger.Error("Could not send message in text channel with the ID '" + channelID + "'", LogID.Discord);
+				Logger.Error("Could not send message in text channel with the ID '" + channelID + "'", LogID.DISCORD);
 			}
 		}
 
@@ -145,19 +140,19 @@ namespace SCPDiscord
 
 			try
 			{
-				DiscordChannel channel = await GetClient().GetChannelAsync(channelID);
+				DiscordChannel channel = await client.GetChannelAsync(channelID);
 				try
 				{
 					await channel.SendMessageAsync(message);
 				}
 				catch (UnauthorizedException)
 				{
-					Logger.Error("No permissions to send message in '" + channel.Name + "'", LogID.Discord);
+					Logger.Error("No permissions to send message in '" + channel.Name + "'", LogID.DISCORD);
 				}
 			}
 			catch (Exception)
 			{
-				Logger.Error("Could not send message in text channel with the ID '" + channelID + "'", LogID.Discord);
+				Logger.Error("Could not send message in text channel with the ID '" + channelID + "'", LogID.DISCORD);
 			}
 		}
 
@@ -175,13 +170,13 @@ namespace SCPDiscord
 
 			if (ConfigParser.config.bot.serverId == 0)
 			{
-				Logger.Warn("Plugin attempted to use role sync, but no server ID was set in the config. Ignoring request...", LogID.Discord);
+				Logger.Warn("Plugin attempted to use role sync, but no server ID was set in the config. Ignoring request...", LogID.DISCORD);
 				return;
 			}
 
 			try
 			{
-				DiscordGuild guild = await GetClient().GetGuildAsync(ConfigParser.config.bot.serverId);
+				DiscordGuild guild = await client.GetGuildAsync(ConfigParser.config.bot.serverId);
 				DiscordMember member = await guild.GetMemberAsync(userID);
 
 				Interface.MessageWrapper message = new Interface.MessageWrapper
@@ -197,14 +192,14 @@ namespace SCPDiscord
 			}
 			catch (Exception)
 			{
-				Logger.Warn("Couldn't find discord server or server member for role syncing requested by plugin. Discord ID: " + userID + " SteamID/IP: " + steamID, LogID.Discord);
+				Logger.Warn("Couldn't find discord server or server member for role syncing requested by plugin. Discord ID: " + userID + " SteamID/IP: " + steamID, LogID.DISCORD);
 			}
 		}
 
 		public async Task OnReady(DiscordClient client, ReadyEventArgs e)
 		{
 			instance.connected = true;
-			Logger.Log("Connected to Discord.", LogID.Discord);
+			Logger.Log("Connected to Discord.", LogID.DISCORD);
 			SetDisconnectedActivity();
 
 			foreach (ulong channelID in ConfigParser.config.bot.statusChannels)
@@ -220,26 +215,26 @@ namespace SCPDiscord
 
 		public Task OnSocketError(DiscordClient client, SocketErrorEventArgs e)
 		{
-			Logger.Debug("Discord socket error: " + e.Exception.ToString(), LogID.Discord);
+			Logger.Debug("Discord socket error: " + e.Exception, LogID.DISCORD);
 			return Task.CompletedTask;
 		}
 
 		public Task OnGuildAvailable(DiscordClient client, GuildCreateEventArgs e)
 		{
-			Logger.Log("Found Discord server: " + e.Guild.Name, LogID.Discord);
+			Logger.Log("Found Discord server: " + e.Guild.Name, LogID.DISCORD);
 
 			IReadOnlyDictionary<ulong, DiscordRole> roles = e.Guild.Roles;
 
 			foreach ((ulong roleID, DiscordRole role) in roles)
 			{
-				Logger.Debug(role.Name.PadRight(40, '.') + roleID, LogID.Discord);
+				Logger.Debug(role.Name.PadRight(40, '.') + roleID, LogID.DISCORD);
 			}
 			return Task.CompletedTask;
 		}
 
 		public Task OnClientError(DiscordClient client, ClientErrorEventArgs e)
 		{
-			Logger.Error($"Exception occured: {e.Exception.GetType()}: {e.Exception}", LogID.Discord);
+			Logger.Error($"Exception occured: {e.Exception.GetType()}: {e.Exception}", LogID.DISCORD);
 
 			return Task.CompletedTask;
 		}
@@ -248,10 +243,10 @@ namespace SCPDiscord
 		{
 			switch (e.Exception)
 			{
-				case CommandNotFoundException ex:
+				case CommandNotFoundException:
 					return Task.CompletedTask;
 
-				case ArgumentException ex:
+				case ArgumentException:
 				{
 					if (!ConfigParser.IsCommandChannel(e.Context.Channel.Id)) return Task.CompletedTask;
 					DiscordEmbed error = new DiscordEmbedBuilder
@@ -280,7 +275,7 @@ namespace SCPDiscord
 
 				default:
 				{
-					Logger.Error($"Exception occured: {e.Exception.GetType()}: {e.Exception}", LogID.Discord);
+					Logger.Error("Exception occured: " + e.Exception, LogID.DISCORD);
 					if (!ConfigParser.IsCommandChannel(e.Context.Channel.Id)) return Task.CompletedTask;
 					DiscordEmbed error = new DiscordEmbedBuilder
 					{

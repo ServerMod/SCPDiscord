@@ -20,7 +20,7 @@ namespace SCPDiscord
 		{
 			instance = this;
 
-			Logger.Log("Starting SCPDiscord version " + GetVersion() + "...", LogID.General);
+			Logger.Log("Starting SCPDiscord version " + GetVersion() + "...", LogID.GENERAL);
 			try
 			{
 				Reload();
@@ -30,8 +30,8 @@ namespace SCPDiscord
 			}
 			catch (Exception e)
 			{
-				Logger.Fatal("Fatal error:", LogID.General);
-				Logger.Fatal(e.ToString(), LogID.General);
+				Logger.Fatal("Fatal error:", LogID.GENERAL);
+				Logger.Fatal(e.ToString(), LogID.GENERAL);
 				Console.ReadLine();
 			}
 		}
@@ -41,7 +41,7 @@ namespace SCPDiscord
 			ConfigParser.loaded = false;
 			NetworkSystem.ShutDown();
 
-			Logger.Log("Loading config \"" + Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + "config.yml\"", LogID.Config);
+			Logger.Log("Loading config \"" + Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + "config.yml\"", LogID.CONFIG);
 			ConfigParser.LoadConfig();
 
 			await DiscordAPI.Reset();
