@@ -54,7 +54,7 @@ namespace SCPDiscord
 		{
 			if (onlineMode)
 			{
-				if (player.UserIDType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserID))
+				if (player.UserIdType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserId))
 				{
 					return;
 				}
@@ -63,8 +63,8 @@ namespace SCPDiscord
 				{
 					RoleQuery = new RoleQuery
 					{
-						SteamIDOrIP = player.UserID,
-						DiscordID = syncedPlayers[player.UserID]
+						SteamIDOrIP = player.UserId,
+						DiscordID = syncedPlayers[player.UserId]
 					}
 				};
 
@@ -72,7 +72,7 @@ namespace SCPDiscord
 			}
 			else
 			{
-				if (!syncedPlayers.ContainsKey(player.IPAddress))
+				if (!syncedPlayers.ContainsKey(player.IpAddress))
 				{
 					return;
 				}
@@ -81,8 +81,8 @@ namespace SCPDiscord
 				{
 					RoleQuery = new RoleQuery
 					{
-						SteamIDOrIP = player.IPAddress,
-						DiscordID = syncedPlayers[player.IPAddress]
+						SteamIDOrIP = player.IpAddress,
+						DiscordID = syncedPlayers[player.IpAddress]
 					}
 				};
 
@@ -90,7 +90,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public void ReceiveQueryResponse(string UserId, List<ulong> roleIDs)
+		public void ReceiveQueryResponse(string userID, List<ulong> roleIDs)
 		{
 			try
 			{
