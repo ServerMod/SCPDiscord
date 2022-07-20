@@ -18,7 +18,7 @@ namespace SCPDiscord.Commands
 			if (!ConfigParser.IsCommandChannel(command.Channel.Id)) return;
 			if (!ConfigParser.ValidatePermission(command)) return;
 
-			if (Regex.IsMatch(ip, IPV4_PATTERN))
+			if (!Regex.IsMatch(ip, IPV4_PATTERN))
 			{
 				DiscordEmbed error = new DiscordEmbedBuilder
 				{
