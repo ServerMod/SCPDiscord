@@ -18,12 +18,12 @@ namespace SCPDiscord.Commands
 				KickallCommand = new Interface.KickallCommand
 				{
 					ChannelID = command.Channel.Id,
-					AdminTag = command.Member.Username + "#" + command.Member.Discriminator,
+					AdminTag = command.Member?.Username + "#" + command.Member?.Discriminator,
 					Reason = kickReason
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member.Username + "#" + command.Member.Discriminator, LogID.DISCORD);
+			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}
 }

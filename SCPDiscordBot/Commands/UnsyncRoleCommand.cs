@@ -18,12 +18,12 @@ namespace SCPDiscord.Commands
 				UnsyncRoleCommand = new Interface.UnsyncRoleCommand
 				{
 					ChannelID = command.Channel.Id,
-					DiscordID = command.Member.Id,
-					DiscordTag = command.Member.Username
+					DiscordID = command.Member?.Id ?? 0,
+					DiscordTag = command.Member?.Username
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member.Username + "#" + command.Member.Discriminator, LogID.DISCORD);
+			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}
 }

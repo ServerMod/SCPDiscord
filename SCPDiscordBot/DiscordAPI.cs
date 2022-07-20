@@ -196,7 +196,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public async Task OnReady(DiscordClient client, ReadyEventArgs e)
+		public async Task OnReady(DiscordClient discordClient, ReadyEventArgs e)
 		{
 			instance.connected = true;
 			Logger.Log("Connected to Discord.", LogID.DISCORD);
@@ -213,13 +213,13 @@ namespace SCPDiscord
 			}
 		}
 
-		public Task OnSocketError(DiscordClient client, SocketErrorEventArgs e)
+		public Task OnSocketError(DiscordClient discordClient, SocketErrorEventArgs e)
 		{
 			Logger.Debug("Discord socket error: " + e.Exception, LogID.DISCORD);
 			return Task.CompletedTask;
 		}
 
-		public Task OnGuildAvailable(DiscordClient client, GuildCreateEventArgs e)
+		public Task OnGuildAvailable(DiscordClient discordClient, GuildCreateEventArgs e)
 		{
 			Logger.Log("Found Discord server: " + e.Guild.Name, LogID.DISCORD);
 
@@ -232,7 +232,7 @@ namespace SCPDiscord
 			return Task.CompletedTask;
 		}
 
-		public Task OnClientError(DiscordClient client, ClientErrorEventArgs e)
+		public Task OnClientError(DiscordClient discordClient, ClientErrorEventArgs e)
 		{
 			Logger.Error($"Exception occured: {e.Exception.GetType()}: {e.Exception}", LogID.DISCORD);
 
@@ -254,7 +254,7 @@ namespace SCPDiscord
 						Color = DiscordColor.Red,
 						Description = "Invalid arguments."
 					};
-					e.Context?.Channel?.SendMessageAsync(error);
+					e.Context.Channel.SendMessageAsync(error);
 					return Task.CompletedTask;
 				}
 
@@ -266,9 +266,9 @@ namespace SCPDiscord
 						DiscordEmbed error = new DiscordEmbedBuilder
 						{
 							Color = DiscordColor.Red,
-							Description = this.ParseFailedCheck(attr)
+							Description = ParseFailedCheck(attr)
 						};
-						e.Context?.Channel?.SendMessageAsync(error);
+						e.Context.Channel.SendMessageAsync(error);
 					}
 					return Task.CompletedTask;
 				}
@@ -282,7 +282,7 @@ namespace SCPDiscord
 						Color = DiscordColor.Red,
 						Description = "Internal error occured, please report this to the developer."
 					};
-					e.Context?.Channel?.SendMessageAsync(error);
+					e.Context.Channel.SendMessageAsync(error);
 					return Task.CompletedTask;
 				}
 			}
