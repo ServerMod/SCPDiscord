@@ -8,6 +8,9 @@ namespace SCPDiscord.Commands
 {
 	public class SyncIPCommand : BaseCommandModule
 	{
+
+		private static readonly string IPV4_PATTERN = "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){3}(25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)$";
+		
 		[Command("syncip")]
 		[Cooldown(1, 5, CooldownBucketType.User)]
 		public async Task OnExecute(CommandContext command, string ip)
@@ -15,7 +18,7 @@ namespace SCPDiscord.Commands
 			if (!ConfigParser.IsCommandChannel(command.Channel.Id)) return;
 			if (!ConfigParser.ValidatePermission(command)) return;
 
-			if (Regex.IsMatch(ip, "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)(\\.(?!$)|$)){4}$"))
+			if (Regex.IsMatch(ip, IPV4_PATTERN))
 			{
 				DiscordEmbed error = new DiscordEmbedBuilder
 				{
