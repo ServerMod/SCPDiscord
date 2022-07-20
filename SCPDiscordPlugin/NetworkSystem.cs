@@ -170,7 +170,7 @@ namespace SCPDiscord
 		{
 			if (message == null)
 			{
-				plugin.Error("Tried to send message but it was null. " + new StackTrace());
+				plugin.Warn("Tried to send message but it was null. " + new StackTrace());
 				return true;
 			}
 
@@ -330,6 +330,11 @@ namespace SCPDiscord
 
 		public static void QueueMessage(MessageWrapper message)
 		{
+			if (message == null)
+			{
+				plugin.Warn("Message was null: \n" + new StackTrace());
+                return;
+			}
 			messageQueue.Add(message);
 		}
 
