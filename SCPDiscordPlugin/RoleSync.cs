@@ -153,6 +153,7 @@ namespace SCPDiscord
 		{
 			if (onlineMode)
 			{
+				plugin.Warn("SERVER IS IN ONLINE MODE");
 				if (syncedPlayers.ContainsKey(steamIDOrIP + "@steam"))
 				{
 					return "SteamID is already linked to a Discord account. You will have to remove it first.";
@@ -175,6 +176,7 @@ namespace SCPDiscord
 			}
 			else
 			{
+				plugin.Warn("SERVER IS IN OFFLINE MODE");
 				if (syncedPlayers.ContainsKey(steamIDOrIP))
 				{
 					return "IP is already linked to a Discord account. You will have to remove it first.";
