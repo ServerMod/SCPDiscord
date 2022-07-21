@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SCPDiscord
 {
@@ -88,16 +89,30 @@ namespace SCPDiscord
 			}
 		}
 
-		public void ReceiveQueryResponse(string userID, List<ulong> roleIDs)
+		public void ReceiveQueryResponse(string steamIDOrIP, List<ulong> roleIDs)
 		{
+			Task.Delay(250);
 			try
 			{
-				Player player;
+				// For online servers this should always be one player but for offline servers it may match several
+				List<Player> matchingPlayers = new List<Player>();
 				try
 				{
-					plugin.Debug("Syncing User: " + userID);
-					plugin.Debug("Player found on server: " + plugin.Server.GetPlayers(userID).Any());
-					player = plugin.Server.GetPlayers(userID)?.FirstOrDefault();
+					plugin.Debug("Looking for player with SteamID/IP: " + steamIDOrIP);
+					foreach (Player pl in plugin.Server.GetPlayers())
+					{
+						plugin.Debug("Player " + pl.PlayerId + ": SteamID " + pl.UserId + " IP " + pl.IpAddress);
+						if (pl.UserId == steamIDOrIP)
+						{
+							plugin.Debug("Matching SteamID found");
+							matchingPlayers.Add(pl);
+						}
+						else if (pl.IpAddress == steamIDOrIP)
+						{
+							plugin.Debug("Matching IP found");
+							matchingPlayers.Add(pl);
+						}
+					}
 				}
 				catch (NullReferenceException e)
 				{
@@ -105,40 +120,43 @@ namespace SCPDiscord
 					return;
 				}
 
-				if (player == null)
+				if (matchingPlayers.Count == 0)
 				{
 					plugin.Error("Could not get player for rolesync, did they disconnect immediately?");
 					return;
 				}
 
-				foreach (KeyValuePair<ulong, string[]> keyValuePair in roleDictionary)
+				foreach (Player player in matchingPlayers)
 				{
-					plugin.Debug("User has discord role " + keyValuePair.Key + ": " + roleIDs.Contains(keyValuePair.Key));
-					if (roleIDs.Contains(keyValuePair.Key))
+					foreach (KeyValuePair<ulong, string[]> keyValuePair in roleDictionary)
 					{
-						Dictionary<string, string> variables = new Dictionary<string, string>
+						plugin.Debug("User has discord role " + keyValuePair.Key + ": " + roleIDs.Contains(keyValuePair.Key));
+						if (roleIDs.Contains(keyValuePair.Key))
 						{
-							{ "ipaddress",    player.IpAddress            },
-							{ "name",         player.Name                 },
-							{ "playerid",     player.PlayerId.ToString()  },
-							{ "UserId",       player.UserId               },
-							{ "steamid",      player.GetParsedUserID()    }
-						};
-						foreach (string unparsedCommand in keyValuePair.Value)
-						{
-							string command = unparsedCommand;
-							// Variable insertion
-							foreach (KeyValuePair<string, string> variable in variables)
+							Dictionary<string, string> variables = new Dictionary<string, string>
 							{
-								command = command.Replace("<var:" + variable.Key + ">", variable.Value);
+								{ "ipaddress",    player.IpAddress            },
+								{ "name",         player.Name                 },
+								{ "playerid",     player.PlayerId.ToString()  },
+								{ "UserId",       player.UserId               },
+								{ "steamid",      player.GetParsedUserID()    }
+							};
+							foreach (string unparsedCommand in keyValuePair.Value)
+							{
+								string command = unparsedCommand;
+								// Variable insertion
+								foreach (KeyValuePair<string, string> variable in variables)
+								{
+									command = command.Replace("<var:" + variable.Key + ">", variable.Value);
+								}
+								plugin.Debug("Running rolesync command: " + command);
+								plugin.sync.ScheduleRoleSyncCommand(command);
 							}
-							plugin.Debug("Running rolesync command: " + command);
-							plugin.sync.ScheduleRoleSyncCommand(command);
-						}
 
-						plugin.Verbose("Synced " + player.Name + " (" + userID + ") with Discord role id " + keyValuePair.Key);
-						return;
-					}
+							plugin.Verbose("Synced " + player.Name + " (" + steamIDOrIP + ") with Discord role id " + keyValuePair.Key);
+							return;
+						}
+					}					
 				}
 			}
 			catch (InvalidOperationException)
