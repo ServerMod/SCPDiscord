@@ -41,13 +41,13 @@ namespace SCPDiscord.Commands
 				SCPDiscord.plugin.Debug("Looking for player with SteamID/PlayerID: " + steamIDOrPlayerID);
 				foreach (Player pl in SCPDiscord.plugin.Server.GetPlayers())
 				{
-					SCPDiscord.plugin.Debug("Player " + pl.PlayerId + ": SteamID " + pl.UserId + " PlayerID " + pl.PlayerId);
+					SCPDiscord.plugin.Debug("Player " + pl.PlayerID + ": SteamID " + pl.UserID + " PlayerID " + pl.PlayerID);
 					if (pl.GetParsedUserID() == steamIDOrPlayerID)
 					{
 						SCPDiscord.plugin.Debug("Matching SteamID found");
 						matchingPlayers.Add(pl);
 					}
-					else if (pl.PlayerId.ToString() == steamIDOrPlayerID)
+					else if (pl.PlayerID.ToString() == steamIDOrPlayerID)
 					{
 						SCPDiscord.plugin.Debug("Matching playerID found");
 						matchingPlayers.Add(pl);

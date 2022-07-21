@@ -101,13 +101,13 @@ namespace SCPDiscord
 					plugin.Debug("Looking for player with SteamID/IP: " + steamIDOrIP);
 					foreach (Player pl in plugin.Server.GetPlayers())
 					{
-						plugin.Debug("Player " + pl.PlayerId + ": SteamID " + pl.UserId + " IP " + pl.IpAddress);
-						if (pl.UserId == steamIDOrIP)
+						plugin.Debug("Player " + pl.PlayerID + ": SteamID " + pl.UserID + " IP " + pl.IPAddress);
+						if (pl.UserID == steamIDOrIP)
 						{
 							plugin.Debug("Matching SteamID found");
 							matchingPlayers.Add(pl);
 						}
-						else if (pl.IpAddress == steamIDOrIP)
+						else if (pl.IPAddress == steamIDOrIP)
 						{
 							plugin.Debug("Matching IP found");
 							matchingPlayers.Add(pl);
@@ -135,10 +135,10 @@ namespace SCPDiscord
 						{
 							Dictionary<string, string> variables = new Dictionary<string, string>
 							{
-								{ "ipaddress",    player.IpAddress            },
+								{ "ipaddress",    player.IPAddress            },
 								{ "name",         player.Name                 },
-								{ "playerid",     player.PlayerId.ToString()  },
-								{ "UserId",       player.UserId               },
+								{ "playerid",     player.PlayerID.ToString()  },
+								{ "UserId",       player.UserID               },
 								{ "steamid",      player.GetParsedUserID()    }
 							};
 							foreach (string unparsedCommand in keyValuePair.Value)
