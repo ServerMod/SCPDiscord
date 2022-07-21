@@ -1,6 +1,7 @@
 using Smod2.API;
 using Smod2.Commands;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SCPDiscord.Commands
@@ -32,17 +33,45 @@ namespace SCPDiscord.Commands
 				return new[] { "Invalid arguments." };
 			}
 
+			string steamIDOrPlayerID = args[0].Replace("@steam", ""); // Remove steam suffix if there is one
+
+			List<Player> matchingPlayers = new List<Player>();
 			try
 			{
-				Player player = SCPDiscord.plugin.Server.GetPlayers(args[0]).First();
-				player.SetRank(null, null, args[1]);
-				return new[] { "Player rank updated." };
-
+				SCPDiscord.plugin.Debug("Looking for player with SteamID/PlayerID: " + steamIDOrPlayerID);
+				foreach (Player pl in SCPDiscord.plugin.Server.GetPlayers())
+				{
+					SCPDiscord.plugin.Debug("Player " + pl.PlayerId + ": SteamID " + pl.UserId + " PlayerID " + pl.PlayerId);
+					if (pl.GetParsedUserID() == steamIDOrPlayerID)
+					{
+						SCPDiscord.plugin.Debug("Matching SteamID found");
+						matchingPlayers.Add(pl);
+					}
+					else if (pl.PlayerId.ToString() == steamIDOrPlayerID)
+					{
+						SCPDiscord.plugin.Debug("Matching playerID found");
+						matchingPlayers.Add(pl);
+					}
+				}
 			}
-			catch (InvalidOperationException)
+			catch (Exception)
 			{
-				return new[] { "Player not found." };
+				return new[] { "Player \"" + args[0] + "\"not found." };
 			}
+			
+			try
+			{
+				foreach (Player matchingPlayer in matchingPlayers)
+				{
+					matchingPlayer.SetRank(null, null, args[1]);
+				}
+			}
+			catch (Exception)
+			{
+				return new[] { "Vanilla rank \"" + args[1] + "\" not found. Are you sure you are using the RA config role name and not the role title/badge?" };
+			}
+			
+			return new[] { "Player rank updated." };
 		}
 	}
 }
