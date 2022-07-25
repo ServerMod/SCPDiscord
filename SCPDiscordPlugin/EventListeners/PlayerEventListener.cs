@@ -807,17 +807,17 @@ namespace SCPDiscord.EventListeners
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "playeripaddress",    ev.Player.IPAddress                 },
-				{ "playername",         ev.Player.Name                      },
-				{ "playerplayerid",     ev.Player.PlayerID.ToString()       },
-				{ "playersteamid",      ev.Player.GetParsedUserID() ?? ev.Player.UserID },
-				{ "playerclass",        ev.Player.PlayerRole.RoleID.ToString()    },
-				{ "playerteam",         ev.Player.PlayerRole.Team.ToString()  },
-				{ "targetipaddress",    ev.Victim.IPAddress                 },
-				{ "targetname",         ev.Victim.Name                      },
-				{ "targetplayerid",     ev.Victim.PlayerID.ToString()       },
-				{ "targetsteamid",      ev.Victim.GetParsedUserID() ?? ev.Player.UserID },
-				{ "targetclass",        ev.Victim.PlayerRole.RoleID.ToString()    },
-				{ "targetteam",         ev.Victim.PlayerRole.Team.ToString()  },
+				{ "playername",         ev.Player?.Name                      },
+				{ "playerplayerid",     ev.Player?.PlayerID.ToString()       },
+				{ "playersteamid",      ev.Player?.GetParsedUserID() ?? ev.Player?.UserID },
+				{ "playerclass",        ev.Player?.PlayerRole.RoleID.ToString()    },
+				{ "playerteam",         ev.Player?.PlayerRole.Team.ToString()  },
+				{ "targetipaddress",    ev.Victim?.IPAddress                 },
+				{ "targetname",         ev.Victim?.Name                      },
+				{ "targetplayerid",     ev.Victim?.PlayerID.ToString()       },
+				{ "targetsteamid",      ev.Victim?.GetParsedUserID() ?? ev.Victim?.UserID },
+				{ "targetclass",        ev.Victim?.PlayerRole.RoleID.ToString()    },
+				{ "targetteam",         ev.Victim?.PlayerRole.Team.ToString()  },
 			};
 			this.plugin.SendMessage(Config.GetArray("channels.ongrenadehitplayer"), "player.ongrenadehitplayer", variables);
 		}
