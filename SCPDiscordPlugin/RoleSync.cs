@@ -137,8 +137,8 @@ namespace SCPDiscord
 							{
 								{ "ipaddress",    player.IpAddress            },
 								{ "name",         player.Name                 },
-								{ "playerid",     player.PlayerId.ToString()  },
-								{ "UserId",       player.UserId               },
+								{ "playerid",     player.PlayerID.ToString()  },
+								{ "userid",       player.UserID               },
 								{ "steamid",      player.GetParsedUserID()    }
 							};
 							foreach (string unparsedCommand in keyValuePair.Value)
