@@ -72,6 +72,10 @@ pipeline {
                 sh 'zip -r SCPDiscord.zip SCPDiscord'
                 archiveArtifacts(artifacts: 'SCPDiscord.zip', onlyIfSuccessful: true)
             }
+            when { triggeredBy 'BuildUpstreamCause' }
+            steps {
+                sh 'cp SCPDiscord.zip $PLUGIN_BUILDER_ARTIFACT_DIR'
+            }
         }
     }
 }
