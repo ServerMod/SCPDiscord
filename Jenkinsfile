@@ -68,12 +68,16 @@ pipeline {
             }
         }
         stage('Archive') {
+            when { not { triggeredBy 'BuildUpstreamCause' } }
             steps {
                 sh 'zip -r SCPDiscord.zip SCPDiscord'
                 archiveArtifacts(artifacts: 'SCPDiscord.zip', onlyIfSuccessful: true)
             }
+        }
+        stage('Send upstream') {
             when { triggeredBy 'BuildUpstreamCause' }
             steps {
+                sh 'zip -r SCPDiscord.zip SCPDiscord'
                 sh 'cp SCPDiscord.zip $PLUGIN_BUILDER_ARTIFACT_DIR'
             }
         }
