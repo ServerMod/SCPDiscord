@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     parameters {
-        bool(defaultValue: false, description: 'Use Smod from the ServerMod job rather than the included one.', name: 'useCustomSmod')
+        booleanParam(defaultValue: false, description: 'Use Smod from the ServerMod job rather than the included one.', name: 'useCustomSmod')
     }
     
     stages {
