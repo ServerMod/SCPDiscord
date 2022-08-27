@@ -11,7 +11,7 @@ pipeline {
                 sh 'nuget restore SCPDiscord.sln'
                 script {
                 echo "UseCustomSmod: $useCustomSmod"
-                    if (env.useCustomSmod)
+                    if (params.useCustomSmod)
                     {
                         sh ('rm SCPDiscordPlugin/lib/Assembly-CSharp.dll')
                         sh ('rm SCPDiscordPlugin/lib/Smod2.dll')
