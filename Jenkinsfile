@@ -1,24 +1,19 @@
 pipeline {
     agent any
-    
-    parameters {
-        booleanParam(defaultValue: false, description: 'Use Smod from the ServerMod job rather than the included one.', name: 'useCustomSmod')
-    }
-    
+        
     stages {
         stage('Dependencies') {
             steps {
                 sh 'nuget restore SCPDiscord.sln'
-                script {
-                echo "UseCustomSmod: $useCustomSmod"
-                    if (params.useCustomSmod)
-                    {
-                        sh ('rm SCPDiscordPlugin/lib/Assembly-CSharp.dll')
-                        sh ('rm SCPDiscordPlugin/lib/Smod2.dll')
-                        sh ('ln -s $SCPSL_LIBS/Assembly-CSharp.dll SCPDiscordPlugin/lib/Assembly-CSharp.dll')
-                        sh ('ln -s $SCPSL_LIBS/Smod2.dll SCPDiscordPlugin/lib/Smod2.dll')
-                    }
-                }
+            }
+        }
+        stage('Use upstream Smod') {
+            when { triggeredBy 'BuildUpstreamCause' }
+            steps {
+                sh ('rm SCPDiscordPlugin/lib/Assembly-CSharp.dll')
+                sh ('rm SCPDiscordPlugin/lib/Smod2.dll')
+                sh ('ln -s $SCPSL_LIBS/Assembly-CSharp.dll SCPDiscordPlugin/lib/Assembly-CSharp.dll')
+                sh ('ln -s $SCPSL_LIBS/Smod2.dll SCPDiscordPlugin/lib/Smod2.dll')
             }
         }
         stage('Build') {
