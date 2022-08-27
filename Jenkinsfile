@@ -2,15 +2,21 @@ pipeline {
     agent any
     
     parameters {
-        booleanParam(defaultValue: false, description: 'Use Smod from the ServerMod job rather than the included one.', name: 'useCustomSmod')
+        booleanParam(defaultValue: false, description: 'Use Smod from the ServerMod job.', name: 'useCustomSmod')
     }
     
+    skipDefaultCheckout(true)
+    
     stages {
+    
+        stage('Clone repo') {
+            cleanWs()
+            checkout scm
+        }
         stage('Dependencies') {
             steps {
                 sh 'nuget restore SCPDiscord.sln'
                 script {
-                echo "UseCustomSmod: $useCustomSmod"
                     if (params.useCustomSmod)
                     {
                         sh ('rm SCPDiscordPlugin/lib/Assembly-CSharp.dll')
