@@ -5,16 +5,13 @@ pipeline {
         booleanParam(defaultValue: false, description: 'Use Smod from the ServerMod job.', name: 'useCustomSmod')
     }
     
-    options {
-        skipDefaultCheckout(true)
-    }
-      
+    skipDefaultCheckout(true)
+    
     stages {
+    
         stage('Clone repo') {
-            steps {
-                cleanWs()
-                checkout scm            
-            }
+            cleanWs()
+            checkout scm
         }
         stage('Dependencies') {
             steps {
