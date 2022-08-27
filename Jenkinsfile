@@ -1,16 +1,22 @@
 pipeline {
     agent any
-    properties([
-        parameters([
-            string(defaultValue: '', description: 'Set to a path if a custom smod dir should be used. (Leave empty on manual builds)', name: 'customSmodDir'),
-        ])
-    ])
+    
+    parameters {
+        bool(defaultValue: false, description: 'Use Smod from the ServerMod job rather than the included one.', name: 'useCustomSmod')
+    }
+    
     stages {
         stage('Dependencies') {
             steps {
                 sh 'nuget restore SCPDiscord.sln'
                 script {
-                 
+                    if (useCustomSmod)
+                    {
+                        sh ('rm SCPDiscordPlugin/lib/Assembly-CSharp.dll')
+                        sh ('rm SCPDiscordPlugin/lib/Smod2.dll')
+                        sh ('ln -s $SCPSL_LIBS/Assembly-CSharp.dll SCPDiscordPlugin/lib/Assembly-CSharp.dll')
+                        sh ('ln -s $SCPSL_LIBS/Smod2.dll SCPDiscordPlugin/lib/Smod2.dll')
+                    }
                 }
             }
         }
