@@ -20,7 +20,7 @@ pipeline {
             parallel {
                 stage('Plugin') {
                     steps {
-                        sh 'msbuild SCPDiscordPlugin/SCPDiscordPlugin.csproj -t:restore'
+                        sh 'nuget SCPDiscordPlugin/SCPDiscordPlugin.csproj restore'
                         sh 'msbuild SCPDiscordPlugin/SCPDiscordPlugin.csproj -restore -p:PostBuildEvent='
                     }
                 }
