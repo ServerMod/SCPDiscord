@@ -2,9 +2,12 @@ syntax = "proto3";
 
 package SCPDiscord.Interface;
 
-message RoleResponse
+message UserInfo
 {
 	string SteamIDOrIP = 1;
 	uint64 DiscordID = 2;
 	repeated uint64 RoleIDs = 3;
+	string DiscordDisplayName = 4;
+	string DiscordUsername = 5;
+	string DiscordUsernameWithDiscriminator = 6;
 }

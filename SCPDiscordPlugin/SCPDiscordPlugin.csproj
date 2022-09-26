@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\GrantVanillaRankCommand.cs" />
+    <Compile Include="Commands\SetNickname.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Commands\DebugCommand.cs" />
     <Compile Include="EventListeners\AdminEventListener.cs" />
@@ -80,11 +81,11 @@
     <Compile Include="Interface\KickCommand.cs" />
     <Compile Include="Interface\ListCommand.cs" />
     <Compile Include="Interface\MessageWrapper.cs" />
-    <Compile Include="Interface\RoleQuery.cs" />
-    <Compile Include="Interface\RoleResponse.cs" />
     <Compile Include="Interface\SyncRoleCommand.cs" />
     <Compile Include="Interface\UnbanCommand.cs" />
     <Compile Include="Interface\UnsyncRoleCommand.cs" />
+    <Compile Include="Interface\UserInfo.cs" />
+    <Compile Include="Interface\UserQuery.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="NetworkSystem.cs" />
     <Compile Include="EventListeners\RoundEventListener.cs" />

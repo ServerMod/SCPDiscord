@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package SCPDiscord.Interface;
 
-message RoleQuery
+message UserQuery
 {
 	string SteamIDOrIP = 1;
 	uint64 DiscordID = 2;

@@ -60,7 +60,7 @@ namespace SCPDiscord
 
 				MessageWrapper message = new MessageWrapper
 				{
-					RoleQuery = new RoleQuery
+					UserQuery = new UserQuery
 					{
 						SteamIDOrIP = player.UserID,
 						DiscordID = syncedPlayers[player.UserID]
@@ -78,7 +78,7 @@ namespace SCPDiscord
 
 				MessageWrapper message = new MessageWrapper
 				{
-					RoleQuery = new RoleQuery
+					UserQuery = new UserQuery
 					{
 						SteamIDOrIP = player.IPAddress,
 						DiscordID = syncedPlayers[player.IPAddress]
@@ -89,25 +89,25 @@ namespace SCPDiscord
 			}
 		}
 
-		public void ReceiveQueryResponse(string steamIDOrIP, List<ulong> roleIDs)
+		public void ReceiveQueryResponse(UserInfo userInfo)
 		{
-			Task.Delay(250);
+			Task.Delay(1000);
 			try
 			{
 				// For online servers this should always be one player but for offline servers it may match several
 				List<Player> matchingPlayers = new List<Player>();
 				try
 				{
-					plugin.Debug("Looking for player with SteamID/IP: " + steamIDOrIP);
+					plugin.Debug("Looking for player with SteamID/IP: " + userInfo.SteamIDOrIP);
 					foreach (Player pl in plugin.Server.GetPlayers())
 					{
 						plugin.Debug("Player " + pl.PlayerID + ": SteamID " + pl.UserID + " IP " + pl.IPAddress);
-						if (pl.UserID == steamIDOrIP)
+						if (pl.UserID == userInfo.SteamIDOrIP)
 						{
 							plugin.Debug("Matching SteamID found");
 							matchingPlayers.Add(pl);
 						}
-						else if (pl.IPAddress == steamIDOrIP)
+						else if (pl.IPAddress == userInfo.SteamIDOrIP)
 						{
 							plugin.Debug("Matching IP found");
 							matchingPlayers.Add(pl);
@@ -130,16 +130,20 @@ namespace SCPDiscord
 				{
 					foreach (KeyValuePair<ulong, string[]> keyValuePair in roleDictionary)
 					{
-						plugin.Debug("User has discord role " + keyValuePair.Key + ": " + roleIDs.Contains(keyValuePair.Key));
-						if (roleIDs.Contains(keyValuePair.Key))
+						plugin.Debug("User has discord role " + keyValuePair.Key + ": " + userInfo.RoleIDs.Contains(keyValuePair.Key));
+						if (userInfo.RoleIDs.Contains(keyValuePair.Key))
 						{
 							Dictionary<string, string> variables = new Dictionary<string, string>
 							{
-								{ "ipaddress",    player.IPAddress            },
-								{ "name",         player.Name                 },
-								{ "playerid",     player.PlayerID.ToString()  },
-								{ "userid",       player.UserID               },
-								{ "steamid",      player.GetParsedUserID()    }
+								{ "ipaddress",                        player.IPAddress                          },
+								{ "name",                             player.Name                               },
+								{ "playerid",                         player.PlayerID.ToString()                },
+								{ "userid",                           player.UserID                             },
+								{ "steamid",                          player.GetParsedUserID()                  },
+								{ "discorddisplayname",               userInfo.DiscordDisplayName               },
+								{ "discordusername",                  userInfo.DiscordUsername                  },
+								{ "discordusernamewithdiscriminator", userInfo.DiscordUsernameWithDiscriminator },
+								{ "discordid",                        userInfo.DiscordID.ToString()             }
 							};
 							foreach (string unparsedCommand in keyValuePair.Value)
 							{
@@ -153,7 +157,7 @@ namespace SCPDiscord
 								plugin.sync.ScheduleRoleSyncCommand(command);
 							}
 
-							plugin.Verbose("Synced " + player.Name + " (" + steamIDOrIP + ") with Discord role id " + keyValuePair.Key);
+							plugin.Verbose("Synced " + player.Name + " (" + userInfo.SteamIDOrIP + ") with Discord role id " + keyValuePair.Key);
 							return;
 						}
 					}					

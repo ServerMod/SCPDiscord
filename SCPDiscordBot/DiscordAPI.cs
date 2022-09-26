@@ -181,13 +181,16 @@ namespace SCPDiscord
 
 				Interface.MessageWrapper message = new Interface.MessageWrapper
 				{
-					RoleResponse = new Interface.RoleResponse
+					UserInfo = new Interface.UserInfo
 					{
 						DiscordID = userID,
-						SteamIDOrIP = steamID
+						SteamIDOrIP = steamID,
+						DiscordDisplayName = member.Nickname,
+						DiscordUsername = member.Username,
+						DiscordUsernameWithDiscriminator = member.Username + '#' + member.Discriminator
 					}
 				};
-				message.RoleResponse.RoleIDs.AddRange(member.Roles.Select(role => role.Id));
+				message.UserInfo.RoleIDs.AddRange(member.Roles.Select(role => role.Id));
 				NetworkSystem.SendMessage(message);
 			}
 			catch (Exception)
