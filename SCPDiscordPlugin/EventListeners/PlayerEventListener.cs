@@ -778,12 +778,12 @@ namespace SCPDiscord.EventListeners
 				{ "clipammocountafterreload",   ev.ClipAmmoCountAfterReload.ToString()  },
 				{ "currentammototal",           ev.CurrentAmmoTotal.ToString()          },
 				{ "currentclipammocount",       ev.CurrentClipAmmoCount.ToString()      },
-				{ "ipaddress",                  ev.Player.IPAddress                     },
-				{ "name",                       ev.Player.Name                          },
-				{ "playerid",                   ev.Player.PlayerID.ToString()           },
-				{ "steamid",                    ev.Player.GetParsedUserID() ?? ev.Player.UserID },
-				{ "class",                      ev.Player.PlayerRole.RoleID.ToString()        },
-				{ "team",                       ev.Player.PlayerRole.Team.ToString()      }
+				{ "ipaddress",                  ev.Player?.IPAddress                     },
+				{ "name",                       ev.Player?.Name                          },
+				{ "playerid",                   ev.Player?.PlayerID.ToString()           },
+				{ "steamid",                    ev.Player?.GetParsedUserID() ?? ev.Player?.UserID },
+				{ "class",                      ev.Player?.PlayerRole.RoleID.ToString()        },
+				{ "team",                       ev.Player?.PlayerRole.Team.ToString()      }
 			};
 			this.plugin.SendMessage(Config.GetArray("channels.onreload"), "player.onreload", variables);
 		}
@@ -792,12 +792,12 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "ipaddress",                  ev.Player.IPAddress                },
-				{ "name",                       ev.Player.Name                     },
-				{ "playerid",                   ev.Player.PlayerID.ToString()      },
-				{ "steamid",                    ev.Player.GetParsedUserID()        },
-				{ "class",                      ev.Player.PlayerRole.RoleID.ToString()   },
-				{ "team",                       ev.Player.PlayerRole.Team.ToString() }
+				{ "ipaddress",                  ev.Player?.IPAddress                },
+				{ "name",                       ev.Player?.Name                     },
+				{ "playerid",                   ev.Player?.PlayerID.ToString()      },
+				{ "steamid",                    ev.Player?.GetParsedUserID()        },
+				{ "class",                      ev.Player?.PlayerRole.RoleID.ToString()   },
+				{ "team",                       ev.Player?.PlayerRole.Team.ToString() }
 			};
 			this.plugin.SendMessage(Config.GetArray("channels.ongrenadeexplosion"), "player.ongrenadeexplosion", variables);
 		}
@@ -806,12 +806,12 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "playeripaddress",    ev.Player.IPAddress                 },
+				{ "playeripaddress",    ev.Player?.IPAddress                 },
 				{ "playername",         ev.Player?.Name                      },
 				{ "playerplayerid",     ev.Player?.PlayerID.ToString()       },
 				{ "playersteamid",      ev.Player?.GetParsedUserID() ?? ev.Player?.UserID },
-				{ "playerclass",        ev.Player?.PlayerRole.RoleID.ToString()    },
-				{ "playerteam",         ev.Player?.PlayerRole.Team.ToString()  },
+				{ "playerclass",        ev.Player?.PlayerRole?.RoleID.ToString()    },
+				{ "playerteam",         ev.Player?.PlayerRole?.Team.ToString()  },
 				{ "targetipaddress",    ev.Victim?.IPAddress                 },
 				{ "targetname",         ev.Victim?.Name                      },
 				{ "targetplayerid",     ev.Victim?.PlayerID.ToString()       },
