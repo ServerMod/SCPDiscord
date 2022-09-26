@@ -25,7 +25,7 @@ namespace SCPDiscord
 		name = "SCPDiscord",
 		description = "SCP:SL - Discord bridge.",
 		id = "karlofduty.scpdiscord",
-		version = "2.0.6-3.9.10",
+		version = "2.1.0-3.9.10",
 		SmodMajor = 3,
 		SmodMinor = 9,
 		SmodRevision = 10
@@ -87,6 +87,7 @@ namespace SCPDiscord
 			AddCommand("scpd_removereservedslot", new RemoveReservedSlotCommand());
 			AddCommand("scpd_gvr", new GrantVanillaRankCommand());
 			AddCommand("scpd_grantvanillarank", new GrantVanillaRankCommand());
+			AddCommand("scpd_setnickname", new SetNickname());
 
 			SetUpFileSystem();
 			roleSync = new RoleSync(this);

@@ -1,28 +1,28 @@
-using Smod2.API;
-using Smod2.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Smod2.API;
+using Smod2.Commands;
 
 namespace SCPDiscord.Commands
 {
-	public class GrantVanillaRankCommand : ICommandHandler
+	public class SetNickname : ICommandHandler
 	{
 		public string GetCommandDescription()
 		{
-			return "Gives a player the vanilla rank provided.";
+			return "Sets a nickname for a player.";
 		}
 
 		public string GetUsage()
 		{
-			return "scpd_givevanillarank/scpd_gvr <steamid/playerid> <rank>";
+			return "scpd_setnickname <steamid/playerid> <name>";
 		}
 
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
 			if (sender is Player admin)
 			{
-				if (!admin.HasPermission("scpdiscord.grantvanillarank"))
+				if (!admin.HasPermission("scpdiscord.setnickname"))
 				{
 					return new[] { "You don't have permission to use that command." };
 				}
@@ -61,19 +61,12 @@ namespace SCPDiscord.Commands
 				return new[] { "Player \"" + args[0] + "\"not found." };
 			}
 			
-			try
+			foreach (Player matchingPlayer in matchingPlayers)
 			{
-				foreach (Player matchingPlayer in matchingPlayers)
-				{
-					matchingPlayer.SetRank(null, null, args[1]);
-				}
+				matchingPlayer.DisplayedNickname = string.Join(" ", args.Skip(1));
 			}
-			catch (Exception)
-			{
-				return new[] { "Vanilla rank \"" + args[1] + "\" not found. Are you sure you are using the RA config role name and not the role title/badge?" };
-			}
-			
-			return new[] { "Player rank updated." };
+
+			return new[] { "Player nickname updated." };
 		}
 	}
 }

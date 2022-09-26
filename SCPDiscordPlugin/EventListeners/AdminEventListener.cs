@@ -26,12 +26,12 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "ipaddress",      "-"                  },
-					{ "name",           "Server console"                       },
-					{ "playerid",       "-"        },
-					{ "steamid",        "-"          },
-					{ "class",          "-"     },
-					{ "team",           "-"   },
+					{ "ipaddress",      ""                                  },
+					{ "name",           "Server"                            },
+					{ "playerid",       ""                                  },
+					{ "steamid",        ""                                  },
+					{ "class",          ""                                  },
+					{ "team",           ""                                  },
 					{ "handled",        ev.Handled.ToString()               },
 					{ "output",         ev.Output                           },
 					{ "query",          ev.Query                            },
@@ -56,7 +56,7 @@ namespace SCPDiscord.EventListeners
 					{ "successful",     ev.Successful.ToString()            }
 				};
 
-				this.plugin.SendMessage(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);
+				this.plugin.SendMessage(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);				
 			}
 			
 

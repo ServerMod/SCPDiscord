@@ -129,13 +129,13 @@ namespace SCPDiscord
 				case MessageWrapper.MessageOneofCase.ChatMessage:
 					await DiscordAPI.SendMessage(wrapper.ChatMessage.ChannelID, wrapper.ChatMessage.Content);
 					break;
-				case MessageWrapper.MessageOneofCase.RoleQuery:
-					DiscordAPI.GetPlayerRoles(wrapper.RoleQuery.DiscordID, wrapper.RoleQuery.SteamIDOrIP);
+				case MessageWrapper.MessageOneofCase.UserQuery:
+					DiscordAPI.GetPlayerRoles(wrapper.UserQuery.DiscordID, wrapper.UserQuery.SteamIDOrIP);
 					break;
 				case MessageWrapper.MessageOneofCase.SyncRoleCommand:
 				case MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
 				case MessageWrapper.MessageOneofCase.ConsoleCommand:
-				case MessageWrapper.MessageOneofCase.RoleResponse:
+				case MessageWrapper.MessageOneofCase.UserInfo:
 					Logger.Warn("Received packet meant for plugin: " + JsonFormatter.Default.Format(wrapper), LogID.NETWORK);
 					break;
 				default:

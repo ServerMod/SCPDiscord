@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 import "BotToPlugin/ConsoleCommand.proto";
-import "BotToPlugin/RoleResponse.proto";
+import "BotToPlugin/UserInfo.proto";
 import "BotToPlugin/SyncRoleCommand.proto";
 import "BotToPlugin/UnsyncRoleCommand.proto";
 import "BotToPlugin/BanCommand.proto";
@@ -12,7 +12,7 @@ import "BotToPlugin/ListCommand.proto";
 
 import "PluginToBot/BotActivity.proto";
 import "PluginToBot/ChatMessage.proto";
-import "PluginToBot/RoleQuery.proto";
+import "PluginToBot/UserQuery.proto";
 
 package SCPDiscord.Interface;
 
@@ -22,11 +22,11 @@ message MessageWrapper
 		BotActivity botActivity = 1;
 		//ChannelTopic channelTopic = 2; // No longer exists
 		ChatMessage chatMessage = 3;
-		RoleQuery roleQuery = 4;
+		UserQuery userQuery = 4;
 		SyncRoleCommand syncRoleCommand = 5;
 		UnsyncRoleCommand unsyncRoleCommand = 6;
 		ConsoleCommand consoleCommand = 7;
-		RoleResponse roleResponse = 8;
+		UserInfo userInfo = 8;
 		BanCommand BanCommand = 9;
 		UnbanCommand UnbanCommand = 10;
 		KickCommand KickCommand = 11;

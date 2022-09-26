@@ -1073,18 +1073,13 @@ admin:
         # playersteamid - string
         # playerclass - Role
         # playerteam - Team
-        # adminipaddress - string
-        # adminname - string
-        # adminplayerid - int
-        # adminsteamid - string
-        # adminclass - Role
-        # adminteam - Team
+        # issuer - string
         admin:
             ban:
-                message: ":no_entry: Player <var:playername> (<var:playersteamid>) was banned by <var:adminname> (<var:adminsteamid>) for <var:duration> minutes. Reason: <var:reason>"
+                message: ":no_entry: Player <var:playername> (<var:playersteamid>) was banned by <var:issuer> for <var:duration> minutes. Reason: <var:reason>"
                 regex: []
             kick:
-                message: ":no_entry: Player <var:playername> (<var:playersteamid>) was kicked by <var:adminname> (<var:adminsteamid>). Reason: <var:reason>"
+                message: ":no_entry: Player <var:playername> (<var:playersteamid>) was kicked by <var:issuer>. Reason: <var:reason>"
                 regex: []
         console:
             ban:

@@ -33,8 +33,7 @@ namespace SCPDiscord
 								plugin.Error("Connection to bot lost.");
 
 							else
-								plugin.Error("Couldn't parse incoming packet!\n" + e.ToString());
-
+								plugin.Error("Couldn't parse incoming packet!\n" + e);
 							return;
 						}
 
@@ -54,8 +53,8 @@ namespace SCPDiscord
 								plugin.sync.ScheduleDiscordCommand(data.ConsoleCommand);
 								break;
 
-							case MessageWrapper.MessageOneofCase.RoleResponse:
-								plugin.roleSync.ReceiveQueryResponse(data.RoleResponse.SteamIDOrIP, data.RoleResponse.RoleIDs.ToList());
+							case MessageWrapper.MessageOneofCase.UserInfo:
+								plugin.roleSync.ReceiveQueryResponse(data.UserInfo);
 								break;
 
 							case MessageWrapper.MessageOneofCase.BanCommand:
@@ -86,7 +85,7 @@ namespace SCPDiscord
 
 							case MessageWrapper.MessageOneofCase.BotActivity:
 							case MessageWrapper.MessageOneofCase.ChatMessage:
-							case MessageWrapper.MessageOneofCase.RoleQuery:
+							case MessageWrapper.MessageOneofCase.UserQuery:
 								plugin.Warn("Received packet meant for bot: " + Google.Protobuf.JsonFormatter.Default.Format(data));
 								break;
 

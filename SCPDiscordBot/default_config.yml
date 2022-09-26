@@ -42,7 +42,7 @@ permissions:
         - list
     111111111111111111: # A donator role example
         - vs_whitelist
-        - syncrole
+        - syncsteamid
         - unsyncrole
     222222222222222222: # A moderator example
         - syncsteamid
