@@ -193,9 +193,10 @@ namespace SCPDiscord
 				message.UserInfo.RoleIDs.AddRange(member.Roles.Select(role => role.Id));
 				NetworkSystem.SendMessage(message);
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
 				Logger.Warn("Couldn't find discord server or server member for role syncing requested by plugin. Discord ID: " + userID + " SteamID/IP: " + steamID, LogID.DISCORD);
+				Logger.Debug("Exception: \n" + e, LogID.DISCORD);
 			}
 		}
 
