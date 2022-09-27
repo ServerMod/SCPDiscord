@@ -33,28 +33,30 @@ namespace SCPDiscord.Interface {
             "bxogQm90VG9QbHVnaW4vS2lja2FsbENvbW1hbmQucHJvdG8aHUJvdFRvUGx1",
             "Z2luL0xpc3RDb21tYW5kLnByb3RvGh1QbHVnaW5Ub0JvdC9Cb3RBY3Rpdml0",
             "eS5wcm90bxodUGx1Z2luVG9Cb3QvQ2hhdE1lc3NhZ2UucHJvdG8aG1BsdWdp",
-            "blRvQm90L1VzZXJRdWVyeS5wcm90byLpBQoOTWVzc2FnZVdyYXBwZXISOAoL",
-            "Ym90QWN0aXZpdHkYASABKAsyIS5TQ1BEaXNjb3JkLkludGVyZmFjZS5Cb3RB",
-            "Y3Rpdml0eUgAEjgKC2NoYXRNZXNzYWdlGAMgASgLMiEuU0NQRGlzY29yZC5J",
-            "bnRlcmZhY2UuQ2hhdE1lc3NhZ2VIABI0Cgl1c2VyUXVlcnkYBCABKAsyHy5T",
-            "Q1BEaXNjb3JkLkludGVyZmFjZS5Vc2VyUXVlcnlIABJACg9zeW5jUm9sZUNv",
-            "bW1hbmQYBSABKAsyJS5TQ1BEaXNjb3JkLkludGVyZmFjZS5TeW5jUm9sZUNv",
-            "bW1hbmRIABJEChF1bnN5bmNSb2xlQ29tbWFuZBgGIAEoCzInLlNDUERpc2Nv",
-            "cmQuSW50ZXJmYWNlLlVuc3luY1JvbGVDb21tYW5kSAASPgoOY29uc29sZUNv",
-            "bW1hbmQYByABKAsyJC5TQ1BEaXNjb3JkLkludGVyZmFjZS5Db25zb2xlQ29t",
-            "bWFuZEgAEjIKCHVzZXJJbmZvGAggASgLMh4uU0NQRGlzY29yZC5JbnRlcmZh",
-            "Y2UuVXNlckluZm9IABI2CgpCYW5Db21tYW5kGAkgASgLMiAuU0NQRGlzY29y",
-            "ZC5JbnRlcmZhY2UuQmFuQ29tbWFuZEgAEjoKDFVuYmFuQ29tbWFuZBgKIAEo",
-            "CzIiLlNDUERpc2NvcmQuSW50ZXJmYWNlLlVuYmFuQ29tbWFuZEgAEjgKC0tp",
-            "Y2tDb21tYW5kGAsgASgLMiEuU0NQRGlzY29yZC5JbnRlcmZhY2UuS2lja0Nv",
-            "bW1hbmRIABI+Cg5LaWNrYWxsQ29tbWFuZBgMIAEoCzIkLlNDUERpc2NvcmQu",
-            "SW50ZXJmYWNlLktpY2thbGxDb21tYW5kSAASOAoLTGlzdENvbW1hbmQYDSAB",
-            "KAsyIS5TQ1BEaXNjb3JkLkludGVyZmFjZS5MaXN0Q29tbWFuZEgAQgkKB21l",
-            "c3NhZ2ViBnByb3RvMw=="));
+            "blRvQm90L1VzZXJRdWVyeS5wcm90bxoeUGx1Z2luVG9Cb3QvRW1iZWRNZXNz",
+            "YWdlLnByb3RvIqUGCg5NZXNzYWdlV3JhcHBlchI4Cgtib3RBY3Rpdml0eRgB",
+            "IAEoCzIhLlNDUERpc2NvcmQuSW50ZXJmYWNlLkJvdEFjdGl2aXR5SAASOAoL",
+            "Y2hhdE1lc3NhZ2UYAyABKAsyIS5TQ1BEaXNjb3JkLkludGVyZmFjZS5DaGF0",
+            "TWVzc2FnZUgAEjQKCXVzZXJRdWVyeRgEIAEoCzIfLlNDUERpc2NvcmQuSW50",
+            "ZXJmYWNlLlVzZXJRdWVyeUgAEkAKD3N5bmNSb2xlQ29tbWFuZBgFIAEoCzIl",
+            "LlNDUERpc2NvcmQuSW50ZXJmYWNlLlN5bmNSb2xlQ29tbWFuZEgAEkQKEXVu",
+            "c3luY1JvbGVDb21tYW5kGAYgASgLMicuU0NQRGlzY29yZC5JbnRlcmZhY2Uu",
+            "VW5zeW5jUm9sZUNvbW1hbmRIABI+Cg5jb25zb2xlQ29tbWFuZBgHIAEoCzIk",
+            "LlNDUERpc2NvcmQuSW50ZXJmYWNlLkNvbnNvbGVDb21tYW5kSAASMgoIdXNl",
+            "ckluZm8YCCABKAsyHi5TQ1BEaXNjb3JkLkludGVyZmFjZS5Vc2VySW5mb0gA",
+            "EjYKCmJhbkNvbW1hbmQYCSABKAsyIC5TQ1BEaXNjb3JkLkludGVyZmFjZS5C",
+            "YW5Db21tYW5kSAASOgoMdW5iYW5Db21tYW5kGAogASgLMiIuU0NQRGlzY29y",
+            "ZC5JbnRlcmZhY2UuVW5iYW5Db21tYW5kSAASOAoLa2lja0NvbW1hbmQYCyAB",
+            "KAsyIS5TQ1BEaXNjb3JkLkludGVyZmFjZS5LaWNrQ29tbWFuZEgAEj4KDmtp",
+            "Y2thbGxDb21tYW5kGAwgASgLMiQuU0NQRGlzY29yZC5JbnRlcmZhY2UuS2lj",
+            "a2FsbENvbW1hbmRIABI4CgtsaXN0Q29tbWFuZBgNIAEoCzIhLlNDUERpc2Nv",
+            "cmQuSW50ZXJmYWNlLkxpc3RDb21tYW5kSAASOgoMZW1iZWRNZXNzYWdlGA4g",
+            "ASgLMiIuU0NQRGlzY29yZC5JbnRlcmZhY2UuRW1iZWRNZXNzYWdlSABCCQoH",
+            "bWVzc2FnZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::SCPDiscord.Interface.ConsoleCommandReflection.Descriptor, global::SCPDiscord.Interface.UserInfoReflection.Descriptor, global::SCPDiscord.Interface.SyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.UnsyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.BanCommandReflection.Descriptor, global::SCPDiscord.Interface.UnbanCommandReflection.Descriptor, global::SCPDiscord.Interface.KickCommandReflection.Descriptor, global::SCPDiscord.Interface.KickallCommandReflection.Descriptor, global::SCPDiscord.Interface.ListCommandReflection.Descriptor, global::SCPDiscord.Interface.BotActivityReflection.Descriptor, global::SCPDiscord.Interface.ChatMessageReflection.Descriptor, global::SCPDiscord.Interface.UserQueryReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::SCPDiscord.Interface.ConsoleCommandReflection.Descriptor, global::SCPDiscord.Interface.UserInfoReflection.Descriptor, global::SCPDiscord.Interface.SyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.UnsyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.BanCommandReflection.Descriptor, global::SCPDiscord.Interface.UnbanCommandReflection.Descriptor, global::SCPDiscord.Interface.KickCommandReflection.Descriptor, global::SCPDiscord.Interface.KickallCommandReflection.Descriptor, global::SCPDiscord.Interface.ListCommandReflection.Descriptor, global::SCPDiscord.Interface.BotActivityReflection.Descriptor, global::SCPDiscord.Interface.ChatMessageReflection.Descriptor, global::SCPDiscord.Interface.UserQueryReflection.Descriptor, global::SCPDiscord.Interface.EmbedMessageReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.MessageWrapper), global::SCPDiscord.Interface.MessageWrapper.Parser, new[]{ "BotActivity", "ChatMessage", "UserQuery", "SyncRoleCommand", "UnsyncRoleCommand", "ConsoleCommand", "UserInfo", "BanCommand", "UnbanCommand", "KickCommand", "KickallCommand", "ListCommand" }, new[]{ "Message" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.MessageWrapper), global::SCPDiscord.Interface.MessageWrapper.Parser, new[]{ "BotActivity", "ChatMessage", "UserQuery", "SyncRoleCommand", "UnsyncRoleCommand", "ConsoleCommand", "UserInfo", "BanCommand", "UnbanCommand", "KickCommand", "KickallCommand", "ListCommand", "EmbedMessage" }, new[]{ "Message" }, null, null, null)
           }));
     }
     #endregion
@@ -131,6 +133,9 @@ namespace SCPDiscord.Interface {
           break;
         case MessageOneofCase.ListCommand:
           ListCommand = other.ListCommand.Clone();
+          break;
+        case MessageOneofCase.EmbedMessage:
+          EmbedMessage = other.EmbedMessage.Clone();
           break;
       }
 
@@ -230,7 +235,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "BanCommand" field.</summary>
+    /// <summary>Field number for the "banCommand" field.</summary>
     public const int BanCommandFieldNumber = 9;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -242,7 +247,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "UnbanCommand" field.</summary>
+    /// <summary>Field number for the "unbanCommand" field.</summary>
     public const int UnbanCommandFieldNumber = 10;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -254,7 +259,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "KickCommand" field.</summary>
+    /// <summary>Field number for the "kickCommand" field.</summary>
     public const int KickCommandFieldNumber = 11;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -266,7 +271,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "KickallCommand" field.</summary>
+    /// <summary>Field number for the "kickallCommand" field.</summary>
     public const int KickallCommandFieldNumber = 12;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -278,7 +283,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "ListCommand" field.</summary>
+    /// <summary>Field number for the "listCommand" field.</summary>
     public const int ListCommandFieldNumber = 13;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -287,6 +292,18 @@ namespace SCPDiscord.Interface {
       set {
         message_ = value;
         messageCase_ = value == null ? MessageOneofCase.None : MessageOneofCase.ListCommand;
+      }
+    }
+
+    /// <summary>Field number for the "embedMessage" field.</summary>
+    public const int EmbedMessageFieldNumber = 14;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::SCPDiscord.Interface.EmbedMessage EmbedMessage {
+      get { return messageCase_ == MessageOneofCase.EmbedMessage ? (global::SCPDiscord.Interface.EmbedMessage) message_ : null; }
+      set {
+        message_ = value;
+        messageCase_ = value == null ? MessageOneofCase.None : MessageOneofCase.EmbedMessage;
       }
     }
 
@@ -306,6 +323,7 @@ namespace SCPDiscord.Interface {
       KickCommand = 11,
       KickallCommand = 12,
       ListCommand = 13,
+      EmbedMessage = 14,
     }
     private MessageOneofCase messageCase_ = MessageOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -348,6 +366,7 @@ namespace SCPDiscord.Interface {
       if (!object.Equals(KickCommand, other.KickCommand)) return false;
       if (!object.Equals(KickallCommand, other.KickallCommand)) return false;
       if (!object.Equals(ListCommand, other.ListCommand)) return false;
+      if (!object.Equals(EmbedMessage, other.EmbedMessage)) return false;
       if (MessageCase != other.MessageCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -368,6 +387,7 @@ namespace SCPDiscord.Interface {
       if (messageCase_ == MessageOneofCase.KickCommand) hash ^= KickCommand.GetHashCode();
       if (messageCase_ == MessageOneofCase.KickallCommand) hash ^= KickallCommand.GetHashCode();
       if (messageCase_ == MessageOneofCase.ListCommand) hash ^= ListCommand.GetHashCode();
+      if (messageCase_ == MessageOneofCase.EmbedMessage) hash ^= EmbedMessage.GetHashCode();
       hash ^= (int) messageCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -435,6 +455,10 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(106);
         output.WriteMessage(ListCommand);
       }
+      if (messageCase_ == MessageOneofCase.EmbedMessage) {
+        output.WriteRawTag(114);
+        output.WriteMessage(EmbedMessage);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -493,6 +517,10 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(106);
         output.WriteMessage(ListCommand);
       }
+      if (messageCase_ == MessageOneofCase.EmbedMessage) {
+        output.WriteRawTag(114);
+        output.WriteMessage(EmbedMessage);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -538,6 +566,9 @@ namespace SCPDiscord.Interface {
       }
       if (messageCase_ == MessageOneofCase.ListCommand) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ListCommand);
+      }
+      if (messageCase_ == MessageOneofCase.EmbedMessage) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(EmbedMessage);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -623,6 +654,12 @@ namespace SCPDiscord.Interface {
             ListCommand = new global::SCPDiscord.Interface.ListCommand();
           }
           ListCommand.MergeFrom(other.ListCommand);
+          break;
+        case MessageOneofCase.EmbedMessage:
+          if (EmbedMessage == null) {
+            EmbedMessage = new global::SCPDiscord.Interface.EmbedMessage();
+          }
+          EmbedMessage.MergeFrom(other.EmbedMessage);
           break;
       }
 
@@ -749,6 +786,15 @@ namespace SCPDiscord.Interface {
             ListCommand = subBuilder;
             break;
           }
+          case 114: {
+            global::SCPDiscord.Interface.EmbedMessage subBuilder = new global::SCPDiscord.Interface.EmbedMessage();
+            if (messageCase_ == MessageOneofCase.EmbedMessage) {
+              subBuilder.MergeFrom(EmbedMessage);
+            }
+            input.ReadMessage(subBuilder);
+            EmbedMessage = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -870,6 +916,15 @@ namespace SCPDiscord.Interface {
             }
             input.ReadMessage(subBuilder);
             ListCommand = subBuilder;
+            break;
+          }
+          case 114: {
+            global::SCPDiscord.Interface.EmbedMessage subBuilder = new global::SCPDiscord.Interface.EmbedMessage();
+            if (messageCase_ == MessageOneofCase.EmbedMessage) {
+              subBuilder.MergeFrom(EmbedMessage);
+            }
+            input.ReadMessage(subBuilder);
+            EmbedMessage = subBuilder;
             break;
           }
         }

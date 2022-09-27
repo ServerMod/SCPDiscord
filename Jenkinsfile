@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Dependencies') {
             steps {
-                sh 'nuget restore SCPDiscord.sln'
+                sh 'cd SCPDiscordBot; dotnet restore'
+                sh 'cd SCPDiscordPlugin; nuget restore -SolutionDirectory .'
             }
         }
         stage('Use upstream Smod') {
@@ -20,8 +21,7 @@ pipeline {
             parallel {
                 stage('Plugin') {
                     steps {
-                        sh 'cd SCPDiscordPlugin; nuget restore -SolutionDirectory .'
-                        sh 'msbuild SCPDiscordPlugin/SCPDiscordPlugin.csproj -restore -p:PostBuildEvent='
+                        sh 'msbuild SCPDiscordPlugin/SCPDiscordPlugin.csproj -p:PostBuildEvent='
                     }
                 }
                 stage('Bot') {

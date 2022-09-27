@@ -22,7 +22,42 @@ namespace SCPDiscord
 	{
 		public ProcessMessageAsync(ulong channelID, string messagePath, Dictionary<string, string> variables)
 		{
-			NetworkSystem.ProcessMessage(channelID, messagePath, variables);
+			string processedMessage = NetworkSystem.GetProcessedMessage(messagePath, variables);
+
+			// Add time stamp
+			if (Config.GetString("settings.timestamp") != "off" && Config.GetString("settings.timestamp") != "")
+			{
+				processedMessage = "[" + DateTime.Now.ToString(Config.GetString("settings.timestamp")) + "]: " + processedMessage;
+			}
+
+			MessageWrapper wrapper = new MessageWrapper
+			{
+				ChatMessage = new ChatMessage
+				{
+					ChannelID = channelID,
+					Content = processedMessage
+				}
+			};
+
+			NetworkSystem.QueueMessage(wrapper);
+		}
+	}
+
+	public class ProcessEmbedMessageAsync
+	{
+		public ProcessEmbedMessageAsync(EmbedMessage embed, string messagePath, Dictionary<string, string> variables)
+		{
+			string processedMessage = NetworkSystem.GetProcessedMessage(messagePath, variables);
+			embed.Description = processedMessage;
+
+			// Add time stamp
+			if (Config.GetString("settings.timestamp") != "off" && Config.GetString("settings.timestamp") != "")
+			{
+				embed.Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
+			}
+
+			MessageWrapper wrapper = new MessageWrapper { EmbedMessage = embed };
+			NetworkSystem.QueueMessage(wrapper);
 		}
 	}
 
@@ -130,7 +165,13 @@ namespace SCPDiscord
 					networkStream = new NetworkStream(socket);
 
 					plugin.Info("Connected to Discord bot.");
-					plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botmessages.connectedtobot");
+
+					EmbedMessage embed = new EmbedMessage
+					{
+						Colour = EmbedMessage.Types.DiscordColour.Green
+					};
+
+					plugin.SendEmbedWithMessage(Config.GetArray("channels.statusmessages"), "botmessages.connectedtobot", embed);
 				}
 				catch (SocketException e)
 				{
@@ -177,7 +218,7 @@ namespace SCPDiscord
 			// Abort if client is dead
 			if (socket == null || networkStream == null || !socket.Connected)
 			{
-				plugin.VerboseWarn("Error sending message '" + message.MessageCase.ToString() + "' to bot: Not connected.");
+				plugin.VerboseWarn("Error sending message '" + message.MessageCase + "' to bot: Not connected.");
 				return false;
 			}
 
@@ -185,12 +226,12 @@ namespace SCPDiscord
 			try
 			{
 				message.WriteDelimitedTo(networkStream);
-				plugin.Debug("Sent message '" + message.MessageCase.ToString() + "' to bot.");
+				plugin.Debug("Sent message '" + message.MessageCase + "' to bot.");
 				return true;
 			}
 			catch (Exception e)
 			{
-				plugin.Error("Error sending message '" + message.MessageCase.ToString() + "' to bot.");
+				plugin.Error("Error sending message '" + message.MessageCase + "' to bot.");
 				plugin.Error(e.ToString());
 				if (!(e is InvalidOperationException || e is ArgumentNullException || e is SocketException))
 				{
@@ -200,7 +241,7 @@ namespace SCPDiscord
 			return false;
 		}
 
-		public static void ProcessMessage(ulong channelID, string messagePath, Dictionary<string, string> variables)
+		public static string GetProcessedMessage(string messagePath, Dictionary<string, string> variables)
 		{
 			// Get unparsed message from config
 			string message;
@@ -211,26 +252,20 @@ namespace SCPDiscord
 			catch (Exception e)
 			{
 				plugin.Error("Error reading base message" + e);
-				return;
+				return null;
 			}
 
 			switch (message)
 			{
 				// An error message is already sent in the language function if this is null, so this just returns
 				case null:
-					return;
+					return null;
 				// Abort on empty message
 				case "":
 				case " ":
 				case ".":
 					plugin.VerboseWarn("Tried to send empty message " + messagePath + " to discord. Verify your language files.");
-					return;
-			}
-
-			// Add time stamp
-			if (Config.GetString("settings.timestamp") != "off" && Config.GetString("settings.timestamp") != "")
-			{
-				message = "[" + DateTime.Now.ToString(Config.GetString("settings.timestamp")) + "]: " + message;
+					return null;
 			}
 
 			// Re-add newlines
@@ -261,7 +296,7 @@ namespace SCPDiscord
 			catch (Exception e)
 			{
 				plugin.Error("Error reading global regex" + e);
-				return;
+				return null;
 			}
 			// Run the global regex replacements
 			foreach (KeyValuePair<string, string> entry in globalRegex)
@@ -279,7 +314,7 @@ namespace SCPDiscord
 			catch (Exception e)
 			{
 				plugin.Error("Error reading local regex" + e);
-				return;
+				return null;
 			}
 			// Run the local regex replacements
 			foreach (KeyValuePair<string, string> entry in localRegex)
@@ -306,7 +341,7 @@ namespace SCPDiscord
 				catch (Exception e)
 				{
 					plugin.Error("Error reading final regex" + e);
-					return;
+					return null;
 				}
 				// Run the final regex replacements
 				foreach (KeyValuePair<string, string> entry in finalRegex)
@@ -315,17 +350,7 @@ namespace SCPDiscord
 				}
 				///////////////////////////////////////////////
 			}
-
-			MessageWrapper wrapper = new MessageWrapper
-			{
-				ChatMessage = new ChatMessage
-				{
-					ChannelID = channelID,
-					Content = message
-				}
-			};
-
-			QueueMessage(wrapper);
+			return message;
 		}
 
 		public static void QueueMessage(MessageWrapper message)

@@ -98,7 +98,7 @@ namespace SCPDiscord
 				Disable();
 			}
 			Language.Reload();
-			
+
 			new Thread(() => new StartNetworkSystem(plugin)).Start();
 
 			GetMaxPlayers();
@@ -282,6 +282,22 @@ namespace SCPDiscord
 
 			return true;
 		}
+
+		[PipeMethod]
+		public bool SendEmbed(IEnumerable<string> channelAliases, EmbedMessage message)
+		{
+			foreach (string channel in channelAliases)
+			{
+				if (Config.GetDict("aliases").ContainsKey(channel))
+				{
+					message.ChannelID = Config.GetDict("aliases")[channel];
+					NetworkSystem.QueueMessage(new MessageWrapper { EmbedMessage = message });
+				}
+			}
+
+			return true;
+		}
+
 		[PipeMethod]
 		public bool SendStringByID(ulong channelID, string message)
 		{
@@ -294,6 +310,13 @@ namespace SCPDiscord
 				}
 			};
 			NetworkSystem.QueueMessage(wrapper);
+			return true;
+		}
+
+		[PipeMethod]
+		public bool SendEmbedByID(EmbedMessage message)
+		{
+			NetworkSystem.QueueMessage(new MessageWrapper { EmbedMessage = message });
 			return true;
 		}
 
@@ -318,6 +341,26 @@ namespace SCPDiscord
 			return true;
 		}
 
+		[PipeMethod]
+		public bool SendEmbedWithMessage(IEnumerable<string> channelAliases, string messagePath, EmbedMessage embed, Dictionary<string, string> variables = null)
+		{
+			foreach (string channel in channelAliases)
+			{
+				if (Config.GetDict("aliases").ContainsKey(channel))
+				{
+					// Create copy to avoid pointer issues
+					EmbedMessage embedCopy = new EmbedMessage(embed)
+					{
+						ChannelID = Config.GetDict("aliases")[channel]
+					};
+					Thread messageThread = new Thread(() => new ProcessEmbedMessageAsync(embedCopy, messagePath, variables));
+					messageThread.Start();
+				}
+			}
+
+			return true;
+		}
+
 		/// <summary>
 		/// Sends a message from the loaded language file to a specific channel by channel ID. Usually used for replies to Discord messages.
 		/// </summary>
@@ -328,6 +371,13 @@ namespace SCPDiscord
 		public bool SendMessageByID(ulong channelID, string messagePath, Dictionary<string, string> variables = null)
 		{
 			new Thread(() => new ProcessMessageAsync(channelID, messagePath, variables)).Start();
+			return true;
+		}
+
+		[PipeMethod]
+		public bool SendEmbedWithMessageByID(EmbedMessage embed, string messagePath, Dictionary<string, string> variables = null)
+		{
+			new Thread(() => new ProcessEmbedMessageAsync(embed, messagePath, variables)).Start();
 			return true;
 		}
 

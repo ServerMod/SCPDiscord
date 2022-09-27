@@ -9,7 +9,7 @@
 
 # Executed after variables have been inserted but before the message specific regex replacement and before player names have been added on all messages.
 global_regex: [
-  
+
     # Fix formatting issues
     "::ffff:":"",
     " \\(\\)":"",
@@ -313,7 +313,7 @@ environment:
         # scpsleft
         message: ":cop: **MTF <var:cassieunitname> has entered the facility.**"
         regex: [ ]
-    
+
 player:
     onplayerhurt:
         # damage - float
@@ -340,7 +340,7 @@ player:
         #self:
         #    message: "<var:playername> (<var:playersteamid>) hurt themselves with <var:damagetype> (<var:damage> hp)."
         #    regex: []
-        noattacker: 
+        noattacker:
             message: ":red_circle: <var:playername> (<var:playersteamid>) took <var:damage> damage by <var:damagetype>."
             regex: ["damage by UNKNOWN":"damage from unknown causes"]
     onplayerdie:
@@ -456,7 +456,7 @@ player:
         # permission - string
         # locked - bool
         # lockcooldown - float
-        # open - bool 
+        # open - bool
         # ipaddress - string
         # name - string
         # playerid - int
@@ -701,7 +701,7 @@ player:
         # team - Team
         message: ":radio: <var:name> (<var:steamid>) switched their radio to the <var:setting> status."
         regex: []
-    onmakenoise: 
+    onmakenoise:
         # ipaddress - string
         # name - string
         # playerid - int
@@ -1088,7 +1088,7 @@ admin:
             kick:
                 message: ":no_entry: Player <var:playername> (<var:playersteamid>) was kicked by Skynet. Reason: <var:reason>"
                 regex: []
-    
+
 team:
     ondecideteamrespawnqueue:
         # teams - Team[]
@@ -1140,38 +1140,38 @@ team:
 
 botmessages:
     connectedtobot:
-        message: "```diff\n+ SCP:SL server connected.```"
+        message: "**SCP:SL server connected.**"
         regex: []
     reconnectedtobot:
-        message: "```diff\n+ SCP:SL server reconnected.```"
+        message: "**SCP:SL server reconnected.**"
         regex: []
 
 botresponses:
     missingarguments:
         # command - string
-        message: "```diff\n- Missing arguments.```"
+        message: "Missing arguments."
         regex: []
     invalidsteamid:
         # steamid - string
-        message: "```diff\n- Invalid SteamID '<var:steamid>'.```"
+        message: "Invalid SteamID '<var:steamid>'."
         regex: []
     invalidsteamidorip:
         # steamidorip - string
-        message: "```diff\n- Invalid SteamID or IP '<var:steamidorip>'.```"
+        message: "Invalid SteamID or IP '<var:steamidorip>'."
         regex: []
     invalidduration:
         # duration - string
-        message: "```diff\n- Invalid duration '<var:duration>'.```"
+        message: "Invalid duration '<var:duration>'."
         regex: []
     playernotfound:
         # steamid - string
-        message: "```diff\n- Player with SteamID '<var:steamid>' not found.```"
+        message: "Player with SteamID '<var:steamid>' not found."
         regex: []
     playerkicked:
         # name - string
         # steamid - string
         # admintag - string
-        message: "```diff\n+ '<var:name>' (<var:steamid>) was kicked from the server by <var:admintag>.```"
+        message: "'<var:name>' (<var:steamid>) was kicked from the server by <var:admintag>."
         regex: []
     playerbanned:
         # name - string
@@ -1179,37 +1179,37 @@ botresponses:
         # reason - string
         # duration - string
         # admintag - string
-        message: "```diff\n+ '<var:name>' (<var:steamid>) was banned from the server by <var:admintag> for the reason '<var:reason>' (<var:duration>).```"
+        message: "'<var:name>' (<var:steamid>) was banned from the server by <var:admintag> for the reason '<var:reason>' (<var:duration>)."
         regex: []
     playerunbanned:
         # steamidorip - string
-        message: "```diff\n+ All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists.```"
+        message: "All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists."
         regex: []
     kickall:
         # reason - string
         # admintag - string
-        message: "```diff\n+ All players have been kicked from the server by <var:admintag> with the reason '<var:reason>'.```"
+        message: "All players have been kicked from the server by <var:admintag> with the reason '<var:reason>'."
         regex: []
     exit:
-        message: "```diff\n- The exit command cannot be used from Discord.```"
+        message: "The exit command cannot be used from Discord."
         regex: []
     help:
-        message: "```diff\n- The help command will be implemented in one of the next few updates of SCPDiscord.```"
+        message: "The help command will be implemented in one of the next few updates of SCPDiscord."
         regex: []
     toggletag:
         notinstalled:
-            message: "```diff\n- This command requires the ToggleTag plugin.```"
+            message: "This command requires the ToggleTag plugin."
             regex: []
     vpnshield:
         notinstalled:
-            message: "```diff\n- This command requires the VPNShield plugin.```"
+            message: "This command requires the VPNShield plugin."
             regex: []
     scpermissions:
         notinstalled:
-            message: "```diff\n- This command requires the SCPermissions plugin.```"
+            message: "This command requires the SCPermissions plugin."
             regex: []
     # The feedback from a console command, except the custom ones above. (Is not affected by global regex other than final_regex)
     consolecommandfeedback:
         # feedback - string
-        message: "```fix\n> <var:feedback>```"
+        message: "<var:feedback>"
         regex: []

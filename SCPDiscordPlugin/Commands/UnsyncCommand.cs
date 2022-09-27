@@ -27,7 +27,7 @@ namespace SCPDiscord.Commands
 
 			if (args.Length > 0 && ulong.TryParse(args[0], out ulong discordID))
 			{
-				return new[] { SCPDiscord.plugin.roleSync.RemovePlayer(discordID) };
+				return new[] { SCPDiscord.plugin.roleSync.RemovePlayerLocally(discordID) };
 			}
 
 			return new[] { "Invalid arguments." };

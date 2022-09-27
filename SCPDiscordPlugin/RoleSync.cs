@@ -33,7 +33,7 @@ namespace SCPDiscord
 		{
 			plugin.SetUpFileSystem();
 			syncedPlayers = JArray.Parse(File.ReadAllText(FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json")).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<ulong>());
-			plugin.Info("Successfully loaded config '" + FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json'.");
+			plugin.Info("Successfully loaded rolesync '" + FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json'.");
 		}
 
 		private void SavePlayers()
@@ -67,7 +67,7 @@ namespace SCPDiscord
 					}
 				};
 
-				NetworkSystem.QueueMessage(message);				
+				NetworkSystem.QueueMessage(message);
 			}
 			else
 			{
@@ -160,7 +160,7 @@ namespace SCPDiscord
 							plugin.Verbose("Synced " + player.Name + " (" + userInfo.SteamIDOrIP + ") with Discord role id " + keyValuePair.Key);
 							return;
 						}
-					}					
+					}
 				}
 			}
 			catch (InvalidOperationException)
@@ -169,47 +169,82 @@ namespace SCPDiscord
 			}
 		}
 
-		public string AddPlayer(string steamIDOrIP, ulong discordID)
+		public EmbedMessage AddPlayer(string steamIDOrIP, ulong discordID, ulong channelID)
 		{
 			if (plugin.GetConfigBool("online_mode"))
 			{
 				plugin.Warn("SERVER IS IN ONLINE MODE");
 				if (syncedPlayers.ContainsKey(steamIDOrIP + "@steam"))
 				{
-					return "SteamID is already linked to a Discord account. You will have to remove it first.";
+					return new EmbedMessage
+					{
+						Colour = EmbedMessage.Types.DiscordColour.Red,
+						ChannelID = channelID,
+						Description = "SteamID is already linked to a Discord account. You will have to remove it first."
+					};
 				}
 
 				if (syncedPlayers.ContainsValue(discordID))
 				{
-					return "Discord user ID is already linked to a Steam account. You will have to remove it first.";
+					return new EmbedMessage
+					{
+						Colour = EmbedMessage.Types.DiscordColour.Red,
+						ChannelID = channelID,
+						Description = "Discord user ID is already linked to a Steam account. You will have to remove it first."
+					};
 				}
 
 				string response = "";
 				if (!CheckSteamAccount(steamIDOrIP, ref response))
 				{
-					return response;
+					return new EmbedMessage
+					{
+						Colour = EmbedMessage.Types.DiscordColour.Red,
+						ChannelID = channelID,
+						Description = response
+					};
 				}
 
 				syncedPlayers.Add(steamIDOrIP + "@steam", discordID);
 				SavePlayers();
-				return "Successfully linked accounts.";				
+				return new EmbedMessage
+				{
+					Colour = EmbedMessage.Types.DiscordColour.Green,
+					ChannelID = channelID,
+					Description = "Successfully linked accounts."
+				};
 			}
 			else
 			{
 				plugin.Warn("SERVER IS IN OFFLINE MODE");
 				if (syncedPlayers.ContainsKey(steamIDOrIP))
 				{
-					return "IP is already linked to a Discord account. You will have to remove it first.";
+					return new EmbedMessage
+					{
+						Colour = EmbedMessage.Types.DiscordColour.Red,
+						ChannelID = channelID,
+						Description = "IP is already linked to a Discord account. You will have to remove it first."
+					};
 				}
 
 				if (syncedPlayers.ContainsValue(discordID))
 				{
-					return "Discord user ID is already linked to an IP. You will have to remove it first.";
+					return new EmbedMessage
+					{
+						Colour = EmbedMessage.Types.DiscordColour.Red,
+						ChannelID = channelID,
+						Description = "Discord user ID is already linked to an IP. You will have to remove it first."
+					};
 				}
 
 				syncedPlayers.Add(steamIDOrIP, discordID);
 				SavePlayers();
-				return "Successfully linked accounts.";	
+				return new EmbedMessage
+				{
+					Colour = EmbedMessage.Types.DiscordColour.Green,
+					ChannelID = channelID,
+					Description = "Successfully linked accounts."
+				};
 			}
 		}
 
@@ -290,20 +325,40 @@ namespace SCPDiscord
 			return true;
 		}
 
-		public string RemovePlayer(ulong discordID)
+		public EmbedMessage RemovePlayer(ulong discordID, ulong channelID)
 		{
-			try // TODO: FIXME Why do I use an exception for this, 2018 me must have been sleep deprived. 2022 me also happens to be very sleep deprived atm though.
+			if (!syncedPlayers.ContainsValue(discordID))
 			{
-				KeyValuePair<string, ulong> player = syncedPlayers.First(kvp => kvp.Value == discordID);
-				syncedPlayers.Remove(player.Key);
-				SavePlayers();
-				return "Discord user ID link has been removed.";
+				return new EmbedMessage
+				{
+					Colour = EmbedMessage.Types.DiscordColour.Red,
+					ChannelID = channelID,
+					Description = "Discord user ID is not linked to a Steam account or IP"
+				};
 			}
-			catch (InvalidOperationException)
+
+			KeyValuePair<string, ulong> player = syncedPlayers.First(kvp => kvp.Value == discordID);
+			syncedPlayers.Remove(player.Key);
+			SavePlayers();
+			return new EmbedMessage
+			{
+				Colour = EmbedMessage.Types.DiscordColour.Green,
+				ChannelID = channelID,
+				Description = "Discord user ID link has been removed."
+			};
+		}
+
+		public string RemovePlayerLocally(ulong discordID)
+		{
+			if (!syncedPlayers.ContainsValue(discordID))
 			{
 				return "Discord user ID is not linked to a Steam account or IP";
 			}
 
+			KeyValuePair<string, ulong> player = syncedPlayers.First(kvp => kvp.Value == discordID);
+			syncedPlayers.Remove(player.Key);
+			SavePlayers();
+			return "Discord user ID link has been removed.";
 		}
 	}
 }

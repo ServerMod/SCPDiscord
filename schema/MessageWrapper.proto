@@ -13,6 +13,7 @@ import "BotToPlugin/ListCommand.proto";
 import "PluginToBot/BotActivity.proto";
 import "PluginToBot/ChatMessage.proto";
 import "PluginToBot/UserQuery.proto";
+import "PluginToBot/EmbedMessage.proto";
 
 package SCPDiscord.Interface;
 
@@ -27,10 +28,11 @@ message MessageWrapper
 		UnsyncRoleCommand unsyncRoleCommand = 6;
 		ConsoleCommand consoleCommand = 7;
 		UserInfo userInfo = 8;
-		BanCommand BanCommand = 9;
-		UnbanCommand UnbanCommand = 10;
-		KickCommand KickCommand = 11;
-		KickallCommand KickallCommand = 12;
-		ListCommand ListCommand = 13;
+		BanCommand banCommand = 9;
+		UnbanCommand unbanCommand = 10;
+		KickCommand kickCommand = 11;
+		KickallCommand kickallCommand = 12;
+		ListCommand listCommand = 13;
+		EmbedMessage embedMessage = 14;
 	}
 }

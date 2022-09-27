@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package SCPDiscord.Interface;
+
+message EmbedMessage
+{
+	enum DiscordColour
+	{
+		NONE = 0;
+		BLACK = 1;
+		WHITE = 2;
+		GRAY = 3;
+		DARK_GRAY = 4;
+		LIGHT_GRAY = 5;
+		VERY_DARK_GRAY = 6;
+		BLURPLE = 7;
+		GRAYPLE = 8;
+		DARK_BUT_NOT_BLACK = 9;
+		NOT_QUITE_BLACK = 10;
+		RED = 11;
+		DARK_RED = 12;
+		GREEN = 13;
+		DARK_GREEN = 14;
+		BLUE = 15;
+		DARK_BLUE = 16;
+		YELLOW = 17;
+		CYAN = 18;
+		MAGENTA = 19;
+		TEAL = 20;
+		AQUAMARINE = 21;
+		GOLD = 22;
+		GOLDENROD = 23;
+		AZURE = 24;
+		ROSE = 25;
+		SPRING_GREEN = 26;
+		CHARTREUSE = 27;
+		ORANGE = 28;
+		PURPLE = 29;
+		VIOLET = 30;
+		BROWN = 31;
+		HOT_PINK = 32;
+		LILAC = 33;
+		CORNFLOWER_BLUE = 34;
+		MIDNIGHT_BLUE = 35;
+		WHEAT = 36;
+		INDIAN_RED = 37;
+		TURQUOISE = 38;
+		SAP_GREEN = 39;
+		PHTHALO_BLUE = 40;
+		PHTHALO_GREEN = 41;
+		SIENNA = 42;
+	}
+
+	message DiscordEmbedFooter
+	{
+		optional string text = 1;
+		optional string iconURL = 2;
+	}
+
+	message DiscordEmbedThumbnail
+	{
+		string url = 1;
+		int32 height = 2;
+		int32 width = 3;
+	}
+
+	message DiscordEmbedAuthor
+	{
+		optional string name = 1;
+		optional string url = 2;
+		optional string iconURL = 3;
+	}
+
+	message DiscordEmbedField {
+		string name = 1;
+		string value = 2;
+		bool inline = 3;
+	}
+
+	uint64 channelID = 1;
+	optional string title = 2;
+	string description = 3;
+	optional string url = 4;
+	optional int64 timestamp = 5;
+	DiscordColour colour = 6;
+	DiscordEmbedFooter footer = 7;
+	optional string imageURL = 8;
+	DiscordEmbedThumbnail thumbnail = 9;
+	DiscordEmbedAuthor author = 10;
+	repeated DiscordEmbedField fields = 11;
+
+
+}
