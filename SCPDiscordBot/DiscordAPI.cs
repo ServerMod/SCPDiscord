@@ -185,9 +185,9 @@ namespace SCPDiscord
 					{
 						DiscordID = userID,
 						SteamIDOrIP = steamID,
-						DiscordDisplayName = member.Nickname,
-						DiscordUsername = member.Username,
-						DiscordUsernameWithDiscriminator = member.Username + '#' + member.Discriminator
+						DiscordDisplayName = member.Nickname ?? "",
+						DiscordUsername = member.Username ?? "",
+						DiscordUsernameWithDiscriminator = (member.Username ?? "") + '#' + (member.Discriminator ?? "")
 					}
 				};
 				message.UserInfo.RoleIDs.AddRange(member.Roles.Select(role => role.Id));
