@@ -185,7 +185,7 @@ namespace SCPDiscord
 					{
 						DiscordID = userID,
 						SteamIDOrIP = steamID,
-						DiscordDisplayName = member.Nickname ?? member.Username,
+						DiscordDisplayName = member.DisplayName,
 						DiscordUsername = member.Username,
 						DiscordUsernameWithDiscriminator = member.Username + '#' + member.Discriminator
 					}
