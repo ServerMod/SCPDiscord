@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Dependencies') {
             steps {
-                sh 'cd SCPDiscordBot; nuget restore -SolutionDirectory .'
+                sh 'cd SCPDiscordBot; dotnet restore'
                 sh 'cd SCPDiscordPlugin; nuget restore -SolutionDirectory .'
             }
         }
