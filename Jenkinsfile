@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Dependencies') {
             steps {
-                sh 'nuget restore SCPDiscord.sln'
+                sh 'cd SCPDiscordBot; nuget restore -SolutionDirectory .'
+                sh 'cd SCPDiscordPlugin; nuget restore -SolutionDirectory .'
             }
         }
         stage('Use upstream Smod') {
