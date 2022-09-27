@@ -18,17 +18,17 @@ namespace SCPDiscord
 		{
 			plugin = pl;
 		}
-		
+
 		public void ScheduleDiscordCommand(ConsoleCommand command)
 		{
 			queuedCommands.Enqueue(command);
 		}
-		
+
 		public void ScheduleRoleSyncCommand(string command)
         {
 			queuedRoleSyncCommands.Enqueue(command);
         }
-				
+
 		public void OnFixedUpdate(FixedUpdateEvent ev)
 		{
 			while(queuedCommands.TryDequeue(out ConsoleCommand command))
@@ -39,16 +39,23 @@ namespace SCPDiscord
 				{
 					{ "feedback", response }
 				};
-				plugin.SendMessageByID(command.ChannelID, "botresponses.consolecommandfeedback", variables);
+
+				EmbedMessage embed = new EmbedMessage
+				{
+					Colour = EmbedMessage.Types.DiscordColour.Orange,
+					ChannelID = command.ChannelID
+				};
+
+				plugin.SendEmbedWithMessageByID(embed, "botresponses.consolecommandfeedback", variables);
 			}
-			
+
 			while(queuedRoleSyncCommands.TryDequeue(out string stringCommand))
 			{
 				string[] words = stringCommand.Split(' ');
 				plugin.Debug("RoleSync command response: " + ConsoleCommand(plugin.PluginManager.Server, words[0], words.Skip(1).ToArray()));
 			}
 		}
-		
+
 		private string ConsoleCommand(ICommandSender user, string command, string[] arguments)
 		{
 			if (user == null)

@@ -66,7 +66,7 @@ namespace SCPDiscord
 				IPHostEntry ipHostInfo = Dns.GetHostEntry(ConfigParser.config.plugin.address);
 
 				// Use an IPv4 address if available
-				if(ipHostInfo.AddressList.Any(ip => ip.AddressFamily == AddressFamily.InterNetwork))
+				if (ipHostInfo.AddressList.Any(ip => ip.AddressFamily == AddressFamily.InterNetwork))
 				{
 					ipAddress = ipHostInfo.AddressList.First(ip => ip.AddressFamily == AddressFamily.InterNetwork);
 				}
@@ -132,12 +132,21 @@ namespace SCPDiscord
 				case MessageWrapper.MessageOneofCase.UserQuery:
 					DiscordAPI.GetPlayerRoles(wrapper.UserQuery.DiscordID, wrapper.UserQuery.SteamIDOrIP);
 					break;
+				case MessageWrapper.MessageOneofCase.EmbedMessage:
+					await DiscordAPI.SendMessage(wrapper.EmbedMessage.ChannelID, Utilities.GetDiscordEmbed(wrapper.EmbedMessage));
+					break;
+				case MessageWrapper.MessageOneofCase.BanCommand:
+				case MessageWrapper.MessageOneofCase.UnbanCommand:
+				case MessageWrapper.MessageOneofCase.KickCommand:
+				case MessageWrapper.MessageOneofCase.KickallCommand:
+				case MessageWrapper.MessageOneofCase.ListCommand:
 				case MessageWrapper.MessageOneofCase.SyncRoleCommand:
 				case MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
 				case MessageWrapper.MessageOneofCase.ConsoleCommand:
 				case MessageWrapper.MessageOneofCase.UserInfo:
 					Logger.Warn("Received packet meant for plugin: " + JsonFormatter.Default.Format(wrapper), LogID.NETWORK);
 					break;
+				case MessageWrapper.MessageOneofCase.None:
 				default:
 					Logger.Warn("Unknown packet received: " + JsonFormatter.Default.Format(wrapper), LogID.NETWORK);
 					break;
@@ -154,7 +163,7 @@ namespace SCPDiscord
 			shutdown = true;
 		}
 
-		public static bool IsConnected()
+		private static bool IsConnected()
 		{
 			if (clientSocket == null)
 			{

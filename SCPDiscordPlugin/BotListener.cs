@@ -42,11 +42,11 @@ namespace SCPDiscord
 						switch (data.MessageCase)
 						{
 							case MessageWrapper.MessageOneofCase.SyncRoleCommand:
-								plugin.SendStringByID(data.SyncRoleCommand.ChannelID, plugin.roleSync.AddPlayer(data.SyncRoleCommand.SteamIDOrIP, data.SyncRoleCommand.DiscordID));
+								plugin.SendEmbedByID(plugin.roleSync.AddPlayer(data.SyncRoleCommand.SteamIDOrIP, data.SyncRoleCommand.DiscordID, data.SyncRoleCommand.ChannelID));
 								break;
 
 							case MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
-								plugin.SendStringByID(data.UnsyncRoleCommand.ChannelID, plugin.roleSync.RemovePlayer(data.UnsyncRoleCommand.DiscordID));
+								plugin.SendEmbedByID(plugin.roleSync.RemovePlayer(data.UnsyncRoleCommand.DiscordID, data.UnsyncRoleCommand.ChannelID));
 								break;
 
 							case MessageWrapper.MessageOneofCase.ConsoleCommand:
@@ -114,6 +114,12 @@ namespace SCPDiscord
 		/// <param name="adminTag">Discord tag of the user who created the ban.</param>
 		private void BanCommand(ulong channelID, string steamID, string duration, string reason, string adminTag)
 		{
+			EmbedMessage embed = new EmbedMessage
+			{
+				Colour = EmbedMessage.Types.DiscordColour.Red,
+				ChannelID = channelID
+			};
+
 			// Perform very basic SteamID validation.
 			if (!IsPossibleSteamID(steamID))
 			{
@@ -121,7 +127,7 @@ namespace SCPDiscord
 				{
 					{ "steamid", steamID }
 				};
-				plugin.SendMessageByID(channelID, "botresponses.invalidsteamid", variables);
+				plugin.SendEmbedWithMessageByID(embed, "botresponses.invalidsteamid", variables);
 				return;
 			}
 
@@ -143,7 +149,7 @@ namespace SCPDiscord
 				{
 					{ "duration", duration }
 				};
-				plugin.SendMessageByID(channelID, "botresponses.invalidduration", variables);
+				plugin.SendEmbedWithMessageByID(embed, "botresponses.invalidduration", variables);
 				return;
 			}
 
@@ -178,7 +184,9 @@ namespace SCPDiscord
 				{ "duration",   humanReadableDuration   },
 				{ "admintag",   adminTag                }
 			};
-			plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerbanned", banVars);
+
+			embed.Colour = EmbedMessage.Types.DiscordColour.Green;
+			plugin.SendEmbedWithMessageByID(embed, "botresponses.playerbanned", banVars);
 		}
 
 		/// <summary>
@@ -188,6 +196,12 @@ namespace SCPDiscord
 		/// <param name="steamIDOrIP">SteamID of player to be unbanned.</param>
 		private void UnbanCommand(ulong channelID, string steamIDOrIP)
 		{
+			EmbedMessage embed = new EmbedMessage
+			{
+				Colour = EmbedMessage.Types.DiscordColour.Red,
+				ChannelID = channelID
+			};
+
 			// Perform very basic SteamID and ip validation.
 			if (!IsPossibleSteamID(steamIDOrIP) && !IPAddress.TryParse(steamIDOrIP, out IPAddress _))
 			{
@@ -195,7 +209,7 @@ namespace SCPDiscord
 				{
 					{ "steamidorip", steamIDOrIP }
 				};
-				plugin.SendMessageByID(channelID, "botresponses.invalidsteamidorip", variables);
+				plugin.SendEmbedWithMessageByID(embed, "botresponses.invalidsteamidorip", variables);
 				return;
 			}
 
@@ -231,7 +245,8 @@ namespace SCPDiscord
 			{
 				{ "steamidorip", steamIDOrIP }
 			};
-			plugin.SendMessage(Config.GetArray("channels.statusmessages"), "botresponses.playerunbanned", unbanVars);
+			embed.Colour = EmbedMessage.Types.DiscordColour.Green;
+			plugin.SendEmbedWithMessageByID(embed, "botresponses.playerunbanned", unbanVars);
 		}
 
 		/// <summary>
@@ -243,6 +258,12 @@ namespace SCPDiscord
 		/// <param name="adminTag">Discord tag of the user who kicked the player.</param>
 		private void KickCommand(ulong channelID, string steamID, string reason, string adminTag)
 		{
+			EmbedMessage embed = new EmbedMessage
+			{
+				Colour = EmbedMessage.Types.DiscordColour.Red,
+				ChannelID = channelID
+			};
+
 			//Perform very basic SteamID validation
 			if (!IsPossibleSteamID(steamID))
 			{
@@ -250,7 +271,7 @@ namespace SCPDiscord
 				{
 					{ "steamid", steamID }
 				};
-				plugin.SendMessageByID(channelID, "botresponses.invalidsteamid", variables);
+				plugin.SendEmbedWithMessageByID(embed, "botresponses.invalidsteamid", variables);
 				return;
 			}
 
@@ -267,7 +288,8 @@ namespace SCPDiscord
 					{ "steamid", steamID },
 					{ "admintag", adminTag }
 				};
-				plugin.SendMessageByID(channelID, "botresponses.playerkicked", variables);
+				embed.Colour = EmbedMessage.Types.DiscordColour.Green;
+				plugin.SendEmbedWithMessageByID(embed, "botresponses.playerkicked", variables);
 			}
 			else
 			{
@@ -275,7 +297,7 @@ namespace SCPDiscord
 				{
 					{ "steamid", steamID }
 				};
-				plugin.SendMessageByID(channelID, "botresponses.playernotfound", variables);
+				plugin.SendEmbedWithMessageByID(embed, "botresponses.playernotfound", variables);
 			}
 		}
 
@@ -300,7 +322,13 @@ namespace SCPDiscord
 				{ "reason", reason },
 				{ "admintag", adminTag}
 			};
-			plugin.SendMessageByID(channelID, "botresponses.kickall", variables);
+
+			EmbedMessage embed = new EmbedMessage
+			{
+				Colour = EmbedMessage.Types.DiscordColour.Green,
+				ChannelID = channelID
+			};
+			plugin.SendEmbedWithMessageByID(embed, "botresponses.kickall", variables);
 		}
 
 		/// <summary>

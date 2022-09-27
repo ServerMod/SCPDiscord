@@ -77,6 +77,7 @@
     <Compile Include="Interface\BotActivity.cs" />
     <Compile Include="Interface\ChatMessage.cs" />
     <Compile Include="Interface\ConsoleCommand.cs" />
+    <Compile Include="Interface\EmbedMessage.cs" />
     <Compile Include="Interface\KickallCommand.cs" />
     <Compile Include="Interface\KickCommand.cs" />
     <Compile Include="Interface\ListCommand.cs" />
