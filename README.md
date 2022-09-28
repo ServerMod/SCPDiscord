@@ -24,8 +24,8 @@ It is also the only plugin I'm aware of that lets you unban players.
 
 ## Guides
 
-[Installation](docs/Installation.md)
+- [Installation](docs/Installation.md)
 
-[Editing messages and languages](docs/Languages.md)
+- [Editing messages and languages](docs/Languages.md)
 
-[Commands and permissions](docs/CommandsAndPermissions.md)
+- [Commands and permissions](docs/CommandsAndPermissions.md)
